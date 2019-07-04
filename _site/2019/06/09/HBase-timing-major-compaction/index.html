@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>HBase 自动大合并脚本 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/06/09/HBase-timing-major-compaction/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="HBase 自动大合并脚本">
+      
+    <meta name="keywords" content="HBase, compaction">
+    <meta name="og:keywords" content="HBase, compaction">
+      
+    <meta name="description" content="HBase 自动大合并脚本">
+    <meta name="og:description" content="HBase 自动大合并脚本">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/06/09/HBase-timing-major-compaction/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-06-09">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="HBase 自动大合并脚本">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">HBase 自动大合并脚本</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/06/09
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#HBase" title="HBase">HBase</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>HBase 自动大合并脚本</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>HBASE 有默认的 major compaction 机制。</p>
+
+<p>一般情况下，Major Compaction 时间会持续比较长，整个过程会消耗大量系统资源，对上层业务有比较大的影响。
+因此线上业务都会将关闭自动触发 Major Compaction 功能，改为手动在业务低峰期触发。
+我们可以使用major_compact命令手动合并</p>
+
+<p>如果hbase中的表很多的时候，用脚本定时在凌晨时分触发。</p>
+
+<h4 id="脚本">脚本</h4>
+
+<p>备注: 只使用了 major_compact 这个合并命令</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nv">time_start</span><span class="o">=</span><span class="sb">`</span>date <span class="s2">"+%Y-%m-%d %H:%M:%S"</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">"开始进行HBase的大合并.时间:</span><span class="k">${</span><span class="nv">time_start</span><span class="k">}</span><span class="s2">"</span>
+  
+<span class="nv">str</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo </span>list | hbase shell | sed <span class="nt">-n</span> <span class="s1">'$p'</span><span class="sb">`</span>
+ 
+<span class="nv">str</span><span class="o">=</span><span class="k">${</span><span class="nv">str</span><span class="p">//,/ </span><span class="k">}</span>
+<span class="nv">arr</span><span class="o">=(</span><span class="nv">$str</span><span class="o">)</span>
+<span class="nv">length</span><span class="o">=</span><span class="k">${#</span><span class="nv">arr</span><span class="p">[@]</span><span class="k">}</span>
+<span class="nv">current</span><span class="o">=</span>1
+ 
+<span class="nb">echo</span> <span class="s2">"HBase中总共有</span><span class="k">${</span><span class="nv">length</span><span class="k">}</span><span class="s2">张表需要合并."</span>
+<span class="nb">echo</span> <span class="s2">"balance_switch false"</span> | hbase shell | <span class="o">&gt;</span> /dev/null
+<span class="nb">echo</span> <span class="s2">"HBase的负载均衡已经关闭"</span>
+  
+<span class="k">for </span>each <span class="k">in</span> <span class="k">${</span><span class="nv">arr</span><span class="p">[*]</span><span class="k">}</span>
+<span class="k">do
+        </span><span class="nv">table</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$each</span> | sed <span class="s1">'s/]//g'</span> | sed <span class="s1">'s/\[//g'</span><span class="sb">`</span>
+        <span class="nb">echo</span> <span class="s2">"开始合并第</span><span class="k">${</span><span class="nv">current</span><span class="k">}</span><span class="s2">/</span><span class="k">${</span><span class="nv">length</span><span class="k">}</span><span class="s2">张表,表的名称为:</span><span class="k">${</span><span class="nv">table</span><span class="k">}</span><span class="s2">"</span>
+        <span class="nb">echo</span> <span class="s2">"major_compact </span><span class="k">${</span><span class="nv">table</span><span class="k">}</span><span class="s2">"</span> | hbase shell | <span class="o">&gt;</span> /dev/null
+        <span class="nb">let </span><span class="nv">current</span><span class="o">=</span>current+1
+<span class="k">done
+  
+</span><span class="nb">echo</span> <span class="s2">"balance_switch true"</span> | hbase shell | <span class="o">&gt;</span> /dev/null
+<span class="nb">echo</span> <span class="s2">"HBase的负载均衡已经打开."</span>
+  
+<span class="nv">time_end</span><span class="o">=</span><span class="sb">`</span>date <span class="s2">"+%Y-%m-%d %H:%M:%S"</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">"HBase的大合并完成.时间:</span><span class="k">${</span><span class="nv">time_end</span><span class="k">}</span><span class="s2">"</span>
+<span class="nv">duration</span><span class="o">=</span><span class="k">$($(</span>date +%s <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$finish_time</span><span class="s2">"</span><span class="k">)</span>-<span class="k">$(</span>date +%s <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$start_time</span><span class="s2">"</span><span class="k">))</span>
+<span class="nb">echo</span> <span class="s2">"耗时:</span><span class="k">${</span><span class="nv">duration</span><span class="k">}</span><span class="s2">s"</span>
+</code></pre></div></div>
+
+<h4 id="linux-定时">Linux 定时</h4>
+
+<p>使用 crontab 来业务低峰期启动。</p>
+
+<p>每天凌晨3点30分执行 majorCompact.sh 脚本</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30 3 * * * /bin/bash /root/bigdata/majorCompact.sh &gt;&gt;  /root/bigdata/majorCompact.log
+</code></pre></div></div>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/06/09/HBase-timing-major-compaction/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

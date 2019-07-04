@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>HBase 计数器 Increment &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/06/17/HBase-Increment/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="HBase 计数器 Increment">
+      
+    <meta name="keywords" content="HBase, Increment">
+    <meta name="og:keywords" content="HBase, Increment">
+      
+    <meta name="description" content="天上那么多星，你可否数得清？">
+    <meta name="og:description" content="天上那么多星，你可否数得清？">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/06/17/HBase-Increment/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-06-17">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="HBase 计数器 Incre">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">HBase 计数器 Increment</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/06/17
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#HBase" title="HBase">HBase</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>天上那么多星，你可否数得清？</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>在互联网企业中，经常会有这样的一些需求，比如说：统计下某网站某日pv/uv量或是统计下某签约作者某篇文章的所获点赞数等等类似的需求，
+传统的做法可能需要我们先读出该列的原有值，然后+1后再覆盖原有值，同时还要加锁处理等等。<br />
+为了保证原子性的完成一个客户端请求，HBase 引入了计数器的概念。本文主要简要概述一下 HBase 计数器的使用及应注意的一些问题。</p>
+
+<h4 id="概念介绍">概念介绍</h4>
+
+<ol>
+  <li>
+    <p>HBase 计数器是什么？<br />
+一个计数器就是一个与其他列类似的简单列，列值要求且必须以长整型转码插入，否则将破坏该计数器结构。用户可以一次更新多个计数器，但它们都必须属于同一行。更新多行的计数器需多次RPC请求调用，暂不支持 batch(Increment)。</p>
+  </li>
+  <li>
+    <p>HBase 计数器解决什么问题？<br />
+HBase 计数器的引入主要解决了 read-and-modify 场景下的锁竞争与原子性问题。</p>
+  </li>
+</ol>
+
+<h4 id="shell-api">Shell Api</h4>
+
+<h5 id="1-创建计数器并插入值">1. 创建计数器并插入值</h5>
+
+<p>注意：步长值可为正可为负可为0.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hbase(main):003:0&gt; incr 'test','r1','f:count',1
+COUNTER VALUE = 1
+0 row(s) in 0.0790 seconds
+
+hbase(main):004:0&gt; incr 'test','r1','f:count',2
+COUNTER VALUE = 3
+0 row(s) in 0.0200 seconds
+
+hbase(main):005:0&gt; incr 'test','r1','f:count',-1
+COUNTER VALUE = 2
+0 row(s) in 0.0170 seconds
+</code></pre></div></div>
+
+<h5 id="2-get-api-获取计数器值">2. Get Api 获取计数器值</h5>
+
+<p>可见：一个计数器就是一个与其他列类似的简单列。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hbase(main):006:0&gt; get 'test','r1','f:count'
+COLUMN                                         CELL                                                                                                                                 
+ f:count                                       timestamp=1552830973949, value=\x00\x00\x00\x00\x00\x00\x00\x02                                                                      
+1 row(s) in 0.0600 seconds
+
+hbase(main):007:0&gt; get 'test','r1','f:count:toLong'
+COLUMN                                         CELL                                                                                                                                 
+ f:count                                       timestamp=1552830973949, value=2                                                                                                     
+1 row(s) in 0.0070 seconds
+</code></pre></div></div>
+
+<h5 id="3-标准-api-获取计数器值">3. 标准 Api 获取计数器值</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hbase(main):008:0&gt; get_counter 'test','r1','f:count'
+COUNTER VALUE = 2
+</code></pre></div></div>
+
+<h5 id="4-错误示范">4. 错误示范</h5>
+
+<p>如下操作将破坏计数器结构。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 以字符串类型PUT值
+hbase(main):009:0&gt; put 'test','r1','f:count','123'
+0 row(s) in 0.0950 seconds
+
+# GET 获取值正常（该计数器已转为普通列）
+hbase(main):010:0&gt; get 'test','r1','f:count'
+COLUMN                                         CELL                                                                                                                                 
+ f:count                                       timestamp=1552831549637, value=123                                                                                                   
+1 row(s) in 0.0160 seconds
+
+# 执行计数器 get_counter 操作
+hbase(main):011:0&gt; get_counter 'test','r1','f:count'
+
+ERROR: offset (0) + length (8) exceed the capacity of the array: 3
+
+# 执行计数器 incr 操作
+hbase(main):012:0&gt; incr 'test','r1','f:count',-1
+
+ERROR: org.apache.hadoop.hbase.DoNotRetryIOException: Field is not a long, it's 3 bytes wide
+    at org.apache.hadoop.hbase.regionserver.HRegion.getLongValue(HRegion.java:7690)
+    at org.apache.hadoop.hbase.regionserver.HRegion.applyIncrementsToColumnFamily(HRegion.java:7644)
+    at org.apache.hadoop.hbase.regionserver.HRegion.doIncrement(HRegion.java:7530)
+    at org.apache.hadoop.hbase.regionserver.HRegion.increment(HRegion.java:7487)
+    at org.apache.hadoop.hbase.regionserver.RSRpcServices.increment(RSRpcServices.java:592)
+    at org.apache.hadoop.hbase.regionserver.RSRpcServices.mutate(RSRpcServices.java:2246)
+    at org.apache.hadoop.hbase.protobuf.generated.ClientProtos$ClientService$2.callBlockingMethod(ClientProtos.java:32383)
+    at org.apache.hadoop.hbase.ipc.RpcServer.call(RpcServer.java:2150)
+    at org.apache.hadoop.hbase.ipc.CallRunner.run(CallRunner.java:112)
+    at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:187)
+    at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:167)
+</code></pre></div></div>
+
+<p><strong>可以看出，计数器对数据类型是极其敏感的，使用过程中一定要注意。</strong></p>
+
+<h4 id="java-api">Java Api</h4>
+
+<h5 id="1-编码与解码">1. 编码与解码</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1) 编码：Bytes.toBytes(long)
+
+2) 解码：Bytes.toLong(bytes)
+</code></pre></div></div>
+
+<h5 id="2-单列计数器">2. 单列计数器</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    Table table = ...; // 表实例
+    String rowkey = ...; // 行键
+    String columnFamily = ...; // 列族
+    
+    table.incrementColumnValue(Bytes.toBytes(rowkey),Bytes.toBytes(columnFamily), Bytes.toBytes(counter), 1L);
+    
+    table.close();
+}
+</code></pre></div></div>
+
+<h5 id="3-多列计数器">3. 多列计数器</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    Table table = ...; // 表实例
+    String rowkey = ...; // 行键
+    String columnFamily = ...; // 列族
+    
+    Increment increment = new Increment(Bytes.toBytes(rowkey));
+    increment.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("pv"), 6L);
+    increment.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("uv"), 10L);
+    
+    Result result = table.increment(increment);
+    
+    table.close();
+}
+</code></pre></div></div>
+
+<h5 id="4-获取计数器的值">4. 获取计数器的值</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get get = new Get(Bytes.toBytes(rowkey));
+
+get.setMaxVersions(1);
+get.addColumn(Bytes.toBytes(columnfamily), Bytes.toBytes(counter));
+Result result = table.get(get);
+byte[] value = result.getValue(Bytes.toBytes(columnfamily), Bytes.toBytes(counter));
+
+long count = Bytes.toLong(value);
+String countStr = String.valueOf(Bytes.toLong(value));
+</code></pre></div></div>
+
+<h4 id="hbase-hive-映射表">HBase-Hive 映射表</h4>
+
+<p>这里需要注意一下，如果想通过 Hive 映射 HBase 表获取计数器的值，
+建表语句中计数器列语法要有别于常规列，否则将返回乱码或NULL值。</p>
+
+<p>下面提供一个简单的示例:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE EXTERNAL TABLE counters(
+	key string,
+	daily_hits bigint,
+	weekly string,
+	monthly string
+)   
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'   
+WITH SERDEPROPERTIES ("hbase.columns.mapping" =":key,daily:hits#b,weekly:a,monthly:b")   
+TBLPROPERTIES("hbase.table.name" = "counters");
+</code></pre></div></div>
+
+<p>当 HBase 中 double，int，long 类型以byte方式存储时，用字符串取出来必然是乱码。</p>
+
+<p><img src="/images/blog/2019-06-17-6.png" alt="" height="80%" width="80%" /></p>
+
+<p><img src="/images/blog/2019-06-17-5.png" alt="" height="80%" width="80%" /></p>
+
+<p>Bytes类型的数据，建 hive 映射表示加 #b</p>
+
+<p>创建 HBase 表，计数器加1</p>
+
+<p><img src="/images/blog/2019-06-17-2.png" alt="" height="80%" width="80%" /></p>
+
+<p>创建 Hive 映射表没有 #b， select 查询为 NULL，错误</p>
+
+<p><img src="/images/blog/2019-06-17-3.png" alt="" height="80%" width="80%" /></p>
+
+<p>创建 Hive 映射表使用 #b， select 查询为 1，正确</p>
+
+<p><img src="/images/blog/2019-06-17-4.png" alt="" height="80%" width="80%" /></p>
+
+<p>当在 Hive 中创建 HBase 已经存在的外部表时，默认的 hbase.table.default.storage.type 类型为 string。 <br />
+daily_hits 为 bigint 字段的话，映射过来的值为 NULL。也可以修改 hbase.table.default.storage.type 为 binary</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE EXTERNAL TABLE HisDiagnose(
+	key string, 
+	doctorId int, 
+	patientId int, 
+	description String, 
+	rtime int
+) 
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' 
+WITH SERDEPROPERTIES (
+    "hbase.columns.mapping" = ":key,diagnoseFamily:doctorId,diagnoseFamily:patientId,diagnoseFamily:description,diagnoseFamily:rtime", 
+    "hbase.table.default.storage.type"="binary"
+) 
+TBLPROPERTIES("hbase.table.name" = "HisDiagnose");
+</code></pre></div></div>
+
+<p>修改 hbase.table.default.storage.type 为 binary之后如果想表示类型为string， 加 cf:val#s 即可。</p>
+
+<p>对此感兴趣可以阅读参考链接<a href="https://blog.csdn.net/jameshadoop/article/details/42162669">hive与hbase数据类型对应关系</a>, <a href="https://hai19850514.iteye.com/blog/1918099">hive创建外部表映射hbase中已存在表问题</a></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作者： 禅克
+出处： &lt;https://mp.weixin.qq.com/s/EmG57gIJtyLZlYPwdHWNfA&gt;
+本文版权归作者所有，欢迎转载，但未经作者同意必须保留此段声明，且在页面明显位置给出原文链接。
+</code></pre></div></div>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://blog.csdn.net/xianpanjia4616/article/details/81046077">hbase的表映射到hive中</a></li>
+  <li><a href="https://www.cnblogs.com/similarface/p/5834347.html">HBase之计数器</a></li>
+  <li><a href="https://blog.csdn.net/jameshadoop/article/details/42162669">hive与hbase数据类型对应关系</a></li>
+  <li><a href="https://hai19850514.iteye.com/blog/1918099">hive创建外部表映射hbase中已存在表问题</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/06/17/HBase-Increment/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

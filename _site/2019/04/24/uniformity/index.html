@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>一致性模型 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/04/24/uniformity/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="一致性模型">
+      
+    <meta name="keywords" content="一致性">
+    <meta name="og:keywords" content="一致性">
+      
+    <meta name="description" content="一致性（Consistency）是指多副本（Replications）问题中的数据一致性。可以分为强一致性、顺序一致性与弱一致性。">
+    <meta name="og:description" content="一致性（Consistency）是指多副本（Replications）问题中的数据一致性。可以分为强一致性、顺序一致性与弱一致性。">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/04/24/uniformity/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-04-24">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="一致性模型">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">一致性模型</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/04/24
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Distributed" title="Distributed">Distributed</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>一致性（Consistency）是指多副本（Replications）问题中的数据一致性。可以分为强一致性、顺序一致性与弱一致性。</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>学习 HBase 的 MVCC 时有提到一致性的概念。抱着知识全面性的想法来学习。</p>
+
+<h4 id="一致性模型">一致性模型</h4>
+
+<p>一致性（Consistency）是指多副本（Replications）问题中的数据一致性。可以分为强一致性、顺序一致性与弱一致性。</p>
+
+<h5 id="1-强一致性">1. 强一致性</h5>
+
+<p>强一致性也称呼为原子一致性、线性一致性。</p>
+
+<p>当更新操作完成之后，任何多个后续进程或者线程的访问都会返回最新的更新过的值。
+这种是对用户最友好的，就是用户上一次写什么，下一次就保证能读到什么。但是这种实现对性能影响较大。</p>
+
+<p>两个要求</p>
+
+<ul>
+  <li>任何一次读都能读到某个数据的最近一次写的数据。</li>
+  <li>系统中的所有进程，看到的操作顺序，都和全局时钟下的顺序一致。</li>
+</ul>
+
+<p>简言之，在任意时刻，所有节点中的数据是一样的。</p>
+
+<p>例如，对于关系型数据库，要求更新过的数据能被后续的访问都能看到，这是强一致性。</p>
+
+<h5 id="2-顺序一致性">2. 顺序一致性</h5>
+
+<p>两个要求</p>
+<ul>
+  <li>任何一次读都能读到某个数据的最近一次写的数据。</li>
+  <li>系统的所有进程的顺序一致，而且是合理的。即不需要和全局时钟下的顺序一致，在进程视角顺序一致即可。</li>
+</ul>
+
+<p><img src="/images/blog/2019-04-24-1.png" alt="" height="80%" width="80%" /></p>
+
+<p>说明:</p>
+
+<p>Write(x, 4): 写入x=4</p>
+
+<p>Read(x, 0): 读出x=0</p>
+
+<p>1）图a是满足顺序一致性，但是不满足强一致性的。原因在于，从全局时钟的观点来看，P2进程对变量X的读操作在P1进程对变量X的写操作之后，然而读出来的却是旧的数据。但是这个图却是满足顺序一致性的，因为两个进程P1，P2的一致性并没有冲突。从这两个进程的角度来看，顺序应该是这样的：Write(y,2) , Read(x,0) , Write(x,4), Read(y,2)，每个进程内部的读写顺序都是合理的，但是这个顺序与全局时钟下看到的顺序并不一样。</p>
+
+<p>2）图b满足强一致性，因为每个读操作都读到了该变量的最新写的结果，同时两个进程看到的操作顺序与全局时钟的顺序一样，都是Write(y,2) , Read(x,4) , Write(x,4), Read(y,2)。</p>
+
+<p>3）图c不满足顺序一致性，当然也就不满足强一致性了。因为从进程P1的角度看，它对变量Y的读操作返回了结果0。那么就是说，P1进程的对变量Y的读操作在P2进程对变量Y的写操作之前，这意味着它认为的顺序是这样的：write(x,4) , Read(y,0) , Write(y,2), Read(x,0)，显然这个顺序又是不能被满足的，因为最后一个对变量x的读操作读出来也是旧的数据。因此这个顺序是有冲突的，不满足顺序一致性。</p>
+
+<h5 id="3-弱一致性">3. 弱一致性</h5>
+
+<p>数据更新后，如果能容忍后续的访问只能访问到部分或者全部访问不到，则是弱一致性。</p>
+
+<p>系统并不保证续进程或者线程的访问都会返回最新的更新过的值。
+系统在数据写入成功之后，不承诺立即可以读到最新写入的值，
+也不会具体的承诺多久之后可以读到。
+但会尽可能保证在某个时间级别（比如秒级别）之后，可以让数据达到一致性状态。</p>
+
+<p>最终一致性就属于弱一致性。</p>
+
+<h4 id="最终一致性">最终一致性</h4>
+
+<p>弱一致性的特定形式。不保证在任意时刻任意节点上的同一份数据都是相同的，但是随着时间的迁移，不同节点上的同一份数据总是在向趋同的方向变化。
+系统保证在没有后续更新的前提下，系统最终返回上一次更新操作的值。</p>
+
+<p>简单说，就是在一段时间后，节点间的数据会最终达到一致状态。</p>
+
+<p>在没有故障发生的前提下，不一致窗口的时间主要受通信延迟，系统负载和复制副本的个数影响。</p>
+
+<p>最终一致性根据更新数据后各进程访问到数据的时间和方式的不同，又可以区分为:</p>
+
+<blockquote>
+  <ul>
+    <li>因果一致性：如果进程A通知进程B它已更新了一个数据项，那么进程B的后续访问将返回更新后的值，且一次写入将保证取代前一次写入。与进程A无因果关系的进程C的访问，遵守一般的最终一致性规则。</li>
+    <li>读己所写一致性：因果一致性的特定形式。当进程A自己更新一个数据项之后，它总是访问到更新过的值，绝不会看到旧值。</li>
+    <li>会话一致性：读己所写一致性的特定形式。它把访问存储系统的进程放到会话的上下文中。只要会话还存在，系统就保证“读己之所写”一致性。如果由于某些失败情形令会话终止，就要建立新的会话，而且系统的保证不会延续到新的会话。</li>
+    <li>单调读一致性：如果进程已经看到过数据对象的某个值，那么任何后续访问都不会返回在那个值之前的值。</li>
+    <li>单调写一致性：系统保证来自同一个进程的写操作顺序执行。即同一个进程的写操作串行化。</li>
+  </ul>
+</blockquote>
+
+<p>上述最终一致性的不同方式可以进行组合，例如单调读一致性和读己之所写一致性就可以组合实现。
+并且从实践的角度来看，这两者的组合，读取自己更新的数据，和一旦读取到最新的版本不会再读取旧版本，
+对于此架构上的程序开发来说，会少很多额外的烦恼。</p>
+
+<h4 id="共识">共识</h4>
+
+<p>共识问题中所有的节点要最终达成共识，由于最终目标是所有节点都要达成一致，所以根本不存在一致性强弱之分。</p>
+
+<p>例如，Paxos是共识（Consensus）算法而不是强一致性（Consistency）协议。共识算法没有一致性级别的区分。</p>
+
+<h4 id="总结">总结</h4>
+
+<p>从服务端角度，如何尽快将更新后的数据分布到整个系统，降低达到最终一致性的时间窗口，是提高系统的可用度和用户体验非常重要的方面。</p>
+
+<p>对于分布式数据系统：</p>
+<ul>
+  <li>N — 数据复制的份数</li>
+  <li>W — 更新数据是需要保证写完成的节点数</li>
+  <li>R — 读取数据的时候需要读取的节点数</li>
+</ul>
+
+<p>如果W+R&gt;N，写的节点和读的节点重叠，则是强一致性。例如对于典型的一主一备同步复制的关系型数据库，N=2,W=2,R=1，则不管读的是主库还是备库的数据，都是一致的。</p>
+
+<p>如果W+R&lt;=N，则是弱一致性。例如对于一主一备异步复制的关系型数据库，N=2,W=1,R=1，则如果读的是备库，就可能无法读取主库已经更新过的数据，所以是弱一致性。</p>
+
+<p>对于分布式系统，为了保证高可用性，一般设置N&gt;=3。不同的N,W,R组合，是在可用性和一致性之间取一个平衡，以适应不同的应用场景。</p>
+
+<p>如果N=W,R=1，任何一个写节点失效，都会导致写失败，因此可用性会降低，但是由于数据分布的N个节点是同步写入的，因此可以保证强一致性。</p>
+
+<p>如果N=R,W=1，只需要一个节点写入成功即可，写性能和可用性都比较高。但是读取其他节点的进程可能不能获取更新后的数据，因此是弱一致性。</p>
+
+<p>对一致性架构感兴趣的朋友可以阅读架构师之路的<a href="https://mp.weixin.qq.com/s/Smni4c4MxY2IZVD_h-428Q">关于互联网“一致性”架构设计的一切</a>文章</p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://blog.csdn.net/chao2016/article/details/81149674">强一致性、顺序一致性、弱一致性和共识</a></li>
+  <li><a href="http://wangxin123.com/2016/10/21/CAP%E5%8E%9F%E7%90%86%E3%80%81%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%E3%80%81BASE%E7%90%86%E8%AE%BA%E5%92%8CACID%E7%89%B9%E6%80%A7/">CAP原理、一致性模型、BASE理论和ACID特性</a></li>
+  <li><a href="https://mp.weixin.qq.com/s/Smni4c4MxY2IZVD_h-428Q">关于互联网“一致性”架构设计的一切</a></li>
+  <li><a href="https://www.cnblogs.com/gotodsp/p/6651310.html">强一致性、弱一致性、最终一致性</a></li>
+  <li><a href="http://www.blogjava.net/hello-yun/archive/2012/04/27/376744.html">CAP原理与最终一致性 强一致性 弱一致性</a></li>
+</ul>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/04/24/uniformity/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

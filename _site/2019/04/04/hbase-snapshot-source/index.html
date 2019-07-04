@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>HBase Snapshot 源码分析 1 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/04/04/hbase-snapshot-source/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="HBase Snapshot 源码分析 1">
+      
+    <meta name="keywords" content="HBase, Snapshot">
+    <meta name="og:keywords" content="HBase, Snapshot">
+      
+    <meta name="description" content="Snapshot是很多存储系统和数据库系统都支持的功能。">
+    <meta name="og:description" content="Snapshot是很多存储系统和数据库系统都支持的功能。">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/04/04/hbase-snapshot-source/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-04-04">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="HBase Snapshot ">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">HBase Snapshot 源码分析 1</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/04/04
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#HBase" title="HBase">HBase</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>Snapshot是很多存储系统和数据库系统都支持的功能。</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>主要是以作者 clark010 文章为核心写的。 <a href="https://www.jianshu.com/p/74942f500a13">原HBase Snapshot - 1 - 简介</a> 。</p>
+
+<p>参考众多文章汇总的文章。无意商用和抄袭。只是个人学习的总结。</p>
+
+<p>具体参考请看文末尾的链接。</p>
+
+<h4 id="背景">背景</h4>
+<p>HBase 的 Snapshot 及 Restore 都不涉及文件的移动和拷贝，操作耗时在秒级别；</p>
+
+<p>因为底层依赖的 HDFS FileSystem 不支持硬链接，所以 HBase 自己实现了一套FileLink的逻辑，每次snapshot都只是进行文件的link而不实际移动数据，</p>
+
+<p>而这保证了snapshot操作的效率（虽然不可避免的需要进行一下内存flush，但基本最耗时的消耗都在flush这一下）。</p>
+
+<h4 id="snapshot相关存储路径">Snapshot相关存储路径</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/[hbase-root]
+    |__ .hbase-snapshot  存储所有snapshot的元信息
+        |__ .tmp/  snapshot的workDir，临时数据存放
+        |__ [snapshot name]
+            |__ .snapshotinfo  snapshot的元信息
+            |__ data.manifest  snapshot相关hfile的元信息
+    |__ data
+        |__ [namespace]  
+            |__ [table]
+                |__ .tabledesc
+                    |__ .tableinfo.[id]
+                |__ [encode region]
+                    |__ .regioninfo
+                    |__ [column family]
+                        |__ [HFile / Link Files] HBase底层支持HFile及链接文件
+                        |__ .links-[regionName]  back reference，用于快速的删除无用的引用文件
+                            |__ [ref files]
+                    |__ .....
+    |__ archive
+        |__ data
+            |__ [namespace]
+                |__ [table]
+                    |__ [encode region]
+                        |__ [column family]
+                            |__ [HFile / Link Files] 
+    |__ WALs / oldWALs / ......
+</code></pre></div></div>
+
+<h4 id="主要java类">主要Java类</h4>
+
+<p>Client：</p>
+<blockquote>
+  <ul>
+    <li>HBaseAdmin  - 入口类</li>
+  </ul>
+</blockquote>
+
+<p>Master：</p>
+<blockquote>
+  <ul>
+    <li>MasterRpcServices  - 接收Client端的RPC请求</li>
+    <li>SnapshotManager</li>
+    <li>EnabledTableSnapshotHandler extends TableSnapshotHandler  - 在线表</li>
+    <li>DisabledTableSnapshotHandler extends TableSnapshotHandler  - 离线表</li>
+    <li>ProcedureCoordinator  - 用于提交分布式snapshot事务</li>
+    <li>Procedure</li>
+    <li>ZKProcedureCoordinatorRpcs extends ProcedureCoordinator</li>
+    <li>SnapshotFileCache  - 缓存snapshot引用文件，用于判断文件是否deletable</li>
+    <li>SnapshotFileCleaner - 清理snapshot文件线程</li>
+  </ul>
+</blockquote>
+
+<p>RegionServer：</p>
+<blockquote>
+  <ul>
+    <li>RegionServerSnapshotManager - 监控分布式任务，并创建管理具体子任务</li>
+    <li>FlushSnapshotSubprocedure</li>
+    <li>RegionSnapshotTask - FlushSnapshotSubprocedure内部类</li>
+    <li>HRegion - 调用snapshot接口，处理具体的snapshot任务</li>
+    <li>SnapshotManifest - Utility class to help read/write the Snapshot Manifest</li>
+    <li>SnapshotManifestV2/SnapshotManifestV1 - SnapshotManifest内存数据结构</li>
+  </ul>
+</blockquote>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="http://hbasefly.com/2017/09/17/hbase-snapshot/">HBase原理 – 分布式系统中snapshot是怎么玩的？</a></li>
+  <li><a href="https://www.jianshu.com/p/74942f500a13">原HBase Snapshot - 1 - 简介</a></li>
+  <li><a href="https://www.jianshu.com/p/e1a2baa790d1">原HBase Snapshot- 2 -Snapshot源码分析</a></li>
+  <li><a href="https://www.cnblogs.com/cenyuhai/p/3712943.html">hbase源码系列（七）Snapshot的过程</a></li>
+  <li><a href="https://www.cnblogs.com/cenyuhai/p/3721247.html">hbase源码系列（八）从Snapshot恢复表</a></li>
+  <li><a href="https://ppg.iteye.com/blog/1888453">HBase Snapshot 源码 流程</a></li>
+  <li><a href="https://www.cnblogs.com/foxmailed/p/3914117.html">HBase Snapshot原理和实现</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/04/04/hbase-snapshot-source/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

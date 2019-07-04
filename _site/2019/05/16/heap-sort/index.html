@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>堆排序 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/05/16/heap-sort/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="堆排序">
+      
+    <meta name="keywords" content="heap, 堆排序">
+    <meta name="og:keywords" content="heap, 堆排序">
+      
+    <meta name="description" content="堆排序是利用堆这种数据结构而设计的一种排序算法">
+    <meta name="og:description" content="堆排序是利用堆这种数据结构而设计的一种排序算法">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/05/16/heap-sort/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-05-16">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="堆排序">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">堆排序</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/05/16
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Algorithm" title="Algorithm">Algorithm</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>堆排序是利用堆这种数据结构而设计的一种排序算法</p>
+
+<hr />
+
+<h4 id="预备知识">预备知识</h4>
+
+<p>堆排序是利用堆这种数据结构而设计的一种排序算法，
+堆排序是一种选择排序，它的最坏，最好，平均时间复杂度均为O(nlogn)，它也是不稳定排序。</p>
+
+<h4 id="堆">堆</h4>
+
+<p>堆是一种特殊的完全二叉树。堆又分为最大堆和最小堆。</p>
+
+<blockquote>
+  <ul>
+    <li>大顶堆: 每个结点的值都大于或等于其左右孩子结点的值</li>
+    <li>小顶堆: 每个结点的值都小于或等于其左右孩子结点的值</li>
+  </ul>
+</blockquote>
+
+<p><img src="/images/blog/2019-05-16-1.png" alt="" height="80%" width="80%" /></p>
+
+<p>同时，对堆中的结点按层进行编号，将这种逻辑结构映射到数组中就是下面这个样子</p>
+
+<p><img src="/images/blog/2019-05-16-2.png" alt="" height="80%" width="80%" /></p>
+
+<p>该数组从逻辑上讲就是一个堆结构，用简单的公式来描述一下堆的定义就是</p>
+
+<p><strong>大顶堆: arr[i] &gt;= arr[2i+1] &amp;&amp; arr[i] &gt;= arr[2i+2]</strong></p>
+
+<p><strong>小顶堆: arr[i] &lt;= arr[2i+1] &amp;&amp; arr[i] &lt;= arr[2i+2]</strong></p>
+
+<h4 id="堆排序基本思想">堆排序基本思想</h4>
+
+<p>将待排序序列构造成一个大顶堆，此时，整个序列的最大值就是堆顶的根节点。</p>
+
+<p>将其与末尾元素进行交换，此时末尾就为最大值。</p>
+
+<p>接着将剩余n-1个元素重新构造成一个堆，这样会得到n个元素的次小值。</p>
+
+<p>如此反复执行，便能得到一个有序序列了。</p>
+
+<h4 id="1-堆化数组">1. 堆化数组</h4>
+
+<p>构造初始堆。将给定无序序列构造成一个大顶堆（一般升序采用大顶堆，降序采用小顶堆)。</p>
+
+<p>假设给定无序序列结构如下</p>
+
+<p><img src="/images/blog/2019-05-16-3.png" alt="" height="80%" width="80%" /></p>
+
+<p>此时我们从最后一个非叶子结点开始（叶结点自然不用调整，第一个非叶子结点 arr.length/2-1=5/2-1=1，也就是下面的6结点）
+，从左至右，从下至上进行调整。</p>
+
+<p><img src="/images/blog/2019-05-16-4.png" alt="" height="80%" width="80%" /></p>
+
+<p>找到第二个非叶节点4，由于[4,9,8]中9元素最大，4和9交换。</p>
+
+<p><img src="/images/blog/2019-05-16-5.png" alt="" height="80%" width="80%" /></p>
+
+<p>这时，交换导致了子根[4,5,6]结构混乱，继续调整，[4,5,6]中6最大，交换4和6。</p>
+
+<p><img src="/images/blog/2019-05-16-6.png" alt="" height="80%" width="80%" /></p>
+
+<p>此时，将一个无需序列构造成了一个大顶堆。</p>
+
+<h4 id="2-堆排序">2. 堆排序</h4>
+
+<p>将堆顶元素与末尾元素进行交换，使末尾元素最大。</p>
+
+<p>然后继续调整堆，再将堆顶元素与末尾元素交换，得到第二大元素。</p>
+
+<p>如此反复进行交换、重建、交换。</p>
+
+<p>将堆顶元素9和末尾元素4进行交换</p>
+
+<p><img src="/images/blog/2019-05-16-7.png" alt="" height="80%" width="80%" /></p>
+
+<p>重新调整结构，使其继续满足堆定义</p>
+
+<p><img src="/images/blog/2019-05-16-8.png" alt="" height="80%" width="80%" /></p>
+
+<p>再将堆顶元素8与末尾元素5进行交换，得到第二大元素8</p>
+
+<p><img src="/images/blog/2019-05-16-9.png" alt="" height="80%" width="80%" /></p>
+
+<p>后续过程，继续进行调整，交换，如此反复进行，最终使得整个序列有序</p>
+
+<p><img src="/images/blog/2019-05-16-10.png" alt="" height="80%" width="80%" /></p>
+
+<p>再简单总结下堆排序的基本思路：</p>
+
+<p>　　a. 将无需序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;</p>
+
+<p>　　b. 将堆顶元素与末尾元素交换，将最大元素”沉”到数组末端;</p>
+
+<p>　　c. 重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序。</p>
+
+<h4 id="代码实现">代码实现</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//  从i节点开始调整,n为节点总数 从0开始计算 i节点的子节点为 2*i+1, 2*i+2
+void MinHeapFixdown(int a[], int i, int n)
+{
+    int j, temp;
+ 
+	temp = a[i];
+	j = 2 * i + 1;
+	while (j &lt; n)
+	{
+		if (j + 1 &lt; n &amp;&amp; a[j + 1] &lt; a[j]) //在左右孩子中找最小的
+			j++;
+ 
+		if (a[j] &gt;= temp)
+			break;
+ 
+		a[i] = a[j];     //把较小的子结点往上移动,替换它的父结点
+		i = j;
+		j = 2 * i + 1;
+	}
+	a[i] = temp;
+}
+
+// 堆化数组
+void MakeMinHeap(int a[], int n)
+{
+	for (int i = n / 2 - 1; i &gt;= 0; i--)
+		MinHeapFixdown(a, i, n);
+}
+
+// 堆排序
+void MinheapsortTodescendarray(int a[], int n)
+{
+	for (int i = n - 1; i &gt;= 1; i--)
+	{
+		Swap(a[i], a[0]);
+		MinHeapFixdown(a, 0, i);
+	}
+}
+</code></pre></div></div>
+
+<h4 id="总结">总结</h4>
+
+<p>堆排序是一种选择排序，整体主要由构建初始堆+交换堆顶元素和末尾元素并重建堆两部分组成。
+其中构建初始堆经推导复杂度为O(n)，在交换并重建堆的过程中，需交换n-1次，而重建堆的过程中，
+根据完全二叉树的性质，[log2(n-1),log2(n-2)…1]逐步递减，近似为nlogn。
+所以堆排序时间复杂度一般认为就是O(nlogn)级。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>作者： dreamcatcher-cx
+出处： &lt;http://www.cnblogs.com/chengxiao/&gt;
+本文版权归作者和博客园共有，欢迎转载，但未经作者同意必须保留此段声明，且在页面明显位置给出原文链接。
+</code></pre></div></div>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://www.cnblogs.com/chengxiao/p/6129630.html">图解排序算法(三)之堆排序</a></li>
+  <li><a href="https://blog.csdn.net/morewindows/article/details/6709644/">白话经典算法系列之七 堆与堆排序</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/05/16/heap-sort/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

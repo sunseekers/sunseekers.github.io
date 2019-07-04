@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>YARN 中用户日志的管理和使用 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/04/19/yarn-log/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="YARN 中用户日志的管理和使用">
+      
+    <meta name="keywords" content="yarn">
+    <meta name="og:keywords" content="yarn">
+      
+    <meta name="description" content="YARN 中用户日志的管理和使用">
+    <meta name="og:description" content="YARN 中用户日志的管理和使用">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/04/19/yarn-log/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-04-19">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="YARN 中用户日志的管理和使">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">YARN 中用户日志的管理和使用</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/04/19
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Yarn" title="Yarn">Yarn</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>YARN 中用户日志的管理和使用</p>
+
+<hr />
+
+<h4 id="背景">背景</h4>
+
+<p>在以前, 处理应用(application)生成的用户日志已经成了安装 Hadoop 过程中的一个最大痛点. 
+在 Hadoop 1.x, 用户日志被 TaskTracker 留在每个节点上, 
+这样长期来看在各个节点上的用户日志的是难于管理并且也很难被获取和使用到的. 
+YARN 处理日志管理问题的办法是让 NodeManagers(NMs) 提供一个选项, 
+可以在应用结束后将日志文件安全地移到一个分布式文件系统中, 比如 HDFS.</p>
+
+<h4 id="yarn-中日志聚合的详细描写">YARN 中日志聚合的详细描写</h4>
+
+<p>NodeManager 就没有像之前 TaskTracker 那样去截断用户日志, 把日志留在每个节点的本地, 它通过提供一个选项可以在应用结束后将日志安全地移动到分布式文件系统中, 比如 HDFS.</p>
+
+<ul>
+  <li>
+    <p>对属于同一个应用(Application), 跑在一个 NM 上的所有容器(containers)的日志都会被聚合并写入一个配置好地址的(很可能是压缩过的)日志文件中.</p>
+  </li>
+  <li>
+    <p>在当前的实现中, 一个应用一结束就会得到如下:</p>
+
+    <ul>
+      <li>
+        <p>应用级别的日志日志目录和</p>
+      </li>
+      <li>
+        <p>此节点上该应用的所有的容器的日志文件</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>用户能通过 YARN 的命令行工具, 网页端或者直接从文件系统(FS)中来查看这些日志, 没必要只局限于网页端一种形式.</p>
+  </li>
+  <li>
+    <p>通过将日志文件存储在分布式文件系统中, 比起第一代的实现, 现在可以让日志文件存储更长的时间.</p>
+  </li>
+  <li>
+    <p>我们不再需要去截断日志文件, 只要日志文件的长度是合理的, 我们就会保存整个日志文件.</p>
+  </li>
+  <li>
+    <p>除此之外, 在容器运行中时, 日志会被写入多个节点的目录中, 这样可以实现有效的负载均衡, 增加容错.</p>
+  </li>
+  <li>
+    <p>AggregatedLogDeletionService 是一个定期删除聚合后的日志的服务. 现在它只运行在 MapReduce JobHistoryServer 中.</p>
+  </li>
+</ul>
+
+<h4 id="用法">用法</h4>
+
+<h5 id="1-网页端访问web-ui">1. 网页端访问(Web UI)</h5>
+
+<p>通过网页端访问, 需要知道的事情是, 日志的聚合操作用户是感觉不到的.</p>
+
+<p>当 MapReduce 应用还在执行中时, 用户查看日志是通过 ApplicationMaster UI 来访问的, 后者会自动跳转到 NodeManager UI 上.</p>
+
+<p>一旦应用结束, 所有的日志都会归属到 MapReduce 的 JobHistoryServer 中, 此时将由后者来提供日志访问.</p>
+
+<p>对于 非-MapReduce 应用, 由更一般性质的 ApplicationHistoryServer 来提供一样的日志访问服务.</p>
+
+<p><img src="/images/blog/2019-04-19-1.png" alt="" /></p>
+
+<p><img src="/images/blog/2019-04-19-2.png" alt="" /></p>
+
+<p>MR 的作业我用其打开一般看不到实质性的帮助。Spark 的作业打开页面友好。且帮助信息大。</p>
+
+<h5 id="2-命令行访问">2. 命令行访问</h5>
+
+<p>个人比较喜欢命令行访问方式。</p>
+
+<p><img src="/images/blog/2019-04-19-3.png" alt="" /></p>
+
+<p>要打印出一个给定应用的所有日志, 命令如下</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn logs -applicationId &lt;application ID&gt; -appOwner &lt;userId&gt;
+</code></pre></div></div>
+
+<p>如果只要一个给定容器的所有日志, 可以如下</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn logs -applicationId &lt;application ID&gt; -appOwner &lt;userId&gt; -containerId &lt;Container ID&gt; -nodeAddress &lt;Node Address&gt;
+</code></pre></div></div>
+
+<p>使用命令行工具的一个显著优势是可以使用常规的 shell 工具, 如 grep, sort 等等, 来过滤出我们想要的信息.</p>
+
+<h4 id="管理">管理</h4>
+
+<h5 id="1-日志相关的一般配置项">1. 日志相关的一般配置项</h5>
+
+<p>yarn.nodemanager.log-dirs: 确定当容器还在执行中时, 容器日志在节点上的存储位置, 默认值是 ${yarn.log.dir}/userlogs.</p>
+
+<ul>
+  <li>
+    <p>一个应用的本地化日志目录是这样的格式 ${yarn.nodemanager.log-dirs}/application_${appid}</p>
+  </li>
+  <li>
+    <p>一个独立的容器的日志文件夹会在上面的文件夹下, 文件夹命名格式是这样 container_${containerid}</p>
+  </li>
+  <li>
+    <p>对于 MapReduce 的应用, 每个容器目录下会包含容器生成的三个文件, stderr, stdin 和 syslog</p>
+  </li>
+  <li>
+    <p>其他的框架可以自行选择放置多少个日志文件, YARN 对文件名的文件数量都没有限制</p>
+  </li>
+</ul>
+
+<p>yarn.log-aggregation-enable: 选择是否启用日志聚合. 如果不启用聚合, NMs 会把日志存储在节点本地(就像第一代所做的那样).</p>
+
+<h5 id="2-日志聚合启用后的相关配置">2. 日志聚合启用后的相关配置</h5>
+
+<p>yarn.nodemanager.remote-app-log-dir: 这是 NMs 将日志聚合后存放在默认的文件系统(一般就是 HDFS 上的)上的地址. 这个地址不应是本地的文件系统, 否则日志服务器会无法提供聚合后日志的能力. 默认值是 /tmp/logs.</p>
+
+<p>yarn.nodemanager.remote-app-log-dir-suffix: 日志目录会这样创建 {yarn.nodemanager.remote-app-log-dir}/${user}/{thisParam}, 默认值是 logs.</p>
+
+<p>yarn.log-aggregation.retain-seconds: 配置多久后聚合后的日志文件被删除, 配置成 -1 或者一个负值就不会删除聚合日志.</p>
+
+<p>yarn.log-aggregation.retain-check-interval-seconds: 确定多长时间去检查一次聚合日志的留存情况以执行日志的删除. 如果设置为 0 或者负值, 那这个值就会用聚合日志的留存时间的十分之一来自动配置, 默认值是 -1.</p>
+
+<h5 id="3-日志聚合未启用的相关配置">3. 日志聚合未启用的相关配置</h5>
+
+<p>yarn.nodemanager.log.retain-seconds: 保存在本地节点的日志的留存时间, 默认值是 10800.</p>
+
+<p>yarn.nodemanager.log.deletion-threads-count: 确定 NMs 启动的进程数去删除本地的日志文件.</p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://segmentfault.com/a/1190000007466722#articleHeader5">在 YARN 中简化用户日志的管理和使用</a></li>
+  <li><a href="https://www.jianshu.com/p/26429616b441">查看YARN任务日志的几种方式</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/04/19/yarn-log/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

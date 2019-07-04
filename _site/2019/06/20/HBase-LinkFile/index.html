@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>HBase LinkFile &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/06/20/HBase-LinkFile/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="HBase LinkFile">
+      
+    <meta name="keywords" content="HBase">
+    <meta name="og:keywords" content="HBase">
+      
+    <meta name="description" content="clone_snapshot 的关键 linkfile">
+    <meta name="og:description" content="clone_snapshot 的关键 linkfile">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/06/20/HBase-LinkFile/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-06-20">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="HBase LinkFile">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">HBase LinkFile</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/06/20
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#HBase" title="HBase">HBase</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>clone_snapshot 的关键 linkfile</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>今天 HBase 维护过程中打开了 /hbase/archive 路径，发现该路径下面存在文件。</p>
+
+<p>/hbase/archive 为归档路径，HBase 在做 Split , Compact，Drop 操作完成之后，
+会将 HFile 移到 archive 目录中, 然后将之前的 hfile 删除掉, 该目录由 HMaster 上的一个定时任务定期5分钟去清理.</p>
+
+<p><img src="/images/blog/2019-06-20-1.png" alt="" height="80%" width="80%" /></p>
+
+<p>都18年6月份的数据了，怎么还没删掉。这不科学。这开启了我的探索之旅</p>
+
+<h4 id="分析">分析</h4>
+
+<p>某度搜索到对表做了 snapshot 的话，archive 不会被清理。</p>
+
+<p>然后 hbase shell 中输入 list_snapshots 的确看到该表存在快照。(忘记留图了)</p>
+
+<p>确认该快照已经不需要的情况下，我对其进行了删除。</p>
+
+<p>10 分钟后观察发现还未删除。。。。这就有点尴尬了。</p>
+
+<p>之前也遇到过一次 archive 目录下表的 HFile 文件是用 bulkload 方式加载的，HFile 文件权限不够，HBase 无法删除，
+所以这次我也猜测是不是这个原因。</p>
+
+<p><img src="/images/blog/2019-06-20-2.png" alt="" height="80%" width="80%" /></p>
+
+<p>ls 查看后发现都是 hbase 的权限。这可咋办啊。这时我留意到有个 .links-ba0feda3ca8d499a9eb375503ad943c2 的目录</p>
+
+<p>这个目录干嘛的。我对此产生疑惑</p>
+
+<h4 id="linkfile">LinkFile</h4>
+
+<p><img src="/images/blog/2019-06-20-3.png" alt="" height="80%" width="80%" /></p>
+
+<p>进去看了之后，发现是个 back-reference 文件，这时就明白了，估计是 Snapshot 的恢复表一个指引。</p>
+
+<p><img src="/images/blog/2019-06-20-4.png" alt="" height="80%" width="80%" /></p>
+
+<p>正如猜想一样。就是恢复表的一个指引, 即 clone 生成的 LinkFile。</p>
+
+<p>HBase 就是利用在删除 archive 中原始表文件的时候知道这些文件还被一些恢复表的 LinkFile 引用着</p>
+
+<p>LinkFile 和 back-reference 文件格式如下所说。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>（1）原始文件: /hbase/data/table-x/region-x/cf/file-x
+（2）clone 生成的 LinkFile: /hbase/data/table-cloned/region-y/cf/{table-x}={region-x}-{file-x}，因此可以很容易根据LinkFile定位到原始文件
+（3）back-reference 文件: /hbase/.archive/data/table-x/region-x/cf/.links-file-x/{region-y}.{table-cloned}，可以看到，back-reference文件路径中包含所有原始文件和LinkFile的信息，因此可以有效的根据原始文件/table-x/region-x/cf/file-x定位到LinkFile：/table-cloned/region-y/cf/{table-x}-{region-x}-{file-x}
+</code></pre></div></div>
+
+<p>举个例子。假设</p>
+
+<p>LinkFile 文件名为 music=5e54d8620eae123761e5290e618d556b-f928e045bb1e41ecbef6fc28ec2d5712。</p>
+
+<p>根据定义可以知道 music 为原始文件的表名，5e54d8620eae123761e5290e618d556b 为引用文件所在的 region，f928e045bb1e41ecbef6fc28ec2d5712 为引用的 HFile 文件</p>
+
+<p><img src="/images/blog/2019-06-20-5.png" alt="" height="80%" width="80%" /></p>
+
+<p>可以依据规则可以直接根据LinkFile的文件名定位到引用文件所在位置</p>
+
+<p>***/music/5e54d8620eae123761e5290e618d556b/cf/f928e045bb1e41ecbef6fc28ec2d5712</p>
+
+<p>如果在 music 表的 HFile 被放置到 archive 目录下，则会生成一个 back-reference 文件</p>
+
+<p>根据这个 back-reference 文件 HBase 才知道该 HFile 该不该清理。</p>
+
+<p>HFileLinkCleaner 负责清理这类 HFile。</p>
+
+<p><img src="/images/blog/2019-06-20-6.png" alt="" height="80%" width="80%" /></p>
+
+<p>通过注释可以了解到，如果对 archive 中的文件的引用不存在了，则可以删除。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
+ * HFileLink cleaner that determines if a hfile should be deleted.
+ * HFiles can be deleted only if there're no links to them.
+ *
+ * When a HFileLink is created a back reference file is created in:
+ *      /hbase/archive/table/region/cf/.links-hfile/ref-region.ref-table
+ * To check if the hfile can be deleted the back references folder must be empty.
+ */
+</code></pre></div></div>
+
+<h4 id="清理">清理</h4>
+
+<p>如果想尽快清理掉，有两种方法。</p>
+
+<ul>
+  <li>对恢复表做个 major_compact 即可把指引的 HFile 写入到恢复表上。指引文件会消失。</li>
+  <li>删除恢复表</li>
+</ul>
+
+<h4 id="总结">总结</h4>
+
+<p>其实之前就学过 snapshot 的知识，只是太久没回顾了，又有点忘记了。导致这次花了点时间。</p>
+
+<p>如果有没讲清的地方，可以留言，也可以自行阅读参考链接。</p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="http://hbasefly.com/2017/09/17/hbase-snapshot/">HBase原理 – 分布式系统中snapshot是怎么玩的？</a></li>
+  <li><a href="https://www.jianshu.com/p/f82aafd7b381">HMaster 功能之定期清理archive</a></li>
+  <li><a href="https://blog.csdn.net/qq_31598113/article/details/79934919">Hbase在hdfs上的archive目录占用空间过大</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/06/20/HBase-LinkFile/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

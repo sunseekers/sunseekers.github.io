@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>HBase Flush 时机 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/06/25/HBase-Flush/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="HBase Flush 时机">
+      
+    <meta name="keywords" content="HBase, Flush">
+    <meta name="og:keywords" content="HBase, Flush">
+      
+    <meta name="description" content="HBase MemStore 的刷写时机">
+    <meta name="og:description" content="HBase MemStore 的刷写时机">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/06/25/HBase-Flush/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-06-25">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="HBase Flush 时机">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">HBase Flush 时机</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/06/25
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#HBase" title="HBase">HBase</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>HBase MemStore 的刷写时机</p>
+
+<hr />
+
+<h4 id="flush-时机">Flush 时机</h4>
+
+<p>HBase 会在如下几种情况下触发 flush 操作，需要注意的是 MemStore 的最小 flush 单元是 HRegion 
+而不是单个 MemStore。可想而知，如果一个 HRegion 中 Memstore 过多，每次 flush 的开销必然会很大，
+因此建议在进行表设计的时候尽量减少 ColumnFamily 的个数。</p>
+
+<p>根据 HBase 官方文档总结的刷写时机有6种:</p>
+<h5 id="1-memstore-级别限">1. MemStore 级别限</h5>
+
+<p>当 Region 中任意一个 MemStore 的大小达到了上限(hbase.hregion.memstore.flush.size，默认128MB)，会触发 MemStore 刷新。</p>
+
+<h5 id="2-region-级别限制">2. Region 级别限制</h5>
+
+<p>当 Region 中所有 MemStore 的大小总和达到了上限(hbase.hregion.memstore.block.multiplier * hbase.hregion.memstore.flush.size，默认 4 * 128M = 512M)，会触发 MemStore 刷新。</p>
+
+<h5 id="3-region-server-级别限制">3. Region Server 级别限制</h5>
+
+<p>当 Region Server 内部所有 MemStore 总和大小达到分配给 MemStore 最大内存(hbase_heapsize * hbase.regionserver.global.memstore.size, 默认0.4，也就是堆内存的40%)，会触发刷写阻塞。
+低于分配给 MemStore 最大内存，高于 Memstore 刷新的低水位线(hbase.regionserver.global.memstore.size.lower.limit, 默认值 0.95), 会触发刷写。</p>
+
+<p>总体来说，如果全局 MemStore 的总和达到了分配给 MemStore 最大内存的95%，就会导致全局刷写，默认有40%的内存会分给 MemStore。而当超过了 MemStore 的最大内存，也就是堆内存的40%就会触发刷写阻塞。</p>
+
+<p>如果有16G堆内存，默认情况下:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#达到该值会触发刷写
+16*0.4*0.95=0.608
+#达到该值会触发刷写阻塞
+16*0.4=6.4
+</code></pre></div></div>
+
+<p>相信好多人会在网上看到 hbase.regionserver.global.memstore.upperLimit、hbase.regionserver.global.memstore.lowerLimit 这两个参数。</p>
+
+<p>这两个参数已经发生了改变了。对应的新参数如下:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>新参数</th>
+      <th>老参数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hbase.regionserver.global.memstore.size</td>
+      <td>hbase.regionserver.global.memstore.upperLimit</td>
+    </tr>
+    <tr>
+      <td>hbase.regionserver.global.memstore.size.lower.limit</td>
+      <td>hbase.regionserver.global.memstore.lowerLimit</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>的确，当时我也看了老版本的 Region Server 级别限制:
+<code class="highlighter-rouge">当一个Region Server中所有Memstore的大小总和达到了上限（hbase.regionserver.global.memstore.upperLimit ＊ hbase_heapsize，默认 40%的JVM内存使用量），会触发部分Memstore刷新。Flush顺序是按照Memstore由大到小执行，先Flush Memstore最大的Region，再执行次大的，直至总体Memstore内存使用量低于阈值（hbase.regionserver.global.memstore.lowerLimit ＊ hbase_heapsize，默认 38%的JVM内存使用量）。</code></p>
+
+<p>按照老版本来看，我发现新搭建的集群配置怎么不对，lowerLimit 怎么比 upperLimit 还高。一度让我弄混。</p>
+
+<p><img src="/images/blog/2019-06-25-1.png" alt="" height="80%" width="80%" /></p>
+
+<p>直到我弄清楚 hbase.regionserver.global.memstore.size.lower.limit 是分配给 MemStore 最大内存的刷新的低水位线才明白。</p>
+
+<p>大家可以参阅官方文档对两个新参数的解释。</p>
+
+<p><img src="/images/blog/2019-06-25-2.png" alt="" height="80%" width="80%" /></p>
+
+<h5 id="4-hlog-数量限制">4. HLog 数量限制</h5>
+
+<p>当一个 Region Server 中 HLog 数量达到上限(可通过参数 hbase.regionserver.maxlogs 配置)时，系统会选取最早的一个 HLog 对应的一个或多个 Region 进行 flush</p>
+
+<p><img src="/images/blog/2019-06-25-3.png" alt="" height="80%" width="80%" /></p>
+
+<h5 id="5-定期刷新">5. 定期刷新</h5>
+
+<p>HBase 定期刷新 MemStore (hbase.regionserver.optionalcacheflushinterval), 默认周期为1小时，确保 MemStore 不会长时间没有持久化。为避免所有的 MemStore 在同一时间都进行 flush 导致的问题，定期的 flush 操作有 20000 左右的随机延时。</p>
+
+<p>hbase.regionserver.optionalcacheflushinterval 参数设置为 0 可关闭。CDH 管理页面上没有直接设置</p>
+
+<p><img src="/images/blog/2019-06-25-4.png" alt="" height="80%" width="80%" /></p>
+
+<h5 id="6-手动执行">6. 手动执行</h5>
+
+<p>可以通过 shell 命令 flush ‘tableName’ 或者 flush ‘regionName’ 分别对一个表或者一个 Region 进行 flush。</p>
+
+<h5 id="7-其他">7. 其他</h5>
+
+<p>执行 Compact 和 Split 之前，会进行一次 flush</p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://cloud.tencent.com/developer/article/1005744">Hbase memstore 的刷写时机</a></li>
+  <li><a href="https://hbase.apache.org/1.2/book.html">HBase1.2官方文档</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/06/25/HBase-Flush/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

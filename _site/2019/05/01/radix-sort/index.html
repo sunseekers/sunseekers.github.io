@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>基数排序 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/05/01/radix-sort/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="基数排序">
+      
+    <meta name="keywords" content="基数排序">
+    <meta name="og:keywords" content="基数排序">
+      
+    <meta name="description" content="基数排序(Radix Sort)是时间复杂度为O(n)的排序">
+    <meta name="og:description" content="基数排序(Radix Sort)是时间复杂度为O(n)的排序">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/05/01/radix-sort/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-05-01">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="基数排序">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">基数排序</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/05/01
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Algorithm" title="Algorithm">Algorithm</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>基数排序(Radix Sort)是时间复杂度为O(n)的排序</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>时间复杂度为O(n)的排序，常见的有三种：</p>
+
+<p>基数排序(Radix Sort)</p>
+
+<p>计数排序(Counting Sort)</p>
+
+<p>桶排序(Bucket Sort)</p>
+
+<p>计数排序－＞桶排序－＞基数排序，三者的排序思想是相通的，是逐渐复杂，使用性更广的。</p>
+
+<p>基数排序分为两类:</p>
+<blockquote>
+  <ul>
+    <li>最低位优先法，简称LSD法</li>
+    <li>最高位优先法，简称MSD法</li>
+  </ul>
+</blockquote>
+
+<h4 id="适用范围">适用范围</h4>
+
+<p>整数、字符串。</p>
+
+<h4 id="空间复杂度">空间复杂度</h4>
+
+<p>O(n)</p>
+
+<h4 id="关键步骤">关键步骤</h4>
+
+<p>LSD 先从最低位开始排序，再对次低位排序，直到对最高位排序后得到一个有序序列。</p>
+
+<p>两个关键要点：</p>
+
+<p>(1) 基: 被排序的元素的“个位”“十位”“百位”，暂且叫“基”；</p>
+
+<p>(2) 桶: “基”的每一位，都有一个取值范围，栗子中“基”的取值范围是0-9共10种，所以需要10个桶（bucket），来存放被排序的元素；</p>
+
+<p>LSD 步骤为：</p>
+
+<p>FOR (每一个基) {</p>
+
+<p>//循环内，以某一个“基”为依据
+第一步：遍历数据集arr，将元素放入对应的桶bucket
+第二步：遍历桶bucket，将元素放回数据集arr</p>
+
+<p>}</p>
+
+<p>举个例子</p>
+
+<p>假设待排序的数组arr={72, 11, 82, 32, 44, 13, 17, 95, 54, 28, 79, 56}</p>
+
+<p><img src="/images/blog/2019-05-01-4.png" alt="" height="80%" width="80%" /></p>
+
+<p>例子中“基”的个数是2（个位和十位）, 所以  FOR循环会执行两次。</p>
+
+<p>【第一次：以“个位”为依据】</p>
+
+<p><img src="/images/blog/2019-05-01-5.png" alt="" height="80%" width="80%" /></p>
+
+<p>上图中标红的部分，个位为“基”。</p>
+
+<p>第一步：遍历数据集arr，将元素放入对应的桶bucket；</p>
+
+<p><img src="/images/blog/2019-05-01-6.png" alt="" height="80%" width="80%" /></p>
+
+<p>操作完成之后，各个桶会变成上面这个样子，即：个位数相同的元素，会在同一个桶里。</p>
+
+<p>第二步：遍历桶bucket，将元素放回数据集arr；需要注意，先入桶的元素要先出桶。</p>
+
+<p><img src="/images/blog/2019-05-01-10.png" alt="" height="80%" width="80%" /></p>
+
+<p>操作完成之后，数据集会变成上面这个样子，即：整体按照个位数排序了, 个位数小的在前面，个位数大的在后面。</p>
+
+<p>【第二次：以“十位”为依据】</p>
+
+<p><img src="/images/blog/2019-05-01-7.png" alt="" height="80%" width="80%" /></p>
+
+<p>上图中标红的部分，十位为“基”。</p>
+
+<p>第一步：依然遍历数据集arr，将元素放入对应的桶bucket；</p>
+
+<p><img src="/images/blog/2019-05-01-8.png" alt="" height="80%" width="80%" /></p>
+
+<p>操作完成之后，各个桶会变成上面这个样子，即：十位数相同的元素，会在同一个桶里。</p>
+
+<p>第二步：依然遍历桶bucket，将元素放回数据集arr；</p>
+
+<p>操作完成之后，数据集会变成上面这个样子，即：整体按照十位数也排序了。</p>
+
+<p>十位数小的在前面，十位数大的在后面。</p>
+
+<p><img src="/images/blog/2019-05-01-9.png" alt="" height="80%" width="80%" /></p>
+
+<p>首次按照个位从小到大，第二次按照十位从小到大，即：排序结束。</p>
+
+<p>MSD 与LSD相反，从高位向地位开始比较，是由高位数为基底开始进行分配，
+但在分配之后并不马上合并回一个数组中，
+而是在每个“桶子”中建立“子桶”，
+将每个桶子中的数值按照下一数位的值分配到“子桶”中,在进行完最低位数的分配后再合并回单一的数组中。</p>
+
+<p>举个例子</p>
+
+<p>假设待排序的数组arr={15, 25, 105, 78, 34, 21, 32, 41}</p>
+
+<p>从最高位百位依次入桶，只有105有百位，其他百位按0算；</p>
+
+<p>检测每个桶中的数据。当桶中的元素个数多于1个的时候，要对这个桶递归进行下一位的分组。</p>
+
+<p><img src="/images/blog/2019-05-01-11.png" alt="" height="80%" width="80%" /></p>
+
+<p>如果使用词典排序来对可变长度整数表示进行排序，则从1到10的数字的表示将被输出为1,10,2,3,4,5,6,7,8,9，
+如同较短的按键左对齐，并在右侧用空白字符填充以使短按键与最长按键一样长，以确定排序顺序。</p>
+
+<h4 id="总结">总结</h4>
+
+<p>基的选取，可以先从个位开始，也可以先从十位开始，结果是一样的；</p>
+
+<p>基数排序，是一种稳定的排序；</p>
+
+<p>时间复杂度，可以认为是线性的O(n)；</p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://mp.weixin.qq.com/s/Z8gU9QLpMnA-zoMc9ZeR2w">拜托，面试别再问我基数排序了！！！</a></li>
+  <li><a href="https://blog.csdn.net/sb985/article/details/79921571">计数排序，桶排序，基数排序</a></li>
+  <li><a href="https://blog.csdn.net/u011948899/article/details/78027838">基数排序（LSD+MSD）详解</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/05/01/radix-sort/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

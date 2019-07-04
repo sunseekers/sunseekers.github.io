@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>HBase Region 过多导致集群问题事件 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/06/27/HBase-IO-Case/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="HBase Region 过多导致集群问题事件">
+      
+    <meta name="keywords" content="HBase">
+    <meta name="og:keywords" content="HBase">
+      
+    <meta name="description" content="HBase Region 过多导致的集群性能不佳">
+    <meta name="og:description" content="HBase Region 过多导致的集群性能不佳">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/06/27/HBase-IO-Case/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-06-27">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="HBase Region 过多">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">HBase Region 过多导致集群问题事件</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/06/27
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#HBase" title="HBase">HBase</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>HBase Region 过多导致的集群性能不佳</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>有 10 个节点的HBase集群。每天早上 10 点所有 RS warn 告警。</p>
+
+<p><img src="/images/blog/2019-06-27-1.png" alt="" height="80%" width="80%" /></p>
+
+<p>持续过程 30 分钟。</p>
+
+<p><img src="/images/blog/2019-06-27-2.png" alt="" height="80%" width="80%" /></p>
+
+<p>GC 时间过长，还触发了 RS 宕机。</p>
+
+<h4 id="问题分析">问题分析</h4>
+
+<p>优先看 GC 告警的机器。查看 CM 监控发现该机器的 CPU，磁盘吞吐量在 10:00 - 10:30 这一段时间都是飙高的。</p>
+
+<p><img src="/images/blog/2019-06-27-3.png" alt="" height="80%" width="80%" /></p>
+
+<p>我接着查看发现所有的 RS 都是 10:00 - 10:30 这一段时间都是飙高的。</p>
+
+<p><img src="/images/blog/2019-06-27-4.png" alt="" height="80%" width="80%" /></p>
+
+<p>肯定是什么触发的。先看读写读写量。</p>
+
+<p><img src="/images/blog/2019-06-27-5.png" alt="" height="80%" width="80%" /></p>
+
+<p>读写量也不大，说明不是由大批量请求造成的。</p>
+
+<p>监控看不出问题，那就转战看日志。</p>
+
+<p>发现有很多类似如下的输出:</p>
+
+<p><code class="highlighter-rouge">... because info has and old edit so flush to free WALs after random delay ...</code></p>
+
+<p><img src="/images/blog/2019-06-27-6.png" alt="" height="80%" width="80%" /></p>
+
+<p>这是很明显的写入量很小，因为周期性 flush 线程触发的行为，比如某 store 很久没更新了而最新的 edit 距今超过阈值（默认 1小时），
+那么就会 delay 一个 random 时间去执行刷新。参阅<a href="https://lihuimintu.github.io/2019/06/25/HBase-Flush/">HBase Flush 时机</a>
+第5点定期刷新</p>
+
+<p>通过如下关键字去看历次触发的 flush 产生的文件大小</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep 'org.apache.hadoop.hbase.regionserver.HStore: Added hdfs' /var/log/hbase/hbase-cmf-hbase-REGIONSERVER-${FQDN_HOSTNAME}.log.out | awk '{print $1" "$2" "$(NF-1)$NF}'
+</code></pre></div></div>
+
+<p><img src="/images/blog/2019-06-27-7.png" alt="" height="80%" width="80%" /></p>
+
+<p>发现几乎每次刷出来的都是小文件，不到 100KB。</p>
+
+<p>为什么这么多小文件呢？小文件过多会触发 compaction 机制。</p>
+
+<p>刚好同事已经排查出小文件过多原因。</p>
+
+<p><img src="/images/blog/2019-06-27-8.png" alt="" height="80%" width="80%" /></p>
+
+<p>HBase 集群的 Region 个数达到了 2w 个。因为该 HBase 集群上有 Kylin 服务。Kylin 生成了大量的临时表。
+而清理临时表的定时脚本因配置不当没有启动起来。导致该 HBase 集群 Region 个数越来越多。Region 越多，MemStore 刷新越小，
+所以产生了小 HFile 文件。</p>
+
+<p>compaction 机制检查到 Store 中 HFile 个数达到 3 个时就会执行 Compaction</p>
+
+<p>同事手动运行脚本之后已经将 Region 个数降到 2k 左右了，平摊到 10 个RS就是 200+ 个。符合合理范围。<a href="https://mp.weixin.qq.com/s/0tGNpmBRHbI673TwxIC2NA">HBase最佳实践之Region数量&amp;大小</a></p>
+
+<p>原因找到了，那我就找找 compaction 发生的痕迹。验证是由 compaction 触发导致服务器压力大。</p>
+
+<p>根据监控上的时间点。看到 CPU 在 10:06 分达到峰值。在日志里查询 10:06 左右发生了什么事。</p>
+
+<p><img src="/images/blog/2019-06-27-9.png" alt="" height="80%" width="80%" /></p>
+
+<p>功夫不负有心人，看到关键<code class="highlighter-rouge"> CompactionChecker missed its start time</code>(图中绿色框)。</p>
+
+<p>翻译过来就是 CompactionChecker 线程丢失了开始时间。为什么丢失开始时间是因为发生了 GC 造成了 STW(图中蓝色框)，线程被挂起了。这不是重点，接着往下看。</p>
+
+<p>CompactionChecker 线程是干什么的？</p>
+
+<p>CompactionChecker 是RS上的工作线程(Chore)。后台线程 CompactionChecker 定期触发检查是否需要执行 compaction，设置执行周期是通过 threadWakeFrequency 指定。
+大小通过 hbase.server.thread.wakefrequency 配置(默认10000)，然后乘以默认倍数 hbase.server.compactchecker.interval.multiplier (1000), 毫秒时间转换为秒。因此，在不做参数修改的情况下，CompactionChecker大概是2hrs 46mins 40sec 执行一次。</p>
+
+<p>接着日志我往前翻上一次 CompactionChecker 时间。得到以下信息。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2019-06-27 07:12:02,093 INFO org.apache.hadoop.hbase.ScheduledChore: Chore: CompactionChecker missed its start time
+...skipping...
+2019-06-27 10:06:20,649 INFO org.apache.hadoop.hbase.ScheduledChore: Chore: CompactionChecker missed its start time
+</code></pre></div></div>
+
+<p>可以计算可以知道两个时间相差 2时 54分 18秒。符合 CompactionChecker 间隔时间。查看 RS 6点到 8点 CPU 监控。</p>
+
+<p><img src="/images/blog/2019-06-27-10.png" alt="" height="80%" width="80%" /></p>
+
+<p>可以看出 7:12 之后 CPU 峰值降下来了。</p>
+
+<p>正如猜想一样。CompactionChecker 是关键。</p>
+
+<h4 id="思路归纳">思路归纳</h4>
+
+<p>Region 过多会影响 HBase 状态。Region 之间共享 RS 的 MemStore 内存区域，因此 Region 过多，MemStore 刷新越小。</p>
+
+<p>当 memstore 满后，就不得不刷新到文件系统，会创建一个数据存储在 HDFS 上的 HFile。</p>
+
+<p>这也意味着 Region 越多，产生的 HFile 越小。</p>
+
+<p>这个也迫使 HBase 执行大量的合并操作才能保持 HFile 的数量低至合理数目。</p>
+
+<p>这些合并操作对集群产生了过多扰动，进而影响集群性能。</p>
+
+<p>到了这里基本可以结案了。</p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://www.jianshu.com/p/a0056a35f982">HBase 线上问题排查 - 为什么读写这么少还会触发巨量 IO ？</a></li>
+  <li><a href="https://blog.csdn.net/qq_23160237/article/details/89309402">一次region过多导致HBase服务宕机事件</a></li>
+  <li><a href="https://mp.weixin.qq.com/s/0tGNpmBRHbI673TwxIC2NA">HBase最佳实践之Region数量&amp;大小</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/06/27/HBase-IO-Case/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

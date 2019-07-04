@@ -1,0 +1,135 @@
+# ---------------- #
+#   Main Configs   #
+# ---------------- #
+baseurl:
+#url: http://github.com/lihuimintu/lihuimintu.github.io
+date_format: "ordinal"
+title: 图
+subtitle: "tu's Personal Blog"
+description: "Record ideas and knowledge"
+keywords: Algorithm,Machine Learning(eg.Deep Learning),Data mining
+timezone: Asia/Beijing
+encoding: "utf-8"
+side_bar_repo_limit: 5
+
+# ---------------- #
+#      Author      #
+# ---------------- #
+author: lihuimintu
+#organization: UESTC
+#organization_url: http://organization_url.githbu.io
+github_username: lihuimintu
+location: Beijing
+email: lihuimintu@gmail.com
+
+# ---------------- #
+#    Navigation    #
+# ---------------- #
+navs:
+  -
+    href: /
+    label: Home
+
+
+  -
+    href: /categories/
+    label: Blog
+   
+
+
+  -
+    href: /open-source/
+    label: Open-source
+   
+
+  -
+    href: /wiki/
+    label: Wiki
+
+  -
+    href: /links/
+    label: Link
+
+  -
+    href: /about/
+    label: About
+
+# ---------------- #
+#       RSS        #
+# ---------------- #
+subscribe_rss: /feed.xml
+
+# ---------------- #
+#      Jekyll      #
+# ---------------- #
+markdown: kramdown
+kramdown:
+    input: GFM
+highlighter: rouge
+paginate: 8
+lsi: false
+quiet: false
+excerpt_separator: "\n\n"
+permalink: /:year/:month/:day/:title/
+gems:
+    - jekyll-github-metadata
+    - rouge
+#     - jekyll-html-pipeline
+    - jekyll-paginate
+    - jekyll-sitemap
+    - jekyll-feed
+    - jemoji
+#     - jekyll-mentions
+collections:
+    wiki:
+        output: true
+        permalink: /wiki/:path/
+
+repository: DWJWendy/DWJWendy.github.io
+
+# ---------------- # 
+#      Comments    #
+# ---------------- #
+# support provider: disqus, gitment, gitalk
+#comments_provider: gitalk
+comments_provider: gitalk
+
+
+# !!!重要!!! 请修改下面这些信息为你自己申请的
+# !!!Important!!! Please modify infos below to yours
+# https://disqus.com
+disqus:
+    username: wenjun d
+
+    
+# https://imsun.net/posts/gitment-introduction/
+gitment:
+    owner: lihuimintu
+    repo: blog-comments
+    oauth:
+        client_id: 2099ede60a4e9fcf1a9b
+        client_secret: 9cc2ee09ee4a85b2781480ddb339b0f9354b84b4
+# https://github.com/gitalk/gitalk#install
+gitalk:
+    owner: lihuimintu
+    repo: blog-comments
+    clientID: 2099ede60a4e9fcf1a9b
+    clientSecret: 9cc2ee09ee4a85b2781480ddb339b0f9354b84b4
+# 在使用其它评论组件时可点击显示 Disqus
+lazy_load_disqus : false
+
+# ---------------- #
+#    Analytics     #
+# ---------------- #
+google:
+    analytics_id: UA-80669434-1
+
+# ---------------- #
+#    Counter     #
+# ---------------- #
+# 使用的是learncloud，appid和key更换成自己的
+# 先关闭
+leancloud:
+  enable: false
+  app_id: EfLTUbK2fJ0dYLAq609NQ2k4-gzGzoHsz
+  app_key: 5Agxeshbunhh9y6XQftwEvGj

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>JVM 配置GC日志 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/02/19/gcLog/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="JVM 配置GC日志">
+      
+    <meta name="keywords" content="GC、 JVM">
+    <meta name="og:keywords" content="GC、 JVM">
+      
+    <meta name="description" content="JVM 配置GC日志">
+    <meta name="og:description" content="JVM 配置GC日志">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/02/19/gcLog/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-02-19">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="JVM 配置GC日志">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">JVM 配置GC日志</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/02/19
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#JVM" title="JVM">JVM</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>JVM 配置GC日志</p>
+
+<hr />
+
+<h4 id="开启gc日志">开启GC日志</h4>
+<p>多种方法都能开启GC的日志功能，其中包括：使用-verbose:gc或-XX:+PrintGC这两个标志中的任意一个能创建基本的GC日志
+（这两个日志标志实际上互为别名，默认情况下的GC日志功能是关闭的）。
+使用-XX:+PrintGCDetails标志会创建更详细的GC日志。</p>
+
+<p>推荐使用-XX:+PrintGCDetails标志（这个标志默认情况下也是关闭的）；
+通常情况下使用基本的GC日志很难诊断垃圾回收时发生的问题。</p>
+
+<h4 id="开启gc时间提示">开启GC时间提示</h4>
+<p>除了使用详细的GC日志，我们还推荐使用-XX:+PrintGCTimeStamps或者-XX:+PrintGCDateStamps，
+便于我们更精确地判断几次GC操作之间的时间。这两个参数之间的差别在于时间戳是相对于0（依据JVM启动的时间）的值，
+而日期戳（date stamp）是实际的日期字符串。由于日期戳需要进行格式化，所以它的效率可能会受轻微的影响，
+不过这种操作并不频繁，它造成的影响也很难被我们感知。</p>
+
+<h4 id="指定gc日志路径">指定GC日志路径</h4>
+<p>默认情况下GC日志直接输出到标准输出，不过使用-Xloggc:filename标志也能修改输出到某个文件。
+除非显式地使用-PrintGCDetails标志，否则使用-Xloggc会自动地开启基本日志模式。
+使用日志循环（Log rotation）标志可以限制保存在GC日志中的数据量；
+对于需要长时间运行的服务器而言，这是一个非常有用的标志，否则累积几个月的数据很可能会耗尽服务器的磁盘。</p>
+
+<h4 id="开启日志滚动输出">开启日志滚动输出</h4>
+<p>通过-XX:+UseGCLogfileRotation  -XX:NumberOfGCLogfiles=N  -XX:GCLogfileSize=N标志可以控制日志文件的循环。</p>
+
+<p>默认情况下，UseGCLogfileRotation标志是关闭的。它负责打开或关闭GC日志滚动记录功能的。要求必须设置 -Xloggc参数
+开启UseGCLogfileRotation标志后，默认的文件数目是0（意味着不作任何限制），默认的日志文件大小是0（同样也是不作任何限制）。</p>
+
+<p>因此，为了让日志循环功能真正生效，我们必须为所有这些标志设定值。
+需要注意的是：</p>
+<ul>
+  <li>The size of the log file at which point the log will be rotated, must be &gt;= 8K. 设置滚动日志文件的大小，必须大于8k。
+当前写日志文件大小超过该参数值时，日志将写入下一个文件</li>
+  <li>设置滚动日志文件的个数，必须大于等于1</li>
+  <li>必须设置 -Xloggc参数</li>
+</ul>
+
+<h4 id="开启语句">开启语句</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-XX:+PrintGCDetails  -XX:+PrintGCDateStamps  
+-Xloggc:/var/log/hbase/gc-regionserver-hbase.log   
+-XX:+UseGCLogFileRotation  
+-XX:NumberOfGCLogFiles=10  -XX:GCLogFileSize=512k
+</code></pre></div></div>
+
+<h4 id="参数详解">参数详解</h4>
+<p>-XX:+PrintGCDetails 
+输出GC的详细日志</p>
+
+<p>-XX:+PrintGCDateStamps 
+输出GC的日期戳</p>
+
+<p>-Xloggc:/var/log/hbase/gc-regionserver-hbase.log 
+GC日志输出的路径</p>
+
+<p>-XX:NumberOfGCLogFiles
+打开GC日志滚动记录功能</p>
+
+<p>-XX:NumberOfGCLogFiles
+设置滚动日志文件的个数，必须大于等于1
+日志文件命名策略是，<filename>.0, <filename>.1, ..., <filename>.n-1，其中n是该参数的值</filename></filename></filename></p>
+
+<p>-XX:GCLogFileSize
+The size of the log file at which point the log will be rotated, must be &gt;= 8K.
+设置滚动日志文件的大小，必须大于8k
+当前写日志文件大小超过该参数值时，日志将写入下一个文件</p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://www.jianshu.com/p/dfdf80286c73">jvm 设置滚动记录GC日志</a></li>
+  <li><a href="https://segmentfault.com/a/1190000009415136">GC日志参数</a></li>
+  <li><a href="https://mp.weixin.qq.com/s/aGT31AQyH7NRqnRGArE2eg">假笨说参数-GC日志其实也支持滚动输出的</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/02/19/gcLog/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

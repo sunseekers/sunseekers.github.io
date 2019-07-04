@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Hadoop + HBase 单机安装部署 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/03/14/apache-hadoop/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="Hadoop + HBase 单机安装部署">
+      
+    <meta name="keywords" content="keyword1, keyword2">
+    <meta name="og:keywords" content="keyword1, keyword2">
+      
+    <meta name="description" content="单机搭建部署 Hadoop 、HBase">
+    <meta name="og:description" content="单机搭建部署 Hadoop 、HBase">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/03/14/apache-hadoop/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-03-14">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="Hadoop + HBase ">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Hadoop + HBase 单机安装部署</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/03/14
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Hadoop" title="Hadoop">Hadoop</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>单机搭建部署 Hadoop 、HBase</p>
+
+<hr />
+<h4 id="前言">前言</h4>
+<p>之前一直是使用 CDH 。 准备入坑源码。所以想搭建一套 Apache 的来玩玩。</p>
+
+<p>选择的版本：</p>
+<blockquote>
+  <ul>
+    <li>Hadoop: 2.7.7</li>
+    <li>HBase: 1.2.11</li>
+    <li>Linux: CentOs 6.5</li>
+    <li>JDK: jdk1.8.0_161</li>
+  </ul>
+</blockquote>
+
+<h4 id="准备">准备</h4>
+
+<p>安装jdk，配置环境变量。 这个网上很多，自行百度。</p>
+
+<p>Hadoop、HBase tar包去官方网站下载即可</p>
+
+<p>下载之后将其解压。</p>
+
+<p><img src="/images/blog/2019-03-14-8.png" alt="" /></p>
+
+<h4 id="配置-hadoop-环境变量">配置 Hadoop 环境变量</h4>
+
+<h5 id="1-配置hadoop-envshyarn-envsh">1. 配置hadoop-env.sh、yarn-env.sh</h5>
+
+<p>在Hadoop安装目录下 etc/hadoop</p>
+
+<p>在 hadoop-env.sh、yarn-env.sh</p>
+
+<p>加入 export JAVA_HOME=/usr/local/jdk1.8.0_161（jdk安装路径）</p>
+
+<p>保存退出</p>
+
+<h5 id="2-配置hadoop_home">2. 配置HADOOP_HOME</h5>
+
+<p>修改全局环境变量</p>
+
+<p>在 /etc/profile</p>
+
+<p>export HADOOP_HOME=/opt/hadoop-2.7.3 # Hadoop的安装路径</p>
+
+<p>export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH</p>
+
+<h4 id="配置基本相关xml">配置基本相关xml</h4>
+
+<h5 id="core-sitexml">core-site.xml</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;configuration&gt;
+        &lt;property&gt;
+                &lt;name&gt;fs.defaultFS&lt;/name&gt;
+                &lt;value&gt;hdfs://localhost:8020&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+                &lt;value&gt;/opt/hadoop/tmp&lt;/value&gt; 
+                &lt;description&gt;namenode上本地的hadoop临时文件夹&lt;/description&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre></div></div>
+
+<h5 id="hdfs-sitexml">hdfs-site.xml</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;configuration&gt;
+        &lt;property&gt;
+              &lt;name&gt;dfs.replication&lt;/name&gt;
+              &lt;value&gt;1&lt;/value&gt;
+              &lt;description&gt;数据需要备份的数量，不能大于集群的机器数量，默认为3&lt;/description&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+             &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+             &lt;value&gt;/opt/hadoop/dfs/nn&lt;/value&gt;
+　　　　　　 &lt;description&gt;namenode上存储hdfs名字空间元数据&lt;/description&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+             &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+             &lt;value&gt;/opt/hadoop/dfs/dn&lt;/value&gt;
+             &lt;description&gt;datanode上数据块的物理存储位置&lt;/description&gt;
+        &lt;/property&gt;
+        &lt;property&gt; 
+　　　　　　　　&lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt; 
+　　　　　　　　&lt;value&gt;localhost:9001&lt;/value&gt;
+              &lt;description&gt;SecondaryNameNode HTTP 端口。如端口为 0，服务器将在自由端口启动。&lt;/description&gt;
+        &lt;/property&gt;  
+        &lt;property&gt; 
+              &lt;name&gt;dfs.webhdfs.enabled&lt;/name&gt;
+              &lt;value&gt;true&lt;/value&gt; 
+              &lt;description&gt;设置为true，可以在浏览器中IP+port查看&lt;/description&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre></div></div>
+
+<h5 id="mapred-sitexml">mapred-site.xml</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;configuration&gt;
+        &lt;property&gt; 
+　　　　　　&lt;name&gt;mapreduce.framework.name&lt;/name&gt; 
+　　　　　　&lt;value&gt;yarn&lt;/value&gt; 
+          &lt;description&gt;mapreduce运用了yarn框架，设置name为yarn&lt;/description&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt; 
+　　　　　　&lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt; 
+　　　　　　&lt;value&gt;localhost:10020&lt;/value&gt; 
+          &lt;description&gt;历史服务器,查看Mapreduce作业记录&lt;/description&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt; 
+　　　　　　&lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt; 
+　　　　　　&lt;value&gt;localhost:19888&lt;/value&gt;
+          &lt;description&gt;MapReduce JobHistory Web 应用程序 HTTP 端口&lt;/description&gt;
+　　　　&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre></div></div>
+
+<h5 id="yarn-sitexml">yarn-site.xml</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;configuration&gt;
+        &lt;property&gt; 
+　　　　　　&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt; 
+　　　　　　&lt;value&gt;mapreduce_shuffle&lt;/value&gt; 
+          &lt;description&gt;NodeManager上运行的附属服务，用于运行mapreduce&lt;/description&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt; 
+　　　　　　&lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;/name&gt; 
+　　　　　　&lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt; 
+          &lt;description&gt;MapReduce JobHistory Web 应用程序 HTTP 端口&lt;/description&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt; 
+　　　　　　&lt;name&gt;yarn.resourcemanager.address&lt;/name&gt; 
+　　　　　　&lt;value&gt;localhost:8032&lt;/value&gt; 
+          &lt;description&gt;ResourceManager 对客户端暴露的地址&lt;/description&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt; 
+　　　　　　&lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt; 
+　　　　　　&lt;value&gt;localhost:8030&lt;/value&gt; 
+          &lt;description&gt;ResourceManager 对ApplicationMaster暴露的地址&lt;/description&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt; 
+　　　　　　&lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;  
+　　　　　　&lt;value&gt;localhost:8031&lt;/value&gt; 
+          &lt;description&gt;ResourceManager 对NodeManager暴露的地址&lt;/description&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt;
+　　　　　　&lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;   
+　　　　　　&lt;value&gt;localhost:8033&lt;/value&gt; 
+          &lt;description&gt;ResourceManager 对管理员暴露的地址&lt;/description&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt;
+　　　　　　&lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt; 
+           &lt;value&gt;localhost:8088&lt;/value&gt; 
+           &lt;description&gt;ResourceManager 对外web暴露的地址，可在浏览器查看&lt;/description&gt;
+　　　　&lt;/property&gt; 
+&lt;/configuration&gt;
+</code></pre></div></div>
+
+<h4 id="hadoop的启动与停止">Hadoop的启动与停止</h4>
+
+<h5 id="1-格式化namenode">1. 格式化namenode</h5>
+
+<p>bin/hadoop namenode -format</p>
+
+<p><img src="/images/blog/2019-04-27-1.png" alt="" /></p>
+
+<p>出现 successfully formatted 即可</p>
+
+<h5 id="2-启动-hdfsyarn">2. 启动 HDFS、YARN</h5>
+
+<p>一起启动</p>
+
+<p>sbin/start-all.sh</p>
+
+<p>也可以分开启动</p>
+
+<p>sbin/start-dfs.sh</p>
+
+<p>sbin/start-yarn.sh</p>
+
+<h5 id="3-验证">3. 验证</h5>
+
+<p>在命令行输入 jps 可以看到启动的 Java 进程，接着在看看是否有 HDFS、Yarn 的角色</p>
+
+<p><img src="/images/blog/2019-03-14-9.png" alt="" /></p>
+
+<p>在浏览器中输入http://{ip}:50070 查看 NameNode 状态。 ip 为你安装的机器 IP</p>
+
+<h5 id="4-停止">4. 停止</h5>
+
+<p>停止hadoop，进入Hadoop目录下，输入命令：</p>
+
+<p>sbin/stop-all.sh。</p>
+
+<p>同样也可以分开停止的。</p>
+
+<p>sbin/stop-dfs.sh</p>
+
+<p>sbin/stop-yarn.sh</p>
+
+<h4 id="hbase">HBase</h4>
+
+<h5 id="1-配置hadoop_home">1. 配置HADOOP_HOME</h5>
+
+<p>在 /etc/profile 中加入</p>
+
+<p>export HBASE_HOME=/opt/hbase-1.2.11</p>
+
+<p>export PATH=$HBASE_HOME/bin:$PATH</p>
+
+<h5 id="2-hbase-sitexml">2. hbase-site.xml</h5>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;configuration&gt;
+        &lt;property&gt; 
+　　　　　　 &lt;name&gt;hbase.rootdir&lt;/name&gt; 
+　　　　　　 &lt;value&gt;hdfs://localhost:8020/hbase&lt;/value&gt;
+　　　　　　 &lt;!-- 端口要和Hadoop的fs.defaultFS端口一致--&gt;
+           &lt;!-- hbase存放数据目录 --&gt;
+　　　　&lt;/property&gt; 
+　　　　&lt;property&gt; 
+　　　　　   &lt;name&gt;hbase.cluster.distributed&lt;/name&gt; &lt;!-- 是否分布式部署 --&gt;
+　　　　　　 &lt;value&gt;false&lt;/value&gt; 
+　　　　&lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;hbase.tmp.dir&lt;/name&gt;
+                &lt;value&gt;/opt/hadoop/hbase/tmp&lt;/value&gt;
+                &lt;description&gt;hbase临时文件目录&lt;/description&gt;
+        &lt;/property&gt;
+　　　　&lt;property&gt; 
+　　　　　　 &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt; &lt;!-- list of  zookooper --&gt;
+　　　　　　 &lt;value&gt;localhost&lt;/value&gt; 
+　　　　&lt;/property&gt; 　　　 
+　　　　&lt;property&gt;
+　　　　　　 &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt; 
+　　　　　　 &lt;value&gt;/opt/hadoop/hbase/zookeeper&lt;/value&gt;
+            &lt;description&gt;zookooper配置、日志等的存储位置&lt;/description&gt;
+　　　　&lt;/property&gt;
+        &lt;property&gt;
+             &lt;name&gt;hbase.master.port&lt;/name&gt;
+             &lt;value&gt;16000&lt;/value&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre></div></div>
+
+<h5 id="3-hbase-envsh">3. hbase-env.sh</h5>
+
+<p>使用 HBase 自带的zookeeper</p>
+
+<p>export HBASE_MANAGES_ZK=true</p>
+
+<p>指定 JDK</p>
+
+<p>export JAVA_HOME=/usr/local/jdk1.8.0_161（jdk安装路径）</p>
+
+<h4 id="启动与停止hbase">启动与停止Hbase</h4>
+
+<p>在Hadoop已经启动成功的基础上，输入 start-hbase.sh ，过几秒钟便启动完成。</p>
+
+<p>输入jps命令查看进程是否启动成功，若 机器 上出现 HMaster 即可。 (不知道为什么。我这里没有出现 HQuorumPeer，不知道是不是版本的原因)</p>
+
+<p>输入 hbase 可以看到支持的命令服务。 zkcli 是进入 HBase 自带的 zk 的命令</p>
+
+<p>输入 hbase shell 命令 进入 HBase 命令模式</p>
+
+<p>在浏览器中输入http://{ip}:16010 就可以在界面上看到 HBase 的配置了</p>
+
+<p>当要停止hbase时输入stop-hbase.sh，过几秒后hbase就会被停止了。</p>
+
+<h4 id="总结">总结</h4>
+
+<p>这只是简易版的。生产环境的要求肯定不止这些。参考者请注意。</p>
+
+<p>这里有个地方没弄懂。尝试过配置 HBase Master 的端口为 16000。 发现未生效。端口是随机的。。。 
+没想明白为什么。等看下源码找找原因。</p>
+
+<p>附上 HBase 端口设置参数</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hbase-site.xml
+
+&lt;property&gt;
+    &lt;name&gt;hbase.master.port&lt;/name&gt;
+    &lt;value&gt;16000&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;hbase.master.info.port&lt;/name&gt;
+    &lt;value&gt;16010&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;hbase.regionserver.port&lt;/name&gt;
+    &lt;value&gt;16201&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;hbase.regionserver.info.port&lt;/name&gt;
+    &lt;value&gt;16301&lt;/value&gt;
+&lt;/property&gt;
+</code></pre></div></div>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://www.cnblogs.com/lzxlfly/p/7221890.html">Hadoop2.7.3+Hbase-1.2.6完全分布式安装部署</a></li>
+  <li><a href="https://www.cnblogs.com/jing1996/p/8038219.html">Hadoop2.7.4安装配置</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/03/14/apache-hadoop/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

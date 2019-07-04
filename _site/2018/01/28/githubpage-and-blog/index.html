@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>如何利用github page快速搭建个人博客 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2018/01/28/githubpage-and-blog/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="如何利用github page快速搭建个人博客">
+      
+    <meta name="keywords" content="github page,博客">
+    <meta name="og:keywords" content="github page,博客">
+      
+    <meta name="description" content="快速搭建个人博客">
+    <meta name="og:description" content="快速搭建个人博客">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2018/01/28/githubpage-and-blog/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-01-28">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="如何利用github page">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">如何利用github page快速搭建个人博客</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/01/28
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Blog" title="Blog">Blog</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>快速搭建个人博客</p>
+
+<h2 id="背景">背景</h2>
+<p>本来计划在简书或者csdn上一个博客用来记录一些读书笔记，就上知乎搜了一下哪个平台更好用，当时有大神推荐可以用github page自己搭建一个博客平台，随即我就查阅如何利用github page搭建个人博客，经过几天修改，大功告成了，下面就是我的博客地址。</p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />http://mmcwendy.info</li>
+</ul>
+
+<p><strong>注:地址是毛毛虫_Wendy的简写，欢迎大家fork和star</strong></p>
+
+<h2 id="使用github-page搭建博客">使用github page搭建博客</h2>
+<h2 id="github-page">Github page</h2>
+<p>github page是面向用户、组织和项目开放的公共静态页面搭建托管服务，站点可以被免费托管在 Github 上，你可以选择使用 Github Pages 默认提供的域名 github.io 或者自定义域名来发布站点，更便利地是你直接从你的GitHub存储库托管。只需编辑和推送你的blog，并且你的更改是实时的。</p>
+<h3 id="搭建流程">搭建流程</h3>
+<h4 id="第一步创建仓库">第一步:创建仓库</h4>
+<p>在创建仓库之前，默认你有github账号以及会基础的git命令能够上传代码，如果不会，请参考廖雪峰git教程【<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">资料1</a>】。</p>
+<h4 id="方式-1">方式 1:</h4>
+<p>你只需要登录GitHub并创建一个名为username .github.io 的新存储库 ，其中username是GitHub上的用户名（如图1）。
+<strong>注意：如果存储库的第一部分不完全符合你的用户名，则不起作用，因此请确保正确无误。</strong></p>
+
+<p><img src="/images/blog/2018-01-28-1.png" alt="图1" /></p>
+
+<p>然后你可以参考许多模板【参考模板<a href="http://jekyllthemes.org">素材1</a>，<a href="https://hexo.io/themes/">素材2</a>】，基于模板进行修改，打造属于自己风格的网站，我这个人比较看颜值，单选模板都选了一天，真心累。</p>
+
+<h4 id="方式-2">方式 2:</h4>
+<p>当然你也可以直接fork我的项目【<a href="https://github.com/DWJWendy/DWJWendy.github.io">地址</a>】，然后将我的项目名改成你的github用户名.github.io,按照 GitHub Pages 的规定，名称为 username.github.io 的项目的 master 分支，或者其它名称的项目的 gh-pages 分支可以自动生成 GitHub Pages 页面。正常情况下，你可以在本地测试启动程序:</p>
+
+<ul>
+  <li>进入项目目录下:</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd DWJWendy.github.io
+</code></pre></div></div>
+<ul>
+  <li>启动:</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle exec jekyll serve
+</code></pre></div></div>
+
+<p>然后你可以通过127.0.0.1:4000在浏览器中访问到网页，如图2</p>
+
+<p><img src="/images/blog/2018-01-28-2.png" alt="图2" /></p>
+
+<p>有关jekyll的具体内容参考【<a href="http://jekyllcn.com/">资料2</a>】</p>
+
+<h4 id="第二步修改模板">第二步:修改模板</h4>
+
+<ol>
+  <li>
+    <p>修改配置。</p>
+
+    <p>网站的配置基本都集中在 _config.yml 文件中，将其中与个人信息相关的部分替换成你自己的，比如网站的 url、title、subtitle 和第三方评论模块的配置等。</p>
+
+    <p><strong>评论模块：</strong> 目前支持 disqus、gitment 和 gitalk，选用其中一种就可以了，推荐使用 gitment。它们各自的配置指南链接在 _config.yml 文件的 Comments 一节里都贴出来了，搭建过程【<a href="https://imsun.net/posts/gitment-introduction/">资料3</a>】</p>
+
+    <p><strong>注意：</strong> 如果使用 disqus，因为 disqus 处理用户名与域名白名单的策略存在缺陷，请一定将 disqus.username 修改成你自己的，否则请将该字段留空。
+<img src="/images/blog/2018-01-28-5.png" alt="图3" /></p>
+  </li>
+  <li>
+    <p>删除我的文章与图片。</p>
+
+    <p>如下文件夹中除了 template.md 文件外，都可以全部删除，然后添加你自己的内容。</p>
+
+    <ul>
+      <li>_posts 文件夹中是我已发布的博客文章。</li>
+      <li>_drafts 文件夹中是我尚未发布的博客文章。</li>
+      <li>_wiki 文件夹中是我已发布的 wiki 页面。</li>
+      <li>images 文件夹中是我的文章和页面里使用的图片。</li>
+    </ul>
+  </li>
+  <li>
+    <p>修改「关于」页面。</p>
+
+    <p>pages/about.md 文件内容对应网站的「关于」页面，里面的内容多为个人相关，将它们替换成你自己的信息，包括 _data 目录下的 skills.yml 和 social.yml 文件里的数据。</p>
+  </li>
+  <li>
+    <p>增加博客阅读统计功能。
+使用的是leancloud,它是一个一站式后端云服务. 包括云存储、数据分析、用户关系、消息推送、即时通信等现代应用基础模块，因为只用存储博文阅读统计数，所以我用了数据存储模块，我的修改是直接参照这篇博客的，非常简单【<a href="http://blog.csdn.net/u013553529/article/details/63357382">资料4</a>】</p>
+  </li>
+</ol>
+
+<h4 id="第三步上传">第三步:上传</h4>
+<p>当你的修改完成后，你就可以进入项目下，并在终端输入相关的git命令将其上传到之前建立的仓库中</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#进入项目目录
+cd DWJWendy.github.io
+#上传代码(依次在终端输入下面命令)
+git init
+git add --all
+git commit -m "first version"
+git remote add origin git@github.com:DWJWendy/DWJWendy.github.io.git
+git push -u origin master
+
+</code></pre></div></div>
+<p>然后你就可以在浏览器输入你的域名就可以访问你的博客，博客建立好你只需要自己写博客，然后按照上述方式传到github上，你新的博文既可以被别人访问了，如图3我的博客。</p>
+
+<p><img src="/images/blog/2018-01-28-4.png" alt="图4" /></p>
+
+<h2 id="域名">域名</h2>
+<p>说说我在这里踩的坑吧:我忘记<strong>域名需要解析</strong>，哈哈哈真是超级搞笑……</p>
+
+<p>最初我选择github page主要是它不用服务器，不要域名就可以搭建自己的博客，但是大神小白告诉我他去Godaddy上买的域名，果然还非常的便宜，我只用了7元就买了 mmcwendy.info,有效期1年。</p>
+
+<p>再说域名解析，虽然曾经在计算机网络的课程上知道这个名词，但还真是第一次解析，我就直接找了资源【<a href="https://www.zhihu.com/question/31377141">资料5</a>】，按照教程来还是非常简单的，这个是我的域名解析图3</p>
+
+<p><img src="/images/blog/2018-01-28-3.png" alt="图5" /></p>
+
+<h2 id="注意事项">注意事项</h2>
+
+<ol>
+  <li>虽然有很好的模板，但是很多东西还是需要自己的理解，了解最基本的原理，避免走弯路。</li>
+  <li>不是仅仅将上面的内容改了就可以的，你还需要注意一些细节，比如文件路径/comment.html里面的部分代码也需要修改。</li>
+  <li>在使用这个模板之前，你需要在本地安装Bower和Bundler，安装的教程可以在网上找一下，这个很简单，两行代码就可以搞定。</li>
+  <li>博文编辑使用markdown来编写。
+    <h2 id="一点小想法">一点小想法</h2>
+  </li>
+</ol>
+
+<p>看颜值选了好多模板，最终确定了这个模板，主要是网站的结构比较清晰，可以直接跟github想的项目直接相连，并且博客可以根据内容打上不同的tag，可能是机器学习学多了，非常喜欢这个分类明确的东西，另外，它的wiki部分让我非常喜欢，并且可以实时评论，如果有人评论了博文还会有email提醒，很多都是现成的应用，但是组合在一起就觉得特别棒。另外，对我而言，之前并没有用过markdown，这一篇博文用markdown写感觉markdown写起来还真是很方便，推荐。</p>
+
+<h2 id="致谢">致谢</h2>
+
+<p>本博客外观
+基于 <a href="http://dongchuan.github.io">DONGChuan</a> 
+和 <a href="http://mazhuang.org/">Zhuang Ma</a>
+修改，非常感谢！</p>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/01/28/githubpage-and-blog/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>两阶段加锁协议 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/05/06/Two-Phase-Locking/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="两阶段加锁协议">
+      
+    <meta name="keywords" content="Two-Phase Locking">
+    <meta name="og:keywords" content="Two-Phase Locking">
+      
+    <meta name="description" content="两阶段加锁协议">
+    <meta name="og:description" content="两阶段加锁协议">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/05/06/Two-Phase-Locking/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-05-06">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="两阶段加锁协议">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">两阶段加锁协议</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/05/06
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Distributed" title="Distributed">Distributed</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>两阶段加锁协议</p>
+
+<hr />
+
+<h4 id="概念">概念</h4>
+
+<p>并发控制: 所谓并发控制，是指多用户共享的系统中，许多用户可能同时对同一数据进行操作。</p>
+
+<p>调度: 指的是事务的执行次序。</p>
+
+<p>串行调度: 多个事务依次串行执行，且只有当一个事务的所有操作都执行完后才执行另一个事务的所有操作。
+只要是串行调度，执行的结果都是正确的。</p>
+
+<p>并行调度: 利用分时的方法同时处理多个事务。但是并行调度的调度结果可能是错误的，
+可能产生不一致的状态，包括有: 丢失修改，不可重复读和读脏数据。</p>
+
+<p>可串行化: 调度是一个或多个事务的重要操作按时间排序的一个序列。
+如果一个调度的动作首先是一个事务的所有动作，然后是另一个事务的所有动作，以此类推，而没有动作的混合，那么我们说这一调度是串行的。</p>
+
+<p>其实比较明显的是虽然串行调度能够保证调度结果的正确性，
+但是却限制了系统并行性的发挥，不能有效利用资源，
+但是并行调度的调度结果又可能出现错误，
+而且可能不具有串行，正是因为这样，有一个具有串行调度效果的并行调度方法，
+而两段锁协议就是保证并行事务可串化的方法。</p>
+
+<p>如果一并行调度的结果等价于某一串行调度的结果，那么这个并行调度成为可串行化的</p>
+
+<h4 id="规则">规则</h4>
+
+<p>两段锁协议规定所有的事务应遵守的规则：</p>
+
+<blockquote>
+  <ul>
+    <li>① 在对任何数据进行读、写操作之前，首先要申请并获得对该数据的封锁。</li>
+    <li>② 在释放一个封锁之后，事务不再申请和获得其它任何封锁。</li>
+  </ul>
+</blockquote>
+
+<h4 id="阶段">阶段</h4>
+
+<p>两段锁协议：是指所有的事务必须分两个阶段对数据项加锁和解锁。</p>
+
+<p>事务的执行分为两个阶段:</p>
+<blockquote>
+  <ul>
+    <li>第一阶段是获得封锁的阶段，称为扩展阶段。</li>
+    <li>第二阶段是释放封锁的阶段，称为收缩阶段。</li>
+  </ul>
+</blockquote>
+
+<p>第一阶段是事务可以获得任何数据项上的任何类型的锁，但是不能释放。</p>
+
+<p>其实也就是该阶段可以进入加锁操作，在对任何数据进行读操作之前要申请获得S锁，
+在进行写操作之前要申请并获得X锁，加锁不成功，则事务进入等待状态，直到加锁成功才继续执行。
+就是加锁后就不能解锁了。</p>
+
+<p>第二阶段是释放封锁，事务可以释放任何数据项上的任何类型的锁，但不能申请。</p>
+
+<p>当事务释放一个封锁后，事务进入封锁阶段，在该阶段只能进行解锁而不能再进行加锁操作。</p>
+
+<p>定理: 若所有事务均遵守两段锁协议，则这些事务的所有交叉调度都是可串行化的。</p>
+
+<p><img src="/images/blog/2019-05-06-5.png" alt="" height="80%" width="80%" /></p>
+
+<h4 id="死锁">死锁</h4>
+
+<p>遵循两段锁协议的事务有可能发生死锁。</p>
+
+<p>两个事务都坚持请求加锁对方已经占有的数据，导致死锁。</p>
+
+<p>为此，又有了一次封锁法。一次封锁法要求事务必须一次性将所有要使用的数据全部加锁，否则就不能继续执行。</p>
+
+<p>因此，一次封锁法遵守两段锁协议，但两段锁并不要求事务必须一次性将所有要使用的数据全部加锁，
+这一点与一次性封锁不同，这就是遵守两段锁协议仍可能发生死锁的原因所在。</p>
+
+<h4 id="总结">总结</h4>
+
+<p>串行调度效果的并行调度方法。</p>
+
+<p>简单的理解就是两段锁，就是分为两个阶段
+第一阶段 只能去申请锁
+第二阶段 只能去释放锁</p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://www.jianshu.com/p/5c78f5c4d57b">zookeeper学习之一：两段锁协议</a></li>
+  <li><a href="https://blog.csdn.net/sinat_36841379/article/details/75107985">两段锁协议</a></li>
+  <li><a href="https://www.cnblogs.com/3013218061shang/p/5573476.html">数据库管理（事务、ACID、并发、封锁、可串行化、隔离）（转）</a></li>
+</ul>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/05/06/Two-Phase-Locking/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

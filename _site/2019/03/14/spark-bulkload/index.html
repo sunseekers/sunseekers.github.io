@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Spark BulkLoad 写入 HBase &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/03/14/spark-bulkload/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="Spark BulkLoad 写入 HBase">
+      
+    <meta name="keywords" content="keyword1, keyword2">
+    <meta name="og:keywords" content="keyword1, keyword2">
+      
+    <meta name="description" content="使用 Spark 将数据以 bulkload 的方式写入 HBase">
+    <meta name="og:description" content="使用 Spark 将数据以 bulkload 的方式写入 HBase">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/03/14/spark-bulkload/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-03-14">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="Spark BulkLoad ">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Spark BulkLoad 写入 HBase</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/03/14
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Spark" title="Spark">Spark</a>
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#HBase" title="HBase">HBase</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>使用 Spark 将数据以 bulkload 的方式写入 HBase</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>因历史遗留问题，有之前的开发写了 mapreduce 版的 bulkload 代码。</p>
+
+<p>数据量太大。要跑3天才能跑完。 因此想将其改成 spark 的来试试。</p>
+
+<p>之前没写过 spark 代码，都是现学现卖。同时记录自己所踩的坑。</p>
+
+<h4 id="为何要-bulkload-导入">为何要 BulkLoad 导入？</h4>
+
+<p>在初始化 HBase 表时，有时候需要大量导入初始数据。 最能想到的方式是一条一条数据写入。</p>
+
+<p>可是这样的话，HBase会block写入，频繁进行flush，split，compact等大量IO操作，</p>
+
+<p>并对HBase节点的稳定性造成一定的影响，GC时间过长，响应变慢，导致节点超时退出，并引起一系列连锁反应。因此在大数据量写入时效率低下。</p>
+
+<p><img src="/images/blog/2019-03-14-10.png" alt="" /></p>
+
+<p>使用 Bulk Load 方式由于利用了 HBase 的数据信息是按照特定格式存储在 HDFS 里的这一特性。</p>
+
+<p>直接在 HDFS 中生成持久化的 HFile 数据格式文件，然后完成巨量数据快速入库的操作。</p>
+
+<p>配合 MapReduce 完成这样的操作，不占用 Region 资源，不会产生巨量的写入 I/O。所以需要较少的 CPU 和网络资源。</p>
+
+<p>概括来说：BulkLoad 方式是绕过了 Write to WAL，Write to MemStore及Flush to disk的过程，减少了对集群资源的消耗，适合大批量数据导入。</p>
+
+<h4 id="mapreduce-版本">MapReduce 版本</h4>
+
+<p>按照HBase存储数据按照HFile格式存储在HDFS的原理，使用MapReduce直接生成HFile格式的数据文件，然后在通过RegionServer将HFile数据文件移动到相应的Region上去。</p>
+
+<p>将数据源准备好，上传到HDFS进行存储。我这里的数据来源是 Hive 表。查看原同事写的 MapReduce 版的是传入 Hive 表的路径</p>
+
+<p>HFile文件的生成，可以使用MapReduce来进行实现，然后在程序中读取HDFS上的数据源，进行自定义封装，组装RowKey。</p>
+
+<p>然后将封装后的数据在回写到HDFS上，以HFile的形式存储到HDFS指定的目录中。</p>
+
+<p>大家可以参考哥不是小萝莉的博客。<a href="https://www.cnblogs.com/smartloli/p/9501887.html">HBase BulkLoad批量写入数据实战</a></p>
+
+<p>还有过往记忆的博客。<a href="https://www.iteblog.com/archives/1889.html">通过BulkLoad快速将海量数据导入到HBase</a></p>
+
+<p>两篇博客都写的挺好的。</p>
+
+<h4 id="spark-版本">Spark 版本</h4>
+
+<p>在 Spark 上通过 BulkLoad 快速将海量数据导入到 HBase</p>
+
+<p>批量导数据到 HBase 又可以分为两种：</p>
+
+<blockquote>
+  <ul>
+    <li>生成 HFiles，然后批量导数据</li>
+    <li>直接将数据批量导入到HBase中</li>
+  </ul>
+</blockquote>
+
+<p>具体代码可以参看过往记忆的博客。<a href="https://www.iteblog.com/archives/1891.html">在Spark上通过BulkLoad快速将海量数据导入到HBase</a></p>
+
+<p>我这里使用的是第一种方式写的代码。 把两种方式都记录下来是下次可以尝试第二种方式实现。</p>
+
+<h5 id="1-批量将-hfiles-导入-hbase">1. 批量将 HFiles 导入 HBase</h5>
+
+<p>现在我们来介绍如何批量将数据写入到HBase中，主要分为两步：</p>
+<blockquote>
+  <ol>
+    <li>先生成 HFiles</li>
+    <li>使用 org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles 将事先生成 HFile 导入到 HBase 中。</li>
+  </ol>
+</blockquote>
+
+<h5 id="2-直接-bulkload-数据到-hbase">2. 直接 BulkLoad 数据到 HBase</h5>
+
+<p>这种方法不需要事先在HDFS上生成Hfiles，而是直接将数据批量导入到HBase中。</p>
+
+<h4 id="遇到的问题">遇到的问题</h4>
+
+<h5 id="1-路径没有权限">1. 路径没有权限</h5>
+
+<p>保存 HFiles 的路径没有权限写入。把路径权限改成777，或者用所属账号提交运行，又或者改成自己能写入的路径。</p>
+
+<h5 id="2-dobulkload-卡着">2. doBulkLoad 卡着</h5>
+
+<p>成功在 HDFS 上生成了 HFiles 文件，但是在 doBulkLoad 过程卡着不动，一度以为是资源问题，可是把我数据量缩小到只有3条数据都跑不动。</p>
+
+<p>不应该是资源问题。后面怀疑是不是 HFiles 文件不符合规范导致卡着不动。</p>
+
+<p>尝试直接使用 bulkload 命令可以直接导入数据 hbase org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles /tmp/pres person</p>
+
+<p>说明生成的 HFiles 是可行的。同事说可能是路径权限还是不够，让我将其路径递归设置为 777 。</p>
+
+<p>再次运行代码到卡着不动时，手动执行递归修改权限命令 hadoop fs -chmod -R 777 /tmp/pres 。程序成功运行完成，并且 HBase 表可以查到数据了。</p>
+
+<p>这里造成的原因不清楚，不知道是不是自己集群做了什么设置。</p>
+
+<h5 id="3-临时目录存在">3. 临时目录存在</h5>
+
+<p>HFiles 生成的目录应该要求事先不存在的，如果事先存在，应删除。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val fs:FileSystem =  FileSystem.get(hdfsCf)
+if(fs.exists(new Path(tmpHdfs))) {
+  fs.delete(new Path(tmpHdfs), true)    // true 为递归删除
+  println("Delete Success")
+}
+</code></pre></div></div>
+
+<h5 id="4-key-有序">4. key 有序</h5>
+
+<p>这里真的是踩了大坑，大坑啊。 最先谷歌出来的博客说是 rowkey 有序即可。</p>
+
+<p>但是我的代码明明已经对其排序了。sortByKey 后还是报错。</p>
+
+<p><img src="/images/blog/2019-03-14-11.png" alt="" /></p>
+
+<p>后面对比了报错的原因才发现，不只是 rowkey 有序，cf、qualifer 也要有序。</p>
+
+<h5 id="5-超过-32-个-hfiles">5. 超过 32 个 HFiles</h5>
+
+<p>java.io.IOException: Trying to load more than 32 hfiles to one family of one region</p>
+
+<p><img src="/images/blog/2019-03-15-1.png" alt="" /></p>
+
+<p>doBulkLoad 超过了 32 个 HFiles。</p>
+
+<p>HBaseConfiguration 设置参数。 两种方式都行</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val conf = HBaseConfiguration.create()
+conf.set(LoadIncrementalHFiles.MAX_FILES_PER_REGION_PER_FAMILY, "1024")
+
+// conf.setInt("hbase.mapreduce.bulkload.max.hfiles.perRegion.perFamily", 1024);
+</code></pre></div></div>
+
+<p>同时在 saveAsNewAPIHadoopFile 时要使用 conf</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result.saveAsNewAPIHadoopFile(tmpHdfs, classOf[ImmutableBytesWritable], classOf[KeyValue], classOf[HFileOutputFormat2], conf)
+</code></pre></div></div>
+
+<p>如果在直接使用 bulkload 命令时也报这个错误的话，给命令加个参数 -Dhbase.mapreduce.bulkload.max.hfiles.perRegion.perFamily=1024</p>
+
+<p>hbase org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles -Dhbase.mapreduce.bulkload.max.hfiles.perRegion.perFamily=1024   /tmp/pres person</p>
+
+<h4 id="总结">总结</h4>
+
+<p>真不容易。各种踩坑，各种填坑才完成的。</p>
+
+<p>主要参考来自 过往的记忆的两篇文章，和哥不是萝莉的文章。<a href="https://www.iteblog.com/archives/1891.html">资料1</a> 、<a href="https://www.cnblogs.com/smartloli/p/9501887.html">资料2</a>、<a href="https://www.iteblog.com/archives/1889.html">资料3</a>、<a href="https://mp.weixin.qq.com/s/fF1AXS958CS46vuJ0gMj5A">资料5</a></p>
+
+<p>Fayson 大神的 bulkload 好像比较高级。表示没看懂，有兴趣的大佬可以自己观摩。<a href="https://mp.weixin.qq.com/s/-Id4NIwMA1JtwAD1dXheAA">资料4</a></p>
+
+<hr />
+<p>参考链接</p>
+<blockquote>
+  <ul>
+    <li><a href="https://www.jianshu.com/p/b6c5a5ba30af">Spark读写HBase之使用Spark自带的API以及使用Bulk Load将大量数据导入HBase</a></li>
+    <li><a href="https://segmentfault.com/a/1190000009762041">Spark通过bulkLoad对HBase快速导入</a></li>
+    <li><a href="https://www.2cto.com/net/201710/692437.html">使用Spark通过Bulkload的方式导数据到HBase</a></li>
+    <li><a href="https://blog.csdn.net/u012719230/article/details/81456141">使用spark将数据以bulkload的方式写入HBase时报错</a></li>
+  </ul>
+</blockquote>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/03/14/spark-bulkload/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+

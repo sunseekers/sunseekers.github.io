@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>使用 HBase 存储图片 &mdash; 图</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2019/06/01/HBase-save-picture/">
+    <link rel="alternate" type="application/atom+xml" title="图" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="使用 HBase 存储图片">
+      
+    <meta name="keywords" content="HBase">
+    <meta name="og:keywords" content="HBase">
+      
+    <meta name="description" content="本文主要描述如何将图片文件转成 sequence file，然后保存到 HBase">
+    <meta name="og:description" content="本文主要描述如何将图片文件转成 sequence file，然后保存到 HBase">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2019/06/01/HBase-save-picture/">
+    <meta property="og:site_name" content="图">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-06-01">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="图"><span class="octicon octicon-mark-github"></span> 图</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="使用 HBase 存储图片">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">使用 HBase 存储图片</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/06/01
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#HBase" title="HBase">HBase</a>
+          </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>本文主要描述如何将图片文件转成 sequence file，然后保存到 HBase</p>
+
+<hr />
+
+<h4 id="前言">前言</h4>
+
+<p>HBase 可用于来数据文件。假设我们碰到的是图片文件呢，该如何保存或存储呢。<br />
+本文主要描述如何将图片文件转成sequence file，然后保存到HBase。</p>
+
+<h4 id="步骤">步骤</h4>
+
+<ol>
+  <li>
+    <p>文件处理流程</p>
+  </li>
+  <li>
+    <p>准备上传文件的Java代码</p>
+  </li>
+  <li>
+    <p>运行代码</p>
+  </li>
+  <li>
+    <p>读HBase并本地输出</p>
+  </li>
+</ol>
+
+<h4 id="处理流程">处理流程</h4>
+
+<p><img src="/images/blog/2019-06-01-4.png" alt="" height="80%" width="80%" /></p>
+
+<p>先在本地准备了一堆图片文件</p>
+
+<p><img src="/images/blog/2019-06-01-1.png" alt="" height="80%" width="80%" /></p>
+
+<p>上传到 HDFS</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="sb">`</span><span class="nb">ls </span>imgs<span class="sb">`</span><span class="p">;</span>
+<span class="k">do
+        </span>hadoop fs <span class="nt">-put</span> imgs/<span class="nv">$i</span> /tmp/lihm/picHbase
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p><img src="/images/blog/2019-06-01-2.png" alt="" height="80%" width="80%" /></p>
+
+<p>然后通过Java程序遍历所有图片生成一个Sequence File，然后把Sequence File入库到HBase<br />
+在入库过程中，我们读取图片文件的文件名作为Rowkey，另外将整个图片内容转为bytes存储在HBase表的一个column里。</p>
+
+<p>最后可以通过Hue来进行查看图片，当然你也可以考虑对接到你自己的查询系统。</p>
+
+<h4 id="准备上传文件的-java-代码">准备上传文件的 Java 代码</h4>
+
+<p>Maven 配置</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;name&gt;hbase-exmaple&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+    &lt;repositories&gt;
+        &lt;repository&gt;
+            &lt;id&gt;cloudera&lt;/id&gt;
+            &lt;url&gt;https://repository.cloudera.com/artifactory/cloudera-repos/&lt;/url&gt;
+            &lt;name&gt;Cloudera Repositories&lt;/name&gt;
+            &lt;snapshots&gt;
+                &lt;enabled&gt;false&lt;/enabled&gt;
+            &lt;/snapshots&gt;
+        &lt;/repository&gt;
+    &lt;/repositories&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+            &lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;
+            &lt;version&gt;2.6.0-cdh5.7.1&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-client --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.hbase&lt;/groupId&gt;
+            &lt;artifactId&gt;hbase-client&lt;/artifactId&gt;
+            &lt;version&gt;1.2.0-cdh5.7.1&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;3.8.1&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre></div></div>
+
+<p>上传文件到HBase的Java代码</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">cn</span><span class="p">.</span><span class="n">lihm</span><span class="p">.</span><span class="n">hbaseproj</span><span class="p">;</span>
+
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">File</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">FileOutputStream</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">IOException</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">net</span><span class="p">.</span><span class="n">URI</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">net</span><span class="p">.</span><span class="n">URISyntaxException</span><span class="p">;</span>
+
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">commons</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">IOUtils</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">Configuration</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">FSDataInputStream</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">FileStatus</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">FileSystem</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">fs</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">hbase</span><span class="p">.</span><span class="n">HBaseConfiguration</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">hbase</span><span class="p">.</span><span class="n">TableName</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">hbase</span><span class="p">.</span><span class="n">client</span><span class="p">.*;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">hbase</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">Bytes</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">BytesWritable</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">SequenceFile</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>
+
+<span class="p">/**</span>
+ <span class="p">*</span> <span class="p">@</span><span class="n">author</span> <span class="n">lihm</span>
+ <span class="p">*</span> <span class="p">@</span><span class="n">date</span> <span class="m">2019</span><span class="p">-</span><span class="m">06</span><span class="p">-</span><span class="m">01</span> <span class="m">15</span><span class="p">:</span><span class="m">26</span>
+ <span class="p">*</span> <span class="p">@</span><span class="n">description</span> <span class="n">TODO</span>
+ <span class="p">*/</span>
+
+<span class="k">public</span> <span class="n">class</span> <span class="n">SequenceFileTest</span> <span class="p">{</span>
+
+    <span class="n">private</span> <span class="n">static</span> <span class="k">String</span> <span class="n">inpath</span> <span class="p">=</span> <span class="s2">"/tmp/lihm/picHbase"</span><span class="p">;</span>
+    <span class="n">private</span> <span class="n">static</span> <span class="k">String</span> <span class="n">outpath</span> <span class="p">=</span> <span class="s2">"/tmp/lihm/out"</span><span class="p">;</span>
+    <span class="n">private</span> <span class="n">static</span> <span class="n">SequenceFile</span><span class="p">.</span><span class="n">Writer</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">null</span><span class="p">;</span>
+
+    <span class="p">/**</span>
+     <span class="p">*</span> <span class="err">递归文件</span><span class="p">;</span><span class="err">并将文件写成</span><span class="n">SequenceFile</span><span class="err">文件</span>
+     <span class="p">*</span>
+     <span class="p">*</span> <span class="p">@</span><span class="n">param</span> <span class="n">fileSystem</span>
+     <span class="p">*</span> <span class="p">@</span><span class="n">param</span> <span class="n">path</span>
+     <span class="p">*</span> <span class="p">@</span><span class="n">throws</span> <span class="n">Exception</span>
+     <span class="p">*/</span>
+    <span class="k">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">listFileAndWriteToSequenceFile</span><span class="p">(</span><span class="n">FileSystem</span> <span class="n">fileSystem</span><span class="p">,</span> <span class="k">String</span> <span class="n">path</span><span class="p">)</span> <span class="n">throws</span> <span class="n">Exception</span><span class="p">{</span>
+        <span class="n">final</span> <span class="n">FileStatus</span><span class="p">[]</span> <span class="n">listStatuses</span> <span class="p">=</span> <span class="n">fileSystem</span><span class="p">.</span><span class="n">listStatus</span><span class="p">(</span><span class="n">new</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">));</span>
+        <span class="n">for</span> <span class="p">(</span><span class="n">FileStatus</span> <span class="n">fileStatus</span> <span class="p">:</span> <span class="n">listStatuses</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">fileStatus</span><span class="p">.</span><span class="n">isFile</span><span class="p">()){</span>
+                <span class="n">Text</span> <span class="n">fileText</span> <span class="p">=</span> <span class="n">new</span> <span class="n">Text</span><span class="p">(</span><span class="n">fileStatus</span><span class="p">.</span><span class="n">getPath</span><span class="p">().</span><span class="n">toString</span><span class="p">());</span>
+                <span class="nf">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">fileText</span><span class="p">.</span><span class="n">toString</span><span class="p">());</span>
+                <span class="p">//</span><span class="err">返回一个</span><span class="n">SequenceFile</span><span class="p">.</span><span class="n">Writer</span><span class="err">实例</span> <span class="err">需要数据流和</span><span class="n">path</span><span class="err">对象</span> <span class="err">将数据写入了</span><span class="n">path</span><span class="err">对象</span>
+                <span class="n">FSDataInputStream</span> <span class="k">in</span> <span class="p">=</span> <span class="n">fileSystem</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">new</span> <span class="n">Path</span><span class="p">(</span><span class="n">fileText</span><span class="p">.</span><span class="n">toString</span><span class="p">()));</span>
+                <span class="n">byte</span><span class="p">[]</span> <span class="n">buffer</span> <span class="p">=</span> <span class="n">IOUtils</span><span class="p">.</span><span class="n">toByteArray</span><span class="p">(</span><span class="k">in</span><span class="p">);</span>
+                <span class="k">in</span><span class="p">.</span><span class="nb">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+                <span class="n">BytesWritable</span> <span class="n">value</span> <span class="p">=</span> <span class="n">new</span> <span class="n">BytesWritable</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+                <span class="p">//</span><span class="err">写成</span><span class="n">SequenceFile</span><span class="err">文件</span>
+                <span class="n">writer</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">fileText</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">fileStatus</span><span class="p">.</span><span class="n">isDirectory</span><span class="p">()){</span>
+                <span class="n">listFileAndWriteToSequenceFile</span><span class="p">(</span><span class="n">fileSystem</span><span class="p">,</span><span class="n">fileStatus</span><span class="p">.</span><span class="n">getPath</span><span class="p">().</span><span class="n">toString</span><span class="p">());</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="p">/**</span>
+     <span class="p">*</span> <span class="err">将二进制流转化后的图片输出到本地</span>
+     <span class="p">*</span>
+     <span class="p">*</span> <span class="p">@</span><span class="n">param</span> <span class="n">bs</span> <span class="err">二进制图片</span>
+     <span class="p">*</span> <span class="p">@</span><span class="n">param</span> <span class="n">picPath</span> <span class="err">本地路径</span>
+     <span class="p">*/</span>
+    <span class="k">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">picFileOutput</span><span class="p">(</span><span class="n">byte</span><span class="p">[]</span> <span class="n">bs</span><span class="p">,</span> <span class="k">String</span> <span class="n">picPath</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">//</span> <span class="err">将输出的二进制流转化后的图片的路径</span>
+        <span class="n">File</span> <span class="n">file</span> <span class="p">=</span> <span class="n">new</span> <span class="n">File</span><span class="p">(</span><span class="n">picPath</span><span class="p">);</span>
+        <span class="n">try</span> <span class="p">{</span>
+            <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="p">=</span> <span class="n">new</span> <span class="n">FileOutputStream</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+            <span class="n">fos</span><span class="p">.</span><span class="nb">write</span><span class="p">(</span><span class="n">bs</span><span class="p">);</span>
+            <span class="n">fos</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="p">/**</span>
+     <span class="p">*</span> <span class="err">读</span> <span class="n">hbase</span> <span class="err">图片</span>
+     <span class="p">*/</span>
+    <span class="k">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">readPicHBase</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">try</span> <span class="p">{</span>
+            <span class="n">Configuration</span> <span class="n">hbaseConf</span> <span class="p">=</span> <span class="n">HBaseConfiguration</span><span class="p">.</span><span class="nb">create</span><span class="p">();</span>
+            <span class="p">//</span> <span class="err">公司</span> <span class="n">HBase</span> <span class="err">集群</span>
+            <span class="n">hbaseConf</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="s2">"hbase.zookeeper.quorum"</span><span class="p">,</span> <span class="s2">"100.73.12.11"</span><span class="p">);</span>
+            <span class="n">hbaseConf</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="s2">"hbase.zookeeper.property.clientPort"</span><span class="p">,</span> <span class="s2">"2181"</span><span class="p">);</span>
+            <span class="n">hbaseConf</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="s2">"zookeeper.znode.parent"</span><span class="p">,</span> <span class="s2">"/hbase"</span><span class="p">);</span>
+            <span class="n">Connection</span> <span class="n">connection</span> <span class="p">=</span> <span class="n">ConnectionFactory</span><span class="p">.</span><span class="n">createConnection</span><span class="p">(</span><span class="n">hbaseConf</span><span class="p">);</span>
+            <span class="n">Table</span> <span class="n">table</span> <span class="p">=</span> <span class="n">connection</span><span class="p">.</span><span class="n">getTable</span><span class="p">(</span><span class="n">TableName</span><span class="p">.</span><span class="n">valueOf</span><span class="p">(</span><span class="s2">"tu"</span><span class="p">));</span>
+            <span class="n">Get</span> <span class="n">get</span> <span class="p">=</span> <span class="n">new</span> <span class="n">Get</span><span class="p">(</span><span class="s2">"8cd2f12410037fe73cfeb7b6a65be935.jpg"</span><span class="p">.</span><span class="n">getBytes</span><span class="p">());</span>
+            <span class="n">Result</span> <span class="n">rs</span> <span class="p">=</span> <span class="n">table</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">get</span><span class="p">);</span>
+            <span class="p">//</span> <span class="err">保存</span><span class="n">get</span> <span class="n">result</span><span class="err">的结果，字节数组形式</span>
+            <span class="n">byte</span><span class="p">[]</span> <span class="n">bs</span> <span class="p">=</span> <span class="n">rs</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+            <span class="n">picFileOutput</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="s2">"/Users/tu/Public/ZaWu/picHBase/8cd2f12410037fe73cfeb7b6a65be935.jpg"</span><span class="p">);</span>
+            <span class="n">table</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+            <span class="n">connection</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="p">/**</span>
+     <span class="p">*</span> <span class="err">将图片文件转成</span><span class="n">sequence</span> <span class="n">file</span><span class="err">，然后保存到</span><span class="n">HBase</span>
+     <span class="p">*/</span>
+    <span class="k">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">picToHBase</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">try</span> <span class="p">{</span>
+            <span class="n">Configuration</span> <span class="n">hbaseConf</span> <span class="p">=</span> <span class="n">HBaseConfiguration</span><span class="p">.</span><span class="nb">create</span><span class="p">();</span>
+            <span class="p">//</span> <span class="err">公司</span> <span class="n">HBase</span> <span class="err">集群</span>
+            <span class="n">hbaseConf</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="s2">"hbase.zookeeper.quorum"</span><span class="p">,</span> <span class="s2">"100.73.12.11"</span><span class="p">);</span>
+            <span class="n">hbaseConf</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="s2">"hbase.zookeeper.property.clientPort"</span><span class="p">,</span> <span class="s2">"2181"</span><span class="p">);</span>
+            <span class="n">hbaseConf</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="s2">"zookeeper.znode.parent"</span><span class="p">,</span> <span class="s2">"/hbase"</span><span class="p">);</span>
+            <span class="n">Connection</span> <span class="n">connection</span> <span class="p">=</span> <span class="n">ConnectionFactory</span><span class="p">.</span><span class="n">createConnection</span><span class="p">(</span><span class="n">hbaseConf</span><span class="p">);</span>
+            <span class="n">Table</span> <span class="n">table</span> <span class="p">=</span> <span class="n">connection</span><span class="p">.</span><span class="n">getTable</span><span class="p">(</span><span class="n">TableName</span><span class="p">.</span><span class="n">valueOf</span><span class="p">(</span><span class="s2">"tu"</span><span class="p">));</span>
+
+            <span class="p">//</span> <span class="err">设置读取本地磁盘文件</span>
+            <span class="n">Configuration</span> <span class="n">conf</span> <span class="p">=</span> <span class="n">new</span> <span class="n">Configuration</span><span class="p">();</span>
+            <span class="n">conf</span><span class="p">.</span><span class="n">addResource</span><span class="p">(</span><span class="n">new</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"/Users/tu/Public/ZaWu/conf.cloudera.yarn/core-site.xml"</span><span class="p">));</span>
+            <span class="n">conf</span><span class="p">.</span><span class="n">addResource</span><span class="p">(</span><span class="n">new</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"/Users/tu/Public/ZaWu/conf.cloudera.yarn/yarn-site.xml"</span><span class="p">));</span>
+            <span class="n">conf</span><span class="p">.</span><span class="n">addResource</span><span class="p">(</span><span class="n">new</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"/Users/tu/Public/ZaWu/conf.cloudera.yarn/hdfs-site.xml"</span><span class="p">));</span>
+            <span class="n">URI</span> <span class="n">uri</span> <span class="p">=</span> <span class="n">new</span> <span class="n">URI</span><span class="p">(</span><span class="n">inpath</span><span class="p">);</span>
+            <span class="n">FileSystem</span> <span class="n">fileSystem</span> <span class="p">=</span> <span class="n">FileSystem</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">conf</span><span class="p">,</span><span class="s2">"hdfs"</span><span class="p">);</span>
+            <span class="p">//</span> <span class="err">实例化</span><span class="n">writer</span><span class="err">对象</span>
+            <span class="n">writer</span> <span class="p">=</span> <span class="n">SequenceFile</span><span class="p">.</span><span class="n">createWriter</span><span class="p">(</span><span class="n">fileSystem</span><span class="p">,</span> <span class="n">conf</span><span class="p">,</span> <span class="n">new</span> <span class="n">Path</span><span class="p">(</span><span class="n">outpath</span><span class="p">),</span> <span class="n">Text</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="n">BytesWritable</span><span class="p">.</span><span class="n">class</span><span class="p">);</span>
+            <span class="p">//</span> <span class="err">递归遍历文件夹，并将文件下的文件写入</span> <span class="n">sequenceFile</span> <span class="err">文件</span>
+            <span class="n">listFileAndWriteToSequenceFile</span><span class="p">(</span><span class="n">fileSystem</span><span class="p">,</span> <span class="n">inpath</span><span class="p">);</span>
+            <span class="p">//</span> <span class="err">关闭流</span>
+            <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">IOUtils</span><span class="p">.</span><span class="n">closeStream</span><span class="p">(</span><span class="n">writer</span><span class="p">);</span>
+            <span class="p">//</span> <span class="err">读取所有文件</span>
+            <span class="n">URI</span> <span class="n">seqURI</span> <span class="p">=</span> <span class="n">new</span> <span class="n">URI</span><span class="p">(</span><span class="n">outpath</span><span class="p">);</span>
+            <span class="n">FileSystem</span> <span class="n">fileSystemSeq</span> <span class="p">=</span> <span class="n">FileSystem</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">seqURI</span><span class="p">,</span> <span class="n">conf</span><span class="p">);</span>
+            <span class="n">SequenceFile</span><span class="p">.</span><span class="n">Reader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">new</span> <span class="n">SequenceFile</span><span class="p">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">fileSystemSeq</span><span class="p">,</span> <span class="n">new</span> <span class="n">Path</span><span class="p">(</span><span class="n">outpath</span><span class="p">),</span> <span class="n">conf</span><span class="p">);</span>
+            <span class="n">Text</span> <span class="n">key</span> <span class="p">=</span> <span class="n">new</span> <span class="n">Text</span><span class="p">();</span>
+            <span class="n">BytesWritable</span> <span class="n">val</span> <span class="p">=</span> <span class="n">new</span> <span class="n">BytesWritable</span><span class="p">();</span>
+            <span class="p">//</span> <span class="n">key</span> <span class="p">=</span> <span class="p">(</span><span class="n">Text</span><span class="p">)</span> <span class="n">ReflectionUtils</span><span class="p">.</span><span class="n">newInstance</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">getKeyClass</span><span class="p">(),</span> <span class="n">conf</span><span class="p">);</span>
+            <span class="p">//</span> <span class="n">val</span> <span class="p">=</span> <span class="p">(</span><span class="n">BytesWritable</span><span class="p">)</span> <span class="n">ReflectionUtils</span><span class="p">.</span><span class="n">newInstance</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">getValueClass</span><span class="p">(),</span> <span class="n">conf</span><span class="p">);</span>
+            <span class="n">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="k">next</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)){</span>
+                <span class="p">//</span> <span class="err">读取图片文件的文件名作为</span> <span class="n">Rowkey</span>
+                <span class="k">String</span> <span class="n">temp</span> <span class="p">=</span> <span class="n">key</span><span class="p">.</span><span class="n">toString</span><span class="p">();</span>
+                <span class="n">temp</span> <span class="p">=</span> <span class="n">temp</span><span class="p">.</span><span class="n">substring</span><span class="p">(</span><span class="n">temp</span><span class="p">.</span><span class="n">lastIndexOf</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+                <span class="p">//</span> <span class="n">rowKey</span> <span class="err">设计</span>
+                <span class="k">String</span> <span class="n">rowKey</span> <span class="p">=</span> <span class="n">temp</span><span class="p">;</span>
+                <span class="p">//</span> <span class="k">String</span> <span class="n">rowKey</span> <span class="p">=</span> <span class="k">Integer</span><span class="p">.</span><span class="n">valueOf</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="m">0</span><span class="p">])-</span><span class="m">1</span><span class="p">+</span><span class="s2">"_"</span><span class="p">+</span><span class="k">Integer</span><span class="p">.</span><span class="n">valueOf</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="m">1</span><span class="p">])/</span><span class="m">2</span><span class="p">+</span><span class="s2">"_"</span><span class="p">+</span><span class="k">Integer</span><span class="p">.</span><span class="n">valueOf</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="m">2</span><span class="p">])/</span><span class="m">2</span><span class="p">;</span>
+                <span class="nf">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">rowKey</span><span class="p">);</span>
+                <span class="p">//</span> <span class="err">构造</span> <span class="n">Put</span>
+                <span class="n">Put</span> <span class="n">put</span> <span class="p">=</span> <span class="n">new</span> <span class="n">Put</span><span class="p">(</span><span class="n">Bytes</span><span class="p">.</span><span class="n">toBytes</span><span class="p">(</span><span class="n">rowKey</span><span class="p">));</span>
+                <span class="p">//</span> <span class="err">指定列簇名称、列修饰符、列值</span> <span class="n">temp</span><span class="p">.</span><span class="n">getBytes</span><span class="p">()</span>
+                <span class="n">put</span><span class="p">.</span><span class="n">addColumn</span><span class="p">(</span><span class="s2">"picinfo"</span><span class="p">.</span><span class="n">getBytes</span><span class="p">(),</span> <span class="s2">"content"</span><span class="p">.</span><span class="n">getBytes</span><span class="p">()</span> <span class="p">,</span> <span class="n">val</span><span class="p">.</span><span class="n">getBytes</span><span class="p">());</span>
+                <span class="n">table</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="n">put</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">table</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+            <span class="n">connection</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+            <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">hadoop</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">IOUtils</span><span class="p">.</span><span class="n">closeStream</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
+
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">URISyntaxException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="k">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">picToHBase</span><span class="p">();</span>
+        <span class="n">readPicHBase</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="运行代码">运行代码</h4>
+
+<p>首先在 HBase 中建一张表用来保存文本文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>create 'tu',  'picinfo'
+</code></pre></div></div>
+
+<p>注意修改代码中的配置项，如文本文件所在的 HDFS 目录，集群的 Zookeeper 地址，conf 配置路径等。</p>
+
+<p>我是在本地电脑上运行的。也可以将代码打成jar包并上传到集群服务器节点。该过程略。</p>
+
+<h4 id="hbase-查询验证">HBase 查询验证</h4>
+
+<p>我是将其输出到本地路径下</p>
+
+<p><img src="/images/blog/2019-06-01-3.png" alt="" height="80%" width="80%" /></p>
+
+<p>也可以用 Hue 中查询验证。</p>
+
+<p><img src="/images/blog/2019-06-19-4.png" alt="" height="80%" width="80%" /></p>
+
+<hr />
+<p>参考链接</p>
+<ul>
+  <li><a href="https://mp.weixin.qq.com/s/KA1EupPqm8uzRk7_-8D3KA">HBase实操 如何使用HBase存储图片</a></li>
+  <li><a href="https://blog.csdn.net/love666666shen/article/details/82931783">HBase存储、插入、修改、读取图片操作</a></li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/06/01/HBase-save-picture/',
+            clientID: '2099ede60a4e9fcf1a9b',
+            clientSecret: '9cc2ee09ee4a85b2781480ddb339b0f9354b84b4',
+            repo: 'blog-comments',
+            owner: 'lihuimintu',
+            admin: ['lihuimintu'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="lihuimintu">lihuimintu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/DWJWendy/DWJWendy.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+
