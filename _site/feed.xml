@@ -1,3 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-04T15:49:38+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">Hello world</title><link href="http://localhost:4000/2019/07/04/hello-world/" rel="alternate" type="text/html" title="Hello world" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/hello%20world</id><content type="html" xml:base="http://localhost:4000/2019/07/04/hello-world/">&lt;h1 id=&quot;hello-world&quot;&gt;hello world&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-04T17:16:11+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">欢迎来到我的世界</title><link href="http://localhost:4000/2019/07/04/hello-world/" rel="alternate" type="text/html" title="欢迎来到我的世界" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/hello%20world</id><content type="html" xml:base="http://localhost:4000/2019/07/04/hello-world/">&lt;p&gt;我为什么要写博客&lt;/p&gt;
 
-&lt;p&gt;欢迎来到我的博客，开启我的博客之旅&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">hello world</summary></entry></feed>
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/life/003.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;为什么我要写博客&quot;&gt;为什么我要写博客&lt;/h2&gt;
+&lt;p&gt;距离上一次搭建博客是三年前了，但是三年前搭了一个框架，就没有下文了，那时候没啥可写的，就放弃了。
+现在觉得有些东西应该被记录，不能被遗忘，虽然有记事本，备忘录，有道笔记，他们都留下了我的痕迹，
+有些杂乱不成文，每次找起来都很不方便。所以博客他就诞生了，博客主要记录工作，微信公众号主要记录生活。&lt;/p&gt;
+
+&lt;h2 id=&quot;博客的前世今生&quot;&gt;博客的前世今生&lt;/h2&gt;
+&lt;p&gt;原计划是自己搭建全套的博客系统的，有后台管理系统，前端页面展示系统。选了 &lt;code class=&quot;highlighter-rouge&quot;&gt;go&lt;/code&gt; 做后台，前端在 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 和
+&lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 之间选择，我只会 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; ，&lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 是最近炒的很火的，我不会 。无限的可能都需要去尝试，不想错过。
+ &lt;code class=&quot;highlighter-rouge&quot;&gt;go&lt;/code&gt; 我也在学习中，可以学到天荒地老。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/life/002.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;路漫漫其修远兮，一次聊天，产品问，为啥不搭建自己的博客。当时我回答的是，搭建系统太难了。他说很简单呀，网上有很多模版。
+然后我就借用 &lt;code class=&quot;highlighter-rouge&quot;&gt;github page&lt;/code&gt; 开启了我的博客。折腾捣鼓了两天，踩了很多坑。盘复这两天其实很简单，只是我蠢。&lt;/p&gt;
+
+&lt;p&gt;产品推动博客，哈哈&lt;/p&gt;
+
+&lt;p&gt;这两天要感谢 &lt;a href=&quot;https://github.com/lihuimintu&quot;&gt;一个小伙伴&lt;/a&gt;，不嫌弃的一直指导 &lt;img src=&quot;../../images/life/001.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;工作&quot;&gt;工作&lt;/h2&gt;
+&lt;p&gt;工作总会遇到各种奇葩的问题，有因为我粗心的，有因为我能力有限的，有因为我缺乏思考的，是问题总要解决的。
+问朋友是最高效也是最低效的方法之一，希望有一个大佬带我飞，随时帮我解决各种奇葩问题，见证我的成长，缩小彼此的距离，而不是渐行渐远。
+感谢曾经现在未来，每一个陪伴不曾嫌弃的的朋友，都想记录，即便是有一天失去联系，留下痕迹依旧存在&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">我为什么要写博客</summary></entry></feed>
