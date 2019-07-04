@@ -1,9 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-04T17:28:23+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">欢迎来到我的世界</title><link href="http://localhost:4000/2019/07/04/hello-world/" rel="alternate" type="text/html" title="欢迎来到我的世界" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/hello%20world</id><content type="html" xml:base="http://localhost:4000/2019/07/04/hello-world/">&lt;p&gt;我为什么要写博客&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-04T22:01:10+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">vue 系列文章推荐</title><link href="http://localhost:4000/2019/07/04/vue-recommend/" rel="alternate" type="text/html" title="vue 系列文章推荐" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/vue%20recommend</id><content type="html" xml:base="http://localhost:4000/2019/07/04/vue-recommend/">&lt;h1 id=&quot;发现探索-vue-优质文章&quot;&gt;发现，探索 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 优质文章&lt;/h1&gt;
+&lt;p&gt;传送 我觉得写的好的 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 文章，曾经帮助我解决过问题的文章，推荐理由+链接，方便我下次快速查找。
+部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;h2 id=&quot;来自-github&quot;&gt;来自 &lt;code class=&quot;highlighter-rouge&quot;&gt;github&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/life/003.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;来自掘金&quot;&gt;来自掘金&lt;/h2&gt;
 
+&lt;h2 id=&quot;来自知乎&quot;&gt;来自知乎&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/71667382&quot;&gt;精读《Vue3.0 Function API》&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vue 3.0&lt;/code&gt; 提前篇 仅供参考 具有时效性&lt;/p&gt;
+
+&lt;h2 id=&quot;来自博客&quot;&gt;来自博客&lt;/h2&gt;
+
+&lt;h2 id=&quot;来自简书&quot;&gt;来自简书&lt;/h2&gt;
+
+&lt;h2 id=&quot;来自网络&quot;&gt;来自网络&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">发现，探索 vue 优质文章 传送 我觉得写的好的 vue 文章，曾经帮助我解决过问题的文章，推荐理由+链接，方便我下次快速查找。 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">vue 系列小实例</title><link href="http://localhost:4000/2019/07/04/vue-practice/" rel="alternate" type="text/html" title="vue 系列小实例" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/vue%20practice</id><content type="html" xml:base="http://localhost:4000/2019/07/04/vue-practice/">&lt;h1 id=&quot;vue-动手系列&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 动手系列&lt;/h1&gt;
+&lt;p&gt;搬运工，搬运可以动手尝试 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
+
+&lt;h2 id=&quot;来自-github&quot;&gt;来自 &lt;code class=&quot;highlighter-rouge&quot;&gt;github&lt;/code&gt;&lt;/h2&gt;
+
+&lt;h2 id=&quot;来自掘金&quot;&gt;来自掘金&lt;/h2&gt;
+
+&lt;h2 id=&quot;来自知乎&quot;&gt;来自知乎&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/59317112&quot;&gt;实现一个 Vue 吸顶锚点组件&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/66779396&quot;&gt;长列表渲染实践&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;来自博客&quot;&gt;来自博客&lt;/h2&gt;
+
+&lt;h2 id=&quot;来自简书&quot;&gt;来自简书&lt;/h2&gt;
+
+&lt;h2 id=&quot;来自网络&quot;&gt;来自网络&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">vue 动手系列 搬运工，搬运可以动手尝试 vue 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">react 项目学习</title><link href="http://localhost:4000/2019/07/04/react/" rel="alternate" type="text/html" title="react 项目学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/react</id><content type="html" xml:base="http://localhost:4000/2019/07/04/react/">&lt;h1 id=&quot;react-项目及参考&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt; 项目及参考&lt;/h1&gt;
+&lt;p&gt;这是平时练习学习 &lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt; 项目的一篇文章，参考优秀项目进行学习，记录在项目中遇到的一些已经解决的问题。&lt;/p&gt;
+
+&lt;p&gt;有些因为时间关系没有解决但以后会解决的问题&lt;/p&gt;
+
+&lt;p&gt;部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
+
+&lt;h2 id=&quot;参考项目&quot;&gt;&lt;a href=&quot;http://dzblog.cn/article/5aa7ef0e4f85ad06d2346688&quot;&gt;参考项目&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;参考的是一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt; 后台管理系统&lt;/p&gt;
+
+&lt;h2 id=&quot;react-遇到的问题已经解决的&quot;&gt;React 遇到的问题，已经解决的&lt;/h2&gt;
+&lt;p&gt;@connect  装饰器的使用，&lt;a href=&quot;https://www.jianshu.com/p/d07ccef9f4f0，http://es6.ruanyifeng.com/#docs/decorator&quot;&gt;参考资料&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;React-redux里面bindActionCreator组件的使用，&lt;a href=&quot;https://segmentfault.com/a/1190000015044057&quot;&gt;参考资料&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;被他包裹的组件在没有被 &lt;code class=&quot;highlighter-rouge&quot;&gt;router&lt;/code&gt;组件包裹的情况下，依然可以获取到路由相关的信息比如：&lt;code class=&quot;highlighter-rouge&quot;&gt;loaction&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;match&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;history&lt;/code&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/36895827&quot;&gt;参考资料&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;react-遇到的问题未解决的&quot;&gt;React 遇到的问题，未解决的&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;React-router-dom&lt;/code&gt; 的 &lt;code class=&quot;highlighter-rouge&quot;&gt;withRouter&lt;/code&gt; 组件验证？&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; 里面 &lt;code class=&quot;highlighter-rouge&quot;&gt;webpack&lt;/code&gt; 的基本配置里面 &lt;code class=&quot;highlighter-rouge&quot;&gt;entry&lt;/code&gt; 入口文件没有用？&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>sunseekers</name></author><summary type="html">react 项目及参考 这是平时练习学习 react 项目的一篇文章，参考优秀项目进行学习，记录在项目中遇到的一些已经解决的问题。</summary></entry><entry><title type="html">nuxt 入门学习</title><link href="http://localhost:4000/2019/07/04/nuxt/" rel="alternate" type="text/html" title="nuxt 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/nuxt</id><content type="html" xml:base="http://localhost:4000/2019/07/04/nuxt/">&lt;h1 id=&quot;nuxt-入门学习及参考&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nuxt&lt;/code&gt; 入门学习及参考&lt;/h1&gt;
+&lt;p&gt;这是初次接触学习 &lt;code class=&quot;highlighter-rouge&quot;&gt;nuxt&lt;/code&gt; 的一篇文章，入门学习的时候找的一些自认为还不错的资料。
+有些是自己看过，有些是来不及看的。先记录下来，供以后的学习参考
+部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
+
+&lt;h2 id=&quot;文档&quot;&gt;文档&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://zh.nuxtjs.org/guide/&quot;&gt;Nuxt.js文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;文章&quot;&gt;文章&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000012802572&quot;&gt;Nuxt.js实战&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;案例&quot;&gt;案例&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://my.oschina.net/qiangdada/blog/1789641&quot;&gt;合格前端系列第十一弹-初探 Nuxt.js 秘密花园&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">nuxt 入门学习及参考 这是初次接触学习 nuxt 的一篇文章，入门学习的时候找的一些自认为还不错的资料。 有些是自己看过，有些是来不及看的。先记录下来，供以后的学习参考 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">欢迎来到我的世界</title><link href="http://localhost:4000/2019/07/04/hello-world/" rel="alternate" type="text/html" title="欢迎来到我的世界" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/hello%20world</id><content type="html" xml:base="http://localhost:4000/2019/07/04/hello-world/">&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/life/003.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;开启我的博客之旅&quot;&gt;开启我的博客之旅&lt;/h1&gt;
 &lt;h2 id=&quot;为什么我要写博客&quot;&gt;为什么我要写博客&lt;/h2&gt;
 &lt;p&gt;距离上一次搭建博客是三年前了，但是三年前搭了一个框架，就没有下文了，那时候没啥可写的，就放弃了。
 现在觉得有些东西应该被记录，不能被遗忘，虽然有记事本，备忘录，有道笔记，他们都留下了我的痕迹，
@@ -26,4 +100,32 @@
 &lt;h2 id=&quot;工作&quot;&gt;工作&lt;/h2&gt;
 &lt;p&gt;工作总会遇到各种奇葩的问题，有因为我粗心的，有因为我能力有限的，有因为我缺乏思考的，是问题总要解决的。
 问朋友是最高效也是最低效的方法之一，希望有一个大佬带我飞，随时帮我解决各种奇葩问题，见证我的成长，缩小彼此的距离，而不是渐行渐远。
-感谢曾经现在未来，每一个陪伴不曾嫌弃的的朋友，都想记录，即便是有一天失去联系，留下痕迹依旧存在&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">我为什么要写博客</summary></entry></feed>
+感谢曾经现在未来，每一个陪伴不曾嫌弃的的朋友，都想记录，即便是有一天失去联系，留下痕迹依旧存在&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">开启我的博客之旅 为什么我要写博客 距离上一次搭建博客是三年前了，但是三年前搭了一个框架，就没有下文了，那时候没啥可写的，就放弃了。 现在觉得有些东西应该被记录，不能被遗忘，虽然有记事本，备忘录，有道笔记，他们都留下了我的痕迹， 有些杂乱不成文，每次找起来都很不方便。所以博客他就诞生了，博客主要记录工作，微信公众号主要记录生活。</summary></entry><entry><title type="html">go 入门学习</title><link href="http://localhost:4000/2019/07/04/go/" rel="alternate" type="text/html" title="go 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/go</id><content type="html" xml:base="http://localhost:4000/2019/07/04/go/"></content><author><name>sunseekers</name></author><summary type="html"></summary></entry><entry><title type="html">flutter 入门学习</title><link href="http://localhost:4000/2019/07/04/flutter/" rel="alternate" type="text/html" title="flutter 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/flutter</id><content type="html" xml:base="http://localhost:4000/2019/07/04/flutter/">&lt;h1 id=&quot;flutter-入门学习及参考&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 入门学习及参考&lt;/h1&gt;
+&lt;p&gt;这是初次接触学习# &lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 的一篇文章，入门学习的时候找的一些自认为还不错的资料。
+有些是自己看过，有些是来不及看的。先记录下来，供以后的学习参考
+部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
+
+&lt;h2 id=&quot;github-参考案例&quot;&gt;github 参考案例&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/kunkun12/Flutter_shop&quot;&gt;Flutter_shop&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">flutter 入门学习及参考 这是初次接触学习# flutter 的一篇文章，入门学习的时候找的一些自认为还不错的资料。 有些是自己看过，有些是来不及看的。先记录下来，供以后的学习参考 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">浏览器 or 计算机系列文章</title><link href="http://localhost:4000/2019/07/04/computer/" rel="alternate" type="text/html" title="浏览器 or 计算机系列文章" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/computer</id><content type="html" xml:base="http://localhost:4000/2019/07/04/computer/">&lt;h1 id=&quot;发现理解浏览器-or-计算机系列文章&quot;&gt;发现理解浏览器 or 计算机系列文章&lt;/h1&gt;
+&lt;p&gt;半路出家的前端程序猿，对于计算机这一块知识的空白，全靠平时闲来无事坑坑别人的文章。
+自己去看书枯燥无味，未必看的懂。这里主要记录有意无意发现还不错的文章，而我刚好需要弥补这一块的知识。
+部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
+
+&lt;h2 id=&quot;来自博客&quot;&gt;来自博客&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html&quot;&gt;互联网协议入门（一）&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html&quot;&gt;互联网协议入门（二）&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2016/06/dns.html&quot;&gt;DNS 原理入门&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html&quot;&gt;TCP 协议简介&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;来自掘金&quot;&gt;来自掘金&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5c947bca5188257de704121d&quot;&gt;浏览器的Event-loop&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;来自-github&quot;&gt;来自 &lt;code class=&quot;highlighter-rouge&quot;&gt;github&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/YvetteLau/Blog/tree/master/Security&quot;&gt;Web的几种攻击方式以及预防&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;来自团队&quot;&gt;来自团队&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://tech.meituan.com/2018/10/11/fe-security-csrf.html&quot;&gt;前端安全系列（二）：如何防止CSRF攻击？&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">发现理解浏览器 or 计算机系列文章 半路出家的前端程序猿，对于计算机这一块知识的空白，全靠平时闲来无事坑坑别人的文章。 自己去看书枯燥无味，未必看的懂。这里主要记录有意无意发现还不错的文章，而我刚好需要弥补这一块的知识。 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry></feed>

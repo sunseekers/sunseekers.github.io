@@ -57,9 +57,51 @@
 
   
     {
+      "title"    : "浏览器 or 计算机系列文章",
+      "category" : "浏览器",
+      "url"      : "http://localhost:4000/2019/07/04/computer/"
+    } ,
+  
+    {
+      "title"    : "flutter 入门学习",
+      "category" : "flutter",
+      "url"      : "http://localhost:4000/2019/07/04/flutter/"
+    } ,
+  
+    {
+      "title"    : "go 入门学习",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2019/07/04/go/"
+    } ,
+  
+    {
       "title"    : "欢迎来到我的世界",
       "category" : "生活",
       "url"      : "http://localhost:4000/2019/07/04/hello-world/"
+    } ,
+  
+    {
+      "title"    : "nuxt 入门学习",
+      "category" : "nuxt",
+      "url"      : "http://localhost:4000/2019/07/04/nuxt/"
+    } ,
+  
+    {
+      "title"    : "react 项目学习",
+      "category" : "react",
+      "url"      : "http://localhost:4000/2019/07/04/react/"
+    } ,
+  
+    {
+      "title"    : "vue 系列小实例",
+      "category" : "vue",
+      "url"      : "http://localhost:4000/2019/07/04/vue-practice/"
+    } ,
+  
+    {
+      "title"    : "vue 系列文章推荐",
+      "category" : "vue",
+      "url"      : "http://localhost:4000/2019/07/04/vue-recommend/"
     } ,
   
     {
