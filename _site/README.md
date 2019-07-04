@@ -1,10 +1,10 @@
-# 图
+# sunseekers
 
-我的个人博客：<https://lihuimintu.github.io/>
+我的个人博客：<https://sunseekers.github.io/>
 
-Fork自 毛毛虫_Wendy的<http://mmcwendy.info> 
+Fork自 图的<https://lihuimintu.github.io/> 
 
-PS：毛毛虫_Wendy已经删除她的 Blog 仓库。
+博客还在搭建期间，慢慢完善中
 
 ## 概览
 
@@ -28,7 +28,7 @@ Fork 本项目之后，还需要做一些事情才能让你的页面「正确」
 2. 修改域名。
 
    如果你需要绑定自己的域名，那么修改 CNAME 文件的内容；如果不需要绑定自己的域名，那么删掉 CNAME 文件。 \
-   毛毛虫_Wendy上面有介绍怎么修改域名。需要绑定域名的可以参考她的方式 \
+   图上面有介绍怎么修改域名。需要绑定域名的可以参考她的方式 \
    本人没有使用域名，已经将其 CNAME 文件删除了
 
 3. 修改配置。
@@ -40,7 +40,7 @@ Fork 本项目之后，还需要做一些事情才能让你的页面「正确」
    本人使用的是 gitalk 。gitment 按教程配置没成功。有报错，没找到解决方式，于是放弃。\
    [注册 OAuth Application](https://github.com/settings/applications/new) 
    来注册一个新的 OAuth Application。其他内容可以随意填写，
-   但要确保填入正确的 callback URL（一般是评论页面对应的域名，如 https://imsun.net，这里我填的是我 Blog 域名 https://lihuimintu.github.io ）。\
+   但要确保填入正确的 callback URL（一般是评论页面对应的域名，这里我填的是我 Blog 域名 https://sunseekers.github.io ）。\
    你会得到一个 client ID 和一个 client secret，这个将被用于之后的用户登录。
    将其在 _config.yml 中替换掉
    ```
@@ -69,20 +69,35 @@ Fork 本项目之后，还需要做一些事情才能让你的页面「正确」
    使用的是leancloud，参照的[博客来源][1]
    
    本人未用博客阅读统计功能。在 _config.yml 将其关闭了
+7. 注释了页脚的联系方式
+```
+<!--<div class="share">-->
+    <!--{% include sns-share.html %}-->
+<!--</div>-->
+<!--<div class="comment">-->
+    <!--{% include comments.html %}-->
+<!--</div>-->
+```
    
 ## 经验与思考
 
-* 大家可以先参考毛毛虫_Wendy的经验与思考
-* 评论的真是坑到我了。为了后人少走弯路，写下了踩坑过程。
+* 大家可以先参考图的经验与思考
 * 使用方式先在 _drafts 下新建 md 文件。文件开头参考 template.md 模版。写好后再移动到 _posts/blog 下。接着提交到 GitHub 即可
 
 
 ## 致谢
 
 本博客外观
+
+基于 [图](http://lihuimintu.github.io)
+
 基于 [毛毛虫_Wendy](http://mmcwendy.info)
+
 基于 [DONGChuan](http://dongchuan.github.io) 
+
 基于 [Zhuang Ma](http://mazhuang.org/)
+
 修改，非常感谢！
 
 [1]: http://jekyllthemes.org/
+

@@ -1,40 +1,40 @@
 ---
 layout: page
-title: About
+title: 我是谁 我在哪 我想说
 description: sunseekers Personal Blog
 keywords: sunseekers 
 comments: true
 menu: 关于
 permalink: /about/
-subtitle:   <h3>Download My CV</h3>
-            <a role="button" class="btn btn-primary hvr-grow-shadow" href="/assets/files/CV_Wendy_e.pdf" target="_blanks">
-                <span class="flag-icon flag-icon-gb"></span> English
-            </a>
-            <a role="button" class="btn btn-primary hvr-grow-shadow" href="/assets/files/CV_Wendy_e.pdf" target="_blanks">
-                <span class="flag-icon flag-icon-cn"></span> 中文
-            </a>
                             
 ---
 
-个人本职工作是一个前端工程师。
+![](../images/about/me.jpeg)
 
-通过记录博客的方式记录自己成长。记录自己的改变。
+借用微信公众号三年前的一张图
 
-记录知识，坚信努力改变人生。
+那时候我还是个学生，那时候的我和现在的我，同个我的不同时期。
 
-## 联系
+有事没事喜欢瞎写公众号，有兴趣可以粉一波：sunseekers
 
-{% for website in site.data.social %}
-* {{ website.sitename }}：[@{{ website.name }}]({{ website.url }})
-{% endfor %}
 
-## Skill Keywords
+前行的生活路上仍然可以做自己，不迷失，不管走多远都能记得当初的梦想
 
-{% for category in site.data.skills %}
-### {{ category.name }}
-<div class="btn-inline">
-{% for keyword in category.keywords %}
-<button class="btn btn-outline" type="button">{{ keyword }}</button>
-{% endfor %}
-</div>
-{% endfor %}
+真的勇士敢于直面惨淡的人生，是简单还是不易，都要快乐
+
+古人云：" 二十弱冠,三十而立,四十为惑.五十而知天命,六十花甲,七十古来稀,八十耄耋"；
+
+不同时期有不同的故事，从未停止一直在继续故事和时间，有故事也有酒
+
+愿你走出半生， 归来仍是少年
+
+但愿所期望的远方，都会如期而至
+
+
+
+
+
+
+
+
+
