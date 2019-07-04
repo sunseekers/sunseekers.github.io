@@ -1,8 +1,8 @@
 ---
 layout: page
 title: About
-description: tu's Personal Blog
-keywords: lihuimintu, tu, 图 
+description: sunseekers Personal Blog
+keywords: sunseekers 
 comments: true
 menu: 关于
 permalink: /about/
@@ -16,7 +16,7 @@ subtitle:   <h3>Download My CV</h3>
                             
 ---
 
-个人本职工作是一个大数据运维工程师。
+个人本职工作是一个前端工程师。
 
 通过记录博客的方式记录自己成长。记录自己的改变。
 
