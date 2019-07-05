@@ -107,6 +107,12 @@
     } ,
   
     {
+      "title"    : "前端规范",
+      "category" : "前端面试",
+      "url"      : "http://localhost:4000/2019/07/05/css-standard/"
+    } ,
+  
+    {
       "title"    : "前端面试系列文章",
       "category" : "前端面试",
       "url"      : "http://localhost:4000/2019/07/05/interview/"

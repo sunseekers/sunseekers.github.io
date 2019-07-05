@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>博客分类 &mdash; sunseekers</title>
+    <title>前端规范 &mdash; sunseekers</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -21,26 +21,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/categories/">
+    <link rel="canonical" href="http://localhost:4000/2019/07/05/css-standard/">
     <link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="博客分类">
+    <meta property="og:title" content="前端规范">
       
-    <meta name="keywords" content="分类">
-    <meta name="og:keywords" content="分类">
+    <meta name="keywords" content="前端规范">
+    <meta name="og:keywords" content="前端规范">
       
-    <meta name="description" content="我的文章都分类记录在这里啦">
-    <meta name="og:description" content="我的文章都分类记录在这里啦">
+    <meta name="description" content="团队规范高于一切规范大部分团队规范都是在慢慢探索，实践规范起来的。适合团队的就是最好，否者都是纸上谈兵">
+    <meta name="og:description" content="团队规范高于一切规范大部分团队规范都是在慢慢探索，实践规范起来的。适合团队的就是最好，否者都是纸上谈兵">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/categories/">
+    <meta property="og:url" content="http://localhost:4000/2019/07/05/css-standard/">
     <meta property="og:site_name" content="sunseekers">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-07-05">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -84,149 +86,121 @@
     <!-- / header -->
 
 
-    <section class="collection-head small geopattern" data-pattern-id="博客分类">
-    <div class="container">
-        <div class="columns">
-            <div class="column three-fourths">
-                <div class="collection-title">
-                    <h1 class="collection-header">博客分类</h1>
-                </div>
-            </div>
+    <section class="collection-head small geopattern" data-pattern-id="前端规范">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">前端规范</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/07/05
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#前端面试" title="前端面试">前端面试</a>
+          </span>
+          
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
 <section class="container content">
-    <div class="columns">
-        <div class="column three-fourths" >
-            <article class="article-content markdown-body">
-                <section class="container posts-content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h1 id="团队规范高于一切规范">团队规范高于一切规范</h1>
+<p>大部分团队规范都是在慢慢探索，实践规范起来的。适合团队的就是最好，否者都是纸上谈兵</p>
+
+<h2 id="差点死在规范上">差点死在规范上</h2>
+<p>我差点死在了规范上，是变量命名。之前写代码的时候并没有注意太多的，随心而写。如果有强迫症的人看着会难受，在我的代码里面样式命名有驼峰式和短横线分隔式。
+你能看懂我代码写了什么，但是一个页面里面有几种写法，看着怪难受的。有因为赶项目，有因为中途接手项目，有因为一时手快的…我可以找到各种理由。所有的
+理由都是因为我不注意规范，不找给自己理由了。</p>
+
+<p>这是我写的代码，现在回头看，想拍拍自己的脑袋，脑子里都想些啥呢</p>
+
+<p><img src="http://localhost:4000/images/pages/001.png" alt="" /></p>
+
+<p>修改前后对比，前面没有错，但是属性太长了，太多重复看上去不舒服</p>
+
+<p><img src="http://localhost:4000/images/pages/002.png" alt="" /></p>
+
+<p>一会驼峰式，一会短横线式。写法都可以，没有对错，但是应该要遵循团队规范高于个人规范</p>
+
+<h2 id="我平时写代码应该有的规范">我平时写代码应该有的规范</h2>
+
+<p>每个常量都该命名，用有意义且常用的单词命名变量，长时间之后还知道这个常量是做什么的</p>
+
+<p>使用 <code class="highlighter-rouge">forEach</code> 或者其他循环的时候，参数命名要简单易懂，可描述性</p>
+
+<p>避免无意义的前缀命名，比如我前面写过的</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bad:
+const car = {
+  carMake: 'Honda',
+  carModel: 'Accord',
+  carColor: 'Blue'
+};
+
+Good:
+const car = {
+  make: 'Honda',
+  model: 'Accord',
+  color: 'Blue'
+};
+</code></pre></div></div>
+
+<p>函数参数越少越好，参数多了可以考虑使用结构，不用考虑参数顺序</p>
+
+<p>一个函数只做一件事情</p>
+
+<p>函数名要一眼就看懂是做什么的</p>
+
+<p>有一些规范已经融入骨髓，不好拿出来写了，上面的是我需要进一步改进的规范</p>
+
+<p>可参考<a href="https://juejin.im/post/5b6ad6b0e51d4519171766e2">[前端开发]–分享个人习惯的命名方式</a> 我觉得他写的很好，可以借鉴和学习。推荐学习和收藏</p>
 
 
-<h3>flutter</h3>
-<ol class="posts-list" id="flutter">
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
 
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/flutter/">flutter 入门学习</a>
-</li>
+  
 
-</ol>
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/07/05/css-standard/',
+            clientID: '7ffc0aeedcc0dc7f5fb6',
+            clientSecret: 'c910965c927d40783d363d7e21197ccf35c317b3',
+            repo: 'sunseekers',
+            owner: 'sunseekers',
+            admin: ['sunseekers'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
 
-<h3>go</h3>
-<ol class="posts-list" id="go">
 
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/go/">go 入门学习</a>
-</li>
-
-</ol>
-
-<h3>nuxt</h3>
-<ol class="posts-list" id="nuxt">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/nuxt/">nuxt 入门学习</a>
-</li>
-
-</ol>
-
-<h3>react</h3>
-<ol class="posts-list" id="react">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/react/">react 项目学习</a>
-</li>
-
-</ol>
-
-<h3>vue</h3>
-<ol class="posts-list" id="vue">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/vue-recommend/">vue 系列文章推荐</a>
-</li>
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/vue-practice/">vue 系列小实例</a>
-</li>
-
-</ol>
-
-<h3>web</h3>
-<ol class="posts-list" id="web">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-05</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/05/web/">JavaScript 库 + UI插件推荐 + 周边技术</a>
-</li>
-
-</ol>
-
-<h3>前端面试</h3>
-<ol class="posts-list" id="前端面试">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-05</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/05/interview/">前端面试系列文章</a>
-</li>
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-05</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/05/css-standard/">前端规范</a>
-</li>
-
-</ol>
-
-<h3>工作</h3>
-<ol class="posts-list" id="工作">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-05</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/05/work/">解决工作bug或者需求系列文章</a>
-</li>
-
-</ol>
-
-<h3>浏览器</h3>
-<ol class="posts-list" id="浏览器">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/computer/">浏览器 or 计算机系列文章</a>
-</li>
-
-</ol>
-
-<h3>生活</h3>
-<ol class="posts-list" id="生活">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/hello-world/">欢迎来到我的世界</a>
-</li>
-
-</ol>
-
-</section>
-<!-- /section.content -->
-
-            </article>
-            <div class="share">
-                <div class="share-component"></div>
-            </div>
-            <div class="comment">
-                
-
-            </div>
-        </div>
-        <div class="column one-fourth">
-            
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -251,79 +225,22 @@ SimpleJekyllSearch({
 })
 </script>
 
-            
+    
 
-            
-<h3>Blog Categories</h3>
-<div id="blog-categories">
-  <ul class="list-group">
     
-    
-    <li class="list-group-item">
-    <a href="#flutter">flutter</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#go">go</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#nuxt">nuxt</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#react">react</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#vue">vue</a>
-    <span class="badge">2</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#web">web</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#前端面试">前端面试</a>
-    <span class="badge">2</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#工作">工作</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#浏览器">浏览器</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#生活">生活</a>
-    <span class="badge">1</span>
-    </li>
-    
-  </ul>
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
 </div>
 
-<script type="text/javascript">
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
 
-  $(document).ready(function(){
-    $("#blog-categories li").css('text-transform','capitalize')
-  });
-
-</script>
-
-
-
-        </div>
-    </div>
+  </div>
+</div>
 </section>
 <!-- /section.content -->
 
