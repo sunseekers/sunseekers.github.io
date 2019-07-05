@@ -1,23 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-04T22:01:10+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">vue 系列文章推荐</title><link href="http://localhost:4000/2019/07/04/vue-recommend/" rel="alternate" type="text/html" title="vue 系列文章推荐" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/vue%20recommend</id><content type="html" xml:base="http://localhost:4000/2019/07/04/vue-recommend/">&lt;h1 id=&quot;发现探索-vue-优质文章&quot;&gt;发现，探索 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 优质文章&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-05T11:14:13+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">JavaScript 库 + UI插件推荐 + 周边技术</title><link href="http://localhost:4000/2019/07/05/web/" rel="alternate" type="text/html" title="JavaScript 库 + UI插件推荐 + 周边技术" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/web</id><content type="html" xml:base="http://localhost:4000/2019/07/05/web/">&lt;h1 id=&quot;日常工作用的-js-库ui-插件&quot;&gt;日常工作用的 &lt;code class=&quot;highlighter-rouge&quot;&gt;js&lt;/code&gt; 库，&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 插件&lt;/h1&gt;
+&lt;p&gt;痛点是：只有7秒钟的记忆，知道很多好用的库或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; ，但是每一次都说不出名字，都要各种查找，呼唤记忆。
+大量时间被浪费，这篇文章用做记录，方便我下次快速查找到，会陆续更新，有问题或者有好的推荐的朋友可以提pr，或者私聊我，我加上去。
+相信我个人的力量是有限的，我所列出基本都是公司项目中用过，或者朋友推荐。入职前端到目前一直使用的都是 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; ，所推荐有关 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; ，基本默认是  &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt;，
+在我的熟悉范围推荐。排名不分前后，瞎排，有可能不分文案写错了，欢迎指正
+部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
+
+&lt;h2 id=&quot;javascript-库插件&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;javaScript&lt;/code&gt; 库，插件&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://antv.alipay.com/zh-cn/index.html&quot;&gt;Antv&lt;/a&gt;   : 蚂蚁金服出品的一系列数据可视化解决方案&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://echarts.baidu.com/index.html&quot;&gt;echarts&lt;/a&gt;   : 百度出品的一系列数据可视化解决方案，上家公司用过&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://threejs.org/&quot;&gt;three.js&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/js-cookie/js-cookie&quot;&gt;js-cookie&lt;/a&gt;   : 设置cookie的一个轻量级库，目前公司有项目用到&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zh.nuxtjs.org/guide/&quot;&gt;Nuxt.js&lt;/a&gt;: 目前公司有项目使用了，主要是做 &lt;code class=&quot;highlighter-rouge&quot;&gt;SEO&lt;/code&gt; 优化&lt;/p&gt;
+
+&lt;h2 id=&quot;ui-文档pc端&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 文档（PC端）&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://vue.ant.design/docs/vue/introduce/&quot;&gt;Ant Vue&lt;/a&gt;   : 目前公司项目用到了&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.iviewui.com/docs/guide/install&quot;&gt;iView&lt;/a&gt; :目前公司未来或者过去使用过&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://element.eleme.cn/2.8/#/zh-CN&quot;&gt;element&lt;/a&gt; :上家公司用过&lt;/p&gt;
+
+&lt;p&gt;注：&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 综合整体情况，及 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 背后的社区和维护者进行选择，没有好坏之分，适合的就是最好&lt;/p&gt;
+
+&lt;h2 id=&quot;ui-文档移动端&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 文档（移动端）&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://youzan.github.io/vant/#/zh-CN/intro&quot;&gt;vant Vue&lt;/a&gt;   : 目前公司项目用到了，有赞团队&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://mint-ui.github.io/docs/#/zh-cn/&quot;&gt;element Mint UI&lt;/a&gt; : 上家公司项目用到了，&lt;code class=&quot;highlighter-rouge&quot;&gt;element&lt;/code&gt; 团队，组件相对而言比较少&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://didi.github.io/cube-ui/#/zh-CN/&quot;&gt;cube UI&lt;/a&gt; :目前公司项目中用到了，滴滴团队维护&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://doc.vux.li/zh-CN/&quot;&gt;VUX&lt;/a&gt;: 在某篇博客看到过推荐&lt;/p&gt;
+
+&lt;p&gt;注：&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 综合整体情况，及 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 背后的社区和维护者进行选择，没有好坏之分，适合的就是最好&lt;/p&gt;
+
+&lt;h2 id=&quot;前端周边辅助工具&quot;&gt;前端周边辅助工具&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.photopea.com/&quot;&gt;网页版ps&lt;/a&gt;: 这个可能需要翻墙，可能有广告&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ps.gaoding.com/?hmsr=ivan-intro-zhihu#/&quot;&gt;网页版ps&lt;/a&gt;:没有广告，自由访问&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://tinypng.com/&quot;&gt;图片压缩网站&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.guerrillamail.com/inbox&quot;&gt;虚拟邮箱，用于注册测试&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://lanhuapp.com/&quot;&gt;蓝湖 设计稿&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.iconfont.cn/&quot;&gt;iconfont 阿里巴巴字体图标&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://font-spider.org/&quot;&gt;字蛛&lt;/a&gt;: 字体压缩&lt;/p&gt;
+
+&lt;h3 id=&quot;思维导图工具网页版&quot;&gt;思维导图工具网页版&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.processon.com/&quot;&gt;ProcessOn&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.draw.io/&quot;&gt;draw&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://naotu.baidu.com/&quot;&gt;百度脑图&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zhimap.com/&quot;&gt;zhiMap&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zybuluo.com/cmd/&quot;&gt;作业部落&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;之前很多人问我用什么思维导图工具，现在做一个集合。我用的最多的是前面两款。第一个做思维导图，后面做流程图&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">日常工作用的 js 库，UI 插件 痛点是：只有7秒钟的记忆，知道很多好用的库或者 UI ，但是每一次都说不出名字，都要各种查找，呼唤记忆。 大量时间被浪费，这篇文章用做记录，方便我下次快速查找到，会陆续更新，有问题或者有好的推荐的朋友可以提pr，或者私聊我，我加上去。 相信我个人的力量是有限的，我所列出基本都是公司项目中用过，或者朋友推荐。入职前端到目前一直使用的都是 vue ，所推荐有关 UI ，基本默认是 vue， 在我的熟悉范围推荐。排名不分前后，瞎排，有可能不分文案写错了，欢迎指正 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">vue 系列文章推荐</title><link href="http://localhost:4000/2019/07/04/vue-recommend/" rel="alternate" type="text/html" title="vue 系列文章推荐" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/vue%20recommend</id><content type="html" xml:base="http://localhost:4000/2019/07/04/vue-recommend/">&lt;h1 id=&quot;发现探索-vue-优质文章&quot;&gt;发现，探索 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 优质文章&lt;/h1&gt;
 &lt;p&gt;传送 我觉得写的好的 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 文章，曾经帮助我解决过问题的文章，推荐理由+链接，方便我下次快速查找。
 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
 
 &lt;h2 id=&quot;来自-github&quot;&gt;来自 &lt;code class=&quot;highlighter-rouge&quot;&gt;github&lt;/code&gt;&lt;/h2&gt;
 
 &lt;h2 id=&quot;来自掘金&quot;&gt;来自掘金&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/59097cd7a22b9d0065fb61d2?utm_medium=fe&amp;amp;utm_source=weixinqun&quot;&gt;手摸手，带你用vue撸后台 系列一（基础篇）&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5b0b7d74518825158e173a0c#heading-2&quot;&gt;网络传输性能优化&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;来自知乎&quot;&gt;来自知乎&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/71667382&quot;&gt;精读《Vue3.0 Function API》&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/71667382&quot;&gt;精读《Vue3.0 Function API》&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vue 3.0&lt;/code&gt; 提前篇 仅供参考 具有时效性&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/53599723&quot;&gt;Vuex、Flux、Redux、Redux-saga、Dva、MobX&lt;/a&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;vue 3.0&lt;/code&gt; 提前篇 仅供参考 具有时效性&lt;/p&gt;
 
 &lt;h2 id=&quot;来自博客&quot;&gt;来自博客&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://refined-x.com/2017/08/29/%E5%9F%BA%E4%BA%8EVue%E5%AE%9E%E7%8E%B0%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/&quot;&gt;基于Vue实现后台系统权限控制&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;来自简书&quot;&gt;来自简书&lt;/h2&gt;
 
-&lt;h2 id=&quot;来自网络&quot;&gt;来自网络&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">发现，探索 vue 优质文章 传送 我觉得写的好的 vue 文章，曾经帮助我解决过问题的文章，推荐理由+链接，方便我下次快速查找。 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">vue 系列小实例</title><link href="http://localhost:4000/2019/07/04/vue-practice/" rel="alternate" type="text/html" title="vue 系列小实例" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/vue%20practice</id><content type="html" xml:base="http://localhost:4000/2019/07/04/vue-practice/">&lt;h1 id=&quot;vue-动手系列&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 动手系列&lt;/h1&gt;
+&lt;h2 id=&quot;来自网络&quot;&gt;来自网络&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.zhufengpeixun.cn/architecture/html/&quot;&gt;珠峰架构师成长计划&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.learnku.net/blog/articles/36&quot;&gt;Vuex之命名空间namespace用法&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://vuex.vuejs.org/zh/guide/modules.html&quot;&gt;Vuex之命名空间namespace用法 文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://webpack.docschina.org/guides/dependency-management/&quot;&gt;webpack 带表达式的 require 语句  文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://cn.vuejs.org/v2/cookbook/client-side-storage.html&quot;&gt;vue 客户端存储 文档&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">发现，探索 vue 优质文章 传送 我觉得写的好的 vue 文章，曾经帮助我解决过问题的文章，推荐理由+链接，方便我下次快速查找。 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">vue 系列小实例</title><link href="http://localhost:4000/2019/07/04/vue-practice/" rel="alternate" type="text/html" title="vue 系列小实例" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/vue%20practice</id><content type="html" xml:base="http://localhost:4000/2019/07/04/vue-practice/">&lt;h1 id=&quot;vue-动手系列&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 动手系列&lt;/h1&gt;
 &lt;p&gt;搬运工，搬运可以动手尝试 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
 
 &lt;h2 id=&quot;来自-github&quot;&gt;来自 &lt;code class=&quot;highlighter-rouge&quot;&gt;github&lt;/code&gt;&lt;/h2&gt;
@@ -25,17 +103,11 @@
 &lt;h2 id=&quot;来自掘金&quot;&gt;来自掘金&lt;/h2&gt;
 
 &lt;h2 id=&quot;来自知乎&quot;&gt;来自知乎&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/59317112&quot;&gt;实现一个 Vue 吸顶锚点组件&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/66779396&quot;&gt;长列表渲染实践&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/59317112&quot;&gt;实现一个 Vue 吸顶锚点组件&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/66779396&quot;&gt;长列表渲染实践&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;来自博客&quot;&gt;来自博客&lt;/h2&gt;
-
 &lt;h2 id=&quot;来自简书&quot;&gt;来自简书&lt;/h2&gt;
 
 &lt;h2 id=&quot;来自网络&quot;&gt;来自网络&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">vue 动手系列 搬运工，搬运可以动手尝试 vue 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">react 项目学习</title><link href="http://localhost:4000/2019/07/04/react/" rel="alternate" type="text/html" title="react 项目学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/react</id><content type="html" xml:base="http://localhost:4000/2019/07/04/react/">&lt;h1 id=&quot;react-项目及参考&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt; 项目及参考&lt;/h1&gt;
@@ -100,7 +172,7 @@
 &lt;h2 id=&quot;工作&quot;&gt;工作&lt;/h2&gt;
 &lt;p&gt;工作总会遇到各种奇葩的问题，有因为我粗心的，有因为我能力有限的，有因为我缺乏思考的，是问题总要解决的。
 问朋友是最高效也是最低效的方法之一，希望有一个大佬带我飞，随时帮我解决各种奇葩问题，见证我的成长，缩小彼此的距离，而不是渐行渐远。
-感谢曾经现在未来，每一个陪伴不曾嫌弃的的朋友，都想记录，即便是有一天失去联系，留下痕迹依旧存在&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">开启我的博客之旅 为什么我要写博客 距离上一次搭建博客是三年前了，但是三年前搭了一个框架，就没有下文了，那时候没啥可写的，就放弃了。 现在觉得有些东西应该被记录，不能被遗忘，虽然有记事本，备忘录，有道笔记，他们都留下了我的痕迹， 有些杂乱不成文，每次找起来都很不方便。所以博客他就诞生了，博客主要记录工作，微信公众号主要记录生活。</summary></entry><entry><title type="html">go 入门学习</title><link href="http://localhost:4000/2019/07/04/go/" rel="alternate" type="text/html" title="go 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/go</id><content type="html" xml:base="http://localhost:4000/2019/07/04/go/"></content><author><name>sunseekers</name></author><summary type="html"></summary></entry><entry><title type="html">flutter 入门学习</title><link href="http://localhost:4000/2019/07/04/flutter/" rel="alternate" type="text/html" title="flutter 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/flutter</id><content type="html" xml:base="http://localhost:4000/2019/07/04/flutter/">&lt;h1 id=&quot;flutter-入门学习及参考&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 入门学习及参考&lt;/h1&gt;
+感谢曾经现在未来，每一个陪伴不曾嫌弃的的朋友，都想记录，即便是有一天失去联系，留下痕迹依旧存在&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">开启我的博客之旅 为什么我要写博客 距离上一次搭建博客是三年前了，但是三年前搭了一个框架，就没有下文了，那时候没啥可写的，就放弃了。 现在觉得有些东西应该被记录，不能被遗忘，虽然有记事本，备忘录，有道笔记，他们都留下了我的痕迹， 有些杂乱不成文，每次找起来都很不方便。所以博客他就诞生了，博客主要记录工作，微信公众号主要记录生活。</summary></entry><entry><title type="html">go 入门学习</title><link href="http://localhost:4000/2019/07/04/go/" rel="alternate" type="text/html" title="go 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/go</id><content type="html" xml:base="http://localhost:4000/2019/07/04/go/">&lt;p&gt;#没有任何东西哟&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">#没有任何东西哟</summary></entry><entry><title type="html">flutter 入门学习</title><link href="http://localhost:4000/2019/07/04/flutter/" rel="alternate" type="text/html" title="flutter 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/flutter</id><content type="html" xml:base="http://localhost:4000/2019/07/04/flutter/">&lt;h1 id=&quot;flutter-入门学习及参考&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 入门学习及参考&lt;/h1&gt;
 &lt;p&gt;这是初次接触学习# &lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 的一篇文章，入门学习的时候找的一些自认为还不错的资料。
 有些是自己看过，有些是来不及看的。先记录下来，供以后的学习参考
 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
@@ -128,4 +200,11 @@
 &lt;p&gt;&lt;a href=&quot;https://github.com/YvetteLau/Blog/tree/master/Security&quot;&gt;Web的几种攻击方式以及预防&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;来自团队&quot;&gt;来自团队&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://tech.meituan.com/2018/10/11/fe-security-csrf.html&quot;&gt;前端安全系列（二）：如何防止CSRF攻击？&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">发现理解浏览器 or 计算机系列文章 半路出家的前端程序猿，对于计算机这一块知识的空白，全靠平时闲来无事坑坑别人的文章。 自己去看书枯燥无味，未必看的懂。这里主要记录有意无意发现还不错的文章，而我刚好需要弥补这一块的知识。 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://tech.meituan.com/2018/10/11/fe-security-csrf.html&quot;&gt;前端安全系列（二）：如何防止CSRF攻击？&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;segmentfault&quot;&gt;segmentfault&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000012806637&quot;&gt;10分钟理解JS引擎的执行机制&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000000481753&quot;&gt;js时间戳与日期格式之间的互转&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;视频推荐&quot;&gt;视频推荐&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/av21376839&quot;&gt;计算机科学速成课&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">发现理解浏览器 or 计算机系列文章 半路出家的前端程序猿，对于计算机这一块知识的空白，全靠平时闲来无事坑坑别人的文章。 自己去看书枯燥无味，未必看的懂。这里主要记录有意无意发现还不错的文章，而我刚好需要弥补这一块的知识。 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry></feed>

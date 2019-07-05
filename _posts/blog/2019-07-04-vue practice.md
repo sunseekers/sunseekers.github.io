@@ -14,13 +14,12 @@ keywords: vue
 ## 来自掘金
 
 ## 来自知乎
-1.  [实现一个 Vue 吸顶锚点组件](https://zhuanlan.zhihu.com/p/59317112)
+[实现一个 Vue 吸顶锚点组件](https://zhuanlan.zhihu.com/p/59317112)
 
-2.  [长列表渲染实践](https://zhuanlan.zhihu.com/p/66779396)
+[长列表渲染实践](https://zhuanlan.zhihu.com/p/66779396)
 
 
 ## 来自博客
-
 ## 来自简书
 
 ## 来自网络

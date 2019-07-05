@@ -13,14 +13,27 @@ keywords: vue
 ## 来自 `github`
 
 ## 来自掘金
+[手摸手，带你用vue撸后台 系列一（基础篇）](https://juejin.im/post/59097cd7a22b9d0065fb61d2?utm_medium=fe&utm_source=weixinqun)
 
+[网络传输性能优化](https://juejin.im/post/5b0b7d74518825158e173a0c#heading-2)
 ## 来自知乎
-1.  [精读《Vue3.0 Function API》](https://zhuanlan.zhihu.com/p/71667382)
+[精读《Vue3.0 Function API》](https://zhuanlan.zhihu.com/p/71667382)
 
+[Vuex、Flux、Redux、Redux-saga、Dva、MobX](https://zhuanlan.zhihu.com/p/53599723)
 `vue 3.0` 提前篇 仅供参考 具有时效性 
 
 ## 来自博客
+[基于Vue实现后台系统权限控制](https://refined-x.com/2017/08/29/%E5%9F%BA%E4%BA%8EVue%E5%AE%9E%E7%8E%B0%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/)
 
 ## 来自简书
 
 ## 来自网络
+[珠峰架构师成长计划](http://www.zhufengpeixun.cn/architecture/html/)
+
+[Vuex之命名空间namespace用法](http://www.learnku.net/blog/articles/36)
+
+[Vuex之命名空间namespace用法 文档](https://vuex.vuejs.org/zh/guide/modules.html)
+
+[webpack 带表达式的 require 语句  文档](https://webpack.docschina.org/guides/dependency-management/)
+
+[vue 客户端存储 文档](https://cn.vuejs.org/v2/cookbook/client-side-storage.html)

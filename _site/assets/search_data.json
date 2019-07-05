@@ -54,6 +54,8 @@
   
   
   
+  
+  
 
   
     {
@@ -102,6 +104,12 @@
       "title"    : "vue 系列文章推荐",
       "category" : "vue",
       "url"      : "http://localhost:4000/2019/07/04/vue-recommend/"
+    } ,
+  
+    {
+      "title"    : "JavaScript 库 + UI插件推荐 + 周边技术",
+      "category" : "web",
+      "url"      : "http://localhost:4000/2019/07/05/web/"
     } ,
   
     {
