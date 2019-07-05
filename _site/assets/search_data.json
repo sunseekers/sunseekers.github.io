@@ -16,7 +16,7 @@
   
   
     {
-      "title"    : "Categories",
+      "title"    : "博客分类",
       "url"      : "http://localhost:4000/categories/"
     } ,
   
@@ -25,14 +25,14 @@
   
   
     {
-      "title"    : "Links",
+      "title"    : "友情链接",
       "url"      : "http://localhost:4000/links/"
     } ,
   
   
   
     {
-      "title"    : "Open Source Projects",
+      "title"    : "github 瞎折腾",
       "url"      : "http://localhost:4000/open-source/"
     } ,
   
@@ -107,9 +107,21 @@
     } ,
   
     {
+      "title"    : "前端面试系列文章",
+      "category" : "前端面试",
+      "url"      : "http://localhost:4000/2019/07/05/interview/"
+    } ,
+  
+    {
       "title"    : "JavaScript 库 + UI插件推荐 + 周边技术",
       "category" : "web",
       "url"      : "http://localhost:4000/2019/07/05/web/"
+    } ,
+  
+    {
+      "title"    : "解决工作bug或者需求系列文章",
+      "category" : "工作",
+      "url"      : "http://localhost:4000/2019/07/05/work/"
     } ,
   
     {

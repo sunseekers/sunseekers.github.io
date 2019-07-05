@@ -5,7 +5,7 @@ baseurl:
 #url: http://github.com/sunseekers/sunseekers.github.io
 date_format: "ordinal"
 title: sunseekers
-subtitle: "sunseekers's Personal Blog"
+subtitle: "sunseekers's 个人博客"
 description: "Record ideas and knowledge"
 keywords: Algorithm,Machine Learning(eg.Deep Learning),Data miningç
 timezone: Asia/shanghai

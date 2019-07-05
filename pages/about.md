@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 我是谁 我在哪 我想说
-description: sunseekers Personal Blog
+description: sunseekers 的个人
 keywords: sunseekers 
 comments: true
 menu: 关于

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Open Source Projects
+title: github 瞎折腾
 keywords: 开源,open-source,GitHub,开源项目
 description: 开源改变世界。
 permalink: /open-source/
@@ -11,7 +11,7 @@ permalink: /open-source/
 
 <section class="container">
     <header class="text-center">
-        <h1>Open Source Projects</h1>
+        <h1>github 瞎折腾</h1>
         <p class="lead">I have <span class="repo-count">{{ sorted_repos.size }}</span> projects on Github</p>
     </header>
     <div class="repo-list">

@@ -1,6 +1,6 @@
 ---
 layout: categories
-title: Categories
+title: 博客分类
 description: 我的文章都分类记录在这里啦
 keywords: 分类
 comments: false
