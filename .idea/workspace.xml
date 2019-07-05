@@ -2,14 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86c6f1e0-719c-405e-9d60-88beae25a13e" name="Default Changelist" comment="first version">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/categories.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/categories.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/wiki.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/wiki.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/04/computer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/04/computer/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/04/flutter/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/04/flutter/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/04/go/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/04/go/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/04/hello-world/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/04/hello-world/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/04/nuxt/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/04/nuxt/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/04/react/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/04/react/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/04/vue-practice/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/04/vue-practice/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/04/vue-recommend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/04/vue-recommend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/2019/07/05/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/07/05/web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/_site/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/about/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/categories/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/feed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_site/feed.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/links/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/links/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_site/sitemap.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/eclipse/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/eclipse/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/git/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/git/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/linux/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/linux/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/mac/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/mac/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/markdown/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/markdown/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/onenote/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/onenote/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/php/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/php/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/python/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/python/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/wiki/vim/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/wiki/vim/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -70,7 +88,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="153">
-                <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+                <caret line="71" selection-start-line="71" selection-end-line="71" />
               </first_editor>
               <second_editor />
             </state>
@@ -228,8 +246,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="31" />
-    <option name="y" value="23" />
+    <option name="x" value="-77" />
+    <option name="y" value="31" />
     <option name="width" value="1440" />
     <option name="height" value="797" />
   </component>
@@ -523,7 +541,7 @@
       <workItem from="1561871008630" duration="2557000" />
       <workItem from="1562210301418" duration="861000" />
       <workItem from="1562211444813" duration="17898000" />
-      <workItem from="1562237452209" duration="11603000" />
+      <workItem from="1562237452209" duration="12017000" />
     </task>
     <task id="LOCAL-00001" summary="two version">
       <created>1562213123143</created>
@@ -581,17 +599,23 @@
       <option name="project" value="LOCAL" />
       <updated>1562296808521</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="first version">
+      <created>1562299093958</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1562299093958</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="392736000" />
+    <option name="totallyTimeSpent" value="393150000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="222" y="23" width="1440" height="797" extended-state="0" />
-    <editor active="true" />
+    <frame x="-77" y="31" width="1440" height="797" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18604651" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.02184637" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1000,7 +1024,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="153">
-            <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+            <caret line="71" selection-start-line="71" selection-end-line="71" />
           </first_editor>
           <second_editor />
         </state>

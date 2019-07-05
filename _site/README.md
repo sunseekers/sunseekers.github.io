@@ -69,15 +69,7 @@ Fork 本项目之后，还需要做一些事情才能让你的页面「正确」
    使用的是leancloud，参照的[博客来源][1]
    
    本人未用博客阅读统计功能。在 _config.yml 将其关闭了
-7. 注释了页脚的联系方式
-```
-<!--<div class="share">-->
-    <!--{% include sns-share.html %}-->
-<!--</div>-->
-<!--<div class="comment">-->
-    <!--{% include comments.html %}-->
-<!--</div>-->
-```
+
    
 ## 经验与思考
 
