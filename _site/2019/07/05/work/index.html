@@ -120,15 +120,62 @@
 <p>测试提 <code class="highlighter-rouge">bug</code> ，产品提需求。如果我没法解决，头昏脑胀，揪完整头的头发都没有用，时刻要面临失业的风险。
 所以碰到已经解决的问题，碰到揪了好多头发的问题，一定要留一点痕迹</p>
 
-<h2 id="借助网络力量解决">借助网络力量解决</h2>
+<h2 id="遇到的问题">遇到的问题</h2>
 
-<p>问题：ios 监听事件没法唤起软键盘，解决关键: 用户触发，要不是直接点击文本输入元素，要不就是间接点击。参考文章
+<blockquote>
+  <p>问题：ios 监听事件没法唤起软键盘，</p>
+</blockquote>
+
+<p>解决关键: 用户触发，要不是直接点击文本输入元素，要不就是间接点击。参考文章
 <a href="http://www.iamaddy.net/2016/11/mobile-keyboard-javascript/">移动端JavaScript拉起软键盘</a></p>
 
-<p>问题：监听 <code class="highlighter-rouge">scrollTop</code> 失效，不能预期的自动滚动到浏览器底部或者顶部；解决方案<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView">参考文档</a></p>
-<h2 id="自己独立解决">自己独立解决</h2>
+<blockquote>
+  <p>问题：监听 <code class="highlighter-rouge">scrollTop</code> 失效，不能预期的自动滚动到浏览器底部或者顶部</p>
+</blockquote>
 
-<p>这个需要单独写文章</p>
+<p>解决方案<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView">参考文档</a></p>
+
+<blockquote>
+  <p>问题：创建和编辑页面用到同一个 <code class="highlighter-rouge">component</code> 组件的时候，默认组件不会在触发 <code class="highlighter-rouge">vue</code> 里面的 <code class="highlighter-rouge">create</code> 和 <code class="highlighter-rouge">mounted</code> 钩子函数？(因为 <code class="highlighter-rouge">vue</code> 默认是高度复用)</p>
+</blockquote>
+
+<p>解决方案一 ： 可以在 <code class="highlighter-rouge">router-view</code> 组件上面加一个唯一的 <code class="highlighter-rouge">key</code> 来处理，保证唯一的 <code class="highlighter-rouge">key</code> ,路由切换的时候就会重新触发渲染钩子</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;router-view :key="key"&gt;&lt;/router-view&gt;
+
+computed: {
+  key() {
+    // 只要保证 key 唯一性就可以了，保证不同页面的 key 不相同
+    return this.$route.fullPath
+  }
+ }
+</code></pre></div></div>
+
+<p>解决方法二：在当前页面使用 <code class="highlighter-rouge">watch</code> 监听路由是否发生变化</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>watch:{
+  '$route'(newVal,oldVal){ //路由发生了编辑
+    if (newVal.path == "/systemSetting/appdetails") {
+    //进行数据的初始化
+  }
+}
+},
+</code></pre></div></div>
+<p>解决方法三：使用 <code class="highlighter-rouge">v-if</code> 强制所有组件重新渲染，可以使用 <a href="https://cn.vuejs.org/v2/guide/components-edge-cases.html#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><code class="highlighter-rouge">provide</code></a> 进行依赖注册</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;router-view v-if="isRouterAlive"&gt;&lt;/router-view&gt;
+
+  methods: {
+    reload () {
+      this.isRouterAlive = false
+      this.$nextTick(() =&gt; {
+        this.isRouterAlive = true
+      })
+    },
+   }
+</code></pre></div></div>
+
+<p>解决方案都是根据路由的变化，对组件进行重新渲染或者初始化</p>
+
 
     </article>
     <!--<img src="/images/life/004.jpeg" width="25%" height="25%" style="vertical-align:middle;margin-left: 30%"/>-->
@@ -220,6 +267,7 @@ SimpleJekyllSearch({
 </div>
 </section>
 <!-- /section.content -->
+
 
     <footer class="container">
         <div class="site-footer" role="contentinfo">

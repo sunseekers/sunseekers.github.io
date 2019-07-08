@@ -1,16 +1,354 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-06T21:42:56+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">解决工作bug或者需求系列文章</title><link href="http://localhost:4000/2019/07/05/work/" rel="alternate" type="text/html" title="解决工作bug或者需求系列文章" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/work</id><content type="html" xml:base="http://localhost:4000/2019/07/05/work/">&lt;h1 id=&quot;好文章专治千奇百怪的-bug&quot;&gt;好文章，专治千奇百怪的 &lt;code class=&quot;highlighter-rouge&quot;&gt;bug&lt;/code&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-08T17:22:22+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">前端项目的搭建</title><link href="http://localhost:4000/2019/07/08/vue-cli/" rel="alternate" type="text/html" title="前端项目的搭建" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/vue%20cli</id><content type="html" xml:base="http://localhost:4000/2019/07/08/vue-cli/">&lt;h1 id=&quot;vue-搭建项目&quot;&gt;vue 搭建项目&lt;/h1&gt;
+&lt;p&gt;一直都是从事用 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 进行工作开发，参与过大小项目的开发，自己参与过。虽然项目 &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; 之后都是一堆看不懂的文件，
+但是对于开发而言，关系可大了，会影响开发&lt;/p&gt;
+
+&lt;h2 id=&quot;接触过的项目目录结构&quot;&gt;接触过的项目目录结构&lt;/h2&gt;
+
+&lt;p&gt;工作之初接触的项目的 &lt;code class=&quot;highlighter-rouge&quot;&gt;main.js&lt;/code&gt;，项目很大，是一个后台供应链管理系统，新功能还在继续（附一）。&lt;/p&gt;
+
+&lt;p&gt;代码又臭又长，所有逻辑都放在 &lt;code class=&quot;highlighter-rouge&quot;&gt;main.js&lt;/code&gt; 里面，随着项目变大，这个文件还在继续添加东西，这样写是功能是没有任何问题，有些可以拆分的没有拆分，有些插件
+只在某一个页面引用了，却在全局注册，问题都不大。可是我看着心里难受，这不符合我想要的规范。&lt;/p&gt;
+
+&lt;p&gt;工作时间长了，接触到一些其他项目，人家的 &lt;code class=&quot;highlighter-rouge&quot;&gt;main.js&lt;/code&gt;(附二)，一眼望去言简意赅，代码里面没有像之前一样混入路由拦截。到后期项目变大了，维护起来也很方便。
+见到附二写法的时候，感叹到，这代码还可以这样写，长见识了。因为之前接触都是附一那样的代码&lt;/p&gt;
+
+&lt;p&gt;附一：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import Vue from 'vue'
+import App from './App'
+import ElementUI from 'element-ui'
+import '../public/static/css/theme-green/index.css'
+import VueRouter from 'vue-router'
+import store from './vuex/store'
+import VueResource from 'vue-resource'
+import filters from './filters'
+import utils from 'utility'
+import storage from './utils/storage'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import sock from './utils/sock'
+import sockHead from './utils/sockHead'
+import routes from './routes'
+import userApi from './api/sys/userApi'
+// import Status from './constants/status'
+import Constant from './constants/constant'
+import VueLazyload from 'vue-lazyload' //懒加载
+import VueAMap from 'vue-amap';
+import { log } from 'util';
+var infiniteScroll =  require('vue-infinite-scroll')
+import VCharts from 'v-charts'
+Vue.use(VCharts)
+Vue.use(VueLazyload)
+Vue.use(infiniteScroll)
+Vue.use(ElementUI)
+Vue.use(VueRouter)
+Vue.use(VueResource)
+Vue.use(VueAMap);
+//Vue.use(Vuex)
+let singleFlag = false
+
+Vue.http.interceptors.push(function (request, next) {
+  let timestamp = utils.timestamp()+'';
+  let token = window.sessionStorage.getItem('token')
+  let signature = null
+  if (request.url.indexOf('/login') &amp;lt;= 0) {
+    if(token){
+      signature = utils.md5(Constant.PRIMARY_KEY + timestamp + token)
+      request.headers.set('token', token)
+    }else{
+      window.location.href=&quot;/&quot;
+    }
+  } else {
+    signature = utils.md5(Constant.PRIMARY_KEY+timestamp)
+  }
+  request.headers.set('timestamp', timestamp)
+  request.headers.set('signature', signature)
+  if (!request.body) request.body = {}
+
+  next(function (response) {
+      if(response.status!==200){
+          return  Vue.prototype.$message('请求异常')
+      }
+      if (response.body.result.code &amp;amp;&amp;amp; response.body.result.code === &quot;W0005&quot;) {
+          store.dispatch('showMsg', '身份信息已过期，请重新登录')
+          window.location.href=&quot;/&quot;
+          return request.respondWith(response.body, {
+              status: 404,
+              statusText: 'Not found'
+          })
+      }
+      if (!response.body.result.success) {
+      let errorCode = response.body.result.code
+      let msg = response.body.result.msg
+      if (errorCode &amp;amp;&amp;amp; errorCode === &quot;W0001&quot;) {
+        singleFlag = true
+        Vue.prototype.$alert(msg, '提示', {
+          confirmButtonText: '确定',
+          callback: () =&amp;gt; {
+            singleFlag = false
+            window.location.href=&quot;/&quot;
+          }
+        });
+        return
+      }
+      if(singleFlag) return ;
+      if (errorCode &amp;amp;&amp;amp; errorCode === &quot;W0002&quot;) {
+        store.dispatch('showMsg', msg)
+        window.location.href=&quot;/&quot;
+      }else{
+        store.dispatch('showMsg', msg)
+        return request.respondWith(response.body, {
+          status: 404,
+          statusText: 'Not found'
+        })
+      }
+    }
+    return response
+  })
+})
+
+Object.keys(filters).forEach((key) =&amp;gt; {
+  Vue.filter(key, filters[key])
+})
+
+const router = new VueRouter({
+  routes,
+  hashbang: false,
+  history: true,
+  root: '/',
+  saveScrollPosition: true
+})
+
+router.beforeEach((to, from, next) =&amp;gt; {
+  NProgress.start()
+  let sysUser = store.getters.sysUser
+  if (to.meta.noAuth || sysUser) {
+    if (sysUser &amp;amp;&amp;amp; !sysUser.isInternal) {
+      setRights(sysUser, to)
+    }
+    next()
+  } else {
+    let token = window.sessionStorage.getItem('token')
+    if (token) {
+      sysUser = storage.getStorJson('personInfo');
+      store.dispatch('signIn', sysUser)
+      if (!sysUser.isInternal) setRights(sysUser, to)
+      next()
+    } else {
+      next('/')
+    }
+  }
+})
+
+router.afterEach(transition =&amp;gt; {
+  NProgress.done()
+})
+
+// ====================
+// 获取当前菜单权限
+// ====================
+function setRights (sysUser, to) {
+  if (to.meta.rights) return false
+  let menus = sysUser.permissionList
+  menus.forEach((menu) =&amp;gt; {
+    if (menu.uri) {
+      let menuRights = []
+      menus.forEach((right) =&amp;gt; {
+        menuRights.push(right)
+      })
+      to.meta.rights = menuRights
+      return false
+    }
+  })
+  if(user.id) sock.init(user.id)
+  /** suming */
+  let clearMenus = user.permissions
+  for(let item of clearMenus){
+    if(item.uri &amp;amp;&amp;amp; item.uri==&quot;/waitCheckList&quot;){
+      sockHead.init(user.name,user.id)
+      break
+    }
+  }
+  /** end */
+}
+function getSum(array,n,sum){
+  array.forEach(el=&amp;gt;{
+
+  })
+}
+new Vue({
+  router,
+  store,
+  render: h =&amp;gt; h(App),
+}).$mount('#app')
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;附二:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+// HACK: 应按需引入
+import Vant from 'vant'
+import 'vant/lib/index.css'
+// 导入重置样式
+import '@/assets/css/common.scss'
+import resources, { WebSocket } from '@/resources'
+
+Vue.use(Vant)
+
+if ('token' in localStorage) {
+  resources.setToken(localStorage.token)
+  WebSocket.connect()
+}
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h =&amp;gt; h(App)
+}).$mount('#app')
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>sunseekers</name></author><summary type="html">vue 搭建项目 一直都是从事用 vue 进行工作开发，参与过大小项目的开发，自己参与过。虽然项目 build 之后都是一堆看不懂的文件， 但是对于开发而言，关系可大了，会影响开发</summary></entry><entry><title type="html">JavaScript 知识点概念</title><link href="http://localhost:4000/2019/07/08/javascript/" rel="alternate" type="text/html" title="JavaScript 知识点概念" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/javascript</id><content type="html" xml:base="http://localhost:4000/2019/07/08/javascript/">&lt;h1 id=&quot;javascript-中一些名词或者概念的解释&quot;&gt;JavaScript 中一些名词或者概念的解释&lt;/h1&gt;
+&lt;p&gt;有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。&lt;/p&gt;
+
+&lt;h2 id=&quot;伪数组是怎么定义的&quot;&gt;伪数组是怎么定义的&lt;/h2&gt;
+&lt;p&gt;含有 length 属性的 json 对象，它并不具有数组的一些方法，只能能通过Array.prototype.slice转换为真正的数组&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;例如： var obj = {0:'a',1:'b',name:'sunskkers',length:8}; // 伪数组,有length属性，可以用Array.from()转化为一个长度是8的数组
+
+var obj1 = {0:'a',1:'b',name:'sunskkers'}; //伪数组,对象的原型上有length属性，可以用Array.from()转化为一个空数组
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/96&quot;&gt;第 55 题：某公司 1 到 12 月份的销售额存在一个对象里面，如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]&lt;/a&gt;
+里面不理解为啥要给对象加一个 length 属性，原来是为了转化为一个长度为12的数组&lt;/p&gt;
+
+&lt;p&gt;疑问： &lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from({length:12})&lt;/code&gt; 为啥有人喜欢这样创建一个数组？是有什么优化还是？&lt;/p&gt;
+
+&lt;h2 id=&quot;运算符的优先级&quot;&gt;运算符的优先级&lt;/h2&gt;
+&lt;p&gt;. 的优先级高于 = ；单独的这样一句话，想必大部分人都知道吧，但是放到代码场景中我就不知道了。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var a = {n: 1};
+var b = a;
+a.x = a = {n: 2};
+
+console.log(a.x) 	
+console.log(b.x)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;之前看到过这样的问题，绕了半天，勉强理解了，一段时间之后就忘了。直到看到有朋友解释：”.的优先级比=要高，所以这里首先执行a.x，相当于为a（或者b）所指向的{n:1}对象新增了一个属性x，即此时对象将变为{n:1;x:undefined}。之后按正常情况，从右到左进行赋值，此时执行a ={n:2}的时候，a的引用改变，指向了新对象{n：2},而b依然指向的是旧对象”。
+我才恍然大悟。原来我的问题在我忽略了 &lt;em&gt;. 的优先级高于 =&lt;/em&gt;，然后才一直不理解
+&lt;a href=&quot;https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/93&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">JavaScript 中一些名词或者概念的解释 有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。</summary></entry><entry><title type="html">算不算算法的算法</title><link href="http://localhost:4000/2019/07/08/algorithm001/" rel="alternate" type="text/html" title="算不算算法的算法" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/algorithm001</id><content type="html" xml:base="http://localhost:4000/2019/07/08/algorithm001/">&lt;h1 id=&quot;是算法还是不是&quot;&gt;是算法还是不是？&lt;/h1&gt;
+&lt;p&gt;非科班出身，非计算机出生的我，对于算法数据结构计算机原理等等相关的知识一脸茫然。但是耳边总是会听到有人说算法或者相关方面的知识，
+我就断断续续的把我听到的记录下来吧，是还是不是？交给时间，时间会给我答案&lt;/p&gt;
+
+&lt;h2 id=&quot;计算1-100之间偶数的和&quot;&gt;计算1-100之间偶数的和？&lt;/h2&gt;
+&lt;p&gt;这样的题目我们逼着眼睛都知道要怎么写，好像在很多关于数据结构和算法里面都看到这个经典的案例。或许在我们日常的编程过程中并没有什么实质性的用，
+或许有时候会觉得多此一举&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let sum = 0
+写法一
+for (let i=1; i&amp;lt;=100; i++){   // 这里我们要循环计算100次
+    if (i%2==0) {
+        sum+=i
+    }
+ }
+ 
+写法二
+for (let i=1; i&amp;lt;=100; i+=2){   // 这里我们要循环计算50次
+    if (i%2==0) {
+        sum+=i
+    }
+ }
+   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;思考：是不是有更好的解决方法呢？比如高中学过的等差数列求和，或者小学初中学过的某个东西？&lt;/p&gt;
+
+&lt;p&gt;即便是计算机替我们计算，但是执行次数越少的方法，达到某一个数量级应该是要快很多的&lt;/p&gt;
+
+&lt;h2 id=&quot;百钱百鸡&quot;&gt;百钱百鸡？&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let chicken = 0
+let count = 0
+写法一
+for (let cock = 0;cock&amp;lt;=20;cock++){
+    for(let hen = 0; hen&amp;lt;=33;hen++{
+    count++
+    chicken=100-cock-hen
+    if((cock*5+hen*3+chilcken/3==100) &amp;amp;&amp;amp; chicken%3==0){//这里有性能优化，具体解释忘记了
+        console.log('母鸡 '+ hen,'公鸡 '+ cock,'小鸡 '+ chilcken,)
+     }
+   }
+}
+
+写法二
+for (let cock = 0;cock&amp;lt;=20;cock++){
+    for(let hen = 0; hen&amp;lt;=33;hen++{
+    count++
+    if((cock+hen+chilcken==100) &amp;amp;&amp;amp; (cock*5+hen*3+chilcken/3==100)){
+        console.log('母鸡 '+ hen,'公鸡 '+ cock,'小鸡 '+ chilcken,)
+     }
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>sunseekers</name></author><summary type="html">是算法还是不是？ 非科班出身，非计算机出生的我，对于算法数据结构计算机原理等等相关的知识一脸茫然。但是耳边总是会听到有人说算法或者相关方面的知识， 我就断断续续的把我听到的记录下来吧，是还是不是？交给时间，时间会给我答案</summary></entry><entry><title type="html">解决工作bug或者需求系列文章</title><link href="http://localhost:4000/2019/07/05/work/" rel="alternate" type="text/html" title="解决工作bug或者需求系列文章" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/work</id><content type="html" xml:base="http://localhost:4000/2019/07/05/work/">&lt;h1 id=&quot;好文章专治千奇百怪的-bug&quot;&gt;好文章，专治千奇百怪的 &lt;code class=&quot;highlighter-rouge&quot;&gt;bug&lt;/code&gt;&lt;/h1&gt;
 &lt;p&gt;测试提 &lt;code class=&quot;highlighter-rouge&quot;&gt;bug&lt;/code&gt; ，产品提需求。如果我没法解决，头昏脑胀，揪完整头的头发都没有用，时刻要面临失业的风险。
 所以碰到已经解决的问题，碰到揪了好多头发的问题，一定要留一点痕迹&lt;/p&gt;
 
-&lt;h2 id=&quot;借助网络力量解决&quot;&gt;借助网络力量解决&lt;/h2&gt;
+&lt;h2 id=&quot;遇到的问题&quot;&gt;遇到的问题&lt;/h2&gt;
 
-&lt;p&gt;问题：ios 监听事件没法唤起软键盘，解决关键: 用户触发，要不是直接点击文本输入元素，要不就是间接点击。参考文章
+&lt;blockquote&gt;
+  &lt;p&gt;问题：ios 监听事件没法唤起软键盘，&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;解决关键: 用户触发，要不是直接点击文本输入元素，要不就是间接点击。参考文章
 &lt;a href=&quot;http://www.iamaddy.net/2016/11/mobile-keyboard-javascript/&quot;&gt;移动端JavaScript拉起软键盘&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;问题：监听 &lt;code class=&quot;highlighter-rouge&quot;&gt;scrollTop&lt;/code&gt; 失效，不能预期的自动滚动到浏览器底部或者顶部；解决方案&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView&quot;&gt;参考文档&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;自己独立解决&quot;&gt;自己独立解决&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;问题：监听 &lt;code class=&quot;highlighter-rouge&quot;&gt;scrollTop&lt;/code&gt; 失效，不能预期的自动滚动到浏览器底部或者顶部&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;这个需要单独写文章&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">好文章，专治千奇百怪的 bug 测试提 bug ，产品提需求。如果我没法解决，头昏脑胀，揪完整头的头发都没有用，时刻要面临失业的风险。 所以碰到已经解决的问题，碰到揪了好多头发的问题，一定要留一点痕迹</summary></entry><entry><title type="html">JavaScript 库 + UI插件推荐 + 周边技术</title><link href="http://localhost:4000/2019/07/05/web/" rel="alternate" type="text/html" title="JavaScript 库 + UI插件推荐 + 周边技术" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/web</id><content type="html" xml:base="http://localhost:4000/2019/07/05/web/">&lt;h1 id=&quot;日常工作用的-js-库ui-插件&quot;&gt;日常工作用的 &lt;code class=&quot;highlighter-rouge&quot;&gt;js&lt;/code&gt; 库，&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 插件&lt;/h1&gt;
+&lt;p&gt;解决方案&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView&quot;&gt;参考文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;问题：创建和编辑页面用到同一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;component&lt;/code&gt; 组件的时候，默认组件不会在触发 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 里面的 &lt;code class=&quot;highlighter-rouge&quot;&gt;create&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;mounted&lt;/code&gt; 钩子函数？(因为 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 默认是高度复用)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;解决方案一 ： 可以在 &lt;code class=&quot;highlighter-rouge&quot;&gt;router-view&lt;/code&gt; 组件上面加一个唯一的 &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt; 来处理，保证唯一的 &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt; ,路由切换的时候就会重新触发渲染钩子&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;router-view :key=&quot;key&quot;&amp;gt;&amp;lt;/router-view&amp;gt;
+
+computed: {
+  key() {
+    // 只要保证 key 唯一性就可以了，保证不同页面的 key 不相同
+    return this.$route.fullPath
+  }
+ }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;解决方法二：在当前页面使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;watch&lt;/code&gt; 监听路由是否发生变化&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;watch:{
+  '$route'(newVal,oldVal){ //路由发生了编辑
+    if (newVal.path == &quot;/systemSetting/appdetails&quot;) {
+    //进行数据的初始化
+  }
+}
+},
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;解决方法三：使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;v-if&lt;/code&gt; 强制所有组件重新渲染，可以使用 &lt;a href=&quot;https://cn.vuejs.org/v2/guide/components-edge-cases.html#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;provide&lt;/code&gt;&lt;/a&gt; 进行依赖注册&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;router-view v-if=&quot;isRouterAlive&quot;&amp;gt;&amp;lt;/router-view&amp;gt;
+
+  methods: {
+    reload () {
+      this.isRouterAlive = false
+      this.$nextTick(() =&amp;gt; {
+        this.isRouterAlive = true
+      })
+    },
+   }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;解决方案都是根据路由的变化，对组件进行重新渲染或者初始化&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">好文章，专治千奇百怪的 bug 测试提 bug ，产品提需求。如果我没法解决，头昏脑胀，揪完整头的头发都没有用，时刻要面临失业的风险。 所以碰到已经解决的问题，碰到揪了好多头发的问题，一定要留一点痕迹</summary></entry><entry><title type="html">JavaScript 库 + UI插件推荐 + 周边技术</title><link href="http://localhost:4000/2019/07/05/web/" rel="alternate" type="text/html" title="JavaScript 库 + UI插件推荐 + 周边技术" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/web</id><content type="html" xml:base="http://localhost:4000/2019/07/05/web/">&lt;h1 id=&quot;日常工作用的-js-库ui-插件&quot;&gt;日常工作用的 &lt;code class=&quot;highlighter-rouge&quot;&gt;js&lt;/code&gt; 库，&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 插件&lt;/h1&gt;
 &lt;p&gt;痛点是：只有7秒钟的记忆，知道很多好用的库或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; ，但是每一次都说不出名字，都要各种查找，呼唤记忆。
 大量时间被浪费，这篇文章用做记录，方便我下次快速查找到，会陆续更新，有问题或者有好的推荐的朋友可以提pr，或者私聊我，我加上去。
 相信我个人的力量是有限的，我所列出基本都是公司项目中用过，或者朋友推荐。入职前端到目前一直使用的都是 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; ，所推荐有关 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; ，基本默认是  &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt;，
@@ -180,6 +518,7 @@ const car = {
 &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/66779396&quot;&gt;长列表渲染实践&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;来自博客&quot;&gt;来自博客&lt;/h2&gt;
+
 &lt;h2 id=&quot;来自简书&quot;&gt;来自简书&lt;/h2&gt;
 
 &lt;h2 id=&quot;来自网络&quot;&gt;来自网络&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">vue 动手系列 搬运工，搬运可以动手尝试 vue 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">react 项目学习</title><link href="http://localhost:4000/2019/07/04/react/" rel="alternate" type="text/html" title="react 项目学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/react</id><content type="html" xml:base="http://localhost:4000/2019/07/04/react/">&lt;h1 id=&quot;react-项目及参考&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt; 项目及参考&lt;/h1&gt;
@@ -208,49 +547,4 @@ const car = {
   &lt;li&gt;
     &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; 里面 &lt;code class=&quot;highlighter-rouge&quot;&gt;webpack&lt;/code&gt; 的基本配置里面 &lt;code class=&quot;highlighter-rouge&quot;&gt;entry&lt;/code&gt; 入口文件没有用？&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ol&gt;</content><author><name>sunseekers</name></author><summary type="html">react 项目及参考 这是平时练习学习 react 项目的一篇文章，参考优秀项目进行学习，记录在项目中遇到的一些已经解决的问题。</summary></entry><entry><title type="html">nuxt 入门学习</title><link href="http://localhost:4000/2019/07/04/nuxt/" rel="alternate" type="text/html" title="nuxt 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/nuxt</id><content type="html" xml:base="http://localhost:4000/2019/07/04/nuxt/">&lt;h1 id=&quot;nuxt-入门学习及参考&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nuxt&lt;/code&gt; 入门学习及参考&lt;/h1&gt;
-&lt;p&gt;这是初次接触学习 &lt;code class=&quot;highlighter-rouge&quot;&gt;nuxt&lt;/code&gt; 的一篇文章，入门学习的时候找的一些自认为还不错的资料。
-有些是自己看过，有些是来不及看的。先记录下来，供以后的学习参考
-部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
-
-&lt;h2 id=&quot;文档&quot;&gt;文档&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://zh.nuxtjs.org/guide/&quot;&gt;Nuxt.js文档&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;文章&quot;&gt;文章&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000012802572&quot;&gt;Nuxt.js实战&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;案例&quot;&gt;案例&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://my.oschina.net/qiangdada/blog/1789641&quot;&gt;合格前端系列第十一弹-初探 Nuxt.js 秘密花园&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">nuxt 入门学习及参考 这是初次接触学习 nuxt 的一篇文章，入门学习的时候找的一些自认为还不错的资料。 有些是自己看过，有些是来不及看的。先记录下来，供以后的学习参考 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">Hello World</title><link href="http://localhost:4000/2019/07/04/hello-world/" rel="alternate" type="text/html" title="Hello World" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/hello%20world</id><content type="html" xml:base="http://localhost:4000/2019/07/04/hello-world/">&lt;h1 id=&quot;开启我的博客之旅&quot;&gt;开启我的博客之旅&lt;/h1&gt;
-&lt;p&gt;最近上海的垃圾分类特别火热，上海试行，然后全国各地推广。从最开始的不适应方案，到现在我却觉得蛮好的。
-然后我也开始了我的博客之旅，博客亦如一个巨大的垃圾场，我现在也开始对他进行分类。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/life/hello.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;为什么我要写博客&quot;&gt;为什么我要写博客&lt;/h2&gt;
-&lt;p&gt;距离上一次搭建博客是三年前了，但是三年前搭了一个框架，就没有下文了，那时候没啥可写的，就放弃了。
-现在觉得有些东西应该被记录，不能被遗忘，虽然有记事本，备忘录，有道笔记，他们都留下了我的痕迹，
-有些杂乱不成文，每次找起来都很不方便。所以博客他就诞生了，博客主要记录工作，微信公众号主要记录生活。
-&lt;img src=&quot;http://localhost:4000/images/life/003.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;博客的前世今生&quot;&gt;博客的前世今生&lt;/h2&gt;
-&lt;p&gt;原计划是自己搭建全套的博客系统的，有后台管理系统，前端页面展示系统。选了 &lt;code class=&quot;highlighter-rouge&quot;&gt;go&lt;/code&gt; 做后台，前端在 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 和
-&lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 之间选择，我只会 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; ，&lt;code class=&quot;highlighter-rouge&quot;&gt;flutter&lt;/code&gt; 是最近炒的很火的，我不会 。无限的可能都需要去尝试，不想错过。
- &lt;code class=&quot;highlighter-rouge&quot;&gt;go&lt;/code&gt; 我也在学习中，可以学到天荒地老。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/life/002.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;路漫漫其修远兮，一次聊天，产品问，为啥不搭建自己的博客。当时我回答的是，搭建系统太难了。他说很简单呀，网上有很多模版。
-然后我就借用 &lt;code class=&quot;highlighter-rouge&quot;&gt;github page&lt;/code&gt; 开启了我的博客。折腾捣鼓了两天，踩了很多坑。盘点了这两天折腾的，发现其实很简单，只是我蠢。&lt;/p&gt;
-
-&lt;p&gt;产品推动博客，哈哈&lt;/p&gt;
-
-&lt;p&gt;这两天要感谢 &lt;a href=&quot;https://github.com/lihuimintu&quot;&gt;一个小伙伴&lt;/a&gt;，不嫌弃的一直指导 &lt;img src=&quot;http://localhost:4000/images/life/001.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;博客的未来&quot;&gt;博客的未来&lt;/h2&gt;
-&lt;p&gt;我的博客，记录我的学习，我的成长，我的工作。遇到的问题，解决的问题，各种推荐。会保持持续不定时更新，支持我是对我的鼓励.&lt;/p&gt;
-
-&lt;p&gt;工作总会遇到各种奇葩的问题，有因为我粗心的，有因为我能力有限的，有因为我缺乏思考的，是问题总要解决的。&lt;/p&gt;
-
-&lt;p&gt;我有一个梦想，希望有一个大佬带我飞，随时帮我解决各种奇葩问题，见证我的成长，缩小彼此的距离，而不是渐行渐远。&lt;/p&gt;
-
-&lt;p&gt;感谢曾经现在未来，每一个陪伴不曾嫌弃的的朋友，都想记录，即便是有一天失去联系，留下痕迹依旧存在&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">开启我的博客之旅 最近上海的垃圾分类特别火热，上海试行，然后全国各地推广。从最开始的不适应方案，到现在我却觉得蛮好的。 然后我也开始了我的博客之旅，博客亦如一个巨大的垃圾场，我现在也开始对他进行分类。</summary></entry><entry><title type="html">go 入门学习</title><link href="http://localhost:4000/2019/07/04/go/" rel="alternate" type="text/html" title="go 入门学习" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/go</id><content type="html" xml:base="http://localhost:4000/2019/07/04/go/">&lt;p&gt;#没有任何东西哟&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">#没有任何东西哟</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>sunseekers</name></author><summary type="html">react 项目及参考 这是平时练习学习 react 项目的一篇文章，参考优秀项目进行学习，记录在项目中遇到的一些已经解决的问题。</summary></entry></feed>

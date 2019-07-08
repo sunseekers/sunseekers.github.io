@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>vue 系列小实例 &mdash; sunseekers</title>
+    <title>JavaScript 知识点概念 &mdash; sunseekers</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -21,28 +21,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2019/07/04/vue-practice/">
+    <link rel="canonical" href="http://localhost:4000/2019/07/08/javascript/">
     <link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="vue 系列小实例">
+    <meta property="og:title" content="JavaScript 知识点概念">
       
-    <meta name="keywords" content="vue">
-    <meta name="og:keywords" content="vue">
+    <meta name="keywords" content="JavaScript">
+    <meta name="og:keywords" content="JavaScript">
       
-    <meta name="description" content="vue 动手系列搬运工，搬运可以动手尝试 vue 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除">
-    <meta name="og:description" content="vue 动手系列搬运工，搬运可以动手尝试 vue 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除">
+    <meta name="description" content="JavaScript 中一些名词或者概念的解释有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。">
+    <meta name="og:description" content="JavaScript 中一些名词或者概念的解释有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2019/07/04/vue-practice/">
+    <meta property="og:url" content="http://localhost:4000/2019/07/08/javascript/">
     <meta property="og:site_name" content="sunseekers">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2019-07-04">
+    <meta property="article:published_time" content="2019-07-08">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -86,22 +86,16 @@
     <!-- / header -->
 
 
-    <section class="collection-head small geopattern" data-pattern-id="vue 系列小实例">
+    <section class="collection-head small geopattern" data-pattern-id="JavaScript 知识点概">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">vue 系列小实例</h1>
+        <h1 class="collection-header">JavaScript 知识点概念</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2019/07/04
-          </span>
-          
-          
-          <span class="meta-info">
-            <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/#vue" title="vue">vue</a>
+            <span class="octicon octicon-calendar"></span> 2019/07/08
           </span>
           
           
@@ -116,23 +110,36 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <h1 id="vue-动手系列"><code class="highlighter-rouge">vue</code> 动手系列</h1>
-<p>搬运工，搬运可以动手尝试 <code class="highlighter-rouge">vue</code> 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</p>
+    <h1 id="javascript-中一些名词或者概念的解释">JavaScript 中一些名词或者概念的解释</h1>
+<p>有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。</p>
 
-<h2 id="来自-github">来自 <code class="highlighter-rouge">github</code></h2>
+<h2 id="伪数组是怎么定义的">伪数组是怎么定义的</h2>
+<p>含有 length 属性的 json 对象，它并不具有数组的一些方法，只能能通过Array.prototype.slice转换为真正的数组</p>
 
-<h2 id="来自掘金">来自掘金</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>例如： var obj = {0:'a',1:'b',name:'sunskkers',length:8}; // 伪数组,有length属性，可以用Array.from()转化为一个长度是8的数组
 
-<h2 id="来自知乎">来自知乎</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/59317112">实现一个 Vue 吸顶锚点组件</a></p>
+var obj1 = {0:'a',1:'b',name:'sunskkers'}; //伪数组,对象的原型上有length属性，可以用Array.from()转化为一个空数组
+</code></pre></div></div>
 
-<p><a href="https://zhuanlan.zhihu.com/p/66779396">长列表渲染实践</a></p>
+<p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/96">第 55 题：某公司 1 到 12 月份的销售额存在一个对象里面，如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]</a>
+里面不理解为啥要给对象加一个 length 属性，原来是为了转化为一个长度为12的数组</p>
 
-<h2 id="来自博客">来自博客</h2>
+<p>疑问： <code class="highlighter-rouge">Array.from({length:12})</code> 为啥有人喜欢这样创建一个数组？是有什么优化还是？</p>
 
-<h2 id="来自简书">来自简书</h2>
+<h2 id="运算符的优先级">运算符的优先级</h2>
+<p>. 的优先级高于 = ；单独的这样一句话，想必大部分人都知道吧，但是放到代码场景中我就不知道了。</p>
 
-<h2 id="来自网络">来自网络</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var a = {n: 1};
+var b = a;
+a.x = a = {n: 2};
+
+console.log(a.x) 	
+console.log(b.x)
+</code></pre></div></div>
+
+<p>之前看到过这样的问题，绕了半天，勉强理解了，一段时间之后就忘了。直到看到有朋友解释：”.的优先级比=要高，所以这里首先执行a.x，相当于为a（或者b）所指向的{n:1}对象新增了一个属性x，即此时对象将变为{n:1;x:undefined}。之后按正常情况，从右到左进行赋值，此时执行a ={n:2}的时候，a的引用改变，指向了新对象{n：2},而b依然指向的是旧对象”。
+我才恍然大悟。原来我的问题在我忽略了 <em>. 的优先级高于 =</em>，然后才一直不理解
+<a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/93">原文地址</a></p>
 
     </article>
     <!--<img src="/images/life/004.jpeg" width="25%" height="25%" style="vertical-align:middle;margin-left: 30%"/>-->
@@ -164,7 +171,7 @@
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2019/07/04/vue-practice/',
+            id: '/2019/07/08/javascript/',
             clientID: '7ffc0aeedcc0dc7f5fb6',
             clientSecret: 'c910965c927d40783d363d7e21197ccf35c317b3',
             repo: 'sunseekers',

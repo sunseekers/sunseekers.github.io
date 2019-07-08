@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>vue 系列小实例 &mdash; sunseekers</title>
+    <title>前端项目的搭建 &mdash; sunseekers</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -21,28 +21,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2019/07/04/vue-practice/">
+    <link rel="canonical" href="http://localhost:4000/2019/07/08/vue-cli/">
     <link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="vue 系列小实例">
+    <meta property="og:title" content="前端项目的搭建">
       
-    <meta name="keywords" content="vue">
-    <meta name="og:keywords" content="vue">
+    <meta name="keywords" content="前端项目的搭建">
+    <meta name="og:keywords" content="前端项目的搭建">
       
-    <meta name="description" content="vue 动手系列搬运工，搬运可以动手尝试 vue 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除">
-    <meta name="og:description" content="vue 动手系列搬运工，搬运可以动手尝试 vue 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除">
+    <meta name="description" content="vue 搭建项目一直都是从事用 vue 进行工作开发，参与过大小项目的开发，自己参与过。虽然项目 build 之后都是一堆看不懂的文件，但是对于开发而言，关系可大了，会影响开发">
+    <meta name="og:description" content="vue 搭建项目一直都是从事用 vue 进行工作开发，参与过大小项目的开发，自己参与过。虽然项目 build 之后都是一堆看不懂的文件，但是对于开发而言，关系可大了，会影响开发">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2019/07/04/vue-practice/">
+    <meta property="og:url" content="http://localhost:4000/2019/07/08/vue-cli/">
     <meta property="og:site_name" content="sunseekers">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2019-07-04">
+    <meta property="article:published_time" content="2019-07-08">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -86,22 +86,22 @@
     <!-- / header -->
 
 
-    <section class="collection-head small geopattern" data-pattern-id="vue 系列小实例">
+    <section class="collection-head small geopattern" data-pattern-id="前端项目的搭建">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">vue 系列小实例</h1>
+        <h1 class="collection-header">前端项目的搭建</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2019/07/04
+            <span class="octicon octicon-calendar"></span> 2019/07/08
           </span>
           
           
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/#vue" title="vue">vue</a>
+            <a href="http://localhost:4000/categories/#项目搭建" title="项目搭建">项目搭建</a>
           </span>
           
           
@@ -116,23 +116,217 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <h1 id="vue-动手系列"><code class="highlighter-rouge">vue</code> 动手系列</h1>
-<p>搬运工，搬运可以动手尝试 <code class="highlighter-rouge">vue</code> 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</p>
+    <h1 id="vue-搭建项目">vue 搭建项目</h1>
+<p>一直都是从事用 <code class="highlighter-rouge">vue</code> 进行工作开发，参与过大小项目的开发，自己参与过。虽然项目 <code class="highlighter-rouge">build</code> 之后都是一堆看不懂的文件，
+但是对于开发而言，关系可大了，会影响开发</p>
 
-<h2 id="来自-github">来自 <code class="highlighter-rouge">github</code></h2>
+<h2 id="接触过的项目目录结构">接触过的项目目录结构</h2>
 
-<h2 id="来自掘金">来自掘金</h2>
+<p>工作之初接触的项目的 <code class="highlighter-rouge">main.js</code>，项目很大，是一个后台供应链管理系统，新功能还在继续（附一）。</p>
 
-<h2 id="来自知乎">来自知乎</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/59317112">实现一个 Vue 吸顶锚点组件</a></p>
+<p>代码又臭又长，所有逻辑都放在 <code class="highlighter-rouge">main.js</code> 里面，随着项目变大，这个文件还在继续添加东西，这样写是功能是没有任何问题，有些可以拆分的没有拆分，有些插件
+只在某一个页面引用了，却在全局注册，问题都不大。可是我看着心里难受，这不符合我想要的规范。</p>
 
-<p><a href="https://zhuanlan.zhihu.com/p/66779396">长列表渲染实践</a></p>
+<p>工作时间长了，接触到一些其他项目，人家的 <code class="highlighter-rouge">main.js</code>(附二)，一眼望去言简意赅，代码里面没有像之前一样混入路由拦截。到后期项目变大了，维护起来也很方便。
+见到附二写法的时候，感叹到，这代码还可以这样写，长见识了。因为之前接触都是附一那样的代码</p>
 
-<h2 id="来自博客">来自博客</h2>
+<p>附一：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import Vue from 'vue'
+import App from './App'
+import ElementUI from 'element-ui'
+import '../public/static/css/theme-green/index.css'
+import VueRouter from 'vue-router'
+import store from './vuex/store'
+import VueResource from 'vue-resource'
+import filters from './filters'
+import utils from 'utility'
+import storage from './utils/storage'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import sock from './utils/sock'
+import sockHead from './utils/sockHead'
+import routes from './routes'
+import userApi from './api/sys/userApi'
+// import Status from './constants/status'
+import Constant from './constants/constant'
+import VueLazyload from 'vue-lazyload' //懒加载
+import VueAMap from 'vue-amap';
+import { log } from 'util';
+var infiniteScroll =  require('vue-infinite-scroll')
+import VCharts from 'v-charts'
+Vue.use(VCharts)
+Vue.use(VueLazyload)
+Vue.use(infiniteScroll)
+Vue.use(ElementUI)
+Vue.use(VueRouter)
+Vue.use(VueResource)
+Vue.use(VueAMap);
+//Vue.use(Vuex)
+let singleFlag = false
 
-<h2 id="来自简书">来自简书</h2>
+Vue.http.interceptors.push(function (request, next) {
+  let timestamp = utils.timestamp()+'';
+  let token = window.sessionStorage.getItem('token')
+  let signature = null
+  if (request.url.indexOf('/login') &lt;= 0) {
+    if(token){
+      signature = utils.md5(Constant.PRIMARY_KEY + timestamp + token)
+      request.headers.set('token', token)
+    }else{
+      window.location.href="/"
+    }
+  } else {
+    signature = utils.md5(Constant.PRIMARY_KEY+timestamp)
+  }
+  request.headers.set('timestamp', timestamp)
+  request.headers.set('signature', signature)
+  if (!request.body) request.body = {}
 
-<h2 id="来自网络">来自网络</h2>
+  next(function (response) {
+      if(response.status!==200){
+          return  Vue.prototype.$message('请求异常')
+      }
+      if (response.body.result.code &amp;&amp; response.body.result.code === "W0005") {
+          store.dispatch('showMsg', '身份信息已过期，请重新登录')
+          window.location.href="/"
+          return request.respondWith(response.body, {
+              status: 404,
+              statusText: 'Not found'
+          })
+      }
+      if (!response.body.result.success) {
+      let errorCode = response.body.result.code
+      let msg = response.body.result.msg
+      if (errorCode &amp;&amp; errorCode === "W0001") {
+        singleFlag = true
+        Vue.prototype.$alert(msg, '提示', {
+          confirmButtonText: '确定',
+          callback: () =&gt; {
+            singleFlag = false
+            window.location.href="/"
+          }
+        });
+        return
+      }
+      if(singleFlag) return ;
+      if (errorCode &amp;&amp; errorCode === "W0002") {
+        store.dispatch('showMsg', msg)
+        window.location.href="/"
+      }else{
+        store.dispatch('showMsg', msg)
+        return request.respondWith(response.body, {
+          status: 404,
+          statusText: 'Not found'
+        })
+      }
+    }
+    return response
+  })
+})
+
+Object.keys(filters).forEach((key) =&gt; {
+  Vue.filter(key, filters[key])
+})
+
+const router = new VueRouter({
+  routes,
+  hashbang: false,
+  history: true,
+  root: '/',
+  saveScrollPosition: true
+})
+
+router.beforeEach((to, from, next) =&gt; {
+  NProgress.start()
+  let sysUser = store.getters.sysUser
+  if (to.meta.noAuth || sysUser) {
+    if (sysUser &amp;&amp; !sysUser.isInternal) {
+      setRights(sysUser, to)
+    }
+    next()
+  } else {
+    let token = window.sessionStorage.getItem('token')
+    if (token) {
+      sysUser = storage.getStorJson('personInfo');
+      store.dispatch('signIn', sysUser)
+      if (!sysUser.isInternal) setRights(sysUser, to)
+      next()
+    } else {
+      next('/')
+    }
+  }
+})
+
+router.afterEach(transition =&gt; {
+  NProgress.done()
+})
+
+// ====================
+// 获取当前菜单权限
+// ====================
+function setRights (sysUser, to) {
+  if (to.meta.rights) return false
+  let menus = sysUser.permissionList
+  menus.forEach((menu) =&gt; {
+    if (menu.uri) {
+      let menuRights = []
+      menus.forEach((right) =&gt; {
+        menuRights.push(right)
+      })
+      to.meta.rights = menuRights
+      return false
+    }
+  })
+  if(user.id) sock.init(user.id)
+  /** suming */
+  let clearMenus = user.permissions
+  for(let item of clearMenus){
+    if(item.uri &amp;&amp; item.uri=="/waitCheckList"){
+      sockHead.init(user.name,user.id)
+      break
+    }
+  }
+  /** end */
+}
+function getSum(array,n,sum){
+  array.forEach(el=&gt;{
+
+  })
+}
+new Vue({
+  router,
+  store,
+  render: h =&gt; h(App),
+}).$mount('#app')
+
+</code></pre></div></div>
+
+<p>附二:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+// HACK: 应按需引入
+import Vant from 'vant'
+import 'vant/lib/index.css'
+// 导入重置样式
+import '@/assets/css/common.scss'
+import resources, { WebSocket } from '@/resources'
+
+Vue.use(Vant)
+
+if ('token' in localStorage) {
+  resources.setToken(localStorage.token)
+  WebSocket.connect()
+}
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h =&gt; h(App)
+}).$mount('#app')
+
+</code></pre></div></div>
 
     </article>
     <!--<img src="/images/life/004.jpeg" width="25%" height="25%" style="vertical-align:middle;margin-left: 30%"/>-->
@@ -164,7 +358,7 @@
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2019/07/04/vue-practice/',
+            id: '/2019/07/08/vue-cli/',
             clientID: '7ffc0aeedcc0dc7f5fb6',
             clientSecret: 'c910965c927d40783d363d7e21197ccf35c317b3',
             repo: 'sunseekers',
