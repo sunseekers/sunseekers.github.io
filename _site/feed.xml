@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-09T13:05:32+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">前端项目的搭建</title><link href="http://localhost:4000/2019/07/08/vue-cli/" rel="alternate" type="text/html" title="前端项目的搭建" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/vue%20cli</id><content type="html" xml:base="http://localhost:4000/2019/07/08/vue-cli/">&lt;h1 id=&quot;vue-搭建项目&quot;&gt;vue 搭建项目&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-09T14:20:43+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">前端项目的搭建</title><link href="http://localhost:4000/2019/07/08/vue-cli/" rel="alternate" type="text/html" title="前端项目的搭建" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/vue%20cli</id><content type="html" xml:base="http://localhost:4000/2019/07/08/vue-cli/">&lt;h1 id=&quot;vue-搭建项目&quot;&gt;vue 搭建项目&lt;/h1&gt;
 &lt;p&gt;一直都是从事用 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 进行工作开发，参与过大小项目的开发，自己参与过。虽然项目 &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; 之后都是一堆看不懂的文件，
 但是对于开发而言，关系可大了，会影响开发&lt;/p&gt;
 
@@ -48,7 +48,7 @@ for (let i=1; i&amp;lt;=100; i++){   // 这里我们要循环计算100次
  }
  
 写法二
-for (let i=1; i&amp;lt;=100; i+=2){   // 这里我们要循环计算50次
+for (let i=0; i&amp;lt;=100; i+=2){   // 这里我们要循环计算50次
     if (i%2==0) {
         sum+=i
     }
@@ -152,31 +152,31 @@ computed: {
 &lt;h2 id=&quot;javascript-库插件&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;javaScript&lt;/code&gt; 库，插件&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://antv.alipay.com/zh-cn/index.html&quot;&gt;Antv&lt;/a&gt;   : 蚂蚁金服出品的一系列数据可视化解决方案&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://echarts.baidu.com/index.html&quot;&gt;echarts&lt;/a&gt;   : 百度出品的一系列数据可视化解决方案，上家公司用过&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://echarts.baidu.com/index.html&quot;&gt;echarts&lt;/a&gt;   : 百度出品的一系列数据可视化解决方案，在公司项目中用过&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://threejs.org/&quot;&gt;three.js&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/js-cookie/js-cookie&quot;&gt;js-cookie&lt;/a&gt;   : 设置cookie的一个轻量级库，目前公司有项目用到&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/js-cookie/js-cookie&quot;&gt;js-cookie&lt;/a&gt;   : 设置cookie的一个轻量级库，在公司项目中用过&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://zh.nuxtjs.org/guide/&quot;&gt;Nuxt.js&lt;/a&gt;: 目前公司有项目使用了，主要是做 &lt;code class=&quot;highlighter-rouge&quot;&gt;SEO&lt;/code&gt; 优化&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://zh.nuxtjs.org/guide/&quot;&gt;Nuxt.js&lt;/a&gt;: 在公司项目中用过，主要是做 &lt;code class=&quot;highlighter-rouge&quot;&gt;SEO&lt;/code&gt; 优化&lt;/p&gt;
 
 &lt;h2 id=&quot;ui-文档pc端&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 文档（PC端）&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://vue.ant.design/docs/vue/introduce/&quot;&gt;Ant Vue&lt;/a&gt;   : 目前公司项目用到了&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://vue.ant.design/docs/vue/introduce/&quot;&gt;Ant Vue&lt;/a&gt;   : 在公司项目中用过&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.iviewui.com/docs/guide/install&quot;&gt;iView&lt;/a&gt; :目前公司未来或者过去使用过&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.iviewui.com/docs/guide/install&quot;&gt;iView&lt;/a&gt; : 在公司项目中用过&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://element.eleme.cn/2.8/#/zh-CN&quot;&gt;element&lt;/a&gt; :上家公司用过&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://element.eleme.cn/2.8/#/zh-CN&quot;&gt;element&lt;/a&gt; :在公司项目中用过&lt;/p&gt;
 
 &lt;p&gt;注：&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 综合整体情况，及 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 背后的社区和维护者进行选择，没有好坏之分，适合的就是最好&lt;/p&gt;
 
 &lt;h2 id=&quot;ui-文档移动端&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 文档（移动端）&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://youzan.github.io/vant/#/zh-CN/intro&quot;&gt;vant Vue&lt;/a&gt;   : 目前公司项目用到了，有赞团队&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://youzan.github.io/vant/#/zh-CN/intro&quot;&gt;vant Vue&lt;/a&gt;   : 在公司项目中用过，有赞团队&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://mint-ui.github.io/docs/#/zh-cn/&quot;&gt;element Mint UI&lt;/a&gt; : 上家公司项目用到了，&lt;code class=&quot;highlighter-rouge&quot;&gt;element&lt;/code&gt; 团队，组件相对而言比较少&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://mint-ui.github.io/docs/#/zh-cn/&quot;&gt;element Mint UI&lt;/a&gt; : 在公司项目中用过，&lt;code class=&quot;highlighter-rouge&quot;&gt;element&lt;/code&gt; 团队，组件相对而言比较少&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://didi.github.io/cube-ui/#/zh-CN/&quot;&gt;cube UI&lt;/a&gt; :目前公司项目中用到了，滴滴团队维护&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://didi.github.io/cube-ui/#/zh-CN/&quot;&gt;cube UI&lt;/a&gt; :在公司项目中用过，滴滴团队维护&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://doc.vux.li/zh-CN/&quot;&gt;VUX&lt;/a&gt;: 在某篇博客看到过推荐&lt;/p&gt;
 
@@ -214,13 +214,14 @@ computed: {
 万丈高楼平地起，坚固的高楼大厦需要夯实基础&lt;/p&gt;
 
 &lt;h2 id=&quot;系列参考文章&quot;&gt;系列参考文章&lt;/h2&gt;
-&lt;p&gt;没啥面试与被面试经验，但是可以从别人的面试经验或文章中去学习&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://blog.poetries.top/FE-Interview-Questions/base/#_2-%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%AF%B9%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3&quot;&gt;FE-Interview&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/Advanced-Frontend/Daily-Interview-Question/blob/master/datum/summary.md&quot;&gt;每天搞定一道前端大厂面试题&lt;/a&gt;，都是有一定的挑战性，题目都很不错，推荐&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/59316e682f301e0058378558&quot;&gt;阿里、网易、滴滴共十次前端面试碰到的问题&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">不定期盘点知识体系 换工作是一波人才的合理流动，面试是对自己知识体系的一次盘点。查漏补缺，追逐各种新技术，新框架。但同时不忘记对自己知识的巩固， 万丈高楼平地起，坚固的高楼大厦需要夯实基础</summary></entry><entry><title type="html">前端规范</title><link href="http://localhost:4000/2019/07/05/css-standard/" rel="alternate" type="text/html" title="前端规范" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/css%20standard</id><content type="html" xml:base="http://localhost:4000/2019/07/05/css-standard/">&lt;h1 id=&quot;团队规范高于一切规范&quot;&gt;团队规范高于一切规范&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/59316e682f301e0058378558&quot;&gt;阿里、网易、滴滴共十次前端面试碰到的问题&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5d23e750f265da1b855c7bbe&quot;&gt;前端 100 问：能搞懂80%的请把简历给我&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">不定期盘点知识体系 换工作是一波人才的合理流动，面试是对自己知识体系的一次盘点。查漏补缺，追逐各种新技术，新框架。但同时不忘记对自己知识的巩固， 万丈高楼平地起，坚固的高楼大厦需要夯实基础</summary></entry><entry><title type="html">前端规范</title><link href="http://localhost:4000/2019/07/05/css-standard/" rel="alternate" type="text/html" title="前端规范" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/css%20standard</id><content type="html" xml:base="http://localhost:4000/2019/07/05/css-standard/">&lt;h1 id=&quot;团队规范高于一切规范&quot;&gt;团队规范高于一切规范&lt;/h1&gt;
 &lt;p&gt;大部分团队规范都是在慢慢探索，实践规范起来的。适合团队的就是最好，否者都是纸上谈兵&lt;/p&gt;
 
 &lt;h2 id=&quot;差点死在规范上&quot;&gt;差点死在规范上&lt;/h2&gt;
