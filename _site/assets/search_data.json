@@ -149,6 +149,12 @@
     } ,
   
     {
+      "title"    : "前端技术文章推荐",
+      "category" : "web",
+      "url"      : "http://localhost:4000/2019/07/09/web-recommend/"
+    } ,
+  
+    {
       "title"    : "Eclipse",
       "category" : "Eclipse",
       "url"      : "http://localhost:4000/wiki/eclipse/"
