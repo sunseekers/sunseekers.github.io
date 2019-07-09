@@ -9,7 +9,10 @@ permalink: /about/
                             
 ---
 
+
 ![](../images/about/me.jpeg)
+
+[我的简历]({{ site.url }}/images/life/1.pdf)
 
 借用微信公众号三年前的一张图
 
