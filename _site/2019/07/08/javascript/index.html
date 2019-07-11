@@ -141,6 +141,32 @@ console.log(b.x)
 我才恍然大悟。原来我的问题在我忽略了 <em>. 的优先级高于 =</em>，然后才一直不理解
 <a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/93">原文地址</a></p>
 
+<h2 id="async-await"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function">async await</a></h2>
+<p>长得像同步函数的异步函数，返回一个promise对象；当调用一个 async 函数时，会返回一个 Promise 对象。当这个 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise 的 reject 方法也会传递这个异常值。
+async 函数中可能会有 await 表达式，这会使 async 函数暂停执行，等待 Promise  的结果出来，然后恢复async函数的执行并返回解析值（resolved）。
+    注意， await 关键字仅仅在 async function中有效。如果在 async function函数体外使用 await ，你只会得到一个语法错误（SyntaxError）</p>
+
+<p><em>在没有 await 的情况下执行 async 函数，它会立即执行，返回一个 Promise 对象，并且，绝不会阻塞后面的语句。这和普通返回 Promise 对象的函数并无二致。</em></p>
+
+<p><a href="https://segmentfault.com/a/1190000007535316">理解 JavaScript 的 async/await</a></p>
+
+<h2 id="跨域资源共享-corscross-origin-resource-sharing">跨域资源共享 CORS（cross-origin resource sharing)</h2>
+<p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。（jsonp跨域是通过js的script标签进行跨域）JSONP只支持GET请求，CORS支持所有类型的HTTP请求
+文章中介绍实现cors关键是服务器
+<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html">跨域资源共享 CORS 详解</a></p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html">浏览器同源政策及其规避方法</a></p>
+
+<p><a href="https://segmentfault.com/a/1190000011145364">前端常见跨域解决方案（全）</a></p>
+
+<p><a href="https://github.com/amandakelake/blog/issues/43">前端常见跨域解决方案（全）</a></p>
+
+<h2 id="缓存">缓存</h2>
+
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ">HTTP 缓存 文档</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&amp;mid=2651226262&amp;idx=1&amp;sn=2128db200b88479face67ed8e095757c&amp;chksm=bd4959128a3ed0041b43a5683c75c4b88c7d35fac909a59c14b4e9fc11e8d408680b171d2706&amp;scene=21#wechat_redirect">浏览器的缓存机制小结</a></p>
+
     </article>
     <!--<img src="/images/life/004.jpeg" width="25%" height="25%" style="vertical-align:middle;margin-left: 30%"/>-->
     <div style="padding-top:20px;">
