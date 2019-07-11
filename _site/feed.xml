@@ -1,4 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-11T11:02:00+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">前端技术文章推荐</title><link href="http://localhost:4000/2019/07/09/web-recommend/" rel="alternate" type="text/html" title="前端技术文章推荐" /><published>2019-07-09T00:00:00+08:00</published><updated>2019-07-09T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/09/web%20recommend</id><content type="html" xml:base="http://localhost:4000/2019/07/09/web-recommend/">&lt;h1 id=&quot;推荐原因&quot;&gt;推荐原因&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-11T13:12:12+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">在工作中用到的 vue</title><link href="http://localhost:4000/2019/07/11/vue/" rel="alternate" type="text/html" title="在工作中用到的 vue" /><published>2019-07-11T00:00:00+08:00</published><updated>2019-07-11T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/11/vue</id><content type="html" xml:base="http://localhost:4000/2019/07/11/vue/">&lt;h1 id=&quot;罗列出工作中用到一些-vue-知识点&quot;&gt;罗列出工作中用到一些 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 知识点&lt;/h1&gt;
+&lt;p&gt;有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点&lt;/p&gt;
+
+&lt;h2 id=&quot;requirecontext-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;require.context &lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;这个应该是&lt;code class=&quot;highlighter-rouge&quot;&gt;webpack&lt;/code&gt;里面的特性，但是文档里面提到了，那就拿出来说一说。&lt;code class=&quot;highlighter-rouge&quot;&gt;Vue cli3 +&lt;/code&gt; 可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;require.context&lt;/code&gt;  只全局注册这些非常通用的基础组件&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/vue/001@2x.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;prop-双向数据流&quot;&gt;prop 双向数据流&lt;/h2&gt;
+&lt;p&gt;这个说法有点不准确，又好像是准确的，因为在JavaScript中对象和数组是通过引用传入的，所以对于一个数组或者对象类型的prop来说
+在子组件改变这个对象或者数组本身将会影响到父组件的状态。这个时候我们可以用深层拷贝解决这个问题&lt;code class=&quot;highlighter-rouge&quot;&gt;（JSON.parse（JSON.stringify（xxx））&lt;/code&gt;这个方法有弊端，或者使用其他方式深层拷贝）&lt;/p&gt;
+
+&lt;h2 id=&quot;sync-实现父子组件的双向数据流&quot;&gt;.sync 实现父子组件的双向数据流&lt;/h2&gt;
+&lt;p&gt;这个是文档给出实现双向数据流的方法，有时候特别管用，我有一次在用 &lt;code class=&quot;highlighter-rouge&quot;&gt;v-if&lt;/code&gt; 切换子组件的时候，数据没有方法完全清空，就只能使用她了。
+有可能是因为如图的原因，反正我是使用她解决的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/vue/002.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;父子组件之间传递是单向的，但有时候我们需要双向数据流，这时候就需要使用&lt;code class=&quot;highlighter-rouge&quot;&gt;.sync&lt;/code&gt; 修饰符，&lt;code class=&quot;highlighter-rouge&quot;&gt;.sync&lt;/code&gt; 不能配合表达式一起用&lt;/p&gt;
+
+&lt;p&gt;父组件&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;text-document v-bind:title.sync=&quot;doc.title&quot;&amp;gt;&amp;lt;/text-document&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;子组件&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;this.$emit('update:title', newTitle)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;provide-给所有的后代组件提供数据和方法&quot;&gt;Provide 给所有的后代组件提供数据和方法&lt;/h2&gt;
+&lt;p&gt;在官网中是这样说的:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;provide 选项允许我们指定我们想要提供给后代组件的数据/方法。在这个例子中，就是 &amp;lt;google-map&amp;gt; 内部的 getMap 方法：
+provide: function () {
+  return {
+    getMap: this.getMap
+  }
+}
+然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在这个实例上的属性：
+inject: ['getMap']
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;好像在&lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt;里面常常用到类似的特性&lt;/p&gt;
+
+&lt;h2 id=&quot;未完待续&quot;&gt;未完待续&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">罗列出工作中用到一些 vue 知识点 有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点</summary></entry><entry><title type="html">前端技术文章推荐</title><link href="http://localhost:4000/2019/07/09/web-recommend/" rel="alternate" type="text/html" title="前端技术文章推荐" /><published>2019-07-09T00:00:00+08:00</published><updated>2019-07-09T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/09/web%20recommend</id><content type="html" xml:base="http://localhost:4000/2019/07/09/web-recommend/">&lt;h1 id=&quot;推荐原因&quot;&gt;推荐原因&lt;/h1&gt;
 &lt;p&gt;大佬的文章是真的写的好好，仰望的对象。推荐css，html，JavaScript的基础原理文章。
 牢固夯实自己的基础。&lt;/p&gt;
 
@@ -336,20 +375,4 @@ const car = {
 
 &lt;p&gt;&lt;a href=&quot;https://webpack.docschina.org/guides/dependency-management/&quot;&gt;webpack 带表达式的 require 语句  文档&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://cn.vuejs.org/v2/cookbook/client-side-storage.html&quot;&gt;vue 客户端存储 文档&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">发现，探索 vue 优质文章 传送 我觉得写的好的 vue 文章，曾经帮助我解决过问题的文章，推荐理由+链接，方便我下次快速查找。 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry><entry><title type="html">vue 系列小实例</title><link href="http://localhost:4000/2019/07/04/vue-practice/" rel="alternate" type="text/html" title="vue 系列小实例" /><published>2019-07-04T00:00:00+08:00</published><updated>2019-07-04T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/04/vue%20practice</id><content type="html" xml:base="http://localhost:4000/2019/07/04/vue-practice/">&lt;h1 id=&quot;vue-动手系列&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 动手系列&lt;/h1&gt;
-&lt;p&gt;搬运工，搬运可以动手尝试 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
-
-&lt;h2 id=&quot;来自-github&quot;&gt;来自 &lt;code class=&quot;highlighter-rouge&quot;&gt;github&lt;/code&gt;&lt;/h2&gt;
-
-&lt;h2 id=&quot;来自掘金&quot;&gt;来自掘金&lt;/h2&gt;
-
-&lt;h2 id=&quot;来自知乎&quot;&gt;来自知乎&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/59317112&quot;&gt;实现一个 Vue 吸顶锚点组件&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/66779396&quot;&gt;长列表渲染实践&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;来自博客&quot;&gt;来自博客&lt;/h2&gt;
-
-&lt;h2 id=&quot;来自简书&quot;&gt;来自简书&lt;/h2&gt;
-
-&lt;h2 id=&quot;来自网络&quot;&gt;来自网络&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">vue 动手系列 搬运工，搬运可以动手尝试 vue 系列小实例。部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://cn.vuejs.org/v2/cookbook/client-side-storage.html&quot;&gt;vue 客户端存储 文档&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">发现，探索 vue 优质文章 传送 我觉得写的好的 vue 文章，曾经帮助我解决过问题的文章，推荐理由+链接，方便我下次快速查找。 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry></feed>

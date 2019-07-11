@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>博客分类 &mdash; sunseekers</title>
+    <title>在工作中用到的 vue &mdash; sunseekers</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -21,26 +21,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/categories/">
+    <link rel="canonical" href="http://localhost:4000/2019/07/11/vue/">
     <link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="博客分类">
+    <meta property="og:title" content="在工作中用到的 vue">
       
-    <meta name="keywords" content="分类">
-    <meta name="og:keywords" content="分类">
+    <meta name="keywords" content="vue">
+    <meta name="og:keywords" content="vue">
       
-    <meta name="description" content="我的文章都分类记录在这里啦">
-    <meta name="og:description" content="我的文章都分类记录在这里啦">
+    <meta name="description" content="罗列出工作中用到一些 vue 知识点有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点">
+    <meta name="og:description" content="罗列出工作中用到一些 vue 知识点有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/categories/">
+    <meta property="og:url" content="http://localhost:4000/2019/07/11/vue/">
     <meta property="og:site_name" content="sunseekers">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2019-07-11">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -84,179 +86,125 @@
     <!-- / header -->
 
 
-    <section class="collection-head small geopattern" data-pattern-id="博客分类">
-    <div class="container">
-        <div class="columns">
-            <div class="column three-fourths">
-                <div class="collection-title">
-                    <h1 class="collection-header">博客分类</h1>
-                </div>
-            </div>
+    <section class="collection-head small geopattern" data-pattern-id="在工作中用到的 vue">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">在工作中用到的 vue</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/07/11
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#vue" title="vue">vue</a>
+          </span>
+          
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
 <section class="container content">
-    <div class="columns">
-        <div class="column three-fourths" >
-            <article class="article-content markdown-body">
-                <section class="container posts-content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h1 id="罗列出工作中用到一些-vue-知识点">罗列出工作中用到一些 <code class="highlighter-rouge">vue</code> 知识点</h1>
+<p>有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点</p>
+
+<h2 id="requirecontext-"><code class="highlighter-rouge">require.context </code></h2>
+<p>这个应该是<code class="highlighter-rouge">webpack</code>里面的特性，但是文档里面提到了，那就拿出来说一说。<code class="highlighter-rouge">Vue cli3 +</code> 可以使用 <code class="highlighter-rouge">require.context</code>  只全局注册这些非常通用的基础组件</p>
+
+<p><img src="http://localhost:4000/images/vue/001@2x.png" alt="" /></p>
+
+<h2 id="prop-双向数据流">prop 双向数据流</h2>
+<p>这个说法有点不准确，又好像是准确的，因为在JavaScript中对象和数组是通过引用传入的，所以对于一个数组或者对象类型的prop来说
+在子组件改变这个对象或者数组本身将会影响到父组件的状态。这个时候我们可以用深层拷贝解决这个问题<code class="highlighter-rouge">（JSON.parse（JSON.stringify（xxx））</code>这个方法有弊端，或者使用其他方式深层拷贝）</p>
+
+<h2 id="sync-实现父子组件的双向数据流">.sync 实现父子组件的双向数据流</h2>
+<p>这个是文档给出实现双向数据流的方法，有时候特别管用，我有一次在用 <code class="highlighter-rouge">v-if</code> 切换子组件的时候，数据没有方法完全清空，就只能使用她了。
+有可能是因为如图的原因，反正我是使用她解决的。</p>
+
+<p><img src="http://localhost:4000/images/vue/002.png" alt="" /></p>
+
+<p>父子组件之间传递是单向的，但有时候我们需要双向数据流，这时候就需要使用<code class="highlighter-rouge">.sync</code> 修饰符，<code class="highlighter-rouge">.sync</code> 不能配合表达式一起用</p>
+
+<p>父组件</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;text-document v-bind:title.sync="doc.title"&gt;&lt;/text-document&gt;
+</code></pre></div></div>
+<p>子组件</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>this.$emit('update:title', newTitle)
+</code></pre></div></div>
+<h2 id="provide-给所有的后代组件提供数据和方法">Provide 给所有的后代组件提供数据和方法</h2>
+<p>在官网中是这样说的:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>provide 选项允许我们指定我们想要提供给后代组件的数据/方法。在这个例子中，就是 &lt;google-map&gt; 内部的 getMap 方法：
+provide: function () {
+  return {
+    getMap: this.getMap
+  }
+}
+然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在这个实例上的属性：
+inject: ['getMap']
+</code></pre></div></div>
+<p>好像在<code class="highlighter-rouge">react</code>里面常常用到类似的特性</p>
+
+<h2 id="未完待续">未完待续</h2>
+
+    </article>
+    <!--<img src="/images/life/004.jpeg" width="25%" height="25%" style="vertical-align:middle;margin-left: 30%"/>-->
+    <div style="padding-top:20px;">
+      <hr/>
+      <p>一名伪程序猿——sunseekers，曾被bug虐的体无完肤，却依旧待他如初恋。</p>
+
+      <p>如果我改过的某一个bug，吐槽过的某一个需求，写过的某一行代码</p>
+
+      <p>曾在你的心里荡起涟漪，那至少说明在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p>
+
+      <p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。 </p>
+
+      <p>如果你喜欢我写过的某一个文字，请支持我，鼓励我，你的鼓励是我最大的动力来源</p>
+
+      <p>当然恰好你也喜欢我的话，我们可以互相关注，相互学习的哟！</p>
+    </div>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2019/07/11/vue/',
+            clientID: '7ffc0aeedcc0dc7f5fb6',
+            clientSecret: 'c910965c927d40783d363d7e21197ccf35c317b3',
+            repo: 'sunseekers',
+            owner: 'sunseekers',
+            admin: ['sunseekers'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
 
 
-<h3>flutter</h3>
-<ol class="posts-list" id="flutter">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/flutter/">flutter 入门学习</a>
-</li>
-
-</ol>
-
-<h3>go</h3>
-<ol class="posts-list" id="go">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/go/">go 入门学习</a>
-</li>
-
-</ol>
-
-<h3>nuxt</h3>
-<ol class="posts-list" id="nuxt">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/nuxt/">nuxt 入门学习</a>
-</li>
-
-</ol>
-
-<h3>react</h3>
-<ol class="posts-list" id="react">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/react/">react 项目学习</a>
-</li>
-
-</ol>
-
-<h3>vue</h3>
-<ol class="posts-list" id="vue">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-11</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/11/vue/">在工作中用到的 vue</a>
-</li>
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/vue-recommend/">vue 系列文章推荐</a>
-</li>
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/vue-practice/">vue 系列小实例</a>
-</li>
-
-</ol>
-
-<h3>web</h3>
-<ol class="posts-list" id="web">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-09</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/09/web-recommend/">前端技术文章推荐</a>
-</li>
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-05</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/05/web/">JavaScript 库 + UI插件推荐 + 周边技术</a>
-</li>
-
-</ol>
-
-<h3>前端面试</h3>
-<ol class="posts-list" id="前端面试">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-05</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/05/interview/">前端面试系列文章</a>
-</li>
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-05</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/05/css-standard/">前端规范</a>
-</li>
-
-</ol>
-
-<h3>生活</h3>
-<ol class="posts-list" id="生活">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/hello-world/">Hello World</a>
-</li>
-
-</ol>
-
-<h3>算法</h3>
-<ol class="posts-list" id="算法">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-08</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/08/algorithm001/">算不算算法的算法</a>
-</li>
-
-</ol>
-
-<h3>解决问题</h3>
-<ol class="posts-list" id="解决问题">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-05</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/05/work/">解决工作bug或者需求系列文章</a>
-</li>
-
-</ol>
-
-<h3>计算机</h3>
-<ol class="posts-list" id="计算机">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/04/computer/">浏览器 or 计算机系列文章</a>
-</li>
-
-</ol>
-
-<h3>项目搭建</h3>
-<ol class="posts-list" id="项目搭建">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2019-07-08</span>
-<a class="posts-list-name" href="http://localhost:4000/2019/07/08/vue-cli/">前端项目的搭建</a>
-</li>
-
-</ol>
-
-</section>
-<!-- /section.content -->
-
-            </article>
-            <div class="share">
-                <div class="share-component"></div>
-            </div>
-            <div class="comment">
-                
-
-            </div>
-        </div>
-        <div class="column one-fourth">
-            
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -281,91 +229,25 @@ SimpleJekyllSearch({
 })
 </script>
 
-            
+    
 
-            
-<h3>Blog Categories</h3>
-<div id="blog-categories">
-  <ul class="list-group">
     
-    
-    <li class="list-group-item">
-    <a href="#flutter">flutter</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#go">go</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#nuxt">nuxt</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#react">react</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#vue">vue</a>
-    <span class="badge">3</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#web">web</a>
-    <span class="badge">2</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#前端面试">前端面试</a>
-    <span class="badge">2</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#生活">生活</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#算法">算法</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#解决问题">解决问题</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#计算机">计算机</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#项目搭建">项目搭建</a>
-    <span class="badge">1</span>
-    </li>
-    
-  </ul>
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
 </div>
 
-<script type="text/javascript">
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
 
-  $(document).ready(function(){
-    $("#blog-categories li").css('text-transform','capitalize')
-  });
-
-</script>
-
-
-
-        </div>
-    </div>
+  </div>
+</div>
 </section>
 <!-- /section.content -->
+
 
     <footer class="container">
         <div class="site-footer" role="contentinfo">
