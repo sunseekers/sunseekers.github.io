@@ -51,20 +51,5 @@ async 函数中可能会有 await 表达式，这会使 async 函数暂停�
 
 [理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
 
-## 跨域资源共享 CORS（cross-origin resource sharing)
-它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。（jsonp跨域是通过js的script标签进行跨域）JSONP只支持GET请求，CORS支持所有类型的HTTP请求
-文章中介绍实现cors关键是服务器
-[跨域资源共享 CORS 详解](http://www.ruanyifeng.com/blog/2016/04/cors.html)
-
-[浏览器同源政策及其规避方法](http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html)
-
-[前端常见跨域解决方案（全）](https://segmentfault.com/a/1190000011145364)
-
-[前端常见跨域解决方案（全）](https://github.com/amandakelake/blog/issues/43)
-
-## 缓存
-
-[HTTP 缓存 文档](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ)
-
-[浏览器的缓存机制小结](https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651226262&idx=1&sn=2128db200b88479face67ed8e095757c&chksm=bd4959128a3ed0041b43a5683c75c4b88c7d35fac909a59c14b4e9fc11e8d408680b171d2706&scene=21#wechat_redirect
-   )
+## Array.from()
+`Array.from(obj,mapFn,thisArg)` 相当于 `Array.from(obj).map(mapFn,thisArg)`

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-11T13:12:12+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">在工作中用到的 vue</title><link href="http://localhost:4000/2019/07/11/vue/" rel="alternate" type="text/html" title="在工作中用到的 vue" /><published>2019-07-11T00:00:00+08:00</published><updated>2019-07-11T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/11/vue</id><content type="html" xml:base="http://localhost:4000/2019/07/11/vue/">&lt;h1 id=&quot;罗列出工作中用到一些-vue-知识点&quot;&gt;罗列出工作中用到一些 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 知识点&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-11T15:07:03+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">在工作中用到的 vue</title><link href="http://localhost:4000/2019/07/11/vue/" rel="alternate" type="text/html" title="在工作中用到的 vue" /><published>2019-07-11T00:00:00+08:00</published><updated>2019-07-11T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/11/vue</id><content type="html" xml:base="http://localhost:4000/2019/07/11/vue/">&lt;h1 id=&quot;罗列出工作中用到一些-vue-知识点&quot;&gt;罗列出工作中用到一些 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 知识点&lt;/h1&gt;
 &lt;p&gt;有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点&lt;/p&gt;
 
 &lt;h2 id=&quot;requirecontext-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;require.context &lt;/code&gt;&lt;/h2&gt;
@@ -89,22 +89,8 @@ async 函数中可能会有 await 表达式，这会使 async 函数暂停�
 
 &lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000007535316&quot;&gt;理解 JavaScript 的 async/await&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;跨域资源共享-corscross-origin-resource-sharing&quot;&gt;跨域资源共享 CORS（cross-origin resource sharing)&lt;/h2&gt;
-&lt;p&gt;它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。（jsonp跨域是通过js的script标签进行跨域）JSONP只支持GET请求，CORS支持所有类型的HTTP请求
-文章中介绍实现cors关键是服务器
-&lt;a href=&quot;http://www.ruanyifeng.com/blog/2016/04/cors.html&quot;&gt;跨域资源共享 CORS 详解&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html&quot;&gt;浏览器同源政策及其规避方法&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000011145364&quot;&gt;前端常见跨域解决方案（全）&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/amandakelake/blog/issues/43&quot;&gt;前端常见跨域解决方案（全）&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;缓存&quot;&gt;缓存&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ&quot;&gt;HTTP 缓存 文档&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&amp;amp;mid=2651226262&amp;amp;idx=1&amp;amp;sn=2128db200b88479face67ed8e095757c&amp;amp;chksm=bd4959128a3ed0041b43a5683c75c4b88c7d35fac909a59c14b4e9fc11e8d408680b171d2706&amp;amp;scene=21#wechat_redirect&quot;&gt;浏览器的缓存机制小结&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">JavaScript 中一些名词或者概念的解释 有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。</summary></entry><entry><title type="html">算不算算法的算法</title><link href="http://localhost:4000/2019/07/08/algorithm001/" rel="alternate" type="text/html" title="算不算算法的算法" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/algorithm001</id><content type="html" xml:base="http://localhost:4000/2019/07/08/algorithm001/">&lt;h1 id=&quot;是算法还是不是&quot;&gt;是算法还是不是？&lt;/h1&gt;
+&lt;h2 id=&quot;arrayfrom&quot;&gt;Array.from()&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from(obj,mapFn,thisArg)&lt;/code&gt; 相当于 &lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from(obj).map(mapFn,thisArg)&lt;/code&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">JavaScript 中一些名词或者概念的解释 有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。</summary></entry><entry><title type="html">算不算算法的算法</title><link href="http://localhost:4000/2019/07/08/algorithm001/" rel="alternate" type="text/html" title="算不算算法的算法" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/algorithm001</id><content type="html" xml:base="http://localhost:4000/2019/07/08/algorithm001/">&lt;h1 id=&quot;是算法还是不是&quot;&gt;是算法还是不是？&lt;/h1&gt;
 &lt;p&gt;非科班出身，非计算机出生的我，对于算法数据结构计算机原理等等相关的知识一脸茫然。但是耳边总是会听到有人说算法或者相关方面的知识，
 我就断断续续的把我听到的记录下来吧，是还是不是？交给时间，时间会给我答案&lt;/p&gt;
 
@@ -298,21 +284,6 @@ computed: {
 
 &lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5b44a485e51d4519945fb6b7#heading-38&quot;&gt;总结了17年初到18年初百场前端面试的面试经验(含答案)&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">不定期盘点知识体系 换工作是一波人才的合理流动，面试是对自己知识体系的一次盘点。查漏补缺，追逐各种新技术，新框架。但同时不忘记对自己知识的巩固， 万丈高楼平地起，坚固的高楼大厦需要夯实基础</summary></entry><entry><title type="html">前端规范</title><link href="http://localhost:4000/2019/07/05/css-standard/" rel="alternate" type="text/html" title="前端规范" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/css%20standard</id><content type="html" xml:base="http://localhost:4000/2019/07/05/css-standard/">&lt;h1 id=&quot;团队规范高于一切规范&quot;&gt;团队规范高于一切规范&lt;/h1&gt;
 &lt;p&gt;大部分团队规范都是在慢慢探索，实践规范起来的。适合团队的就是最好，否者都是纸上谈兵&lt;/p&gt;
-
-&lt;h2 id=&quot;差点死在规范上&quot;&gt;差点死在规范上&lt;/h2&gt;
-&lt;p&gt;我差点死在了规范上，是变量命名。之前写代码的时候并没有注意太多的，随心而写。如果有强迫症的人看着会难受，在我的代码里面样式命名有驼峰式和短横线分隔式。
-你能看懂我代码写了什么，但是一个页面里面有几种写法，看着怪难受的。有因为赶项目，有因为中途接手项目，有因为一时手快的…我可以找到各种理由。所有的
-理由都是因为我不注意规范，不找给自己理由了。&lt;/p&gt;
-
-&lt;p&gt;这是我写的代码，现在回头看，想拍拍自己的脑袋，脑子里都想些啥呢&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/pages/001.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;修改前后对比，前面没有错，但是属性太长了，太多重复看上去不舒服&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/pages/002.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;一会驼峰式，一会短横线式。写法都可以，没有对错，但是应该要遵循团队规范高于个人规范&lt;/p&gt;
 
 &lt;h2 id=&quot;我平时写代码应该有的规范&quot;&gt;我平时写代码应该有的规范&lt;/h2&gt;
 
