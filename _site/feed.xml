@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-11T15:07:03+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">在工作中用到的 vue</title><link href="http://localhost:4000/2019/07/11/vue/" rel="alternate" type="text/html" title="在工作中用到的 vue" /><published>2019-07-11T00:00:00+08:00</published><updated>2019-07-11T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/11/vue</id><content type="html" xml:base="http://localhost:4000/2019/07/11/vue/">&lt;h1 id=&quot;罗列出工作中用到一些-vue-知识点&quot;&gt;罗列出工作中用到一些 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 知识点&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-13T22:58:59+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">在工作中用到的 vue</title><link href="http://localhost:4000/2019/07/11/vue/" rel="alternate" type="text/html" title="在工作中用到的 vue" /><published>2019-07-11T00:00:00+08:00</published><updated>2019-07-11T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/11/vue</id><content type="html" xml:base="http://localhost:4000/2019/07/11/vue/">&lt;h1 id=&quot;罗列出工作中用到一些-vue-知识点&quot;&gt;罗列出工作中用到一些 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 知识点&lt;/h1&gt;
 &lt;p&gt;有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点&lt;/p&gt;
 
 &lt;h2 id=&quot;requirecontext-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;require.context &lt;/code&gt;&lt;/h2&gt;
@@ -89,8 +89,37 @@ async 函数中可能会有 await 表达式，这会使 async 函数暂停�
 
 &lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000007535316&quot;&gt;理解 JavaScript 的 async/await&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;arrayfrom&quot;&gt;Array.from()&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from(obj,mapFn,thisArg)&lt;/code&gt; 相当于 &lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from(obj).map(mapFn,thisArg)&lt;/code&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">JavaScript 中一些名词或者概念的解释 有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。</summary></entry><entry><title type="html">算不算算法的算法</title><link href="http://localhost:4000/2019/07/08/algorithm001/" rel="alternate" type="text/html" title="算不算算法的算法" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/algorithm001</id><content type="html" xml:base="http://localhost:4000/2019/07/08/algorithm001/">&lt;h1 id=&quot;是算法还是不是&quot;&gt;是算法还是不是？&lt;/h1&gt;
+&lt;h2 id=&quot;array&quot;&gt;Array&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from(obj,mapFn,thisArg)&lt;/code&gt; 相当于 &lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from(obj).map(mapFn,thisArg)&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flat()&lt;/code&gt;按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新的数组返回（我理解就是数组扁平化，过滤掉空项）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var arr3 = [1, 2, [3, 4, [5, [6,[9,[0]]]]]];
+arr3.flat(5);//[1, 2, 3, 4, 5, 6, 9, 0]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;reduce&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;concat&lt;/code&gt; 结合在一起可以替换&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
+function flattenDeep(arr1) {
+    return arr1.reduce((acc,val)=&amp;gt;{Array.isArray(val)?acc.concat(flattenDeep(val)) : acc.concat(val), []);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flatMap()&lt;/code&gt; 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;var names = [‘alice’,’Bol’,’tiff’,’Bruce’,’alice’]
+var countedNames = names.reduce((allNames,name)=&amp;gt;{
+    if(name in allNames){
+    allNames[name]++
+    }else{
+    allNames[name]=1
+    }
+    return allNames
+},{})&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">JavaScript 中一些名词或者概念的解释 有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。</summary></entry><entry><title type="html">算不算算法的算法</title><link href="http://localhost:4000/2019/07/08/algorithm001/" rel="alternate" type="text/html" title="算不算算法的算法" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/algorithm001</id><content type="html" xml:base="http://localhost:4000/2019/07/08/algorithm001/">&lt;h1 id=&quot;是算法还是不是&quot;&gt;是算法还是不是？&lt;/h1&gt;
 &lt;p&gt;非科班出身，非计算机出生的我，对于算法数据结构计算机原理等等相关的知识一脸茫然。但是耳边总是会听到有人说算法或者相关方面的知识，
 我就断断续续的把我听到的记录下来吧，是还是不是？交给时间，时间会给我答案&lt;/p&gt;
 
@@ -282,7 +311,9 @@ computed: {
 
 &lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5d23e750f265da1b855c7bbe&quot;&gt;前端 100 问：能搞懂80%的请把简历给我&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5b44a485e51d4519945fb6b7#heading-38&quot;&gt;总结了17年初到18年初百场前端面试的面试经验(含答案)&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">不定期盘点知识体系 换工作是一波人才的合理流动，面试是对自己知识体系的一次盘点。查漏补缺，追逐各种新技术，新框架。但同时不忘记对自己知识的巩固， 万丈高楼平地起，坚固的高楼大厦需要夯实基础</summary></entry><entry><title type="html">前端规范</title><link href="http://localhost:4000/2019/07/05/css-standard/" rel="alternate" type="text/html" title="前端规范" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/css%20standard</id><content type="html" xml:base="http://localhost:4000/2019/07/05/css-standard/">&lt;h1 id=&quot;团队规范高于一切规范&quot;&gt;团队规范高于一切规范&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5b44a485e51d4519945fb6b7#heading-38&quot;&gt;总结了17年初到18年初百场前端面试的面试经验(含答案)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000014028922&quot;&gt;自己写的面试题，自己想的答案&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">不定期盘点知识体系 换工作是一波人才的合理流动，面试是对自己知识体系的一次盘点。查漏补缺，追逐各种新技术，新框架。但同时不忘记对自己知识的巩固， 万丈高楼平地起，坚固的高楼大厦需要夯实基础</summary></entry><entry><title type="html">前端规范</title><link href="http://localhost:4000/2019/07/05/css-standard/" rel="alternate" type="text/html" title="前端规范" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/css%20standard</id><content type="html" xml:base="http://localhost:4000/2019/07/05/css-standard/">&lt;h1 id=&quot;团队规范高于一切规范&quot;&gt;团队规范高于一切规范&lt;/h1&gt;
 &lt;p&gt;大部分团队规范都是在慢慢探索，实践规范起来的。适合团队的就是最好，否者都是纸上谈兵&lt;/p&gt;
 
 &lt;h2 id=&quot;我平时写代码应该有的规范&quot;&gt;我平时写代码应该有的规范&lt;/h2&gt;
