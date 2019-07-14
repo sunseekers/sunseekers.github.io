@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-14T20:54:07+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">我不知道你知不知道我知道的伪元素小技巧</title><link href="http://localhost:4000/2019/07/14/css001/" rel="alternate" type="text/html" title="我不知道你知不知道我知道的伪元素小技巧" /><published>2019-07-14T00:00:00+08:00</published><updated>2019-07-14T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/14/css001</id><content type="html" xml:base="http://localhost:4000/2019/07/14/css001/">&lt;h1 id=&quot;伪元素是什么有什么用&quot;&gt;伪元素是什么？有什么用？&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-14T21:10:58+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">我不知道你知不知道我知道的伪元素小技巧</title><link href="http://localhost:4000/2019/07/14/css001/" rel="alternate" type="text/html" title="我不知道你知不知道我知道的伪元素小技巧" /><published>2019-07-14T00:00:00+08:00</published><updated>2019-07-14T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/14/css001</id><content type="html" xml:base="http://localhost:4000/2019/07/14/css001/">&lt;h1 id=&quot;伪元素是什么有什么用&quot;&gt;伪元素是什么？有什么用？&lt;/h1&gt;
 &lt;p&gt;本文写于2017年11月06日，从我的掘金迁移过来&lt;/p&gt;
 
 &lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;伪元素&lt;/h2&gt;
@@ -334,7 +334,10 @@ getJSON(&quot;data/ninjas.json&quot;).then(ninjas =&amp;gt; {
 &lt;p&gt;&lt;i style=&quot;color:rgb(230,3,135);&quot;&gt;链表是什么？&lt;/i&gt;
 链表是一种数据结构，必须利用指针变量来实现；数据结构包括（number结构类型，Object类型，Array类型等等）；链表是根据需要开辟内存单元，链表有一个头指针，存放一个地址，该地址指向一个元素（每个链表都有一个头指针，必不可少）；链表中的每一个元素称为节点；节点包含两个部分，用户需要的实际数据，下一个节点的地址(next);链表中的地址是不连续的；要找某一元素，必须先找到上一个元素，根据他提供的下一个元素地址才能找到下一个元素；&lt;/p&gt;
 
-&lt;p&gt;形参不占内存中的存储单元；如果函数不需要返回值则不需要return语句&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">为什么要了去了解数据结构和算法 因为喜欢编程，要在这条路上走的更远，是追求写出更好更美的代码。本文写于2017年11月07日，从我的掘金迁移过来</summary></entry><entry><title type="html">在工作中用到的 vue</title><link href="http://localhost:4000/2019/07/11/vue/" rel="alternate" type="text/html" title="在工作中用到的 vue" /><published>2019-07-11T00:00:00+08:00</published><updated>2019-07-11T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/11/vue</id><content type="html" xml:base="http://localhost:4000/2019/07/11/vue/">&lt;h1 id=&quot;罗列出工作中用到一些-vue-知识点&quot;&gt;罗列出工作中用到一些 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 知识点&lt;/h1&gt;
+&lt;p&gt;形参不占内存中的存储单元；如果函数不需要返回值则不需要return语句&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">为什么要了去了解数据结构和算法 因为喜欢编程，要在这条路上走的更远，是追求写出更好更美的代码。本文写于2017年11月07日，从我的掘金迁移过来</summary></entry><entry><title type="html">仿QQ音乐之小程序</title><link href="http://localhost:4000/2019/07/14/WeChat/" rel="alternate" type="text/html" title="仿QQ音乐之小程序" /><published>2019-07-14T00:00:00+08:00</published><updated>2019-07-14T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/14/WeChat</id><content type="html" xml:base="http://localhost:4000/2019/07/14/WeChat/">&lt;h1 id=&quot;入门学习小程序案例&quot;&gt;入门学习小程序案例&lt;/h1&gt;
+&lt;p&gt;本文写于2017年11月06日，从我的知乎迁移过来&lt;/p&gt;
+
+&lt;h2 id=&quot;仿qq音乐之小程序&quot;&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/42421882&quot;&gt;仿QQ音乐之小程序&lt;/a&gt;&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">入门学习小程序案例 本文写于2017年11月06日，从我的知乎迁移过来</summary></entry><entry><title type="html">在工作中用到的 vue</title><link href="http://localhost:4000/2019/07/11/vue/" rel="alternate" type="text/html" title="在工作中用到的 vue" /><published>2019-07-11T00:00:00+08:00</published><updated>2019-07-11T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/11/vue</id><content type="html" xml:base="http://localhost:4000/2019/07/11/vue/">&lt;h1 id=&quot;罗列出工作中用到一些-vue-知识点&quot;&gt;罗列出工作中用到一些 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 知识点&lt;/h1&gt;
 &lt;p&gt;有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点&lt;/p&gt;
 
 &lt;h2 id=&quot;requirecontext-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;require.context &lt;/code&gt;&lt;/h2&gt;
@@ -566,71 +569,4 @@ computed: {
    }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;解决方案都是根据路由的变化，对组件进行重新渲染或者初始化&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">好文章，专治千奇百怪的 bug 测试提 bug ，产品提需求。如果我没法解决，头昏脑胀，揪完整头的头发都没有用，时刻要面临失业的风险。 所以碰到已经解决的问题，碰到揪了好多头发的问题，一定要留一点痕迹</summary></entry><entry><title type="html">JavaScript 库 + UI插件推荐 + 周边技术</title><link href="http://localhost:4000/2019/07/05/web/" rel="alternate" type="text/html" title="JavaScript 库 + UI插件推荐 + 周边技术" /><published>2019-07-05T00:00:00+08:00</published><updated>2019-07-05T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/05/web</id><content type="html" xml:base="http://localhost:4000/2019/07/05/web/">&lt;h1 id=&quot;日常工作用的-js-库ui-插件&quot;&gt;日常工作用的 &lt;code class=&quot;highlighter-rouge&quot;&gt;js&lt;/code&gt; 库，&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 插件&lt;/h1&gt;
-&lt;p&gt;痛点是：只有7秒钟的记忆，知道很多好用的库或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; ，但是每一次都说不出名字，都要各种查找，呼唤记忆。
-大量时间被浪费，这篇文章用做记录，方便我下次快速查找到，会陆续更新，有问题或者有好的推荐的朋友可以提pr，或者私聊我，我加上去。
-相信我个人的力量是有限的，我所列出基本都是公司项目中用过，或者朋友推荐。入职前端到目前一直使用的都是 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; ，所推荐有关 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; ，基本默认是  &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt;，
-在我的熟悉范围推荐。排名不分前后，瞎排，有可能不分文案写错了，欢迎指正
-部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除&lt;/p&gt;
-
-&lt;h2 id=&quot;javascript-库插件&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;javaScript&lt;/code&gt; 库，插件&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://antv.alipay.com/zh-cn/index.html&quot;&gt;Antv&lt;/a&gt;   : 蚂蚁金服出品的一系列数据可视化解决方案&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://echarts.baidu.com/index.html&quot;&gt;echarts&lt;/a&gt;   : 百度出品的一系列数据可视化解决方案，在公司项目中用过&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://threejs.org/&quot;&gt;three.js&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/js-cookie/js-cookie&quot;&gt;js-cookie&lt;/a&gt;   : 设置cookie的一个轻量级库，在公司项目中用过&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zh.nuxtjs.org/guide/&quot;&gt;Nuxt.js&lt;/a&gt;: 在公司项目中用过，主要是做 &lt;code class=&quot;highlighter-rouge&quot;&gt;SEO&lt;/code&gt; 优化&lt;/p&gt;
-
-&lt;h2 id=&quot;ui-文档pc端&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 文档（PC端）&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://vue.ant.design/docs/vue/introduce/&quot;&gt;Ant Vue&lt;/a&gt;   : 在公司项目中用过&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.iviewui.com/docs/guide/install&quot;&gt;iView&lt;/a&gt; : 在公司项目中用过&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://element.eleme.cn/2.8/#/zh-CN&quot;&gt;element&lt;/a&gt; :在公司项目中用过&lt;/p&gt;
-
-&lt;p&gt;注：&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 综合整体情况，及 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 背后的社区和维护者进行选择，没有好坏之分，适合的就是最好&lt;/p&gt;
-
-&lt;h2 id=&quot;ui-文档移动端&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 文档（移动端）&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://youzan.github.io/vant/#/zh-CN/intro&quot;&gt;vant Vue&lt;/a&gt;   : 在公司项目中用过，有赞团队&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://mint-ui.github.io/docs/#/zh-cn/&quot;&gt;element Mint UI&lt;/a&gt; : 在公司项目中用过，&lt;code class=&quot;highlighter-rouge&quot;&gt;element&lt;/code&gt; 团队，组件相对而言比较少&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://didi.github.io/cube-ui/#/zh-CN/&quot;&gt;cube UI&lt;/a&gt; :在公司项目中用过，滴滴团队维护&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://doc.vux.li/zh-CN/&quot;&gt;VUX&lt;/a&gt;: 在某篇博客看到过推荐&lt;/p&gt;
-
-&lt;p&gt;注：&lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 综合整体情况，及 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 背后的社区和维护者进行选择，没有好坏之分，适合的就是最好&lt;/p&gt;
-
-&lt;h2 id=&quot;前端周边辅助工具&quot;&gt;前端周边辅助工具&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.photopea.com/&quot;&gt;网页版ps&lt;/a&gt;: 这个可能需要翻墙，可能有广告&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ps.gaoding.com/?hmsr=ivan-intro-zhihu#/&quot;&gt;网页版ps&lt;/a&gt;:没有广告，自由访问&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://tinypng.com/&quot;&gt;图片压缩网站&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.guerrillamail.com/inbox&quot;&gt;虚拟邮箱，用于注册测试&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://lanhuapp.com/&quot;&gt;蓝湖 设计稿&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.iconfont.cn/&quot;&gt;iconfont 阿里巴巴字体图标&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://font-spider.org/&quot;&gt;字蛛&lt;/a&gt;: 字体压缩&lt;/p&gt;
-
-&lt;h3 id=&quot;思维导图工具网页版&quot;&gt;思维导图工具网页版&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.processon.com/&quot;&gt;ProcessOn&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.draw.io/&quot;&gt;draw&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://naotu.baidu.com/&quot;&gt;百度脑图&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zhimap.com/&quot;&gt;zhiMap&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.zybuluo.com/cmd/&quot;&gt;作业部落&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;之前很多人问我用什么思维导图工具，现在做一个集合。我用的最多的是前面两款。第一个做思维导图，后面做流程图&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">日常工作用的 js 库，UI 插件 痛点是：只有7秒钟的记忆，知道很多好用的库或者 UI ，但是每一次都说不出名字，都要各种查找，呼唤记忆。 大量时间被浪费，这篇文章用做记录，方便我下次快速查找到，会陆续更新，有问题或者有好的推荐的朋友可以提pr，或者私聊我，我加上去。 相信我个人的力量是有限的，我所列出基本都是公司项目中用过，或者朋友推荐。入职前端到目前一直使用的都是 vue ，所推荐有关 UI ，基本默认是 vue， 在我的熟悉范围推荐。排名不分前后，瞎排，有可能不分文案写错了，欢迎指正 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除</summary></entry></feed>
+&lt;p&gt;解决方案都是根据路由的变化，对组件进行重新渲染或者初始化&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">好文章，专治千奇百怪的 bug 测试提 bug ，产品提需求。如果我没法解决，头昏脑胀，揪完整头的头发都没有用，时刻要面临失业的风险。 所以碰到已经解决的问题，碰到揪了好多头发的问题，一定要留一点痕迹</summary></entry></feed>
