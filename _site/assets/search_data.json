@@ -163,6 +163,24 @@
     } ,
   
     {
+      "title"    : "数据结构学习☞入门(一)",
+      "category" : "算法",
+      "url"      : "http://localhost:4000/2019/07/14/algorithm002/"
+    } ,
+  
+    {
+      "title"    : "推荐一本书《javascript 忍者秘籍2》",
+      "category" : "书籍推荐",
+      "url"      : "http://localhost:4000/2019/07/14/book-recommend/"
+    } ,
+  
+    {
+      "title"    : "我不知道你知不知道我知道的伪元素小技巧",
+      "category" : "css",
+      "url"      : "http://localhost:4000/2019/07/14/css001/"
+    } ,
+  
+    {
       "title"    : "Eclipse",
       "category" : "Eclipse",
       "url"      : "http://localhost:4000/wiki/eclipse/"
