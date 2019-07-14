@@ -6,7 +6,6 @@ description: 发现，探索 web 优质文章
 keywords: javascript 
 ---
 
-![]({{ site.url }}/images/pages/003.jpeg)
 
 # 为什么要推荐《javascript 忍者秘籍2》
 是本好书，必须推荐。本文写于2019年01月30日，从我的掘金迁移过来
