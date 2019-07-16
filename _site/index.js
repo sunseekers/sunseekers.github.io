@@ -88,3 +88,9 @@ console.log(t)
 // 发布-订阅模式：也叫观察者模式，通过一对一或者一对多，当对象发生改变时，就会订阅方就会收到通知
 //在 Vue 中，如何实现响应式也是使用了该模式。对于需要实现响应式的对象来说，在 get 的时候会进行依赖收集，当改变了对象的属性时，就会触发派发更新。
 
+
+function Person(name,age){
+  this.name=name
+  this.age=age
+  return this
+}

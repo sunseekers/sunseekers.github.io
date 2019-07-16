@@ -187,6 +187,12 @@
     } ,
   
     {
+      "title"    : "new 构造函数都做了一些什么？",
+      "category" : "JavaScript",
+      "url"      : "http://localhost:4000/2019/07/16/prototype/"
+    } ,
+  
+    {
       "title"    : "Eclipse",
       "category" : "Eclipse",
       "url"      : "http://localhost:4000/wiki/eclipse/"
