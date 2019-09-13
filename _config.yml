@@ -3,13 +3,13 @@
 # ---------------- #
 baseurl:
 #url: http://github.com/sunseekers/sunseekers.github.io
-date_format: "ordinal"
+date_format: 'ordinal'
 title: sunseekers
-subtitle: "不积跬步，无以至千里；不积小流，无以成江海"
-description: "Record ideas and knowledge"
+subtitle: '不积跬步，无以至千里；不积小流，无以成江海'
+description: 'Record ideas and knowledge'
 keywords: Algorithm,Machine Learning(eg.Deep Learning),Data miningç
 timezone: Asia/shanghai
-encoding: "utf-8"
+encoding: 'utf-8'
 side_bar_repo_limit: 5
 
 # ---------------- #
@@ -26,32 +26,22 @@ email: 1390639401@qq.com
 #    Navigation    #
 # ---------------- #
 navs:
-  -
-    href: /
+  - href: /
     label: Home
 
-
-  -
-    href: /categories/
+  - href: /categories/
     label: Blog
 
-
-
-  -
-    href: /open-source/
+  - href: /open-source/
     label: Open-source
 
-
-  -
-    href: /wiki/
+  - href: /wiki/
     label: Wiki
 
-  -
-    href: /links/
+  - href: /links/
     label: Link
 
-  -
-    href: /about/
+  - href: /about/
     label: About
 
 # ---------------- #
@@ -64,7 +54,7 @@ subscribe_rss: /feed.xml
 # ---------------- #
 markdown: kramdown
 kramdown:
-    input: GFM
+  input: GFM
 highlighter: rouge
 paginate: 8
 lsi: false
@@ -72,18 +62,18 @@ quiet: false
 excerpt_separator: "\n\n"
 permalink: /:year/:month/:day/:title/
 gems:
-    - jekyll-github-metadata
-    - rouge
-#     - jekyll-html-pipeline
-    - jekyll-paginate
-    - jekyll-sitemap
-    - jekyll-feed
-    - jemoji
+  - jekyll-github-metadata
+  - rouge
+  #     - jekyll-html-pipeline
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jemoji
 #     - jekyll-mentions
 collections:
-    wiki:
-        output: true
-        permalink: /wiki/:path/
+  wiki:
+    output: true
+    permalink: /wiki/:path/
 
 repository: DWJWendy/DWJWendy.github.io
 
@@ -94,35 +84,33 @@ repository: DWJWendy/DWJWendy.github.io
 #comments_provider: gitalk
 comments_provider: gitalk
 
-
 # !!!重要!!! 请修改下面这些信息为你自己申请的
 # !!!Important!!! Please modify infos below to yours
 # https://disqus.com
 disqus:
-    username: wenjun d
-
+  username: wenjun d
 
 # https://imsun.net/posts/gitment-introduction/
 gitment:
-    owner: sunseekers
-    repo: sunseekers
-    oauth:
-        client_id: 7ffc0aeedcc0dc7f5fb6
-        client_secret: c910965c927d40783d363d7e21197ccf35c317b3
+  owner: sunseekers
+  repo: sunseekers
+  oauth:
+    client_id: 7ffc0aeedcc0dc7f5fb6
+    client_secret: c910965c927d40783d363d7e21197ccf35c317b3
 # https://github.com/gitalk/gitalk#install
 gitalk:
-    owner: sunseekers
-    repo: sunseekers
-    clientID: 7ffc0aeedcc0dc7f5fb6
-    clientSecret: c910965c927d40783d363d7e21197ccf35c317b3
+  owner: sunseekers
+  repo: sunseekers.github.io
+  clientID: efc20f7ef0379b54367b
+  clientSecret: a58112205486b93eb454f60f6d9d7bcbaf37e3fa
 # 在使用其它评论组件时可点击显示 Disqus
-lazy_load_disqus : false
+lazy_load_disqus: false
 
 # ---------------- #
 #    Analytics     #
 # ---------------- #
 google:
-    analytics_id: UA-80669434-1
+  analytics_id: UA-80669434-1
 
 # ---------------- #
 #    Counter     #
