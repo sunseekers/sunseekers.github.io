@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86c6f1e0-719c-405e-9d60-88beae25a13e" name="Default Changelist" comment="new 构造函数">
-      <change afterPath="$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md" afterDir="false" />
+    <list default="true" id="86c6f1e0-719c-405e-9d60-88beae25a13e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,8 +20,8 @@
         <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="584">
-                <caret line="93" column="72" selection-start-line="93" selection-start-column="72" selection-end-line="93" selection-end-column="72" />
+              <first_editor relative-caret-position="255">
+                <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
               </first_editor>
               <second_editor />
             </state>
@@ -439,7 +439,7 @@
       <workItem from="1564583935971" duration="5994000" />
       <workItem from="1564923737633" duration="5887000" />
       <workItem from="1573201011569" duration="326000" />
-      <workItem from="1573201407513" duration="5522000" />
+      <workItem from="1573201407513" duration="5845000" />
     </task>
     <task id="LOCAL-00001" summary="two version">
       <created>1562213123143</created>
@@ -721,11 +721,25 @@
       <option name="project" value="LOCAL" />
       <updated>1565309261862</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="vue 3.0 初版">
+      <created>1573208615506</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1573208615506</updated>
+    </task>
+    <task id="LOCAL-00042" summary="vue 3.0 初版">
+      <created>1573208765417</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1573208765417</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="485727000" />
+    <option name="totallyTimeSpent" value="486050000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -738,6 +752,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21579264" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -750,7 +765,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32891566" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49964765" visible="true" weight="0.030612245" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49964765" visible="true" weight="0.17040816" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49964765" weight="0.44547564" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5003524" side_tool="true" weight="0.31205675" />
       <window_info anchor="bottom" id="调试" order="11" />
@@ -850,7 +865,8 @@
     <MESSAGE value="小程序" />
     <MESSAGE value="new 构造函数" />
     <MESSAGE value="feat 介绍计算机运行，初稿" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat 介绍计算机运行，初稿" />
+    <MESSAGE value="vue 3.0 初版" />
+    <option name="LAST_COMMIT_MESSAGE" value="vue 3.0 初版" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/favicon.ico">
@@ -1239,8 +1255,8 @@
     <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="584">
-            <caret line="93" column="72" selection-start-line="93" selection-start-column="72" selection-end-line="93" selection-end-column="72" />
+          <first_editor relative-caret-position="255">
+            <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
           </first_editor>
           <second_editor />
         </state>
