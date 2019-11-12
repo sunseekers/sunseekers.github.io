@@ -21,8 +21,8 @@
         <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="505">
-                <caret line="130" column="14" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="14" />
+              <first_editor relative-caret-position="645">
+                <caret line="198" lean-forward="true" selection-start-line="198" selection-end-line="200" selection-end-column="45" />
               </first_editor>
               <second_editor />
             </state>
@@ -142,8 +142,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1680" />
-    <option name="height" value="1050" />
+    <option name="x" value="495" />
+    <option name="y" value="103" />
+    <option name="width" value="1129" />
+    <option name="height" value="947" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -409,7 +411,7 @@
       <workItem from="1573201011569" duration="326000" />
       <workItem from="1573201407513" duration="6110000" />
       <workItem from="1573264858561" duration="151000" />
-      <workItem from="1573435028728" duration="10522000" />
+      <workItem from="1573435028728" duration="12446000" />
     </task>
     <task id="LOCAL-00001" summary="two version">
       <created>1562213123143</created>
@@ -726,11 +728,18 @@
       <option name="project" value="LOCAL" />
       <updated>1573549731437</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="vue 3.0">
+      <created>1573550657667</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1573550657667</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="496988000" />
+    <option name="totallyTimeSpent" value="498912000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -858,7 +867,8 @@
     <MESSAGE value="feat 介绍计算机运行，初稿" />
     <MESSAGE value="vue 3.0 初版" />
     <MESSAGE value="vue 3.0 添加链接" />
-    <option name="LAST_COMMIT_MESSAGE" value="vue 3.0 添加链接" />
+    <MESSAGE value="vue 3.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="vue 3.0" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/images/pages/001.png">
@@ -1268,8 +1278,8 @@
     <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="505">
-            <caret line="130" column="14" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="14" />
+          <first_editor relative-caret-position="645">
+            <caret line="198" lean-forward="true" selection-start-line="198" selection-end-line="200" selection-end-column="45" />
           </first_editor>
           <second_editor />
         </state>
