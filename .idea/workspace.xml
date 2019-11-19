@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86c6f1e0-719c-405e-9d60-88beae25a13e" name="Default Changelist" comment="vue 3.0 添加链接">
-      <change afterPath="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" afterDir="false" />
+    <list default="true" id="86c6f1e0-719c-405e-9d60-88beae25a13e" name="Default Changelist" comment="vue 3.0 图片问题">
+      <change afterPath="$PROJECT_DIR$/_posts/blog/2019-11-18-typeScript.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-10-27-git.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/blog/2019-10-27-git.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,14 +19,71 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="645">
-                <caret line="198" lean-forward="true" selection-start-line="198" selection-end-line="200" selection-end-column="45" />
+              <first_editor relative-caret-position="3120">
+                <caret line="208" selection-start-line="208" selection-end-line="208" />
               </first_editor>
               <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_posts/blog/2019-10-27-git.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="750">
+                <caret line="50" selection-start-line="50" selection-end-line="50" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-18-typeScript.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="90">
+                <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-04-select.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="1173">
+                <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" selection-end-column="45" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="2475">
+                <caret line="165" column="26" selection-start-line="165" selection-start-column="26" selection-end-line="165" selection-end-column="26" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_posts/blog/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1020">
+              <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -87,9 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/_site/categories/index.html" />
-        <option value="$PROJECT_DIR$/_data/skills.yml" />
-        <option value="$PROJECT_DIR$/_posts/blog/2019-07-04-react.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-07-04-nuxt.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-07-05-JavaScript.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-07-04-vue recommend.md" />
@@ -136,15 +192,18 @@
         <option value="$PROJECT_DIR$/_posts/blog/2019-07-16-prototype.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-07-31-project.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.ma.js" />
-        <option value="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md" />
+        <option value="$PROJECT_DIR$/_posts/blog/index.js" />
+        <option value="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" />
+        <option value="$PROJECT_DIR$/_posts/blog/2019-10-27-git.md" />
+        <option value="$PROJECT_DIR$/_posts/blog/2019-11-18-typeScript.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="495" />
-    <option name="y" value="103" />
-    <option name="width" value="1129" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="195" />
+    <option name="y" value="80" />
+    <option name="width" value="1049" />
     <option name="height" value="947" />
   </component>
   <component name="ProjectView">
@@ -411,7 +470,8 @@
       <workItem from="1573201011569" duration="326000" />
       <workItem from="1573201407513" duration="6110000" />
       <workItem from="1573264858561" duration="151000" />
-      <workItem from="1573435028728" duration="12446000" />
+      <workItem from="1573435028728" duration="22988000" />
+      <workItem from="1574042252909" duration="2122000" />
     </task>
     <task id="LOCAL-00001" summary="two version">
       <created>1562213123143</created>
@@ -735,11 +795,18 @@
       <option name="project" value="LOCAL" />
       <updated>1573550657667</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="vue 3.0 demo">
+      <created>1573559166370</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1573559166370</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="498912000" />
+    <option name="totallyTimeSpent" value="511576000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -751,10 +818,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <frame x="195" y="80" width="1049" height="947" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16998191" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27431905" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -798,6 +865,11 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/../../hello-world/index.js" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="SHOW_DETAILS" value="true" />
@@ -868,27 +940,10 @@
     <MESSAGE value="vue 3.0 初版" />
     <MESSAGE value="vue 3.0 添加链接" />
     <MESSAGE value="vue 3.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="vue 3.0" />
+    <MESSAGE value="vue 3.0 demo" />
+    <option name="LAST_COMMIT_MESSAGE" value="vue 3.0 demo" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/images/pages/001.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/1.html" />
-    <entry file="file://$PROJECT_DIR$/_site/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_includes/footer.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1242,21 +1297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="750">
-            <caret line="100" selection-start-line="100" selection-end-line="104" selection-end-column="24" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/blog/2019-09-20-browser.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1278,8 +1318,60 @@
     <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="645">
-            <caret line="198" lean-forward="true" selection-start-line="198" selection-end-line="200" selection-end-column="45" />
+          <first_editor relative-caret-position="3120">
+            <caret line="208" selection-start-line="208" selection-end-line="208" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="2475">
+            <caret line="165" column="26" selection-start-line="165" selection-start-column="26" selection-end-line="165" selection-end-column="26" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/blog/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-10-27-git.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="750">
+            <caret line="50" selection-start-line="50" selection-end-line="50" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-18-typeScript.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="90">
+            <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-04-select.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="1173">
+            <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" selection-end-column="45" />
           </first_editor>
           <second_editor />
         </state>
