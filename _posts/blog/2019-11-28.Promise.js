@@ -407,7 +407,7 @@ function resolvePromise(myPromise,x,resolve,reject){
 				then.call(x,y=>{
 					if(called) return 
 					called = true
-					resolvePromise(promise2,y,resolve,reject)
+					resolvePromise(myPromise,y,resolve,reject)
 				},reject=>{
 					if(called) return 
 					called = true
