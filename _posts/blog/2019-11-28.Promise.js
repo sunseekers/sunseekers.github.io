@@ -508,7 +508,7 @@ new Promise(resolve => {
 })
 // 如果它等到的是一个 Promise 对象， await 就忙起来了， 它会阻塞后面的代码， 等着 Promise 对象 resolve， 然后得到 resolve 的值， 作为 await 表达式的运算结果。
 
-// 如果它等到的不是一个 Promise 对象， 那 await 表达式的运算结果就是它等到的东西
+// 如果它等到的不是一个 Promise 对象， 那 await 表达式的运算结果就是它等到的东西，这里也会是一个微任务
 
 // asycn await 是异步处理的终极解决方案， 其实是generator + promise的终极语法糖
 
@@ -517,12 +517,11 @@ new Promise(resolve => {
 // return 有返回值， 但是promise没有
 // await 后面必须跟一个promise， 如果不是会转成
 
-// https: //segmentfault.com/a/1190000007535316 这个文章写的特别好
+// https: //segmentfault.com/a/1190000007535316    这个文章写的特别好
 // https: //developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function 这个解析很不错
 
 function deepClone(parent, child) {
 	child = child ? child : {}
-	let cach = {}
 	for (let key in obj) {
 		if (parent.hasOwnProperty(key)) {
 			if (typeof parent[key] === 'object') {
@@ -536,3 +535,42 @@ function deepClone(parent, child) {
 		} else {}
 	}
 }
+
+async function foo() {
+	return 2
+}
+console.log(foo())  // Promise {<resolved>: 2}
+
+
+async function foo() {
+	console.log(1)
+	let a = await 100 ///这句话相当与 new Promise((resolve,reject)=>resolve(100))
+	console.log(a)
+	console.log(2)
+}
+console.log(0)
+foo()
+console.log(3)// 打印的顺序表示了执行的顺序，await会变成微任务，不管是否有需要等待
+
+
+
+async function foo() {
+	console.log('foo')
+}
+async function bar() {
+	console.log('bar start')
+	await foo() //这里会执行foo函数里面的打印，相当于new promise的resolve 这部分是同步任务
+	console.log('bar end')
+}
+console.log('script start')
+setTimeout(function () {
+	console.log('setTimeout')
+}, 0)
+bar();
+new Promise(function (resolve) {
+	console.log('promise executor')
+	resolve();
+}).then(function () {
+	console.log('promise then')
+})
+console.log('script end')
