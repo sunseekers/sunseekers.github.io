@@ -574,3 +574,49 @@ new Promise(function (resolve) {
 	console.log('promise then')
 })
 console.log('script end')
+
+
+
+ function resolveAfter2Seconds(n) {
+  return new Promise(resolve => {
+		console.log(n,'9999');
+    setTimeout(() => {
+      resolve('resolved');
+    }, n);
+  });
+}
+
+async function asyncCall() {
+  console.log('calling');
+	var result = await resolveAfter2Seconds(20000);
+  var result1 = await resolveAfter2Seconds(1000);
+  var result2 = await resolveAfter2Seconds(3000);	
+  console.log(result);
+  // expected output: 'resolved'
+}
+
+asyncCall();
+//  [1, 2, 5, 7, 8, 9, 13]
+
+function search(list,target){
+	let start = 0
+	let end = list.length-1
+	if(end===0){
+		return '数组长度是0'
+	}
+	while(start<=end){
+		let mid = parseInt(start+(end-start)/2)
+		if(list[mid]>target){
+			console.log(mid,end,2);
+			end = mid-1
+		}else if(list[mid]<target){
+			console.log(mid,end,3);
+			start=mid+1
+		}
+		if(list[mid]===target){
+			console.log(mid,end,4);
+			return mid
+		}
+		return -1
+	}
+}

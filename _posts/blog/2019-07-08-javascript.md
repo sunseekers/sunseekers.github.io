@@ -95,3 +95,30 @@ function isType(type){
 相当于
 const isType = type => obj => Object.prototype.toString.call(obj)===`[object ${type}]`
 ```
+
+`class` 里面的 `static` 静态方法
+
+`static` 关键字用来定义一个类的一个静态方法。调用静态方法不需要实例化该类，但不能通过一个类实例调用静态方法。静态方法通常用于为一个应用程序创建工具函数。
+
+```
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    static distance(a, b) {
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+
+        return Math.hypot(dx, dy);
+    }
+}
+
+const p1 = new Point(5, 5);
+const p2 = new Point(10, 10);
+
+console.log(Point.distance(p1, p2));
+```
+
+`p1` 实例上面没有 `distance` 这个方法
