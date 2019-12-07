@@ -57,7 +57,19 @@ function Sunseekers(option = {}) {
       }
     })
   }
+  // computed 可以缓存，只是把数据挂在在vm上面
+  initComputed.call(this)
   new Compile(option.el, this)
+}
+
+function initComputed() { //具有缓存功能
+  let vm = this
+  let computed = this.$option.computed // 拿到这个对象的key值
+  Object.keys(computed).forEach(key => {
+    Object.defineProperty(vm, key, {
+      get: typeof computed[key] === 'function' ? computed[key] : computed[key].get()
+    })
+  })
 }
 
 function Observe(data) {
