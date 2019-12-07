@@ -120,6 +120,26 @@ function Compile(el, vm) {
         // 替换的逻辑
         node.textContent = text.replace(/\{\{(.*)\}\}/, val)
       }
+      // v-model 实现
+      if (node.nodeType === 1) {
+        //元素节点
+        let nodeAttrs = node.attributes //获取当前dom节点的属性
+        Array.from(nodeAttrs).forEach(attr => {
+          let name = attr.name
+          let exp = attr.value
+          if (name.indexOf('-v') == 0) { //v-model
+            node.value = vm[exp]
+          }
+          new Watcher(vm, exp, function (newVal) {
+            node.value = newVal //当watcher触发时会自动将内容放到输入框内
+          })
+          //数据变了，更改视图
+          node.addEventListener('input', (e) => {
+            let newVal = e.target.value
+            vm[exp] = newVal
+          })
+        })
+      }
       if (node.childNodes) {
         replace(node)
       }
