@@ -63,10 +63,12 @@ function Sunseekers(option = {}) {
 function Observe(data) {
   for (let key in data) {
     let val = data[key]
+    let dep = new Dep() //数据获取的时候，监听事件
     observe(val) //对象应该也要被劫持
     Object.defineProperty(data, key, {
       enumerbale: true,
       get() {
+        Dep.target && dep.addSub(Dep.target)
         return val
       },
       set(newVal) {
@@ -76,6 +78,7 @@ function Observe(data) {
         val = newVal
         //如果是在原来的属性赋值一个对象新的的话，应该也要被劫持
         observe(newVal)
+        dep.notify() //让所有的watch的update方法执行
       }
     })
   }
@@ -110,6 +113,11 @@ function Compile(el, vm) {
         arr.forEach(item => {
           val = val[item]
         })
+        new Watcher(vm, RegExp.$1, function (newVal) { //替换的对象，替换的值，替换要执行的函数
+          node.textContent = text.replace(/\{\{(.*)\}\}/, newVal)
+
+        })
+        // 替换的逻辑
         node.textContent = text.replace(/\{\{(.*)\}\}/, val)
       }
       if (node.childNodes) {
@@ -121,3 +129,46 @@ function Compile(el, vm) {
   // 然后再把进过处理的node节点塞回去
   vm.$el.appendChild(fragment)
 }
+
+// 订阅函数,假设每一个绑定的函数都有一个update属性
+function Dep() {
+  this.sub = []
+}
+Dep.prototype.addSub = function (fn) {
+  this.sub.push(fn)
+}
+Dep.prototype.notify = function () {
+  this.sub.forEach(sub => sub.update())
+}
+// 订阅的事件
+function Watcher(vm, exp, fn) { //watch 是一个类，通过这个类创建的实例都有update方法
+  this.vm = vm
+  this.exp = exp
+  let arr = exp.split('.')
+  Dep.target = this
+  let val = this.vm
+  arr.forEach(item => {
+    val = val[item] //数据更改的时候会调用get方法，到get方法里面去处理
+  })
+  Dep.target = null
+  this.fn = fn
+}
+Watcher.prototype.update = function () {
+  let arr = this.exp.split('.')
+  Dep.target = this
+  let val = this.vm
+  arr.forEach(item => {
+    val = val[item] //数据更改的时候会调用get方法，到get方法里面去处理
+  })
+  this.fn(val)
+}
+let watcher = new Watcher(function () {
+  console.log(12)
+})
+let dep = new Dep()
+dep.addSub(watcher)
+dep.addSub(watcher)
+dep.notify()
+//实现原理是数组关系，订阅是往里面扔函数，发布是执行往里面扔的函数
+
+// 发布订阅模式，是数据发生改变的时候就替换一下，所以找到发生改变的逻辑
