@@ -110,7 +110,7 @@ function Compile(el, vm) {
   vm.$el = document.querySelector(el)
   let fragment = document.createDocumentFragment() //创建文本碎片
   while (child = vm.$el.firstChild) { //将app里面的内容移到内存中去
-    fragment.appendChild(child)
+    fragment.appendChild(child)// 这一个节点将会被移动到fragment里面去
   }
   replace(fragment)
 
