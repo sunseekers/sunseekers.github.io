@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86c6f1e0-719c-405e-9d60-88beae25a13e" name="Default Changelist" comment="暂定">
-      <change afterPath="$PROJECT_DIR$/_posts/blog/2020-01-21-webpack.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-07-04-vue recommend.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/blog/2019-07-04-vue recommend.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-07-08-javascript.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/blog/2019-07-08-javascript.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-07-09-web recommend.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/blog/2020-01-21-GoodTextRecommended .md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/blog/2020-01-21-GoodTextRecommended .md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/blog/DOM.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/blog/defineProperty.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/blog/diff.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/blog/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-11-18-typeScript.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/blog/2019-11-23-object.md" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,12 +18,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/blog/2019-07-08-javascript.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="217">
-                <caret line="130" lean-forward="true" selection-start-line="130" selection-end-line="130" />
+              <first_editor relative-caret-position="81">
+                <caret line="122" selection-start-line="122" selection-end-line="122" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="187">
+                <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
               </first_editor>
               <second_editor />
             </state>
@@ -192,7 +198,6 @@
         <option value="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.ma.js" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-11-08-vue3.md" />
         <option value="$PROJECT_DIR$/_posts/blog/index.js" />
-        <option value="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-10-27-git.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-11-18-typeScript.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-07-11-vue.md" />
@@ -203,11 +208,12 @@
         <option value="$PROJECT_DIR$/_posts/blog/2020-01-21-GoodTextRecommended .md" />
         <option value="$PROJECT_DIR$/_posts/blog/2019-07-08-javascript.md" />
         <option value="$PROJECT_DIR$/_posts/blog/2020-01-21-webpack.md" />
+        <option value="$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="347" />
+    <option name="x" value="95" />
     <option name="y" value="23" />
     <option name="width" value="881" />
     <option name="height" value="797" />
@@ -482,7 +488,7 @@
       <workItem from="1575857945328" duration="1652000" />
       <workItem from="1578704568588" duration="6254000" />
       <workItem from="1578745476146" duration="1812000" />
-      <workItem from="1579571354384" duration="9488000" />
+      <workItem from="1579571354384" duration="9877000" />
     </task>
     <task id="LOCAL-00001" summary="two version">
       <created>1562213123143</created>
@@ -831,7 +837,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="532428000" />
+    <option name="totallyTimeSpent" value="532817000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -843,7 +849,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="347" y="23" width="881" height="797" extended-state="0" />
+    <frame x="95" y="23" width="881" height="797" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.34651163" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -857,7 +864,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32891566" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49964765" weight="0.24819277" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49964765" weight="0.04255319" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49964765" visible="true" weight="0.3617021" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5003524" side_tool="true" weight="0.31205675" />
       <window_info anchor="bottom" id="调试" order="11" />
       <window_info anchor="bottom" id="Messages" order="12" />
@@ -985,21 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="2475">
-            <caret line="165" column="26" selection-start-line="165" selection-start-column="26" selection-end-line="165" selection-end-column="26" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-28.Promise.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-549" />
@@ -1011,14 +1003,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-23-object.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -1364,8 +1348,33 @@
     <entry file="file://$PROJECT_DIR$/_posts/blog/2019-07-08-javascript.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="217">
-            <caret line="130" lean-forward="true" selection-start-line="130" selection-end-line="130" />
+          <first_editor relative-caret-position="81">
+            <caret line="122" selection-start-line="122" selection-end-line="122" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-23-object.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="187">
+            <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/blog/2019-11-11-basis-js.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="187">
+            <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
           </first_editor>
           <second_editor />
         </state>
