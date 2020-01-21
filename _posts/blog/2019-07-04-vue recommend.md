@@ -21,6 +21,9 @@ keywords: vue
 
 [Vue.js 3.x 源码解析先导](https://juejin.im/post/5dafe42451882576534d3858)
 ## 来自知乎
+
+[当 better-scroll 遇见 Vue](https://zhuanlan.zhihu.com/p/27407024) 
+
 [精读《Vue3.0 Function API》](https://zhuanlan.zhihu.com/p/71667382)
 
 [Vuex、Flux、Redux、Redux-saga、Dva、MobX](https://zhuanlan.zhihu.com/p/53599723)

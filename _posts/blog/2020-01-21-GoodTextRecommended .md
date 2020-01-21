@@ -34,5 +34,10 @@ keywords: 文章推荐
 
 `AST` 语法树，以前是一脸蒙蔽，现在是有了一点点的了解，以前基于对计算机的运行原理，有机会多看看计算机原理，了解底层。[AST抽象语法树——最基础的javascript重点知识，99%的人根本不了解](https://segmentfault.com/a/1190000016231512)
 
+`AST` 和前端有什么关系？ [AST in Modern JavaScript](https://zhuanlan.zhihu.com/p/32189701)
+
+`position:sticky` 怎么使用？ [杀了个回马枪，还是说说position:sticky吧](https://www.zhangxinxu.com/wordpress/2018/12/css-position-sticky/)
+
+ 这里是和 `js` 编译有一点点关系 [从敲下一行JS代码到这行代码被执行，中间发生了什么？](https://zhuanlan.zhihu.com/p/101137995)
 ## 生活
 

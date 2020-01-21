@@ -128,3 +128,23 @@ console.log(Point.distance(p1, p2));
 链表想要随机访问第k个元素，就没有数组那么高效了，因为链表中的数据并非连续存储的，不能根据寻址计算出，而是要根据指针一个结点的依次遍历。想象成一个队伍，只知道后面一个人，并不知道前面的人
 
 不管是指针还是引用，都是存储所指对象的内存地址
+
+```
+
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  // 构造函数方法，每声明一个实例，都会重新创建一次，属于实例独有
+  this.getName = function() {
+    return this.name;
+  }
+}
+
+// 原型方法，仅在原型创建时声明一次，属于所有实例共享
+Person.prototype.getAge = function() {
+  return this.age;
+}
+
+// 工具方法，直接挂载在构造函数名上，仅声明一次，无法直接访问实例内部属性与方法
+Person.each = function() {}
+```
