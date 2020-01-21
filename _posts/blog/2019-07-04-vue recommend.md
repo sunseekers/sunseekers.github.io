@@ -16,6 +16,10 @@ keywords: vue
 [手摸手，带你用vue撸后台 系列一（基础篇）](https://juejin.im/post/59097cd7a22b9d0065fb61d2?utm_medium=fe&utm_source=weixinqun)
 
 [网络传输性能优化](https://juejin.im/post/5b0b7d74518825158e173a0c#heading-2)
+
+[[实战] 为了学好 React Hooks, 我抄了 Vue Composition API, 真香](https://juejin.im/post/5dc820a3e51d4509320d084d)
+
+[Vue.js 3.x 源码解析先导](https://juejin.im/post/5dafe42451882576534d3858)
 ## 来自知乎
 [精读《Vue3.0 Function API》](https://zhuanlan.zhihu.com/p/71667382)
 
@@ -37,3 +41,5 @@ keywords: vue
 [webpack 带表达式的 require 语句  文档](https://webpack.docschina.org/guides/dependency-management/)
 
 [vue 客户端存储 文档](https://cn.vuejs.org/v2/cookbook/client-side-storage.html)
+
+[Vue 开发必须知道的 36 个技巧【近1W字】](https://segmentfault.com/a/1190000020620972)
