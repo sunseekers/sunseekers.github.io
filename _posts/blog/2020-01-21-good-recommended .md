@@ -39,5 +39,6 @@ keywords: 文章推荐
 `position:sticky` 怎么使用？ [杀了个回马枪，还是说说position:sticky吧](https://www.zhangxinxu.com/wordpress/2018/12/css-position-sticky/)
 
  这里是和 `js` 编译有一点点关系 [从敲下一行JS代码到这行代码被执行，中间发生了什么？](https://zhuanlan.zhihu.com/p/101137995)
+ 
 ## 生活
-
+[“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
