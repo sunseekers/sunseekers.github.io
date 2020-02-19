@@ -29,6 +29,10 @@ keywords: vue
 [Vuex、Flux、Redux、Redux-saga、Dva、MobX](https://zhuanlan.zhihu.com/p/53599723)
 `vue 3.0` 提前篇 仅供参考 具有时效性 
 
+[实现一个 Vue 吸顶锚点组件](https://zhuanlan.zhihu.com/p/59317112)
+
+[长列表渲染实践](https://zhuanlan.zhihu.com/p/66779396)
+
 ## 来自博客
 [基于Vue实现后台系统权限控制](https://refined-x.com/2017/08/29/%E5%9F%BA%E4%BA%8EVue%E5%AE%9E%E7%8E%B0%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/)
 
