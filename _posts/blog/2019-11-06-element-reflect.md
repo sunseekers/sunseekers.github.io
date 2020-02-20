@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Reflect 对象
-categories: [Reflect]
+categories: [JavaScript]
 description: Reflect 对象
 keywords: Reflect 对象
 ---

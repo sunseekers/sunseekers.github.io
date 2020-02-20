@@ -1,7 +1,7 @@
 ---
 layout: post
 title: html2canvas 把网页转图片
-categories: [web]
+categories: [功能实现]
 description: 发现，探索 web 优质文章
 keywords: html2canvas
 ---

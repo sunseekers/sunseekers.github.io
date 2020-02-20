@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 从浏览器工作原理出发，进行性能优化
-categories: [web]
+categories: [计算机]
 description: 发现，探索 web 优质文章
 keywords: 浏览器 
 ---

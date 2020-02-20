@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 如何实现一个可编辑的文本输入框，元素的高度随着内容的改变而自动改变
-categories: [移动端]
+categories: [功能实现]
 description: textarea 实现高度随着内容的增加而增加 ， div 模拟 textarea
 keywords: 移动端
 ---

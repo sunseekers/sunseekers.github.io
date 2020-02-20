@@ -1,7 +1,7 @@
 ---
 layout: post
 title: vue 系列文章推荐
-categories: [vue]
+categories: [文章推荐]
 description: 发现，探索 vue 优质文章
 keywords: vue 
 ---

@@ -1,15 +1,21 @@
-## 
+---
+layout: post
+title: HTTP 简介
+categories: [计算机]
+description: 发现，探索 web 优质文章
+keywords: HTTP
+---
 
+## ` HTTP ` 
 
-` HTTP ` 协议是一个双向协议，两点之间传输数据的约定和规范。超文本：超越了普通文本的文本，包括文字，图片，音频视频，链接等等
+协议是一个双向协议，两点之间传输数据的约定和规范。超文本：超越了普通文本的文本，包括文字，图片，音频视频，链接等等
 
 浏览器本质上是一个 `HTTP` 协议中的请求方，使用 `HTTP` 协议获取网络上的各种资源，`HTML` 排版引擎用来展示页面，`javaScript` 引擎用来实现动态化效果，等等
 
-> 1. `CDN` : 通常浏览器不会直接链接到服务器，中间会经过“重重关卡”，其实有一个重要的角色就是 `CDN` （内容分发网络），替代源站响应客户端的请求
+## 专有名词解释
 
-> 2. 爬虫：各地搜索引擎放出来的，抓取网页存入庞大的数据库，再建立关键字索引，可以我们就可以快速搜索到我们想要的东西了。缺点：过度消耗网络资源，占用宽带和服务器，影响网站对真实数据的分析，敏感信息的泄漏。
+`CDN` : 通常浏览器不会直接链接到服务器，中间会经过“重重关卡”，其实有一个重要的角色就是 `CDN` （内容分发网络），替代源站响应客户端的请求
 
-## 
 
 `TCP` :传输层
 
@@ -35,6 +41,8 @@
 
 数据处理： 提供压缩，加密等额外的功能
 
+爬虫：各地搜索引擎放出来的，抓取网页存入庞大的数据库，再建立关键字索引，可以我们就可以快速搜索到我们想要的东西了。缺点：过度消耗网络资源，占用宽带和服务器，影响网站对真实数据的分析，敏感信息的泄漏。
+
 ## TCP/IP 协议的工作方式
 极客时间里面有一个老师讲的蛮好的，我就直接那图过来了
 ![](../../images/blog/tcp.png)
@@ -46,5 +54,84 @@
 
 中央服务器分发是内容复制到附近的服务器
 
-以前是只知道一些概念，理论知识，现在是要结合实际
+## `HTTP` 请求
+请求的一方叫客户端，响应的一方叫服务器端
+
+通过请求和响应达成通信
+
+`HTTP` 是一种不保存状态的协议
+
+请求的时候分为：请求行/请求头/请求体
+
+```
+// 以 node 为例
+let http = require('http')
+let url = require('url')
+
+
+// 头分为，通用头，请求头，响应头，实体头
+const options = {
+  host: 'localhost',
+  port: 8080,
+  method: 'POST',
+  header: {
+    'Content-Type': 'application/x-www-form'
+  }
+}
+
+// 请求并没有真正发出，req 也是一个流对象，他是一个可写流
+const client = http.request(options)
+
+// write 是向请求体里写数据
+client.write('username=sunseeker')
+
+// 是结束写入请求体，只有在调用end的时候才真正向服务器发送请求
+client.end()
+
+// 服务端把请求体发回来的时候，或者说客户端接收到服务器端响应的时候触发
+
+/** 
+ * 客户端向服务器发起请求的时候，会通过 accept-encoding 告诉服务器我支持的压缩格式
+ * Accept-Encoding：gzip，deflate
+ */
+http.createServer(requrst).listen(8888)
+async function requrst(req, res) {
+   // req: 请求的的字段，后面有各种解析
+  let {
+    pathname
+  } = url.parse(req.url) // msg.txt
+  let filepath = path.join(__dirname, pathname)
+  try {
+    let statObj = await stat(filepath)
+    // 可以根据不同的文件内容类型返回不同的Content-Type
+    res.setHeader('Content-Type', mime.getType(pathname))
+    // 为了兼容不同的浏览器。node把所有的请求头全部转成了小写
+    let acceptEncoding = req.headers['accept-encoding']
+    // 内容协商
+    if (acceptEncoding) {
+
+      if (acceptEncoding.match(/\bgzip\b/)) {
+        // 告诉服务器，客户端用什么方法压缩了
+        res.setHeader("Content-Encoding", 'gzip')
+        fs.createReadStream(filepath).pipe(zlib.createGzip()).pipe(res)
+      } else if (acceptEncoding.match(/\bdeflate\b/)) {
+        res.setHeader("Content-Encoding", 'deflate')
+
+        fs.createReadStream(filepath).pipe(zlib.createDeflate().pipe(res))
+      } else {
+        fs.createReadStream(filepath).pipe(res)
+
+      }
+    } else {
+      fs.createReadStream(filepath).pipe(res)
+    }
+  } catch (err) {
+    console.log(err);
+    res.statusCode = 404
+    res.end()
+  }
+}
+```
+
+
 

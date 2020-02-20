@@ -1,7 +1,7 @@
 ---
 layout: post
 title: javaScript API
-categories: [javaScript]
+categories: [JavaScript]
 description: javaScript API
 keywords: javaScript API
 ---
@@ -86,6 +86,39 @@ Array.prototype.findIndex = function(fn){
           return i
         }
     }
+}
+```
+
+## 模拟 `call` 方法
+```
+// 基本类型转换为对应的对象，它是类型转换中一种相当重要的种类。 装箱转换
+Function.prototype.selfCall = function(context) {
+  let func = this //this 在哪调用指向哪，这里是在一个函数里面调用，所以指向调用他的函数
+  console.log(this)
+  context || (context = window)
+  if (typeof func !== 'function') throw new TypeError('this is not function')
+  context.fn = func //这里会产生装箱操
+  let args = [...arguments].slice(1)
+  let res = context.fn(args)
+  delete context.fn
+  return res
+}
+```
+
+## 模仿 `apply` 方法
+```
+Function.prototype.selfApply = function(context) {
+  let func = this //this 在哪调用指向哪，这里是在一个函数里面调用，所以指向调用他的函数
+  context || (context = window)
+  if (typeof func !== 'function') throw new TypeError('this is not function')
+  context.fn = func //这里会产生装箱操
+  let args = [...arguments][1]
+  if (!args) {
+    return context.fn()
+  }
+  let res = context.fn(args)
+  delete context.fn
+  return res
 }
 ```
 

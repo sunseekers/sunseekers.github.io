@@ -1,7 +1,7 @@
 ---
 layout: post
 title: HTML 系列文章推荐
-categories: [HTML]
+categories: [文章推荐]
 description: 发现，探索 HTML 优质文章
 keywords: HTML
 ---

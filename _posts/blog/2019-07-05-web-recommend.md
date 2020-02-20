@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JavaScript 库 + UI插件推荐 + 周边技术
-categories: [web]
+categories: [文章推荐]
 description: 发现，探索 web 优质文章
 keywords: web 
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 前端面试系列文章
-categories: [前端面试]
+categories: [文章推荐]
 description: 前端面试
 keywords: 前端面试 
 ---

@@ -11,3 +11,5 @@ keywords: react
 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除
 
 [React Hooks 入门教程](http://www.ruanyifeng.com/blog/2019/09/react-hooks.html)
+
+[React Hooks 文档](https://zh-hans.reactjs.org/docs/hooks-reference.html#usememo)

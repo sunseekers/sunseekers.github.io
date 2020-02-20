@@ -1,7 +1,7 @@
 ---
 layout: post
 title: javaScript 基础
-categories: [javaScript]
+categories: [JavaScript]
 description: javaScript 基础
 keywords: web
 ---

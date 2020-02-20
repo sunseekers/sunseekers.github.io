@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 你不知道的哪些伪类用法
-categories: [css]
+categories: [书籍推荐]
 description: 伪类
 keywords: 伪类
 ---
