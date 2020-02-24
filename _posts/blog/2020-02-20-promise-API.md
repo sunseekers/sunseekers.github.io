@@ -5,6 +5,7 @@ categories: [JavaScript]
 description: 发现，探索 Promise 优质文章
 keywords: Promise
 ---
+
 ```
 const PENDING = 'pending'; //初始态
 const FULFILLED = 'fulfilled'; //成功始态
