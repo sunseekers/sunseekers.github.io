@@ -5,6 +5,10 @@ categories: [JavaScript]
 description: 发现，探索 Promise 优质文章
 keywords: Promise
 ---
+# 模拟 Promise API
+
+熟悉某一个 `api` ,对他特别熟悉，然后想想它的实现原理，然后实现他。就真的自己掌握了
+
 
 ```
 const PENDING = 'pending'; //初始态
