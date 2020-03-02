@@ -97,7 +97,26 @@ client.end()
 
 ```
 
-模拟服务器接受到的请求（这里是一个上传文件的例子，客户端向服务器发起请求的时候，会通过 accept-encoding 告诉服务器我支持的压缩格式）
+简单的服务器像客户端写入响应信息
+
+```
+let server = http.createServer((req, res) => {
+  res.statusCode = 200 //设置响应码
+  res.sendDate = false // Date 响应头默认会设置，如果真的不想要，可以设置 false
+  res.setHeader('Content-Type', 'text/html;charset=utf8') //设置响应头
+  console.log(res.getHeader('Content-Type')); // 获取响应头
+  res.removeHeader("Content-Type") // 移除响应头
+  res.write('hello world')
+  res.end() //在可写流关闭之后，不能再次写入了
+})
+server.listen(8080, () => {
+  console.log('server starts at http://localhost:8080');
+})
+```
+
+
+
+复杂的模拟服务器接受到的请求（这里是一个上传文件的例子，客户端向服务器发起请求的时候，会通过 accept-encoding 告诉服务器我支持的压缩格式）
 
 ```
 http.createServer(requrst).listen(8888)
