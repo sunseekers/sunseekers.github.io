@@ -12,6 +12,7 @@ keywords: web
 ## 项目中学到的知识点
 
 1. 根据条件是否有点击事件？
+
 ```
 <div onClick={list.some(item => item.handsUp) ? cancelHands : null}>
 ```
