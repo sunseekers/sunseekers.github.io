@@ -130,6 +130,17 @@ set() 方法为 Map 对象添加或更新一个指定了键（key）和值（
 
 6. 值得学习的 `RxJS`
 
+7. 多个请求并行请求优化处理
+
+```
+  const promises = [getAgoraToken({ ...params, type: 'RTM' }), getAgoraToken({ ...params, type: 'RTC' }),getLive(), getList(liveId)];
+      const tokens =  Promise.all(promises);
+      console.log('tokens 是一个数组',tokens);
+
+```
+
+  `Promise.all()` 里面可以放一个数组，`.then` 方法里面对数组的每一项进行操作。等待所有的操作完成，会返回一个成功的结果。如果有一个失败的，就返回失败的结果。异步
+
 
 ## 最后
 接到需求之后多思考，先走一步。争取一次性把需求做好，到做的时候有疑问了再问，那时候沟通成本就大了，事后沟通成本往往高于事先成本。很多需求都是第一次做，都是再尝试中学习，多看多写多想，多思考。
