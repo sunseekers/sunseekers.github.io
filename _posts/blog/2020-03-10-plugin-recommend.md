@@ -16,4 +16,6 @@ keywords: 在项目中使用的一些插件推荐
 
 2. [`react-copy-to-clipboard`](https://www.npmjs.com/package/react-copy-to-clipboard):点击复制一段文本相当于 `control+c`
 
+3. [`nprogress`](https://www.npmjs.com/package/nprogress): 顶部接口加载进度条，可以直观的告诉用户，当前正在加载中（可以模拟实现一个，页面中心正在加载中的 loading
+
 [`Event reference`](https://developer.mozilla.org/zh-CN/docs/Web/Events)
