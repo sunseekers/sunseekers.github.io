@@ -1,7 +1,7 @@
 ---
 layout: post
 title: addEventListener 事件监听
-categories: [事件监听]
+categories: [JavaScript]
 description: addEventListener 事件监听
 keywords: addEventListener 事件监听
 ---
