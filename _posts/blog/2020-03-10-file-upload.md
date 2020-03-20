@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 上传组件
-categories: [上传组件]
+categories: [功能实现]
 description: 在项目中使用的一些上传组件
 keywords: 在项目中使用的一些上传组件
 ---
