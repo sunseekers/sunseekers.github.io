@@ -88,3 +88,24 @@ console.log(require.main)
 减少冗余的数据传输，节省网费，减少服务器的负担，大大提高网站的性能，加快客户端加载网页的速度
 
 流有两种模式，一种是二进制，一种是对象模式
+
+## es5 的 `module` 和 `exports`
+
+`module` 和 `exports` 是 `Node.js` 给每个 `js` 文件内置的两个对象
+
+可以通过 `console.log(module)` 和 `console.log(exports)` 打印出来
+
+`module.exports` 和 `exports` 一开始都是一个空对象`{}`，实际上，这两个对象指向同一块内存。这也就是说 `module.exports` 和 `exports` 是等价的（有个前提：不去改变它们指向的内存地址）
+
+`require` 引入的对象本质上是 `module.exports`。这就产生了一个问题，当 `module.exports` 和`exports` 指向的不是同一块内存时，`exports` 的内容就会失效
+
+## es6 的 `export` 和 `export default` 的区别
+
+`export` 相当于把对象添加到 `module` 的 `exports` 中。
+`export default` 相当于把对象添加到 `module` 的 `exports` 中，并且对象的 `key` 叫`default`。大部分采用 `import` 引入
+
+## `require` 和 `import` 的区别
+
+`require` 是 `commonJS` 的语法，`commonJS` 的模块是对象，输入时必须查找对象属性。这叫“运行时加载”，因为只有运行时才能得到这个对象，不能在编译时做到静态化。
+
+`import`是 `es6` 的一个语法标准,是编译时调用，所以必须放在文件开头
