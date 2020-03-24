@@ -55,3 +55,9 @@ console.log('yargs 命令行工具接受到的参数',yargs.argv);
 这个代码太多了，就直接贴链接吧
 
 [第一版代码地址](https://github.com/sunseekers/node/commit/c5c2f0aedbf1b110ec7bf6406fb92b20ce59e2d6)
+
+在此利用可读流我们创建了一个简单静态服务器，我们在进一步优化代码，根据浏览器支持的压缩方式进行压缩，利用缓存缓存数据
+
+[静态服务器的搭建](https://github.com/sunseekers/node/commit/ffeb837b5865fdb6c136f1611d952d51d4a5a4a4)
+
+一个指定目录的静态服务器我们写好了，接下来我们要构建一个命令行工具，通过命令传参的方式，可以指定任何一个文件的任何一个目录
