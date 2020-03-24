@@ -30,6 +30,64 @@ keywords: DOM
 
 `DOM` 是前端工程师最常接触的内容之一，一个 `DOM` 节点包含了很多的内容，但是一个抽象出一个 `DOM` 节点却只需要三部分：节点类型，节点属性、子节点。所以围绕这三个部分，我们可以使用 `JavaScript` 简单地实现一棵 `DOM` 树，然后给节点实现渲染方法，就可以实现虚拟节点到真是 `DOM` 的转化。
 
+```
+// 虚拟dom type类型，props属性，children子节点
+//创建一个类
+class Element {
+  constructor(type, props, children) {
+    this.type = type
+    this.props = props
+    this.children = children
+  }
+}
+
+//创建一个元素
+function createElement() {
+  return new Element(type, props, children)
+}
+
+// render 方法可以将vnode转化为真实dom
+function render(eleObj) {
+  // 创建一个元素
+  let el = document.createElement(eleObj.type)
+  for (let key in eleObj.props) {
+    setAttr(el, key, eleObj.props[key])
+  }
+  eleObj.children.forEach(child => {
+    child = (child instanceof Element) ? render(child) : document.createTextNode(child)
+    el.appendChild(child)
+  })
+  return el
+}
+
+// 设置属性
+function setAttr(node, key, value) {
+  props.forEach(element => {
+    switch (key) {
+      case 'value': //node是一个input或者textarea
+        if (node.tagName.toUpperCase() === "INPUT" || node.tagName.toUpperCase() === "TEXEAREA") {
+          node.value = value
+        } else {
+          node.setAttribute(key, value)
+        }
+        break;
+      case 'style':
+        node.style.cssText = value
+        break;
+      default:
+        node.setAttribute(key, value)
+        break
+    }
+  });
+}
+// 渲染页面
+function renderDom(el, target) {
+  target.appendChild(el)
+}
+```
+
+使用的时候 `createElement()`, `render()`, `renderDom()`
+
 比较两棵 `DOM` 树的差异是 `Virtual DOM` 算法最核心的部分，这也是我们常说的的 `Virtual DOM` 的 `diff` 算法。在比较的过程中，我们只比较同级的节点，非同级的节点不在我们的比较范围内，这样既可以满足我们的需求，又可以简化算法实现。
 
 ## 框架的意义？
