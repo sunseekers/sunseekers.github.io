@@ -182,6 +182,30 @@ async function main(duration,color){
 
 `class` 设计成了默认按 `strict` 模式执行。
 
+```
+var a = 1;
+function fn(m) { console.log('fn'); }
+function fn(m) { console.log('new_fn'); }
+function a() { console.log('fn_a'); }
+console.log(a);
+fn(1);
+var fn = 'var_fn';
+console.log(fn);
+// 真正执行
+// 创建阶段
+function fn(m) { console.log('fn'); }
+function fn(m) { console.log('new_fn'); }
+function a() { console.log('fn_a'); }
+var a = undefined;
+var fn = undefined;
+//执行阶段
+a = 1;
+console.log(a);
+fn();
+fn = 'var_fn';
+console.log(fn);
+```
+
 ## 作用域链
 
 每一个执行上下文的变量环境中都包含了一个外部引用，用来指向外部的执行上下文（`outer`）,如果一段代码使用了一个变量，`javaScript` 引擎首先会在“ 当前的执行上下文”中查找该变量，没有找到再继续在 `outer` 所指向的执行上下文中查找

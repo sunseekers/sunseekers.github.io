@@ -12,6 +12,8 @@ keywords: node 基础
 
 ## 概念
 
+`node` 内部是靠 `C++` 实现的，`js` 只是一层包装，内部都是调用 `C++` 的 `api`,因为 `js` 是没有办法去调用系统内部的方法和系统进行交互的
+
 进程是操作系统分配资源和调度任务的基本单位
 
 进程里面可以放很多线程
@@ -29,9 +31,27 @@ keywords: node 基础
 3. 把它封装在一个函数里立刻执行
 4. 执行后把模块的 `module.exports` 对象赋给 `school`
 
+```
+let fs = require('fs');
+let path = require('path');
+let b = req('./b.js');
+function req(mod) {
+    let filename = path.join(__dirname, mod); // 找到这个文件
+    let content = fs.readFileSync(filename, 'utf8'); //读取此文件模块的内容
+    let fn = new Function('exports', 'require', 'module', '__filename', '__dirname', content + '\n return module.exports;');
+    let module = {
+        exports: {}
+    };
+
+    return fn(module.exports, req, module, __filename, __dirname); //把它封装在一个函数里立刻执行,这里不明白
+}
+
+
+```
+
 因为模块实现缓存，当第一次加载一个模块之后会缓存这个模块的 `exports` 对象，以后如果再次加载这个模块的话，直接从缓存中取，不需要再次加载了
 
-缓存的 `key` 是，文件的绝对路径，所以多个不同的文件引用一个文件只会引入一次 // `console.log(Object.keys(require.cache))`
+缓存的 `key` 是，文件的绝对路径，所以多个不同的文件引用一个文件只会引入一次，多个文件可以公用一份 // `console.log(Object.keys(require.cache))`
 
 `require` 对象里面有哪些属性 // `console.log(require)`
 
