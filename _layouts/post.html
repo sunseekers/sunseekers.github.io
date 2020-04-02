@@ -2,74 +2,66 @@
 layout: default
 ---
 <section class="collection-head small geopattern" data-pattern-id="{{ page.title | truncate: 15, ''}}">
-<div class="container">
-  <div class="columns">
-    <div class="column three-fourths">
-      <div class="collection-title">
-        <h1 class="collection-header">{{ page.title }}</h1>
-        <div class="collection-info">
-          {% if page.date %}
-          <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> {{ page.date | date: "%Y/%m/%d" }}
-          </span>
-          {% endif %}
-          {% for cat in page.categories %}
-          <span class="meta-info">
-            <span class="octicon octicon-file-directory"></span>
-            <a href="{{ site.url }}/categories/#{{ cat }}" title="{{ cat }}">{{ cat }}</a>
-          </span>
-          {% if site.leancloud.enable %}
-            <span id="{{ page.url }}" class="leancloud_visitors" data-flag-title="{{ page.title }}">
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-text"> Hits:  </span>
-            <span class="leancloud-visitors-count"></span>
+  <div class="container">
+    <div class="columns">
+      <div class="column three-fourths">
+        <div class="collection-title">
+          <h1 class="collection-header">{{ page.title }}</h1>
+          <div class="collection-info">
+            {% if page.date %}
+            <span class="meta-info">
+              <span class="octicon octicon-calendar"></span> {{ page.date | date: "%Y/%m/%d" }}
             </span>
-          {% endif %}
-          {% endfor %}
+            {% endif %}
+            {% for cat in page.categories %}
+            <span class="meta-info">
+              <span class="octicon octicon-file-directory"></span>
+              <a href="{{ site.url }}/categories/#{{ cat }}" title="{{ cat }}">{{ cat }}</a>
+            </span>
+            {% if site.leancloud.enable %}
+            <span id="{{ page.url }}" class="leancloud_visitors" data-flag-title="{{ page.title }}">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-text"> Hits: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            {% endif %}
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </section>
 <!-- / .banner -->
 <section class="container content">
-<div class="columns">
-  <div class="column three-fourths" >
-    <article class="article-content markdown-body">
-    {{ content }}
-    </article>
-    <!--<img src="/images/life/004.jpeg" width="25%" height="25%" style="vertical-align:middle;margin-left: 30%"/>-->
-    <div style="padding-top:20px;">
-      <hr/>
-      <p>一名伪程序猿——sunseekers，曾被bug虐的体无完肤，却依旧待他如初恋。</p>
+  <div class="columns">
+    <div class="column three-fourths">
+      <article class="article-content markdown-body">
+        {{ content }}
+      </article>
+      <!--<img src="/images/life/004.jpeg" width="25%" height="25%" style="vertical-align:middle;margin-left: 30%"/>-->
+      <div style="padding-top:20px;">
+        <hr />
 
-      <p>如果我改过的某一个bug，吐槽过的某一个需求，写过的某一行代码</p>
+        <p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p>
 
-      <p>曾在你的心里荡起涟漪，那至少说明在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p>
+        <p>如果喜欢我的话，我们可以互相关注，相互学习的哟！互相鼓励，你的关注是我最大的动力来源</p>
 
-      <p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。 </p>
+        <a href="https://github.com/sunseekers">sunseekers</a>
 
-      <p>如果你喜欢我写过的某一个文字，请支持我，鼓励我，你的鼓励是我最大的动力来源</p>
-
-      <p>当然恰好你也喜欢我的话，我们可以互相关注，相互学习的哟！</p>
-
-      <a href="https://github.com/sunseekers">sunseekers</a>
-
+      </div>
+      <div class="share">
+        {% include sns-share.html %}
+      </div>
+      <div class="comment">
+        {% include comments.html %}
+      </div>
     </div>
-    <div class="share">
-      {% include sns-share.html %}
-    </div>
-    <div class="comment">
-      {% include comments.html %}
+    <div class="column one-fourth">
+      {% include sidebar-search.html %}
+      {% include sidebar-qrcode.html %}
+      {% include sidebar-post-nav.html %}
     </div>
   </div>
-  <div class="column one-fourth">
-    {% include sidebar-search.html %}
-    {% include sidebar-qrcode.html %}
-    {% include sidebar-post-nav.html %}
-  </div>
-</div>
 </section>
 <!-- /section.content -->
-
