@@ -12,71 +12,42 @@ keywords: web
 
 ## 实现跨域
 
-jsonp
-cors 纯后端提供
-postMessage
-document.domain
-window.name
-location.hash
-http-proxy
-nginx
-websocket
+`jsonp` : 原理是利用 `script img` 等标签没有跨域的限制，缺点是只能发 `get` 请求，不安全，`xss` 攻击，你需要跨域的网站对你做攻击
 
 ```
-function show(data){
-console.log(data);
-}
-function jspon({url,params,cd}){
-return new Promise((resolve,reject)=>{
-let script=document.createElement("script")
+  // 核心代码
+      function jsonp({ url,params,cd}) {
+      return new Promise((resolve, reject) => {
+        let script = document.createElement("script")
 
-window[cd] = data=>{
-resolve(data)
-document.body.removeChild(script)
+        window[cd] = data => {
+          resolve(data)
+          document.body.removeChild(script)
 
-}
-params={...params,cd}
-let arr = []
-for(let key in params){
-arr.push(`${key}=${params[key]}`)
-}
-script.src=`${url}?${arr.join("&")}`
-document.body.appendChild(script)
-})
-
-}
-// 只能发 get 请求，不安全，xss 攻击，你用的网站对你做攻击
-jsonp({
-url:'baidu.con',
-params:{wd:'a'},
-cd:'show'
-}).then(data=>{
-console.log(data);
-})
-
-//服务器
-let express = require('express')
-let app = express()
-app.get('/say',(req,res)=>{
-  let {wd,cd} = req.query
-  res.end(`${cd}(''i like you)`)
-})
-app.list(3000)
+        }
+        params = {...params,cd}
+        let arr = []
+        for (let key in params) {
+          arr.push(`${key}=${params[key]}`)
+        }
+        script.src = `${url}?${arr.join("&")}`
+        document.body.appendChild(script)
+      })
+    }
 ```
+[实现源码](https://github.com/sunseekers/node/tree/master/cross-domian)
 
-cors
+`cors` : 只是一个完全由后端参与并实现的，前端不需要做任何事情
 
-let express = require('express')
-let app = express()
-app.use(express.static(\_\_dirname))
-let whitList=['x']
-app.use((req,res,next)=>{
-let origin = req.headers.origin
-if(whitList.includex(origin)){
-res.setHeader('')
-}
-next()
-})
-app.list(3000)
+简单的说就是在服务加上一个白名单允许哪些网址跨站访问，浏览器出现了哪些跨域的错误信息，在服务端设置 `setHeader` 表示允许出现跨域。他的缺点是，全部有服务器来做，需要什么加什么，会有很多的代码量
 
-xmlHttprequest 4000 服务发起这个请求
+[实现源码](https://github.com/sunseekers/node/tree/master/cross-domian)
+
+`postMessage`
+`document.domain`: 只能在一级域名和二级域名使用
+`window.name`
+`location.hash`
+`http-proxy`:  `webpack` 上面配置使用
+`nginx` : 在 `nginx` 的配上上面加上允许跨域的域名就好了
+`websocket`
+
