@@ -41,13 +41,16 @@ keywords: web
 
 简单的说就是在服务加上一个白名单允许哪些网址跨站访问，浏览器出现了哪些跨域的错误信息，在服务端设置 `setHeader` 表示允许出现跨域。他的缺点是，全部有服务器来做，需要什么加什么，会有很多的代码量
 
-[实现源码](https://github.com/sunseekers/node/tree/master/cross-domian)
+[代码实现](https://github.com/sunseekers/node/tree/master/cross-domian)
 
-`postMessage`
+`postMessage`： 利用 `iframe` 像子窗口里面发送数据，然后子窗口反传数据给父窗口 [window.postMessage](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)
+
+[代码实现](https://github.com/sunseekers/node/tree/master/cross-domian/postMessage)
+
 `document.domain`: 只能在一级域名和二级域名使用
 `window.name`
 `location.hash`
 `http-proxy`:  `webpack` 上面配置使用
 `nginx` : 在 `nginx` 的配上上面加上允许跨域的域名就好了
-`websocket`
+`websocket` :
 
