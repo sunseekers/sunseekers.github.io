@@ -178,3 +178,9 @@ video.addEventListener('pause',()=>{
 </html>
 
 ```
+
+## 在 `html` 事件中的应用
+## 在 `axios` 中的应用
+这两个应用不在这里详细的解说，直接看 `demo` 就能看懂，清晰，简洁。`class` 扩展是真的很方便，喜欢上他了 
+
+[class 的其他应用](https://github.com/sunseekers/node/tree/master/class)
