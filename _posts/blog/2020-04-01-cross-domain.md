@@ -37,7 +37,7 @@ keywords: web
 ```
 [实现源码](https://github.com/sunseekers/node/tree/master/cross-domian)
 
-`cors` : 只是一个完全由后端参与并实现的，前端不需要做任何事情
+[跨域资源共享( `CORS` )](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS) : 只是一个完全由后端参与并实现的，前端不需要做任何事情
 
 简单的说就是在服务加上一个白名单允许哪些网址跨站访问，浏览器出现了哪些跨域的错误信息，在服务端设置 `setHeader` 表示允许出现跨域。他的缺点是，全部有服务器来做，需要什么加什么，会有很多的代码量
 
