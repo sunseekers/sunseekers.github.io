@@ -182,7 +182,8 @@ Function.prototype.myBind = function(ctx){
 
 测试用例
 
- var foo = {
+```
+var foo = {
     value: 1
 };
 
@@ -211,6 +212,7 @@ const newGreet = greet.bind(obj,['sunseekers']);
 newGreet(['shanghai'])
 const myNewGreet = greet.myBind(obj,['sunseekers']);
 myNewGreet(['shanghai'])
+```
  ## 参考文章
  [JavaScript深入之call和apply的模拟实现](https://github.com/mqyqingfeng/Blog/issues/11)
 
