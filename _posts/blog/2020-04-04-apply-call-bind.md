@@ -213,6 +213,27 @@ newGreet(['shanghai'])
 const myNewGreet = greet.myBind(obj,['sunseekers']);
 myNewGreet(['shanghai'])
 ```
+
+## this 
+`call` 在获取 `this` 的指向的时候，如果直接传入一个 `this` 那 `this` 的指向就不是固定的了，举一个列子
+
+```
+let obj = {
+  name:"sunseekers",
+  age: 18,
+  info1(){
+    info.call(this)//绑定this了，谁调用 this 就指向谁
+  }
+}
+function info(){
+  console.log(this,'this 是什么')
+}
+obj.info1()// 是在 obj 身上调用的所以this是obj
+
+let newInfo = obj.info1
+newInfo()// 在window上面调用的，this 是window
+```
+
  ## 参考文章
  [JavaScript深入之call和apply的模拟实现](https://github.com/mqyqingfeng/Blog/issues/11)
 
