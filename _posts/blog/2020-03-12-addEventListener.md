@@ -28,11 +28,11 @@ keywords: addEventListener 事件监听
 <script>
 const botton = document.getElementById('botton')
 botton.addEventListener('click',function(){
-console.log('true 是事件捕获');
+console.log('我是目标元素，不存在冒泡阶段或者捕获阶段，执行顺序是从上到下依次执行，谁先注册谁先执行');
 })
 botton.addEventListener('click',function(){
-console.log('false 是事件冒泡');
-})
+console.log('我是目标元素，不存在冒泡阶段或者捕获阶段，执行顺序是从上到下依次执行，谁先注册谁先执行');
+},true)
 </script>
 </html>
 ```
@@ -87,7 +87,34 @@ console.log('true 是捕获事件');
 </script>
 </html>
 ```
+因为事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段，所以只要定义了捕获阶段执行，那他就是先执行的，因为他在事件流的顶端
 
 ## 事件委托
 
-利用的是事件冒泡机制，点击子元素的时候，一层一层往上找，找到上级元素的时候，发现她身上有事件，那就把时间给执行了
+利用的是事件冒泡机制，点击子元素的时候，一层一层往上找，找到上级元素的时候，发现她身上有事件，那就把事件给执行了。如果在父元素上面添加了 `e.stopPropagation()`（阻止冒泡）和 `addEventListener` 第三个参数是 `true` 则子元素绑定的事件失效，但是不影响父元素的事件，待讨论
+
+```
+  <ul>
+    <li onclick="changeText(this)">1</li>
+    <li>1</li>
+    <li>1</li>
+    <li>1</li>
+    <li>1</li>
+    <li>1</li>
+    <li>1</li>
+    <li>1</li>
+    <li>1</li>
+  </ul>
+  <script>
+    const ul = document.getElementsByTagName("ul")[0]
+    ul.addEventListener('click', (e) => {
+     // e.stopPropagation();
+      console.log(e.target, '事件对象');
+    }, true)
+
+    function changeText(id) {
+      console.log('hhhhh');
+      id.innerHTML = "Hello:)";
+    }
+  </script>
+  ```
