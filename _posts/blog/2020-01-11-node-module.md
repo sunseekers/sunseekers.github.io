@@ -129,3 +129,7 @@ console.log(require.main)
 `require` 是 `commonJS` 的语法，`commonJS` 的模块是对象，输入时必须查找对象属性。这叫“运行时加载”，因为只有运行时才能得到这个对象，不能在编译时做到静态化。同步加载，加载速度快
 
 `import`是 `es6` 的一个语法标准,是编译时调用，所以必须放在文件开头
+
+`CommonJS` 模块输出的是一个值的拷贝，`ES6` 模块输出的是值的引用。如果是引用类型的，会改变原来的值
+
+[前端模块化：CommonJS,AMD,CMD,ES6](https://juejin.im/post/5aaa37c8f265da23945f365c#comment)
