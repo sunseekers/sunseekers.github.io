@@ -47,6 +47,18 @@ keywords: 文章推荐
 
 [函数式编程，真香](https://juejin.im/post/5c19c3ffe51d45059b632eef)
 
+文章里面有很多链接，都是很不错的文章 [写给初中级前端的高级进阶指南](https://juejin.im/post/5e7c08bde51d455c4c66ddad#heading-10)
+
+[让你的网页更丝滑（一）](https://zhuanlan.zhihu.com/p/66398148)
+
+[让你的网页更丝滑（全）](https://zhuanlan.zhihu.com/p/67728054)
+
+[谈，前端框架的『御剑之道』](https://zhuanlan.zhihu.com/p/48171797)
+
+[将 React 作为 UI 运行时](https://overreacted.io/zh-hans/react-as-a-ui-runtime/)
+
+[Master the JavaScript Interview: What’s the Difference Between Class & Prototypal Inheritance?](https://medium.com/javascript-scene/master-the-javascript-interview-what-s-the-difference-between-class-prototypal-inheritance-e4cd0a7562e9)
+
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
