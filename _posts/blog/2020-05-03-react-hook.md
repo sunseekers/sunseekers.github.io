@@ -1,194 +1,15 @@
 ---
 layout: post
-title: react 文档学习
+title: react hook
 categories: [react]
 description: react 文档学习
 keywords: react
 ---
 
-# `react` 文档总结
+# `react` hook
 
-最近准备用 react+ts，做一个小小的项目。先看文档，把概念和用法了解一遍，之后在慢慢的深入学习。vue3 也出来，到后面在慢慢的学习。文章均来自文档和自己所思考的，本人喜欢用 函数组件一把梭，所以关于 class 组件的内容很少。总结的并不是很全，适合入门，只写一些我常用到的，不怎么用的下次再说
+关于 hook 的东西太多了，所以单独一篇文章记录
 
-## 简单语法 api 搬运
-
-对比 `vue` ,`react` 更加接近原生的用法。有一段时间 `vue` 一把嗦，都忘记原生的要怎么写了。`react` 能够在 `vue` 和 `js` 找出相似点。对于我来说，学习就没有那么难了。
-
-### JSX
-
-写法：和写原生的 html 差不多，因为 JSX 语法上更接近 JavaScript 而不是 HTML，所以 React DOM 使用 camelCase（小驼峰命名）来定义属性的名称，而不使用 HTML 属性名称的命名约定（例如，JSX 里的 class 变成了 className，而 tabindex 则变为 tabIndex。）用到了变量就用 {} 把变量包起来。。每个 JSX 元素都是调用 React.createElement() 的语法糖。
-
-例如：
-
-```
-const element = (
-  <>
-    <h1>Hello!{name}</h1>
-    <h2>Good to see you here.</h2>
-  </>
-);
-```
-
-<></> 这里指的是一个空标签，因为只能有一个“根” DOM 节点，Babel 会把 JSX 转译成一个名为 React.createElement() 函数调用
-
-### 元素渲染
-
-ReactDOM.render()，方法里面传入一个要渲染的元素和一个需要挂载到某一个 DOM 节点上的 id
-
-```
-const element = <h1>Hello, world</h1>;
-ReactDOM.render(element, document.getElementById('root'));
-```
-
-React 元素是不可变对象。一旦被创建，你就无法更改它的子元素或者属性。更新 UI 唯一的方式是创建一个全新的元素，并将其传入 ReactDOM.render()。
-
-React 应用只会调用一次 ReactDOM.render(),页面渲染之后，如果我们想要修改 ui，就需要把代码封装到有状态组件中
-
-### 函数组件
-
-因为我个人在项目中习惯使用函数组件一把嗦，关于 class 组件我就不介绍了。新版中引入了 hooks，让函数组件也可有有生命周期，使用起来更加方便。
-
-函数式组件的首字母要大写，小写的函数，不会被当作组件渲染的。函数组件可以接受一个参数 props 表示传进来的数据（所有传进来的数据都用 props 包裹起来了），不限制类型，可以是函数，对象，数组...，有一个返回值，可以被 react 识别并渲染，通常是 jsx 形式。
-
-函数组件是都决不能修改自身的 props，是一个“纯函数”，相同的输入一定是相同的输出
-
-```
-function Avatar(props) {
-  return (
-    <img className="Avatar"
-      src={props.user.avatarUrl}
-      alt={props.user.name}
-    />
-  );
-}
-```
-
-数据是向下流动的,不管是父组件或是子组件都无法知道某个组件是有状态的还是无状态的，并且它们也并不关心它是函数组件还是 class 组件。
-
-### 事件处理
-
-和原生的 js 差不多，区别在于 React 事件的命名采用小驼峰式（camelCase），而不是纯小写。使用 JSX 语法时你需要传入一个函数作为事件处理函数（是一个变量），而不是一个字符串
-
-```
-<button onClick={activateLasers}>
-  Activate Lasers
-</button>
-```
-
-给事件传参数一般通过箭头函数
-
-```
-<button onClick={() => Delete(item)}>Delete Row</button>
-```
-
-还可以是 bind 的方式，我不喜欢用,我觉得箭头函数方便
-
-### 条件处理
-
-和 javascript 上面的差不多
-
-```
-// 三目运算
-function Greeting() {
-  return (
-    <div>
-    {
-      isLoggedIn? <UserGreeting />:<GuestGreeting />
-    }
-    </div>
-  )
-}
-//&&
-function Greeting() {
-  return (
-    <div>
-    {
-      isLoggedIn&&isSunseekers? <UserGreeting />:<GuestGreeting />
-    }
-    </div>
-  )
-}
-```
-
-## 列表&&key
-
-循环用列表渲染用 map ，写法和 javascript ，和 vue 一样要指定唯一的 key。变量用 {} 包裹
-
-```
-function NumberList(){
-  const numbersList = []
-  return (
-    <ul>
-    {
-      numbersList.map(item=>(
-        <li key={item}>{item}</li>
-      ))
-    }
-    </ul>
-  )
-}
-```
-
-### 状态提升 组合
-
-多个组件需要反映相同的变化数据，这时我们建议将共享状态提升到最近的共同父组件中去。通过父组件传值来控制数据的变化
-
-有些组件无法提前知晓它们子组件的具体内容，比如通用容器的展示比如说 Loading Dialog Scroll 等等，这时候我们就可以使用组合。这个就像 vue 里面的插槽一样，父组件给子组件传递一段 JSX 或者 DOM 标签
-
-```
-// 子组件
-function FancyBorder(props) {
-  return (
-    <div className={'FancyBorder FancyBorder-' + props.color}>
-      {props.children} // 这里就是插槽，内容由父组件控制，由 props.children 接受到内容
-    </div>
-  );
-}
-// 父组件
-function WelcomeDialog() {
-  return (
-    <FancyBorder color="blue">
-    // 传递给子组件的一段内容，作为children 通过prop 传递
-      <h1 className="Dialog-title">
-        Welcome
-      </h1>
-      <p className="Dialog-message">
-        Thank you for visiting our spacecraft!
-      </p>
-    </FancyBorder>
-  );
-}
-```
-
-通过 props.children 是一种传递的方式，我还还可以也是可以直接使用 props 属性进行传值的，传值的方式和是之前一样直接在组件上面传
-
-```
-function App() {
-  return (
-    <SplitPane
-      left={
-        <Contacts /> // 给子组件传递一个 left 属性，他的值是一个组件
-      }
-      right={
-        <Chat />
-      } />
-  );
-}
-```
-
-enmmmmm ，这么看的话，其实就是 props 传值的类型可以是任意的，基本类型，引用类型，函数，组件
-
-### react 组件颗粒化划分
-
-1. 设计好的 ui 进行整个页面的简单布局
-
-2. 根据 ui 划分组件层级
-
-3. 确定 ui 完整的最小颗粒化
-
-4. 整理好理解划分好数据流的流动方向
-
-代码更多地是给人看的。当你开始构建更大的组件库时，你会意识到这种代码模块化和清晰度的重要性。并且随着代码重用程度的加深，你的代码行数也会显著地减少。:)，少一行代码，就减少一个 bug 出现的可能性
 
 ## hook
 
@@ -198,6 +19,7 @@ hook 本质是 JavaScript 函数，Hook 的调用顺序在每次渲染中都是�
 
 答案：Hook 的调用顺序发生了改变出现 bug [Hook 规则](https://zh-hans.reactjs.org/docs/hooks-rules.html)
 
+
 ### userState （State Hook）
 
 useState 是允许你在 React 函数组件中添加 state 的 Hook
@@ -205,6 +27,7 @@ useState 是允许你在 React 函数组件中添加 state 的 Hook
 以前在 class 组件里面想要响应式的修改页面的数据不是很方便，要先在 constructor 里面声明，由 this.setState 引着修改（如果你不知道以前怎么修改就忽略这句话
 
 现在特别方便了 userState 函数初始化变量值，返回一个数组，数组第一项是这个初始化的变量，第二项是响应式修改这个变量及页面的方法名。当能够直接影响 DOM 的变量，这样我们才会将其称之为状态。当某一个变量对于 DOM 而言没有影响，此时将他定义为一个异步变量并不明智。好的方式是将其定义为一个同步变量。
+
 
 ```
 import React, { useState } from 'react';
@@ -237,7 +60,7 @@ function Box() {
       // 展开 「...state」 以确保我们没有 「丢失」 width 和 height
       setState(state => ({ ...state, left: e.pageX, top: e.pageY }));
     }
-  }, []);// 只会渲染一次，永远不会重复执行
+  });// 只会渲染一次，永远不会重复执行
 }
 ```
 
@@ -252,7 +75,7 @@ const [state, setState] = useState(() => {
 
 颗粒化的时候最好划分好，这样就可以避免数据丢失，又不至于需要写很多代码
 
-useState 返回的更新状态方法是异步的，要在下次重绘才能获取新值。不要试图在更改状态之后立马获取状态。
+useState 返回的更新状态方法是异步的，要在下次重绘才能获取新值。不要试图在更改状态之后立马获取状态。这里有可能会出现陈旧值引用的问题，这并不是 reatc 的bug，是因为 JavaScript 的正常表现，是因为闭包
 
 踩过坑记，immutable 里面的 set 结构的时候，进行循环删除里面的某些项，结构删除的永远是数组的最后一项
 
@@ -306,7 +129,7 @@ componentWillUnmount：清除 effect ，在某种情况下，你需要清理一�
 
 默认情况下，它在第一次渲染之后和每次更新之后都会执行，而且 effect 的清除阶段在每次重新渲染时都会执行，这个能就会导致性能问题 ，所以他又称是副作用。他可以接受第二个参数，他会对比更新前后的两个数据，如果没有变化的话，就不执行 hook 里面的东西。仅仅只有在第二次参数发生变化的时候才会执行。这样就避免没有必要的重复渲染和清除操作
 
-可以传递一个空数组（[]）作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行。意味着该 hook 只在组件挂载时运行一次，并非重新渲染时
+可以传递一个空数组（[]）作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行。意味着该 hook 只在组件挂载时运行一次，并非重新渲染时，（需要注意的是[]是一个引用类型的值，在某些情况下自定义hooks，他作为第二个参数也会导致页面重新渲染，因为引用地址变了，所以在自定义hooks的时候需要注意，在自定义hook里面说到了
 
 ```
 useEffect(() => {
@@ -323,13 +146,13 @@ useEffect(() => {
 
 数组中要确定包含 effect 里面会使用的变量，如果 effect 里面使用了数组中没有包含的变量回有问题就不会更新了
 
-[useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
+[useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/) -> 这个写的特别好，特别推荐看学习
 
 ### 自定义 Hook
 
 这个有就有点想 vue 里面的 mixin 了，当我们在多个组件函数里面共同使用同一段代码，并且这段代码里面包含了 react 的 hook，我们想在多个组件函数共享逻辑的时候，我们可以把他提取到第三个函数中去，而组件和 Hook 都是函数，所以也同样适用这种方式。
 
-自定义 Hook 是一个函数，其名称以 “use” 开头，函数内部可以调用其他的 Hook，
+自定义 Hook 是一个函数，其名称以 “use” 开头，函数内部可以调用其他的 Hook
 
 ```
 import { useState, useEffect } from 'react';
@@ -394,55 +217,24 @@ export function useFriendStatus(fn, dependencies) {
     request,
   }
 }
-// 父组件，如果dependencies是引用类型的要注意了，会导致每一次加载页面引用的地址都不一样，直接导致页面死循环，所以处理的时候
-// 要特别小心和注意了
+
+// 别的组件中使用
   const { data, loading } = useFriendStatus(fetchTodos({ tab: 'activeTab' }), 'activeTab')
 
 ```
 
+如果dependencies是引用类型的要注意了，会导致每一次加载页面引用的地址都不一样，直接导致页面死循环，所以处理的时候， 要特别小心和注意了。比如说，如果我们给 useFriendStatus 第二个参数一个空数组，每一次请求接口页面就会重新渲染，第二个参数的空数组引用地址变了，会导致死循环，自己尝试
+
 [自定义 Hook](https://zh-hans.reactjs.org/docs/hooks-custom.html)
 
 [使用 React Hooks + 自定义 Hook 封装一步一步打造一个完善的小型应用](https://juejin.im/post/5d6771375188257573636cf9)
-
-### React.memo
-
-可以减少重新 render 的次数的。
-
-```
-//子组件
-
-function Child(props) {
-  console.log(props.name)
-  return <h1>{props.name}</h1>
-}
-
-export default React.memo(Child)
-
-// 父组件
-function App() {
-  const [count, setCount] = useState<number>(1)
-
-  return (
-    <div className="App">
-      <h1>{ count }</h1>
-      <button onClick={() => setCount(count+1)}>改变数字</button>
-      <Child name="sunseekers"></Child>
-    </div>
-  );
-}
-```
-
-如果你的函数组件在给定相同 props 的情况下渲染相同的结果，那么你可以通过将其包装在 React.memo 中调用，以此通过记忆组件渲染结果的方式来提高组件的性能表现。这意味着在这种情况下，React 将跳过渲染组件的操作并直接复用最近一次渲染的结果。（如果没有用 React.memo 包裹，每一次 count 变化，子组件都会重新渲染）
-
-仅检查 props 变更。如果函数组件被 React.memo 包裹，且其实现中拥有 useState 或 useContext 的 Hook，当 context 发生变化时，它仍会重新渲染.默认情况下其只会对复杂对象做浅层对比，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现
-
-[如何对 React 函数式组件进行优化](https://juejin.im/post/5dd337985188252a1873730f)
 
 ### useMemo
 
 如果我们有 `CPU` 密集型操作，我们可以通过将初始操作的结果存储在缓存中来优化使用。如果操作必然会再次执行，我们将不再麻烦再次使用我们的 `CPU`，因为相同结果的结果存储在某个地方，我们只是简单地返回结果他通过内存来提升速度，`React.useMemo` 是新出来的 `hooks api`，并且这个 `api` 是作用于 `function` 组件，此方法仅作为性能优化的方式而存在。但请不要依赖它来“阻止”渲染，因为这会产生 bug。
 
 把“创建”函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。
+
 
 ```
 function App() {
@@ -481,8 +273,9 @@ function App() {
 
 这个时候我们吧把函数以及依赖项作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，这个 memoizedCallback 只有在依赖项有变化的时候才会更新。
 
+给定相同 props 的情况下渲染相同的结果，并且通过记忆组件渲染结果的方式来提高组件的性能表现
+
 ```
-  //给定相同 props 的情况下渲染相同的结果，并且通过记忆组件渲染结果的方式来提高组件的性能表现
   //函数组件都会重头开始重新执行，那么这两次创建的 callback 函数肯定发生了改变，所以导致了子组件重新渲染
   //把函数以及依赖项作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，这个 memoizedCallback 只有在依赖项有变化的时候才会更新。
   const handleIndicator = useCallback((indicator: EvaluateIndicator) => {
@@ -499,10 +292,10 @@ React.memo 和 useCallback 都是为了减少重新 render 的次数
 
 [浅谈 React 性能优化的方向](https://juejin.im/post/5d045350f265da1b695d5bf2#comment)
 
-### useRef 不是特别懂
+### useRef 
 
 相当于 vue 里面的 refs ，只是在这边的用法不一样而已
-useRef 返回一个可变的 ref 对象，其 current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变
+useRef 返回一个可变的 ref 对象，其 current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变,当我们遇到了因为闭包问题导致的陈旧值引用的问题，我们就可以用它来解决问题
 
 ```
 function TextInputWithFocusButton() {
@@ -526,72 +319,73 @@ function TextInputWithFocusButton() {
 
 [refs 通过函数引用 demo](https://codesandbox.io/s/bold-bash-hy5wd?file=/src/index.js)
 
-## 声明函数组件
+[The State Reducer Pattern with React Hooks](https://kentcdodds.com/blog/the-state-reducer-pattern-with-react-hooks)
 
-使用 FC 类型来声明，FC 是 FunctionComponent 的简写, 这个类型定义了默认的 props(如 children)以及一些静态属性(如 defaultProps)
+### React.memo
 
-```
-import React from 'react';
-/**
- * 声明Props类型
- */
-export interface MyComponentProps {
-  className: string;
-  style: React.CSSProperties;
-}
-export const MyComponent:FC<MyComponentProps> = props=>{
-  return <div>hello react</div>;
-}
-export const MyComponent1:FC<MyComponentProps> = {className,style}=>{ // 参数结构
-  return <div>hello react</div>;
-}
-```
-
-相当于
+可以减少重新 render 的次数的。
 
 ```
-import React from 'react';
-/**
- * 声明Props类型
- */
-export interface MyComponentProps {
-  className: string;
-  style: React.CSSProperties;
+//子组件
+
+function Child(props) {
+  console.log(props.name)
+  return <h1>{props.name}</h1>
 }
-export function MyComponent(props:MyComponentProps){
-  return <div>hello react</div>;
+
+export default React.memo(Child)
+
+// 父组件
+function App() {
+  const [count, setCount] = useState<number>(1)
+
+  return (
+    <div className="App">
+      <h1>{ count }</h1>
+      <button onClick={() => setCount(count+1)}>改变数字</button>
+      <Child name="sunseekers"></Child>
+    </div>
+  );
 }
 ```
+如果你的函数组件在给定相同 props 的情况下渲染相同的结果，那么你可以通过将其包装在 React.memo 中调用，以此通过记忆组件渲染结果的方式来提高组件的性能表现。这意味着在这种情况下，React 将跳过渲染组件的操作并直接复用最近一次渲染的结果。（如果没有用 React.memo 包裹，每一次 count 变化，子组件都会重新渲染）
 
-泛型在一下列表型或容器型的组件中比较常用, 直接使用 FC 无法满足需求:，这时候我还是要使用函数组件了
+仅检查 props 变更。如果函数组件被 React.memo 包裹，且其实现中拥有 useState 或 useContext 的 Hook，当 context 发生变化时，它仍会重新渲染.默认情况下其只会对复杂对象做浅层对比，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现
 
-[React 组件设计实践总结 01 - 类型检查](https://juejin.im/post/5cd7f2c4e51d453a7d63b715#heading-24)
+[如何对 React 函数式组件进行优化](https://juejin.im/post/5dd337985188252a1873730f)
 
-[354- 一文吃透 React 事件机制原理](https://mp.weixin.qq.com/s/8KrgoeLSuZ5-p-0cDZeb8A) --还没仔细看
+## useReducer
 
-## router 还没开始看，还没开始写
+useState 的替代方案，升级版，但我们遇到多个 useState 之间互相影响，需要或者说只是某一个参数不一样，其他的大致差不多的时候，我们就可以使用 useReducer 替换，这个有点像 vue里面的vuex的感觉，也有点 Redux 的感觉，但是只是有一点点，几个还是完全不一样的概念 
 
-被他包裹的组件在没有被 `router`组件包裹的情况下，依然可以获取到路由相关的信息比如：`loaction`，`match`，`history`
-[参考资料](https://zhuanlan.zhihu.com/p/36895827)
+```
+const initialState = {count: 0};
 
-## 函数式组件与类组件有何不同
+// 多个 useState 结合成一个了
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
 
-[函数式组件与类组件有何不同？](https://overreacted.io/zh-hans/how-are-function-components-different-from-classes/)
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
 
-[demo](https://codesandbox.io/s/pjqnl16lm7?file=/src/ProfilePageClass.js)
+```
 
-在 React 中 Props 是不可变(immutable)的，所以他们永远不会改变。然而，this 是，而且永远是，可变(mutable)的。
+[useReducer](https://zh-hans.reactjs.org/docs/hooks-reference.html#usereducer)
 
-事实上，这就是类组件 this 存在的意义。React 本身会随着时间的推移而改变，以便你可以在渲染方法以及生命周期方法中得到最新的实例
-
-所以如果在请求已经发出的情况下我们的组件进行了重新渲染，this.props 将会改变。showMessage 方法从一个“过于新”的 props 中得到了 user。这也就是常说的闭包陈旧的问题，其实并不是闭包陈旧，而是它本身就是这样的
-
-1. 函数式组件捕获了渲染所使用的值，不会获取到过新的数据
-
-2. React 不会在函数式组件中为最新的 props 和 state 创造 refs
-
-函数式组件中想要渲染最新的值，那就在变化的时候在执行一次一样的操作。函数式组件捕获了渲染所使用的值这种写法是对的
-
-[React Hooks 的体系设计之一 - 分层](https://zhuanlan.zhihu.com/p/106665408)
-
-[Umi Hooks - 助力拥抱 React Hooks](https://zhuanlan.zhihu.com/p/103150605?utm_source=wechat_session)
+[The State Reducer Pattern with React Hooks](https://kentcdodds.com/blog/the-state-reducer-pattern-with-react-hooks)
