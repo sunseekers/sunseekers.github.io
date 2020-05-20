@@ -64,6 +64,10 @@ keywords: 文章推荐
 [Master the JavaScript Interview: What’s the Difference Between Class & Prototypal Inheritance?](https://medium.com/javascript-scene/master-the-javascript-interview-what-s-the-difference-between-class-prototypal-inheritance-e4cd0a7562e9)
 可以尝试做一次职业技能提升的规划：[每一场面试都是人生的一次战役 | 掘金技术征文](https://juejin.im/post/5e8dab8a51882573b43606ab)
 
+[JavaScript 深入之头疼的类型转换(上)](https://github.com/mqyqingfeng/Blog/issues/159)
+
+[JavaScript 深入之头疼的类型转换(下)](https://github.com/mqyqingfeng/Blog/issues/164)
+
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
