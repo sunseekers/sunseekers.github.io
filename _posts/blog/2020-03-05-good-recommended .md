@@ -62,6 +62,7 @@ keywords: 文章推荐
 [将 React 作为 UI 运行时](https://overreacted.io/zh-hans/react-as-a-ui-runtime/)
 
 [Master the JavaScript Interview: What’s the Difference Between Class & Prototypal Inheritance?](https://medium.com/javascript-scene/master-the-javascript-interview-what-s-the-difference-between-class-prototypal-inheritance-e4cd0a7562e9)
+可以尝试做一次职业技能提升的规划：[每一场面试都是人生的一次战役 | 掘金技术征文](https://juejin.im/post/5e8dab8a51882573b43606ab)
 
 ## 生活
 
