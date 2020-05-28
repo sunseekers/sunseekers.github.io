@@ -169,6 +169,8 @@ componentWillUnmount：清除 effect ，在某种情况下，你需要清理一�
 
 [useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/) -> 这个写的特别好，特别推荐看学习
 
+[超性感的React Hooks（四）：useEffect](https://mp.weixin.qq.com/s/5sXbnSTQEyKr-WqEEXQCBA)
+
 ### useMemo
 
 简单说就是把一些需要计算但是不会变得数据存储在本地，下次用的时候直接拿计算的结果就好了，不需要计算（ 如果我们有 `CPU` 密集型操作，我们可以通过将初始操作的结果存储在缓存中来优化使用。如果操作必然会再次执行，我们将不再麻烦再次使用我们的 `CPU`，因为相同结果的结果存储在某个地方，我们只是简单地返回结果他通过内存来提升速度，`React.useMemo` 是新出来的 `hooks api`，并且这个 `api` 是作用于 `function` 组件，此方法仅作为性能优化的方式而存在。但请不要依赖它来“阻止”渲染，因为这会产生 bug。
