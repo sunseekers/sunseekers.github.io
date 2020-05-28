@@ -137,7 +137,7 @@ function Counter() {
 
 [Umi Hooks - 助力拥抱 React Hooks](https://zhuanlan.zhihu.com/p/103150605?utm_source=wechat_session)
 
-### Effect Hook
+## Effect Hook
 
 React 会等待浏览器完成画面渲染之后才会延迟调用 useEffect，他相当于 react class 的三个生命周期函数 componentDidMount（组件挂载完成），componentDidUpdate（组件更新） 和 componentWillUnmount（组件将要销毁） 三个生命周期函数的组合，可以实现减少重复代码的编写
 
@@ -171,7 +171,7 @@ componentWillUnmount：清除 effect ，在某种情况下，你需要清理一�
 
 [超性感的React Hooks（四）：useEffect](https://mp.weixin.qq.com/s/5sXbnSTQEyKr-WqEEXQCBA)
 
-### useMemo
+## useMemo
 
 简单说就是把一些需要计算但是不会变得数据存储在本地，下次用的时候直接拿计算的结果就好了，不需要计算（ 如果我们有 `CPU` 密集型操作，我们可以通过将初始操作的结果存储在缓存中来优化使用。如果操作必然会再次执行，我们将不再麻烦再次使用我们的 `CPU`，因为相同结果的结果存储在某个地方，我们只是简单地返回结果他通过内存来提升速度，`React.useMemo` 是新出来的 `hooks api`，并且这个 `api` 是作用于 `function` 组件，此方法仅作为性能优化的方式而存在。但请不要依赖它来“阻止”渲染，因为这会产生 bug。
 
@@ -208,7 +208,7 @@ function App() {
 
 记住，传入 useMemo 的函数会在渲染期间执行。请不要在这个函数内部执行与渲染无关的操作，诸如副作用这类的操作属于 useEffect 的适用范畴，而不是 useMemo
 
-### useCallback
+## useCallback
 
 父组件给子组件传递函数的时候，父组件每一次的修改都会重新渲染，都会导致它们在每次渲染上都有不同的引用，最后的结果是，每一次父组件的修改都直接导致了子组件没有必要的渲染。（引用类型
 
@@ -257,7 +257,7 @@ const Search: React.FC<searchlParams> = ({ handleSearch }) => {
 
 [浅谈 React 性能优化的方向](https://juejin.im/post/5d045350f265da1b695d5bf2#comment)
 
-### React.memo
+## React.memo
 
 可以减少重新 render 的次数的。
 
@@ -291,7 +291,7 @@ function App() {
 
 [如何对 React 函数式组件进行优化](https://juejin.im/post/5dd337985188252a1873730f)
 
-### useRef
+## useRef
 
 相当于 vue 里面的 refs ，只是在这边的用法不一样而已。useRef 返回一个可变的 ref 对象，其 current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变,当我们遇到了因为闭包问题导致的陈旧值引用的问题，我们就可以用它来解决问题
 
@@ -319,7 +319,7 @@ function TextInputWithFocusButton() {
 
 [The State Reducer Pattern with React Hooks](https://kentcdodds.com/blog/the-state-reducer-pattern-with-react-hooks)
 
-### 自定义 Hook
+## 自定义 Hook
 
 这个有就有点像 vue 里面的 mixin 了，当我们在多个组件函数里面共同使用同一段代码，并且这段代码里面包含了 react 的 hook，我们想在多个组件函数共享逻辑的时候，我们可以把他提取到第三个函数中去，而组件和 Hook 都是函数，所以也同样适用这种方式。
 
