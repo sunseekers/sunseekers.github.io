@@ -242,3 +242,83 @@ console.log(fn);
 之所以存在是因为机器不能直接理解我们所写的代码，所以在执行程序之前，需要将我们所写的代码翻译成机器能读懂的机器语言，按照语言的执行流程可以划分为编译型语言和解释型语言。编译型语言：需要经过编译器的编译过程，编译后直接保留机器能够读懂的二进制文件；解释型语言：每一次运行都需要通过解释器对程序进行动态解释和执行
 
 ![](../../images/blog/5.png)
+
+## 迭代器
+
+模拟迭代器
+
+```
+function createIterator(items) {
+    var i = 0;
+    return {
+        next: function() {
+            var done = i >= item.length;
+            var value = !done ? items[i++] : undefined;
+
+            return {
+                done: done,
+                value: value
+            };
+        }
+    };
+}
+```
+
+在 set 和 map 中使用迭代器默认返回的东西
+
+```
+var colors = new Set(["red", "green", "blue"]);
+
+for (let index of colors.keys()) {
+    console.log(index);
+}
+
+// red
+// green
+// blue
+
+for (let color of colors.values()) {
+    console.log(color);
+}
+
+// red
+// green
+// blue
+
+for (let item of colors.entries()) {
+    console.log(item);
+}
+
+// [ "red", "red" ]
+// [ "green", "green" ]
+// [ "blue", "blue" ]
+```
+
+Set 类型的 keys() 和 values() 返回的是相同的迭代器，这也意味着在 Set 这种数据结构中键名与键值相同。( keys()、values()、entries() 返回的是遍历器)
+
+数组和 Set 集合的默认迭代器是 values() 方法，Map 集合的默认迭代器是 entries() 方法。
+
+```
+const values = new Map([["key1", "value1"], ["key2", "value2"]]);
+for (let value of values) {
+    console.log(value);
+}
+
+// ["key1", "value1"]
+// ["key2", "value2"]
+```
+
+遍历 Map 数据结构的时候可以顺便结合解构赋值：
+
+```
+const valuess = new Map([["key1", "value1"], ["key2", "value2"]]);
+
+for (let [key, value] of valuess) {
+    console.log(key + ":" + value);
+}
+
+// key1:value1
+// key2:value2
+```
+
+[ES6 系列之迭代器与 for of](https://github.com/mqyqingfeng/Blog/issues/90)
