@@ -10,6 +10,11 @@ keywords: vue
 传送 我觉得写的好的 `vue` 文章，曾经帮助我解决过问题的文章，推荐理由+链接，方便我下次快速查找。
 部分内容具有时效性，所有内容仅供参考，如有侵权联系我进行删除
 
+## 来自 文档
+[刷新页面还继续使用上一次输入的值](https://cn.vuejs.org/v2/cookbook/client-side-storage.html)  或者使用 window.onbeforeunload 方法解决
+
+[Vuex的命名空间](https://vuex.vuejs.org/zh/guide/modules.html) (用的比较少)
+
 ## 来自 `github`
 
 ## 来自掘金
