@@ -16,6 +16,15 @@ keywords: javaScript API
 console.log(content.includes('b'));
 console.log(content.indexOf('b')!=-1);
 
+## 简化版 `flat` 方法
+
+```
+function flat(list){
+  return list.reduce((acc,val)=>
+    Array.isArray(val)?acc.concat(flat(val)):acc.concat(val)
+  ,[])
+}
+```
 ## 简化版 `filter` 方法
 
 ```
@@ -89,110 +98,6 @@ Array.prototype.findIndex = function(fn){
 }
 ```
 
-## 模拟 `call` 方法
-```
-// 基本类型转换为对应的对象，它是类型转换中一种相当重要的种类。 装箱转换
-Function.prototype.selfCall = function(context) {
-  let func = this //this 在哪调用指向哪，这里是在一个函数里面调用，所以指向调用他的函数
-  console.log(this)
-  context || (context = window)
-  if (typeof func !== 'function') throw new TypeError('this is not function')
-  context.fn = func //这里会产生装箱操
-  let args = [...arguments].slice(1)
-  let res = context.fn(args)
-  delete context.fn
-  return res
-}
-```
-
-## 模仿 `apply` 方法
-```
-Function.prototype.selfApply = function(context) {
-  let func = this //this 在哪调用指向哪，这里是在一个函数里面调用，所以指向调用他的函数
-  context || (context = window)
-  if (typeof func !== 'function') throw new TypeError('this is not function')
-  context.fn = func //这里会产生装箱操
-  let args = [...arguments][1]
-  if (!args) {
-    return context.fn()
-  }
-  let res = context.fn(args)
-  delete context.fn
-  return res
-}
-```
-
-箭头函数里面的 `this` 是在写的时候定死的，指向外层的的 `this`
-
-```
-let obj = {
-  name:'sunseekers',
-  getName:()=>{
-    console.log(this.name)
-    }
-  }
-obj.getName() // 什么也没有
-
-
-
-let obj1 = {
-  name:'sunseekers',
-  getName1:obj.getName()
-  }
-obj1.getName1() // 什么也没有
-```
-
-```
-class Parent{
-  constructor(name){
-    this.name = name;//实例的私有属性
-  }
-  //静态属性是类的属性
-  static hello(){
-    console.log('hello');
-  }
-  //属于实例的公有属性，也就是相当于原型上的属性
-  getName(){
-    console.log(this.name);
-  }
-}
-class Child extends Parent{
-  constructor(name,age){
-    //super指的是父类的构造函数
-    super(name);
-    this.age = age;
-  }
-  getAge(){
-    console.log(this.age);
-  }
-}
-```
-
-类 和类的实例
-一个属性如果放在原型上的话，是可能通过实例来调用的
-但是放在类上的，不能通过实例来调用，只能用过类名来调用
-
-
-正则表达式是匹配模式，要么匹配字符，要么匹配位置
-
-正则里面 \ 可以表示转译
-
-| 管道符 匹配的时候是惰性匹配，匹配上了前面的后面就不再尝试了
-
-```
-  var regex = /good|goodbye/g;
-  var string = "goodbye";
-  console.log( string.match(regex) );
-  // => ["good"]
-```
-
-字符组  []
-量词 {},+?*
-多选分支|
-
-匹配字符，无非就是字符组，量词，分支结构的组合使用罢了
-
-/^([01][0-9]|[2][0-3]):[0-5][0-9]$/
 
 
 

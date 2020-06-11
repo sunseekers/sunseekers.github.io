@@ -146,9 +146,10 @@ dd + dd {
 </body>
 </html>
 ```
-
+## js 简单模拟（移动端有兼容性问题/？？？TODO
 ## 参考文章
 
 [杀了个回马枪，还是说说 position:sticky 吧](https://www.zhangxinxu.com/wordpress/2018/12/css-position-sticky/)
 
 [MDN position](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position)
+

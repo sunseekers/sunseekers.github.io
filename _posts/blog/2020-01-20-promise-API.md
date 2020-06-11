@@ -8,7 +8,9 @@ keywords: Promise
 
 # 模拟 Promise API
 
-熟悉某一个 `api` ,对他特别熟悉，然后想想它的实现原理，然后实现他。就真的自己掌握了
+`Promise` 是 `JavaScript` 语言提供的一种标准化的异步管理方式，它的总体思想是，需要进行 `io`、等待或者其它异步操作的函数，不返回真实结果，而返回一个“承诺”，函数的调用方可以在合适的时机，选择等待这个承诺兑现（通过 `Promise` 的 `then` 方法的回调
+
+首先我们分析有多少个宏任务；在每个宏任务中，分析有多少个微任务；根据调用次序，确定宏任务中的微任务执行次序；根据宏任务的触发规则和调用次序，确定宏任务的执行次序；确定整个顺序。
 
 ## 异步并行执行代码
 
@@ -65,9 +67,9 @@ timeoutPromise(getDate,1000).then(()=>{})
 
 ## `Promise` 和 `async await`
 
-如果它等到的是一个 `Promise` 对象， `await` 就忙起来了， 它会阻塞后面的代码， 等着 `Promise` 对象 `resolve`，然后得到 `resolve` 的值， 作为 `await` 表达式的运算结果。
+ `await` 如果它等到的是一个 `Promise` 对象， `await` 就忙起来了， 它会阻塞后面的代码， 等着 `Promise` 对象 `resolve`，然后得到 `resolve` 的值， 作为 `await` 表达式的运算结果。
 
-如果它等到的不是一个 `Promise` 对象， 那 `await` 表达式的运算结果就是它等到的东西，这里也会是一个微任务
+ `await` 如果它等到的不是一个 `Promise` 对象， 那 `await` 表达式的运算结果就是它等到的东西，这里也会是一个微任务
 
 `asycn await` 是异步处理的终极解决方案， 其实是 `generator + promise` 的终极语法糖
 
@@ -75,14 +77,19 @@ timeoutPromise(getDate,1000).then(()=>{})
 
 `return` 有返回值， 但是 `promise` 没有
 
-`await` 后面必须跟一个 `promise`， 如果会转成
+`await` 后面必须跟一个 `promise`， 如果会转成 `promise`
 
 ```
-async function foo() {
-return 2
+async function testAsync() {
+    return "hello async";
 }
-console.log(foo()) // Promise {<resolved>: 2}
+
+const result = testAsync();
+console.log(result);// Promise {<resolved>: "hello async"}
 ```
+看到输出就恍然大悟了——输出的是一个 Promise 对象。所以，async 函数返回的是一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。
+
+Promise.resolve(x) 可以看作是 new Promise(resolve => resolve(x)) 的简写，可以用于快速封装字面量对象或其他对象，将其封装成 Promise 实例。
 
 `await` 会变成微任务，不管是否有需要等待
 
@@ -98,6 +105,22 @@ foo()
 console.log(3)// 打印的顺序表示了执行的顺序，await 会变成微任务，不管是否有需要等待
 ```
 
+```
+// 把一个圆形 div 按照绿色 3 秒，黄色 1 秒，红色 2 秒循环改变背景色，
+async function changeColor(duration,color){
+  await new Promise((resolve)=>{
+    setTimeout(resolve,duration)
+  })
+}
+async function main(duration,color){
+  while(true){
+    await changeColor(3000,'green')
+    await changeColor(2000,'orang')
+    await changeColor(1000,'red')
+
+  }
+}
+```
 [理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
 
 [async function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)
