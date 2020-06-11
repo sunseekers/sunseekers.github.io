@@ -146,7 +146,38 @@ dd + dd {
 </body>
 </html>
 ```
-## js 简单模拟（移动端有兼容性问题/？？？TODO
+## js 模拟实现
+在一次实际开发过程中，因为考虑到手机的机型的兼容性问题，这个原生好用的我的自己模拟实现这个，其实实现也不难
+
+```
+.scroll {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+}
+<div class="scroll-wrapper">// 滚动层
+    <div class="list-wrapper" ref="scroll">//需要定位的父层
+      <div class="list-tab" :class="{ scroll: isScrollTop }">
+        定位子层
+        </div>
+      </div>
+      <div class="list-remind">
+        这里是其他的内容
+      </div>
+    </div>
+  </div>
+      scrollTop() {
+      const targetRect = this.$refs.scroll.getBoundingClientRect()
+      const targetTop = targetRect.top
+      return targetTop < 0
+    }
+```
+
+当滚动层，滚动到一定位置的时候，需要把某一个元素置于顶部可见。
+
+实现原理：获取需要定位的父元素，如果父元素到顶部的距离小于0，说明已经滚动到了顶部，这个时候就需要固定定位了。反之亦然。
 ## 参考文章
 
 [杀了个回马枪，还是说说 position:sticky 吧](https://www.zhangxinxu.com/wordpress/2018/12/css-position-sticky/)
