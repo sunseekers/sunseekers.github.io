@@ -25,6 +25,8 @@ keywords: vue
 [[实战] 为了学好 React Hooks, 我抄了 Vue Composition API, 真香](https://juejin.im/post/5dc820a3e51d4509320d084d)
 
 [Vue.js 3.x 源码解析先导](https://juejin.im/post/5dafe42451882576534d3858)
+
+[Vue3 究竟好在哪里？（和 React Hook 的详细对比](https://juejin.im/post/5e9ce011f265da47b8450c11)
 ## 来自知乎
 
 [当 better-scroll 遇见 Vue](https://zhuanlan.zhihu.com/p/27407024) 

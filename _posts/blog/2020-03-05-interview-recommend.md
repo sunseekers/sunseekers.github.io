@@ -23,3 +23,7 @@ keywords: 前端面试
 [总结了17年初到18年初百场前端面试的面试经验(含答案)](https://juejin.im/post/5b44a485e51d4519945fb6b7#heading-38)
 
 [自己写的面试题，自己想的答案](https://segmentfault.com/a/1190000014028922)
+
+[三年前端寒冬入大厂，收获蚂蚁P6+、字节2-1 offer 面经分享](https://juejin.im/post/5ecb8d77518825433b132ae6)
+
+[一年半经验前端社招7家大厂&独角兽全过经历 | 掘金技术征文](https://juejin.im/post/5e8d5a48f265da47ce6cb21f#heading-11)

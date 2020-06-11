@@ -274,3 +274,5 @@ new myPromise((resolve, reject) => {
 ```
 
 [剖析 Promise 内部结构，一步一步实现一个完整的、能通过所有 Test case 的 Promise 类](https://github.com/xieranmaya/Promise3)
+
+[9k字 | Promise/async/Generator实现原理解析](https://juejin.im/post/5e3b9ae26fb9a07ca714a5cc)

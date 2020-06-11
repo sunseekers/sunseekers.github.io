@@ -43,7 +43,6 @@ keywords: 文章推荐
 
 `AST` 和前端有什么关系？ [AST in Modern JavaScript](https://zhuanlan.zhihu.com/p/32189701)
 
-`position:sticky` 怎么使用？ [杀了个回马枪，还是说说 position:sticky 吧](https://www.zhangxinxu.com/wordpress/2018/12/css-position-sticky/)
 
 这里是和 `js` 编译有一点点关系 [从敲下一行 JS 代码到这行代码被执行，中间发生了什么？](https://zhuanlan.zhihu.com/p/101137995)
 
@@ -68,6 +67,36 @@ keywords: 文章推荐
 
 [JavaScript 深入之头疼的类型转换(下)](https://github.com/mqyqingfeng/Blog/issues/164)
 
+[这个前端竟然用动态规划写瀑布流布局？给我打死他！](https://juejin.im/post/5ed5b9a26fb9a047a07f2c30)
+
+[函数式编程了解一下（下）](https://juejin.im/post/5b44dac85188251aa5600e40)
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
+
+## 前端周边辅助工具
+[网页版ps](https://www.photopea.com/): 这个可能需要翻墙，可能有广告
+
+[网页版ps](https://ps.gaoding.com/?hmsr=ivan-intro-zhihu#/):没有广告，自由访问
+
+[图片压缩网站](https://tinypng.com/)
+
+[虚拟邮箱，用于注册测试](https://www.guerrillamail.com/inbox)
+
+[蓝湖 设计稿](https://lanhuapp.com/)
+
+[iconfont 阿里巴巴字体图标](https://www.iconfont.cn/)
+
+[字蛛](http://font-spider.org/): 字体压缩
+
+### 思维导图工具网页版
+
+[ProcessOn](https://www.processon.com/)
+
+[draw](https://www.draw.io/)
+
+[百度脑图](http://naotu.baidu.com/)
+
+[zhiMap](https://zhimap.com/)
+
+[作业部落](https://www.zybuluo.com/cmd/)
