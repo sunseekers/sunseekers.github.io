@@ -16,3 +16,8 @@ keywords: react
 [React Hooks 入门教程](http://www.ruanyifeng.com/blog/2019/09/react-hooks.html)
 
 [React Hooks 文档](https://zh-hans.reactjs.org/docs/hooks-reference.html#usememo)
+
+[使用react hooks带来的收益抵得过使用它的成本吗?](https://www.zhihu.com/question/350523308/answer/858145147)
+
+## react 文章
+[将 React 作为 UI 运行时](https://overreacted.io/zh-hans/react-as-a-ui-runtime/)
