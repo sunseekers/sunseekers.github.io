@@ -16,30 +16,31 @@ keywords: javascript
 `JavaScript` 应用能在很多环境中执行。但是 `JavaScript` 最初的运行环境是浏览器环境，而其他运行环境也是借鉴于浏览器环境。
 
 
-![](https://user-gold-cdn.xitu.io/2019/1/30/1689ee984fdc8773?w=1434&h=836&f=png&s=273452)
+![]({{ site.url }}/images/book/1.png)
+
 
 我们需要了解`javaScript` 工作核心原理和浏览器提供的核心 `api` 
 
 我们所接触的大部分东西都有他的生命周期，比我们前端三大框架中 `vue` 和 `react`
 
-![](https://user-gold-cdn.xitu.io/2019/1/30/1689ee9b82e50920?w=1200&h=3039&f=png&s=50021)
+![]({{ site.url }}/images/book/2.png)
 
+![]({{ site.url }}/images/book/3.png)
 
-![](https://user-gold-cdn.xitu.io/2019/1/30/1689ee9e6ea450c3?w=801&h=611&f=png&s=15113)
-还一个我没有接触过，就不说了，逃
+任何一个东西都有一个从开始到结束的过程。我们的前端页面也是一样的，只是我们平时忽略他罢了。当我们在浏览器地址栏里面输入一串 `url` 开始他的生命周期就已经开始了，当我们关闭网页的时候他的生命周期就结束了。如图所示
 
-都有一个从开始到结束的过程。我们的前端页面也是一样的，只是我们平时忽略他罢了。当我们在浏览器地址栏里面输入一串 `url` 开始他的生命周期就已经开始了，当我们关闭网页的时候他的生命周期就结束了。如图所示
+![]({{ site.url }}/images/book/4.png)
 
-![](https://user-gold-cdn.xitu.io/2019/1/30/1689eea1d752c805?w=1216&h=1238&f=png&s=462263)
 
 作为用户我们所关注的是页面的构建和事件的处理
 
 页面构建又可以分为解析 `HTML` 代码并且构建文档对象模型 `DOM` 和执行 `JavaScript` 代码
 
-![](https://user-gold-cdn.xitu.io/2019/1/30/1689eea53a4c697a?w=1300&h=1196&f=png&s=411131)
-注意了 `DOM` 是根据 `HTML` 代码来创建的，但是两者并不是相同的。我们可以把 `HTML` 代码看作浏览器页面 `UI` 构建初始 `DOM` 的蓝图。为了正确构建每个 `DOM`，浏览器还会修复它在蓝图中发现的问题。比如在 `p` 元素里面包裹 `div` 元素，最终渲染的并不是父子关系，而是兄弟关系。
+![]({{ site.url }}/images/book/5.png)
 
-当解析到脚本元素时，浏览器就会停止从 `HTML` 构建 `DOM`，并开始执行 `JavaScript` 代码。为了避免解析 `JavaScript` 代码花费太长时间，而阻塞页面渲染。我们都是建议把`JavaScript` 代码放到 `body` 元素后面.
+注意了 `DOM` 是根据 `HTML` 代码来创建的，但是两者并不是相同的。我们可以把 `HTML` 代码看作浏览器页面 `UI` 构建初始 `DOM` 的蓝图。为了正确构建每个 `DOM`，浏览器还会修复它在蓝图中发现的问题。比如在 `p` 元素里面包裹 `div` 元素，最终渲染的并不是父子关系，而是兄弟关系(可以自己尝试一下)
+
+当解析到脚本元素时，浏览器就会停止从 `HTML` 构建 `DOM`，并开始执行 `JavaScript` 代码。为了避免解析 `JavaScript` 代码花费太长时间，而阻塞页面渲染。我们都是建议把`JavaScript` 代码放到 `body` 元素后面.或者在 `script` 标签上面加上 `defer async` 让 `JavaScript` 代码和 `DOM` 构建同步
 
 浏览器暴露给 `JavaScript` 引擎的主要全局对象是 `window` 对象，它代表了包含着一个页面的窗口。 `window` 对象是获取所有其他全局对象、全局变量（甚至包含用户定义对象）和浏览器 `API` 的访问途径。全局 `window` 对象最重要的属性是 `document`，它代表了当前页面的 `DOM`。
 
@@ -50,16 +51,16 @@ keywords: javascript
 
 浏览器执行环境的核心思想基于：同一时刻只能执行一个代码片段，即所谓的单线程执行模型。采用事件队列来跟踪发生但是尚未执行的事件
 
-![](https://user-gold-cdn.xitu.io/2019/1/30/1689eea8fcc94ad3?w=1784&h=1648&f=png&s=665011)
-                       
+![]({{ site.url }}/images/book/6.png)
+ 
  [函数具体介绍请看这](https://juejin.im/post/5aadbc31f265da239530c3c1)
 
-![](https://user-gold-cdn.xitu.io/2019/1/30/1689eeac74324ea8?w=1208&h=580&f=png&s=148718)
  `JavaScript` 解析器必须能够轻易区分函数声明和函数表达式之间的区别。如果去掉包裹函数表达式的括号，把立即调用作为一个独立语句 `function() {}(3)`，`JavaScript` 开始解析时便会结束，因为这个独立语句以 `function` 开头，那么解析器就会认为它在处理一个函数声明。每个函数声明必须有一个名字（然而这里并没有指定名字），所以程序执行到这里会报错
  
  问： `var samurai = (() => "Tomoe")();` 和 `var ninja = (() => {"Yoshi"})();` 分别返回什么？
   
-![](https://user-gold-cdn.xitu.io/2019/1/30/1689eeafe7a60eb2?w=1392&h=626&f=png&s=203344)
+![]({{ site.url }}/images/book/7.png)
+
   
  函数具有属性，而且这些属性能够被存储任何信息，我们可以利用这个特性来做很多事情；例如：
   
@@ -92,7 +93,6 @@ keywords: javascript
 ```
 Number、String 和 Boolean，三个构造器是两用的，当跟 new 搭配时，它们产生对象，当直接调用时，它们表示强制类型转换。
 
-parseInt 和 parseFloat 精致转化
 
 我们在给函数传参数的时候，除了有我们显示传入的实参之外，其实还包含了两个隐士参数 `this` 和 `arguments`。`this` 表示被调用函数的上下文(在什么环境下调用，就指向什么）。`arguments` 表示函数调用过程中传递的所有参数
 

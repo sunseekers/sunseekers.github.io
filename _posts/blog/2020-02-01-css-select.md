@@ -75,23 +75,11 @@ keywords: 伪类
 	<span>前端工程师</span>
 </div>
 	input:checked + label {
-	background-color: #f90;
+		// 选后前的样式
+
 }
 label {
-	margin-right: 5px;
-	padding: 2px;
-	border: 1px solid #f90;
-	border-radius: 100%;
-	width: 18px;
-	height: 18px;
-	background-clip: content-box;
-	cursor: pointer;
-	transition: all 300ms;
-	&:hover {
-		border-color: #09f;
-		background-color: #09f;
-		box-shadow: 0 0 7px #09f;
-	}
+	// 选中前的样式
 }
 ```
 
