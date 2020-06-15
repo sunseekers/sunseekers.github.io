@@ -27,3 +27,5 @@ keywords: 前端面试
 [三年前端寒冬入大厂，收获蚂蚁P6+、字节2-1 offer 面经分享](https://juejin.im/post/5ecb8d77518825433b132ae6)
 
 [一年半经验前端社招7家大厂&独角兽全过经历 | 掘金技术征文](https://juejin.im/post/5e8d5a48f265da47ce6cb21f#heading-11)
+
+[面试分享：两年工作经验成功面试阿里P6总结](https://juejin.im/post/5d690c726fb9a06b155dd40d#comment)
