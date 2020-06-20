@@ -157,8 +157,11 @@ dd + dd {
   z-index: 10;
   background: #fff;
 }
+  .list-scropper-wrapper {
+    padding-top: 56px;
+  }
 <div class="scroll-wrapper">// 滚动层
-    <div class="list-wrapper" ref="scroll">//需要定位的父层
+    <div class="list-wrapper" ref="scroll" :class="{ scroll: isScrollTop }">//需要定位的父层
       <div class="list-tab" :class="{ scroll: isScrollTop }">
         定位子层
         </div>
@@ -178,6 +181,12 @@ dd + dd {
 当滚动层，滚动到一定位置的时候，需要把某一个元素置于顶部可见。
 
 实现原理：获取需要定位的父元素，如果父元素到顶部的距离小于0，说明已经滚动到了顶部，这个时候就需要固定定位了。反之亦然。
+
+坑：因为用fixed进行定位，脱离了文档流会导致文档流中少了一块高度区域，页面的高度发生了变化整个页面要进行重排，页面会有明显的卡顿或者模拟定位失效，用户体验度不好等等情况。这个时候要怎么处理呢？
+
+给少了一块高度的父元素用padding-top 补上
+
+我们用 position:relative 实现原理也是一样的
 ## 参考文章
 
 [杀了个回马枪，还是说说 position:sticky 吧](https://www.zhangxinxu.com/wordpress/2018/12/css-position-sticky/)
