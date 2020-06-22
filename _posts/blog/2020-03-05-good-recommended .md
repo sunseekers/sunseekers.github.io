@@ -72,6 +72,8 @@ keywords: 文章推荐
 [函数式编程了解一下（下）](https://juejin.im/post/5b44dac85188251aa5600e40)
 
 [傻傻分不清之 Cookie、Session、Token、JWT](https://juejin.im/post/5e055d9ef265da33997a42cc)
+
+[JSON.stringify()还能这么玩](https://juejin.im/post/5eee33d6e51d45742615751a#heading-1)
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
