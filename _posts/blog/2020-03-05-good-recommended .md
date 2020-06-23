@@ -78,6 +78,8 @@ keywords: 文章推荐
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
 
+[ES6 系列之 defineProperty 与 proxy](https://github.com/mqyqingfeng/Blog/issues/107)
+
 ## 前端周边辅助工具
 [网页版ps](https://www.photopea.com/): 这个可能需要翻墙，可能有广告
 

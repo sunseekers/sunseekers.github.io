@@ -121,6 +121,36 @@ async function main(duration,color){
   }
 }
 ```
+
+### async 地狱
+
+```
+(async ()=>{
+  const getList=await getList()
+  const getAnotherList = await getAnotherList()
+})()
+```
+getList() 和 getAnotherList() 其实并没有依赖关系，但是现在的这种写法，虽然简洁，却导致了 getAnotherList() 只能在 getList() 返回后才会执行，从而导致了多一倍的请求时间。
+
+为了解决这个问题，我们可以改成这样：
+
+```
+(async () => {
+  const listPromise = getList();
+  const anotherListPromise = getAnotherList();
+  await listPromise;
+  await anotherListPromise;
+})();
+```
+
+优化处理，使用 Promise.all()：
+
+```
+(async () => {
+  Promise.all([getList(), getAnotherList()]).then(...);
+})();
+```
+
 [理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
 
 [async function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)
@@ -276,3 +306,5 @@ new myPromise((resolve, reject) => {
 [剖析 Promise 内部结构，一步一步实现一个完整的、能通过所有 Test case 的 Promise 类](https://github.com/xieranmaya/Promise3)
 
 [9k字 | Promise/async/Generator实现原理解析](https://juejin.im/post/5e3b9ae26fb9a07ca714a5cc)
+
+es5 寄生组合式继承

@@ -94,3 +94,103 @@ function Person(name,age){
   this.age=age
   return this
 }
+
+
+(function(global){
+  let NaNSymbol = Symbol("NaN")
+  let encodeVal=value=>value!==value?NaNSymbol:value
+  let decodeVal=value=>value===NaNSymbol?NaN:value
+  let makeIterator=(array,iterator)=>{
+    let nextIndex=0
+    let obj={
+      next(){
+        return nextIndex<array.length?{value:iterator(array[nextIndex++]),done:false}:{value:0,done:true}
+      }
+    }
+    // 让这个obj具有可叠性
+    obj[Symbol.iterator]=()=>obj
+    return obj
+  }
+  function forOf(obj,cb){
+    if(typeof obj[Symbol.iterator]!=="function") throw new TypeError(`${obj} is not iterable`)
+    if(typeof cb!=='function')throw new TypeError('cb must be callable')
+    iterable=obj[Symbol.iterator]()
+    result=iterable.next()
+    while(!result.done){
+      cb(result.value)
+      result=iterable.next()
+    }
+  }
+  function Set(data){
+    this._value=[]
+    this.size=0
+    forOf(data,item=>this.add(item))
+  }
+  Set.prototype['add']=value=>{
+    value=encodeVal(value)
+    if(this._value.indexOf(value)==-1){
+      this._value.push(value)
+      ++this.size
+    }
+    return this
+  }
+  Set.prototype['has']=value=>this._value.indexOf(encodeVal(value))!==-1
+  Set.prototype['delete'] = function(value) {
+    var idx = this._values.indexOf(encodeVal(value));
+    if (idx == -1) return false;
+    this._values.splice(idx, 1);
+    --this.size;
+    return true;
+}
+
+Set.prototype['clear'] = function(value) {
+    this._values = [];
+    this.size = 0;
+}
+Set.prototype['forEach']=(callbackFn,thisArg)=>{
+  
+}
+})
+
+function Parent(name){
+  this.name=name
+}
+Parent.prototype.getName=()=>{
+  console.log(this.name);
+}
+function Child(name,age){
+  Parent.call(this,name)
+  this.age=age
+}
+Child.prototype=Object.create(Parent.prototype)
+
+class Parent{
+  constructor(name){
+    this.name=name
+  }
+}
+class Child extends Parent{
+  constructor(name,age){
+    super(name)
+    this.age=age
+  }
+}
+
+(function(){
+  let root = this
+  function watch(obj,name,func){
+    let value = obj[name]
+    Object.defineProperty(obj,name,{
+      get(){
+        console.log(23);
+        return value
+      },
+      set(newValue){
+        console.log(2232332);
+        value=newValue
+        func(newValue)
+      }
+    })
+    if(value) obj[name]=value
+  }
+})

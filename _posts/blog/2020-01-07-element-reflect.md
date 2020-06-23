@@ -24,3 +24,39 @@ Reflect.deleteProperty()
 
 观察者模式（Observer mode）指的是函数自动观察数据对象，一旦对象有变化，函数就会自动执行。
 
+
+(function(){
+  let root =this
+  function watch(obj,name,func){
+    let value = obj[name]
+    Object.defineProperty(obj,name,{
+      get(){
+        return value
+      },
+      set(newValue){
+        value=newValue
+        func(value)
+      }
+    })
+    // 注册watch就调用一次setter的目的是为了在obj中的value有初始值的情况下能立即在页面上展示吧
+    if (value) obj[name] = value
+  }
+  this.watch=watch
+})()
+
+(function{
+  let root=this
+  function watch(targe,func){
+    let proxy=new Proxy(targe,{
+      get(targe,prop){
+        return targe[prop]
+      },
+      set(targe,prop,value){
+        targe[prop]=value
+        func(prop,value)
+      }
+    })
+    return proxy
+  }
+  this.watch=watch
+})()
