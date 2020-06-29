@@ -299,3 +299,5 @@ setTimeout((a)=>{
 我们把宿主发起的任务称为宏观任务，把 `JavaScript` 引擎发起的任务称为微观任务
 
 `Promise` 永远在队列尾部添加微观任务。`setTimeout` 等宿主 `API`，则会添加宏观任务()
+
+

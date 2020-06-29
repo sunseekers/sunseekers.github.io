@@ -74,6 +74,8 @@ keywords: 文章推荐
 [傻傻分不清之 Cookie、Session、Token、JWT](https://juejin.im/post/5e055d9ef265da33997a42cc)
 
 [JSON.stringify()还能这么玩](https://juejin.im/post/5eee33d6e51d45742615751a#heading-1)
+
+[10个打开了我新世界大门的 WebAPI](https://juejin.im/post/5ee8c60ef265da76ed486e20#heading-9)
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
