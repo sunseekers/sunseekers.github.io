@@ -26,8 +26,30 @@ Array.from() 方法有一个可选参数 mapFn，让你可以在最后生成的�
 
 [Array.from()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
 
+Javascript 中所有的数字，无论整数还是小数，均为 Number 类型（实质是一个64位的浮点数
 
+\u 约定是用来指定数字字符编码
+
+return break 关键字表达式标签之间是不允许换行的，换行之后不会被解析
 ## 运算符的优先级
+越在上面的优先级越高
+
+. [] () => 提取属性与函数调用
+
+delete new typeof  ！=> 一元运算符
+
+* / % => 乘 除 取模
+
++ - => 
+>= <= > < => 不等式运算
+
+=== !== => 等式运算
+
+&&
+
+|| => 在es6 里面可以用于默认填充
+
+?:
 
 . 的优先级高于 = ，举个例子
 
