@@ -98,6 +98,19 @@ Array.prototype.findIndex = function(fn){
 }
 ```
 
+If you need the index of the found element in the array, use findIndex().
+
+If you need to find the index of a value, use Array.prototype.indexOf(). 
+(It’s similar to findIndex(), but checks each element for equality with the value instead of using a testing function.)
+
+If you need to find if a value exists in an array, use Array.prototype.includes(). Again, it checks each element for equality with the value instead of using a testing function.
+
+If you need to find if any element satisfies the provided testing function, use Array.prototype.some().
+
+
+[Array.prototype.find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+
+
 
 
 
