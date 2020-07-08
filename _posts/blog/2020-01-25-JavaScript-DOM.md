@@ -128,3 +128,58 @@ style对象只包含在HTML代码里用style属性声明的样式。但这几乎
 让“行为层”干“表示层”的活，并不是理想的工作方式
 
 但是如果你不能理解它们背后的工作机制，对你和你的程序都不能算是什么好事。如果你对某个库理解不透，而这个库又假设你知道相关细节，那你就很可能被一些琐碎的问题绊住脚。
+
+$$('*')和document.all是一样的效果，返回当前页面所有的html标签
+
+## javaScript 框架设计
+在最初的javascript书籍中它们都会教导我们把JavaScript逻辑写在window.onload回调中，以防DOM树还没有建完就开始对节点进行操作,导致出错
+
+（1）取得依赖列表的第一个 ID，转换为 URL。无论是通过basePath+ID+".js"，还是以映射的方式直接得到。
+
+（2）检测此模块有没有加载过，或正在被加载。因此我们需要一个对象来保持所有模块的加载情况。当用户从来没有加载过此节点时，就进入加载流程
+
+（3）创建script节点，绑定onerror、onload、onreadychange等事件判定加载成功与否，然后添加href并插入DOM树，开始加载。
+
+（4）将模块的 URL，依赖列表等构建成一个对象，放到检测队列中，在上面的事件触发时进行检测。
+
+库是解决某个问题而拼凑出来的一大堆函数与类的集合
+
+contains方法：判定一个字符串是否包含另一个字符串。常规思维，使用正则，但每次都要用new RegExp来构造，性能太差，转而使用原生字符串方法，如，ndexOf、lastIndexOf、 search。
+
+```
+function contains(target,it){
+  return target.indexOf(it)!=-1
+}
+```
+
+startsWith方法：判定目标字符串是否位于原字符串的开始之处，可以说是contains方法的变种。
+
+```
+function startsWith(targe,str,ignorecase){ // ignorecase是否要忽略大小写
+  let start_str=target.substr(0,str.length)
+  return ignorease?start_str.toLowerCase()===str.toLowerCase():start_str===str
+}
+```
+
+创建一个对象，拥有length属性，然后利用call方法去调用数组原型的join方法，省去创建数组这一步，性能大为提高。重复次数越多，两者对比越明显。另，之所以要创建一个带length属性的对象，是因为要调用数组的原型方法，需要指定call的第一个参数为类数组对象。而类数组对象的必要条件是其length属性的值为非负整数。利用闭包将类数组对象与数组原型的jion方法缓存起来，省得每次都重复创建与寻找方法。
+
+```
+let repeat=(function(){
+  let join=Array.prototype.join
+  let obj={}
+  return (target,n)=>{
+    obj.length=n+1
+    return join.call(obj,target)
+  }
+})
+```
+
+random 方法，从数组中随机抽选一个元素出来
+
+```
+function random(target){
+  return target[Math.floor(Math.random()*target.length)]
+}
+```
+
+接口就是一个空心化的方法，用于提供一个语义化且便捷的名字而已，实现全部转至内部去。

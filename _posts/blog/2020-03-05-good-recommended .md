@@ -21,6 +21,8 @@ keywords: 文章推荐
 
 如何写简历? [救救自己，别再这样写简历了｜掘金技术征文](https://juejin.im/post/5ea59d91518825736512f3b8)
 
+[你缺的不是天赋，而是亲和度](https://mp.weixin.qq.com/s/U1QG18nYbNPWgecn2AQymw)
+
 ## 总结
 
 冰冻三尺，非一日之寒。你想要什么，你就怎么做

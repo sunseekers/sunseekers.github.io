@@ -14,6 +14,17 @@ keywords: javascript
 
 map结构的key-value关系对应
 
+```
+let obj={
+   'status=1&type=1':'普通用户在预售中参与活动，赠送700积分',
+   'status=1&type=2':'vip用户在预售中参与活动，赠送1000积分',
+   'status=2&type=1':'普通用户在进行中参与活动，赠送300积分',
+   'status=2&type=2':'普通用户在进行中参与活动，赠送800积分'
+}
+
+console.log(obj[`status=${status}&type=${type}`])
+```
+
 数组下标进行存储
 
 if return
