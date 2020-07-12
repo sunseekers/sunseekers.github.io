@@ -133,6 +133,7 @@ greet.myApply(obj,['sunseekers','shanghai']);
 ```
 
 ## `bind` 模拟实现
+无论使用哪种方法调用，bind方法创建的新函数与原始函数的函数体相同，新函数被绑定到指定的对象上
 
 [Function.prototype.bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) 查看文档温习一下用法和概念
 
