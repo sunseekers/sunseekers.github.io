@@ -23,6 +23,8 @@ keywords: 文章推荐
 
 [你缺的不是天赋，而是亲和度](https://mp.weixin.qq.com/s/U1QG18nYbNPWgecn2AQymw)
 
+[面对历史恩怨，如何跳出“冤冤相报”的轮回](https://mp.weixin.qq.com/s/j5NSKS2HgkUx0xd9-RwEJA)
+
 ## 总结
 
 冰冻三尺，非一日之寒。你想要什么，你就怎么做
