@@ -84,6 +84,8 @@ keywords: 文章推荐
 [ES11 来了，还学得动吗？](https://mp.weixin.qq.com/s/oNGTxoebG_MIFSlNTvaLeA)
 
 [ES6 系列之 defineProperty 与 proxy](https://github.com/mqyqingfeng/Blog/issues/107)
+
+[由浅入深，66条JavaScript面试知识点](https://juejin.im/post/5ef8377f6fb9a07e693a6061#heading-74)
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)

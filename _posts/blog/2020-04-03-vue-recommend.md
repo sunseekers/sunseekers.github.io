@@ -27,6 +27,10 @@ keywords: vue
 [Vue.js 3.x 源码解析先导](https://juejin.im/post/5dafe42451882576534d3858)
 
 [Vue3 究竟好在哪里？（和 React Hook 的详细对比](https://juejin.im/post/5e9ce011f265da47b8450c11)
+
+[前方高能，这是最新的一波Vue实战技巧，不用则已，一用惊人](https://juejin.im/post/5ef6d1325188252e75366ab5#heading-13): 理由 1. 从温 provide 与 inject，2. visibilitychange浏览器标签页被隐藏或显示的时候会触发 3. this.$on('hook:beforeDestroy',callback 的使用)
+
+[实战技巧，Vue原来还可以这样写](https://juejin.im/post/5eef7799f265da02cd3b82fe) :理由 1. @hook:updated 的使用 2. Vue.observable
 ## 来自知乎
 
 [当 better-scroll 遇见 Vue](https://zhuanlan.zhihu.com/p/27407024) 
