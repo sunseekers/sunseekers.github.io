@@ -314,6 +314,17 @@ true
 
 而“x.constructor”不是自有属性，并且，由于 x 是“Number()”这个类 / 构造器的子类实例，因此该属性实际继承自原型链上的“Number.prototype.construtcotr”这个属性。然后，在缺省情况下，“aFunction.prototype.construtcotr”指向这个函数自身。也就是说，“Number.prototype.construtctor”与“1…constructor”相同，且都指向 Number() 自身。所以上面的示例中，当我们添加了“Number[1]”这个下标属性之后，标题中表达式的值就变了。
 
+
+1. 判断对象是否实现 [Symbol.toPrimitive] 属性，如果实现调用它，并判断返回值是否为值类型，如果不是，执行下一步。
+2. 如果转换类型为 string，依次尝试调用 toString() 和 valueOf() 方法，如果 toString() 存在，并正确返回值类型就不会执行 valueOf()。
+3. 如果转换类型为 number/default，依次尝试调用 valueOf() 和 toString()，如果 valueOf() 存在，并正确返回值类型就不会执行 toString()。
+
+数组默认没有实现 [Symbol.toPrimitive] 属性，因此需要考察 2、3 两步。
+
+[] + ’‘ 表达式为 string 转换，会触发调用 toString() 方法，结果为空字符，等价于 ’’ + ‘’ 结果为 ‘’。
++[] 表达式是 number 转换，会先触发调用 valueOf() 方法，该方法返回的是空数组本身，它不属于值类型，因此会再尝试调用 toString() 方法，返回空字符，+‘’ 结果为 0；
+
+
 作用域通常是语法所对应的块，是静态概念的，而闭包是运行期才使用的概念，函数被调用一次就有一个闭包出现，但函数自身其实只有一个作用域
 
 x instanceof AClass表达式的右侧是一个类名（对于之前的例子来说，它指向构造器 Car
