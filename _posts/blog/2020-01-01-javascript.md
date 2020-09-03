@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JavaScript 零碎知识点
-catjavascriptegories: [JavaScript]
+categories: [JavaScript]
 description: JavaScript
 keywords: JavaScript
 ---

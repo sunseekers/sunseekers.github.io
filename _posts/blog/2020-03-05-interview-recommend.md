@@ -12,7 +12,7 @@ keywords: 前端面试
 
 ## 系列参考文章
 
-[FE-Interview](http://blog.poetries.top/FE-Interview-Questions/base/#_2-%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%AF%B9%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3)
+[FE-Interview](https://blog.poetries.top/FE-Interview-Questions/)
 
 [每天搞定一道前端大厂面试题](https://github.com/Advanced-Frontend/Daily-Interview-Question/blob/master/datum/summary.md)，都是有一定的挑战性，题目都很不错，推荐
 
@@ -29,3 +29,5 @@ keywords: 前端面试
 [一年半经验前端社招7家大厂&独角兽全过经历 | 掘金技术征文](https://juejin.im/post/5e8d5a48f265da47ce6cb21f#heading-11)
 
 [面试分享：两年工作经验成功面试阿里P6总结](https://juejin.im/post/5d690c726fb9a06b155dd40d#comment)
+
+[【面试】三年渣渣前端面试总结](https://juejin.im/post/6844903850537648141)

@@ -1,265 +1,120 @@
-1. diff算法的原理 ？？？？
-计算差异，记录差异（同级节点比较，不能跨级，跨级太麻烦
-
-2. 虚拟dom的实现思路
-a.抽象一个DOM节点js对象（节点类型，节点属性、子节点
-class Element {
-  constructor(type, props, children) {
-    this.type = type
-    this.props = props
-    this.children = children
-  }
-}
-b. 创建一个元素
-function createElement(type, props, children) {
-  return new Element(type, props, children)
-}
-
-c. render 方法可以将vnode转化为真实dom
-function render(eleObj) {
-  // 创建一个元素
-  let el = document.createElement(eleObj.type)
-  for (let key in eleObj.props) {
-    setAttr(el, key, eleObj.props[key])
-  }
-  eleObj.children.forEach(child => {
-    child = (child instanceof Element) ? render(child) : document.createTextNode(child)
-    el.appendChild(child)
-  })
-  return el
-}
-
-// 设置属性
-function setAttr(node, key, value) {
-  props.forEach(element => {
-    switch (key) {
-      case 'value': //node是一个input或者textarea
-        if (node.tagName.toUpperCase() === "INPUT" || node.tagName.toUpperCase() === "TEXEAREA") {
-          node.value = value
-        } else {
-          node.setAttribute(key, value)
-        }
-        break;
-      case 'style':
-        node.style.cssText = value
-        break;
-      default:
-        node.setAttribute(key, value)
-        break
-    }
-  });
-}
-d. 渲染页面
-function renderDom(el, target) {
-  target.appendChild(el)
-}
-
-
-3. virtual dom  ：Virtual DOM（虚拟DOM）是对DOM的抽象，本质上是JavaScript对象，这个对象就是更加轻量级的对DOM的描述，
-`DOM` 的 `diff` 操作转移到 `JS` 对象，就可以避免大量对 `DOM` 的查询操作，之后在更新视图
-
-
-
-因为，首先这种基于 vnode 实现的 MVVM 框架，在每次 render to vnode 的过程中，
-渲染组件会有一定的 JavaScript 耗时，特别是大组件，
-比如一个 1000 * 10 的 Table 组件，render to vnode 的过程会遍历 1000 * 10 次去创建内部 cell vnode，
-整个耗时就会变得比较长，加上 patch vnode 的过程也会有一定的耗时，当我们去更新组件的时候，用户会感觉到明显的卡顿。
-虽然 diff 算法在减少 DOM 操作方面足够优秀，但最终还是免不了操作 DOM，所以说性能并不是 vnode 的优势。
-
-
-因为 insert 的执行是在处理子节点后，所以挂载的顺序是先子节点，后父节点，最终挂载到最外层的容器上
-vnode 本质上是用来描述 DOM 的 JavaScript 对象
-
-patch 本意是打补丁的意思，这个函数有两个功能，一个是根据 vnode 挂载 DOM，
-一个是根据新旧 vnode 更新 DOM。对于初次渲染，我们这里只分析创建过程，更新过程在后面的章节分析
-
-在创建的过程中，patch 函数接受多个参数，这里我们目前只重点关注前三个：
-
-第一个参数 n1 表示旧的 vnode，当 n1 为 null 的时候，表示是一次挂载的过程；
-
-第二个参数 n2 表示新的 vnode 节点，后续会根据这个 vnode 类型执行不同的处理逻辑；
-
-第三个参数 container 表示 DOM 容器，也就是 vnode 渲染生成 DOM 后，会挂载到 container 下面。
-
-4. 小程序（微信+支付宝的）相比h5有啥优点
-优点：
-
-小程序可以添加到桌面
-
-打开速度比h5快
-
-可以使用设备底层的功能，摄像头，语音等等
-
-有缓存，每次打开可以加载上一次，不必每次都重新加载
-
-安全性相对而言比较高
-
-缺点：开放性有限，受母体框架的限制，只能依赖某一个app打开，小程序的大小受限制
-
-h5 的优点
-支持多种设备、跨平台使用
-及时更新，即做即发布
-开发成本相对较低，对浏览器的适配较简单，且发布门槛相对较低
-
-缺点：
-打开速度慢，费流量。每次打开页面，都得重新加载，获取数据。
-只能使用有限的设备底层功能（无法使用摄像头、方向传感器、重力传感器、拨号、GPS、语音、短信、蓝牙等功能）
-体验效果待提升
-
-为什么要有小程序或者H5
-
-App维护成本较高，发版比较麻烦，对于iOS来说还好因为只有App Store一个市场；
-但对于Android来说需要发布到不同的应用市场，需要通过打包不同的渠道包来发布和更新。
-虽然现在已有许多一键发布的工具，但对 于产品或运营来说也是十分耗时间的工作。
-开发成本高，一般需要支持Android和IOS两个版本
-下载和转发推广难，推广成本高。
-
-
-5.晓程序运行原理
-第一次打开晓程序的时候， 晓黑板 app 会解析链接是否是晓程序的链接。 如果检测到晓程序的链接， 将链接中的 appId 取出，请求晓程序代码 zip 包下载路径。 zip 包下载到本地之后解压， 运行包中的 xp.js。
-
-xp.js 是 weex 壳程序， 里面承载了业务代码运行所在的 webview。
-
-2.晓程序运行机制
-通过file协议加载本地的html，运行js，css代码。通过JSBridge交互进行通信
-
-
- 4：在短信或者h5页面调起或者是Aapp唤起Bapp方案
- 
-[H5唤起APP指南(附开源唤端库)](https://juejin.im/post/5b7efb2ee51d45388b6af96c)
-
-通过scheme机制实现页面唤起。（短链接
-
-<a href="weixin://">打开微信</a>
-
-<a href="alipays://">打开支付宝</a>
-
-<a href="alipays://platformapi/startapp?saId=10000007">打开支付宝的扫一扫功能</a>
-
-<a href="alipays://platformapi/startapp?appId=60000002">打开支付宝的蚂蚁森林</a>
-
-<!-- 拨号 -->
-<a href="tel:10086">打电话给: 10086</a>
-
-<!-- 发送短信 -->
-<a href="sms:10086">发短信给: 10086</a>
 
 6：事件循环?????
-
-7 左边固定 右边适应几种方案(left,right)
-// 方式一
-.wrapper{
-  width: 100%;
-  display:flex;
-  border: 1px red solid;
-
-}
-.right,.left{
-  height: 100px;
-  border: 1px red solid;
-}
-.right{
-width: 100px;
-}
-.left{
-flex:1 ;相当于flex-grow: 1;flex-shrink: 1;flex-basis: 0%;
-//flex设置的第一值是指flex-grow,第二个是指 flex-shrink
-}
-
-涉及flex的布局：
-父元素设置子元素的对齐属性：
-justify-content=>水平方向
-align-items=> 垂直方向
-flex-wrap=> 换行方式
-flex-direction=>是水平方向还是垂直方向，他变了，  子元素的flex就可以实现剩余宽度/高度等分
-
-
-
-// 方式二
-.wrapper{
-  width: 100%;
-  font-size:0;// 为了解决换行出现空白换行
-}
-.right,.left{
-  box-sizing:border-box;
-  display:inline-block;
-  height: 100px;
-  font-size:14px;
-}
-.right{
-width: 100px;
-}
-.left{
-  width:calc(100% - 100px);
-}
-
-// 实现方式三
-.right,.left{
-  height: 100px;
-  border: 1px red solid;
-}
-.right{
-float:left;
-width: 100px;
-}
- => 问题会导致高度坍塌，解决方案 常用的父元素overflow:hidden
- 原理是形成BFC（块级格式化上下文），内部元素再怎么翻江倒海，翻云覆雨都不会影响外面的元素；
- html,float的值不为none
-overflow的值不为visible
-display的值为inline-block、table-cell、table-caption
-position的值为absolute、fixed
-
-margin上下高度重合也可以用BFC解决
-8 水平垂直居中 几种方案
-// 方式一
-.wrapper{
-  width: 100%;
-  border: 1px red solid;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items:center;
-}
-
-// 方式二
-.wrapper{
-  width: 100px;
-  border: 1px red solid;
-  height: 100px;
- position:relative;
-}
-.content{
-  width: 100px;
-  position:absolute;
-  left: 50%;
-  bottom: 50%;
-  transfrom:translate(-50%,-50%);//超过50%的宽高会transform失效
-  border:1px red solid;
-}
-
-// 方式三
-.wrapper{
-  width: 100px;
-  border: 1px red solid;
-  height: 100px;
-   display: grid;
-}
-.content{
-      justify-self: center;
-    align-self: center;
-}
-
-// 方式四
-.wrapper{
-  width: 100px;
-  border: 1px red solid;
-  height: 100px;
-   display: grid;
-   justify-items: center;
-    align-items: center;
-}
-
 
 ECMAScript 6 模块是静态装配的，而传统的 Node.js 模块却是动态加载的
 
 所谓模块的装配过程，就是执行一次顶层代码而已。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16.Array.prototype.sort的排序的原理  
+各浏览器的实现方式都不一样
+Google Chrome	V8	插入排序和快速排序	sort 源码实现
+Mozilla Firefox	SpiderMonkey	归并排序	sort 源码实现
+Safari	Nitro（JavaScriptCore ）	归并排序和桶排序	sort 源码实现
+Microsoft Edge 和 IE(9+)	Chakra	快速排序	sort 源码实现
+
+去了解一下这些排序实现的原理
+
+阻止捕获 ,看看自己写的addEventListener文章，说说vue里面的.stop那些东西
+event.stopPropagation()DOM事件流
+
+jsonp:原理
+scricpt标签没有跨域的限制
+
+vuex的使用 以及使用上遇到的问题  
+如何实现一个数据共享的vuex并且是响应式的 vuex如何实现 
+
+localStorage sessionStorage的区别
+生命周期：cookie：可设置失效时间，没有设置的话，默认是关闭浏览器后失效
+localStorage：除非被手动清除，否则将会永久保存。
+sessionStorage： 仅在当前网页会话下有效，关闭页面或浏览器后就会被清除。
+存放数据大小：cookie：4KB左右
+localStorage和sessionStorage：可以保存5MB的信息。
+http请求：cookie：每次都会携带在HTTP头中，如果使用cookie保存过多数据会带来性能问题
+localStorage和sessionStorage：仅在客户端（即浏览器）中保存，不参与和服务器的通信
+易用性：cookie：需要程序员自己封装，源生的Cookie接口不友好
+localStorage和sessionStorage：源生接口可以接受，亦可再次封装来对Object和Array有更好的支持
+
+设置cookie
+function setCookie(name, value,days) {
+//三个参数，一个是cookie的名子，一个是值，最后一个是天数
+var exp = new Date();    //new Date("December 31, 9998");
+exp.setTime(exp.getTime() + days * 24 * 60 * 60 * 1000);
+document.cookie = name + "=" ;expires=" + exp.toGMTString();
+}
+读取cookie
+function getCookie(name) {
+//取cookies函数
+var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+if (arr != null)
+return unescape(arr[2]);
+return null;
+}
+删除cookie
+function delCookie(name){
+//删除cookie并重新演示
+// 该函数检查下cookie是否设置，如果设置了则将过期时间调到过去的时间;
+//剩下就交给操作系统适当时间清理cookie啦
+if (getCookie(name))
+{
+document.cookie = name + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+}
+http长啥样？
+客户端请求到服务器包括：请求行（方法，url，版本换行），请求头部（很多），空行，请求数据
+服务端响应也是有四个部分组成：状态行，消息报头，空行，响应正文
+`setTimeout` 支持第三个参数，一旦定时器到了，第三个参数会作为值传给第一个参数是 `function` 的里面
+
+```
+setTimeout((a)=>{
+    console.log(a)
+},10,'我是第三个参数')
+
+事件循环堵塞：
+
+
+
+宏任务/微任务
+基本类型，7种null undefined string boolean number symbol bigInt
+清楚浮动：父元素设置高度/父元素，ouerflow：hidden，只要能够变成BFC就可以了
+http的请求方式8种
+客户端路由：本质是dom元素的显示和隐藏，在a页面的时候，隐藏b页面的内容，反之毅然。路由实现
+有两种方式一直是基于hash另一种是基于html的history api
+
+JSON.parse()=> 字符串中解析出json对象
+JSON.stringify()=> 从一个对象解析成字符串
+浏览器缓存机制：
+
+
+
+
+
+
+
+JavaScript的事件执行机制(宏任务，微任务)
+
+
+
+200     //服务器成功返回网页
+302     //临时移动  服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求
+304     //未修改  自动上次请求后，请求的网页未修改过。服务器返回此响应，不会返回网页的内容如果选中了no cache,则请求资源时，请求头中的Cache-Control为no-cache，表明不使用缓存，则会直接获取服务器资源。另外，若没选中no cache，Cache-Control有二种情况max-age>0 时直接从游览器缓存中提取
+2、max-age<=0 时向服务器发送http请求,该资源是否有修改有的话返回200 ,无的话返回304.
+400     //错误请求  服务器不理解请求的语法
+401     //未授权  请求要求身份验证。对于需要登录的网页，服务器可能返回此响应
+403     //禁止  服务器拒绝请求
+404     //请求的网页不存在
+500     //服务器内部错误  服务器遇到错误，无法完成请求
+503     //服务器不可用
