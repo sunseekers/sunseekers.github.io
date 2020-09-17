@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据双向更新试图</title>
+</head>
+<style>
+
+.wrapper{
+  width: 100px;
+  border: 1px red solid;
+  height: 100px;
+ position:relative;
+}
+.content{
+  width: 80px;
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  border:1px red solid;
+  transform:translate(-50%,-50%);
+}
+
+
+</style>
+<body>
+<div class='wrapper' >
+  <div id="app">
+    <p>我的名字{{name1}}</p>
+  </div>
+</body>
+<script src='./mvvm.js'></script>
+
+<script>
+  const myVue1 = new myVue({
+    el: '#app',
+    data: {
+      name1: 'sunseekers',
+      b: {
+        b: 90
+      }
+    }
+  })
+  console.log(myVue1._data.name1,'myVue1');
+</script>
+</html>
