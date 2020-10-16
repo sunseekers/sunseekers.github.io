@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>当前考题</title>
+  <link rel="import" href="./include/meta.html">
+</head>
+
+<body>
+  <link rel="import" href="./include/header.html?nav1=active">
+
+  <div class="yy-content">
+    <h2 class="yy-title yy-title-distance">正在进行的考试</h2>
+    <table class="yy-table" data-ajax="/getExaminationList?type=1">
+      <thead>
+        <tr>
+          <th width="28%">考卷</th>
+          <th width="30%">标签</th>
+          <th width="28%">时间</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <template>
+          <tr>
+            <td>${title}</td>
+            <td class="yy-table-label">
+              ${tags.map(function(tag){return '<label>' + tag.value + '</label>'}).join('')}
+            </td>
+            <td>${endTime.convertTime()}结束</td>
+            <td><a class="ui-button" href="answer.html?id=${id}">进入作答</a></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+    <!-- 列表加载loading -->
+    <ui-loading rows="15"></ui-loading>
+  </div>
+
+  <div class="yy-content">
+    <h2 class="yy-title yy-title-distance">我完成的考试</h2>
+    <table class="yy-table">
+      <thead>
+        <tr>
+          <th width="28%">考卷</th>
+          <th width="30%">标签</th>
+          <th width="28%">时间</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CSS小测第34期</td>
+          <td class="yy-table-label">
+            <label>标签A</label>
+            <label>标签B</label>
+          </td>
+          <td>2020-04-14</td>
+          <td><a class="ui-button" href="analysisTest.html">查看</a></td>
+        </tr>
+        <tr>
+          <td>CSS小测第35期</td>
+          <td class="yy-table-label">
+            <label>标签A</label>
+            <label>标签B</label>
+          </td>
+          <td>2020-04-14</td>
+          <td><a class="ui-button" href="analysisTest.html">查看</a></td>
+        </tr>
+        <tr>
+          <td>CSS小测第35期</td>
+          <td class="yy-table-label">
+            <label>标签A</label>
+            <label>标签B</label>
+          </td>
+          <td>2020-04-14</td>
+          <td><a class="ui-button" href="analysisTest.html">查看</a></td>
+        </tr>
+        <tr>
+          <td>CSS小测第35期</td>
+          <td class="yy-table-label">
+            <label>标签A</label>
+            <label>标签B</label>
+          </td>
+          <td>2020-04-14</td>
+          <td><a class="ui-button" href="analysisTest.html">查看</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class='yy-button-box'>
+      <a class="ui-button" href="done.html">更多试卷</a>
+    </div>
+  </div>
+
+  <link rel="import" href="./include/footer.html">
+  <script src="../../static/js/pages.js"></script>
+</body>
+
+</html>
