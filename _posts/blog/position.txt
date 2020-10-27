@@ -1,0 +1,84 @@
+记录网页预览的进度实现思路：
+1. 用前端数据库记录多个网页的预览位置，监听scroll事件，一定时间内滚动记录位置
+2. 读取根据唯一标签读取之前存储，用scrollTop滚动到制定的位置
+<script>
+  function DB(cb) {
+    var _this = this;
+    let db = window.indexedDB.open('sunseekers', 1)
+    console.log('[db]', db);
+    db.onsuccess = function (event) {
+      console.log('[event]', event);
+      _this.db = event.target.result;
+      cb && cb(_this)
+    }
+    db.onupgradeneeded = function (event) {
+      _this.db = event.target.result;
+      if (!_this.db.objectStoreNames.contains(_this.name)) {
+        _this.objectStore = _this.db.createObjectStore(_this.name, {
+          keyPath: "id"
+        })
+      }
+    }
+  }
+  DB.prototype.setItem = function (key, value, cb) {
+    var request = this.db.transaction([this.name], "readwrite").objectStore(this.name).put(Object.assign(value, {
+      id: key
+    }))
+    request.onsuccess = function (event) {
+      console.log('数据写入成功');
+      cb && cb()
+    };
+  }
+  DB.prototype.getItem = function (key, cb) {
+    var request = this.db.transaction([this.name]).objectStore(this.name).get(key);
+    request.onsuccess = function (event) {
+      cb && cb(request.result || {})
+      console.log('数据读取成功');
+    };
+  }
+
+  DB.prototype.removeItem = function (key, cb) {
+    var request = this.db.transaction([this.name], 'readwrite').objectStore(this.name).delete(key);
+    request.onsuccess = function (event) {
+      cb && cb()
+      console.log('数据删除成功');
+    };
+  }
+  DB(function (bd) {
+    current.scrollIntoView({
+      block: "center"
+    })
+    db.getItem(ccid, function (result) {
+      if (result.progress) {
+        document.scrollingElement.scrollTop = result.progress;
+      }
+    })
+    db.getItem('init', function (result) {
+      if (!result.first) {
+        guide.checked = true;
+      }
+    })
+    backTop.addEventListener('click', function () {
+      menu.scrollTop = 0;
+    })
+    guide.addEventListener('change', function () {
+      db.setItem('init', {
+        first: true
+      })
+    })
+    window.addEventListener('scroll', function () {
+      this.timer && clearTimeout(this.timer);
+      this.timer = setTimeout(function () {
+        var container = document.scrollingElement;
+        if (container.scrollHeight - container.scrollTop - container.clientHeight <
+          300) {
+          db.removeItem(ccid)
+        } else {
+          db.setItem(ccid, {
+            progress: container.scrollTop
+          })
+        }
+      }, 300)
+    })
+  })
+</script>
