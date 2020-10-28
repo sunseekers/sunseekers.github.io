@@ -1,99 +1,113 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>当前考题</title>
-  <link rel="import" href="./include/meta.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button {
+      margin: 10px;
+    }
+
+    .show {
+      animation: show .001s;
+    }
+
+    @keyframes show {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <link rel="import" href="./include/header.html?nav1=active">
+  <input type="file" id="fileInput">
+  <p id="tips" hidden>文件共分割为<strong id="num"></strong>段，分别为</p>
+  <div id="timer"></div>
+  <div id="btns"></div>
+  <p class="content" id="content"></p>
+  <script>
+    async function check(file, end) {
+      const s = await file.slice(end, end + 3).text();
+      if (s.length == 1) {
+        return end;
+      } else {
+        return await check(file, ++end);
+      }
+    }
 
-  <div class="yy-content">
-    <h2 class="yy-title yy-title-distance">正在进行的考试</h2>
-    <table class="yy-table" data-ajax="/getExaminationList?type=1">
-      <thead>
-        <tr>
-          <th width="28%">考卷</th>
-          <th width="30%">标签</th>
-          <th width="28%">时间</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <template>
-          <tr>
-            <td>${title}</td>
-            <td class="yy-table-label">
-              ${tags.map(function(tag){return '<label>' + tag.value + '</label>'}).join('')}
-            </td>
-            <td>${endTime.convertTime()}结束</td>
-            <td><a class="ui-button" href="answer.html?id=${id}">进入作答</a></td>
-          </tr>
-        </template>
-      </tbody>
-    </table>
-    <!-- 列表加载loading -->
-    <ui-loading rows="15"></ui-loading>
-  </div>
+    fileInput.onchange = async function (ev) {
+      const file = ev.target.files[0];
+      const file_size = file.size;
+      const size = 512 * 1024;
+      const edge = [];
+      for (let i = 1; i < file_size / size + 1; i++) {
+        if (edge.length > 0) {
+          edge.push([edge[edge.length - 1][1], 0]);
+        } else {
+          edge.push([0, 0]);
+        }
+        if (size * i >= file_size) {
+          edge[edge.length - 1][1] = file_size;
+        } else {
+          edge[edge.length - 1][1] = await check(file, size * i);
+        }
+      }
+      render(file, edge)
+    }
 
-  <div class="yy-content">
-    <h2 class="yy-title yy-title-distance">我完成的考试</h2>
-    <table class="yy-table">
-      <thead>
-        <tr>
-          <th width="28%">考卷</th>
-          <th width="30%">标签</th>
-          <th width="28%">时间</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>CSS小测第34期</td>
-          <td class="yy-table-label">
-            <label>标签A</label>
-            <label>标签B</label>
-          </td>
-          <td>2020-04-14</td>
-          <td><a class="ui-button" href="analysisTest.html">查看</a></td>
-        </tr>
-        <tr>
-          <td>CSS小测第35期</td>
-          <td class="yy-table-label">
-            <label>标签A</label>
-            <label>标签B</label>
-          </td>
-          <td>2020-04-14</td>
-          <td><a class="ui-button" href="analysisTest.html">查看</a></td>
-        </tr>
-        <tr>
-          <td>CSS小测第35期</td>
-          <td class="yy-table-label">
-            <label>标签A</label>
-            <label>标签B</label>
-          </td>
-          <td>2020-04-14</td>
-          <td><a class="ui-button" href="analysisTest.html">查看</a></td>
-        </tr>
-        <tr>
-          <td>CSS小测第35期</td>
-          <td class="yy-table-label">
-            <label>标签A</label>
-            <label>标签B</label>
-          </td>
-          <td>2020-04-14</td>
-          <td><a class="ui-button" href="analysisTest.html">查看</a></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class='yy-button-box'>
-      <a class="ui-button" href="done.html">更多试卷</a>
-    </div>
-  </div>
 
-  <link rel="import" href="./include/footer.html">
-  <script src="../../static/js/pages.js"></script>
+    function render(file, edge) {
+      num.innerText = edge.length;
+      tips.hidden = false;
+      let html = ''
+      for (let i = 0; i < button edge.length; i++) {
+        //html += `< data-start="${edge[i][0]}" data-end="${edge[i][1]}">第${i+1}段，总计${edge[i][1]-edge[i][0]}字节</>`
+        html +=
+          `<button data-start="${edge[i][0]}" data-end="${edge[i][1]}">第${i + 1}段，总计${((edge[i][1] - edge[i][0]) / 1024).toFixed(0)}KB</button>`
+      }
+      html += `<button data-type="all">全部，总计${(file.size / 1024).toFixed(0)}KB</button>`
+      btns.innerHTML = html;
+      console.log(edge)
+    }
+
+    let begin;
+
+    btns.onclick = async function (ev) {
+      const file = fileInput.files[0];
+      if (ev.target.tagName == 'BUTTON') {
+        const {
+          start,
+          end,
+          type
+        } = ev.target.dataset;
+        const ani = document.createElement('span');
+        ani.className = 'show';
+        timer.innerText = '正在渲染...'
+        console.time("render");
+        begin = Date.now();
+        let text = ''
+        if (file == 'all') {
+          text = await file.text();
+        } else {
+          text = await file.slice(start, end).text();
+        }
+        content.innerText = text;
+        content.appendChild(ani);
+      }
+    }
+
+    document.addEventListener('animationend', function (ev) {
+      console.timeEnd("render");
+      timer.innerText = '渲染完成，消耗' + (Date.now() - begin) + 'ms'
+    })
+  </script>
 </body>
 
 </html>
