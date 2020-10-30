@@ -20,7 +20,7 @@ keywords: 在项目中使用的一些上传组件
 
 [代码 demo](https://github.com/sunseekers/vue-compontent/blob/master/src/components/FileUpload.vue)
 
-[参考 Blob](http://sunseekers.cn/2020/02/24/Blob-API/)
+[参考 Blob](https://sunseekers.github.io/2020/01/18/Blob-API/)
 
 ```
 <template>
@@ -316,3 +316,5 @@ export default {
 </style>
 
 ```
+
+[FileReader](https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader)
