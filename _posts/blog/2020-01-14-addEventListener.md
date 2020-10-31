@@ -118,3 +118,53 @@ console.log('true 是捕获事件');
     }
   </script>
   ```
+
+  ## CustomEvent自定义事件
+  [CustomEvent](https://developer.mozilla.org/zh-CN/docs/Web/API/CustomEvent) 函数用来创建自定义函数，dispatchEvent触发自定义事件的执行(ps:第一次接触到CustomEvent事件和dispatchEvent方法)
+
+  ```
+   let index = document.querySelector('.index')
+  index.addEventListener('cat', (e) => {
+    console.log('自定义事件', e);
+  })
+  let event = new CustomEvent('cat', {
+    detail: {
+      "hazcheeseburger": true
+    }
+  })
+  index.addEventListener('click', () => {
+    index.dispatchEvent(event, 'sunseekerxw')//点击的时候把自定义事件执行了
+  })
+  ```
+[EventTarget.dispatchEvent](https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/dispatchEvent):向一个指定的目标派发一个事件,  并以合适的顺序同步调用目标元素相关的事件处理函数。
+
+## new Event 和  new CustomEvent 的区别
+大概就是又没有可不可以传参数的区别吧
+
+[Creating and triggering events](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events)
+
+CustomEvent 函数继承与[Event](https://developer.mozilla.org/en-US/docs/Web/API/Event)接口
+
+### 如果浏览器不支持CustomEvent，我们要怎么polyfill？？
+自己写一个呗
+
+```
+  (function () {
+    if (typeof window.CustomEvent === 'function') return false
+    var CustomEvent = function (event, params) {
+      params = params || {
+        bubbles: false,
+        cancelable: false,
+        detail: undefined
+      }
+      var evt = document.createEvent("CustomEvent")
+      evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+      return evt;
+    }
+    CustomEvent.prototype=window.Event.prototype
+    window.CustomEvent=CustomEvent
+  })()
+```
+
+
+参考文章：[JS CustomEvent自定义事件传参小技巧](https://www.zhangxinxu.com/wordpress/2020/08/js-customevent-pass-param/)
