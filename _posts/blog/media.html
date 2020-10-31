@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>多媒体播放</title>
+</head>
+
+<body>
+  <div class="media-index">
+    <video controls poster="https://img1.wxzxzj.com/vpc-example-cover-your-name-c.png"
+      src="https://media.vued.vanthink.cn/sparkle_your_name_am360p.mp4" />
+
+  </div>
+</body>
+<script>
+  window.onload = function () {
+    var mediaList = [{
+      src: 'https://media.vued.vanthink.cn/CJ7%20-%20Trailer.mp4',
+
+      cover: 'https://img1.wxzxzj.com/vpc-example-cover-CJ7-c.jpg',
+
+      title: "长江七号-周星驰导演作品，关于外星人的童话故事"
+
+    }, {
+
+      src: 'https://media.vued.vanthink.cn/sparkle_your_name_am360p.mp4',
+
+      cover: 'https://img1.wxzxzj.com/vpc-example-cover-your-name-c.png',
+
+      title: "你的名字-新海诚导演作品，穿越彼此的身体，遇见不可思议"
+
+    }, {
+
+      src: 'https://media.vued.vanthink.cn/the_garden_of_words_trailer_english__1080p.mp4',
+
+      cover: 'https://img1.wxzxzj.com/vpc-example-cover-the-garden-c.jpg',
+
+      title: "言叶之庭-新海诚导演作品，下雨天静谧的动静也有唯美的相遇"
+
+    }]
+    let actionHandle = [
+      [
+        'play',
+        async function () {
+          await videoEle.play()
+        }
+      ],
+      [
+        'pause',
+        async function () {
+          await videoEle.pause()
+        }
+      ],
+      [
+        'previoustrack',
+        async function () {
+          playPrev()
+        }
+      ],
+      [
+        'nexttrack',
+        async function () {
+          playNext()
+        }
+      ]
+    ]
+
+    var videoEle = document.querySelector("video")
+    var index = 0
+    //下一首
+    function playNext() {
+      if (index === 2) {
+        index = 0
+      } else {
+        index++
+      }
+      console.log(videoEle, 'videoEle');
+      // setMediaSession(index)
+      videoEle.src = mediaList[index].src
+      videoEle.play()
+    }
+    // 前一首
+    function playPrev() {
+      if (index === 0) {
+        index = 2
+      } else {
+        index--
+      }
+      // setMediaSession(index)
+      videoEle.src = mediaList[index].src
+      videoEle.play()
+    }
+    // 设置视频的封面信息
+    function setMediaSession(index) {
+      let data = mediaList[index]
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: data.title,
+
+        artist: data.director,
+
+        artwork: [
+
+          {
+            src: data.cover,
+            sizes: '192x192'
+          }
+
+        ]
+      })
+    }
+    // 初始化
+    function init() {
+      if ("mediaSession" in navigator) {
+        let media = navigator.mediaSession
+        // setMediaSession(index)
+        actionHandle.forEach(item => {
+          media.setActionHandler(item[0], item[1])
+        })
+      }
+    }
+    init()
+  }
+</script>
+
+</html>
