@@ -1,0 +1,294 @@
+ function scrollSwiper(imageList, root) {
+   var eleSwiperRoot = document.querySelector(root);
+   var fragment = document.createDocumentFragment();
+   var timer;
+
+   // 创建根元素
+   var rootSwiperBox = function () {
+     var eleSwiperBox = document.createElement('div')
+     var eleScrollDots = document.createElement('div')
+
+     eleSwiperRoot.classList.add("swiper-scroll-index")
+     eleSwiperBox.classList.add("swiper-scroll-box")
+     eleScrollDots.classList.add("scroll-swiper-dots")
+
+     fragment.appendChild(eleSwiperBox);
+     fragment.appendChild(eleScrollDots);
+
+     // eleSwiperRoot.appendChild(eleSwiperBox);
+     // eleSwiperRoot.appendChild(eleScrollDots);
+
+     // polyfill Safari浏览器下的平滑滚动
+     eleSwiperBox.setScrollLeft = function (scrollLeft) {
+       if (!CSS.supports('scroll-behavior: smooth')) {
+         var step = function () {
+           var numScrolDistance = scrollLeft - eleSwiperBox.scrollLeft;
+           if (Math.abs(numScrolDistance) <= 3) {
+             eleSwiperBox.scrollLeft = scrollLeft;
+           } else {
+             eleSwiperBox.scrollLeft += numScrolDistance / 4;
+             requestAnimationFrame(step);
+           }
+         };
+         step();
+       } else {
+         eleSwiperBox.scrollLeft = scrollLeft;
+       }
+     };
+
+     funSwiperInit(eleSwiperBox, eleScrollDots);
+
+   }
+
+
+
+   // 初始化滚动
+   var funSwiperInit = function (eleSwiperBox, eleScrollDots) {
+
+     imageList.forEach(function (item, index) {
+       var eleA = document.createElement('a')
+       var eleImg = document.createElement('img')
+       var eleDot = document.createElement('i');
+
+       eleA.href = item.href
+       eleA.classList.add('scroll-swiper-link')
+
+       eleImg.src = item.src
+       eleImg.alt = item.alt || ''
+       eleImg.classList.add('scroll-swiper-image')
+       eleImg.loading = "lazy"
+       // 图片异常处理
+       eleImg.addEventListener("error", function () {
+         console.log('[this]', this.src);
+         // this.src = ''
+         this.classList.add('error')
+       })
+
+       if (index === 0) {
+         eleDot.classList.add('active');
+       }
+
+       eleA.appendChild(eleImg)
+       fragment.children[0].appendChild(eleA)
+       fragment.children[1].appendChild(eleDot)
+
+       // eleSwiperBox.appendChild(eleA);
+       // eleA.appendChild(eleImg);
+       // eleScrollDots.appendChild(eleDot);
+     })
+
+     eleSwiperRoot.appendChild(fragment)
+
+     eleSwiperBox.addEventListener('touchstart', function () {
+       clearInterval(timer);
+     });
+     document.addEventListener('touchend', function () {
+       funAutomatic();
+     });
+
+     eleSwiperBox.addEventListener('scroll', function () {
+       var index = Math.floor(this.scrollLeft / this.clientWidth);
+
+       var eleTarget = eleScrollDots.querySelector('i:nth-child(' + (index + 1) + ')');
+       if (eleTarget && eleTarget.classList.contains('active')) {
+         return;
+       }
+       var eleDotActive = eleScrollDots.querySelector('.active');
+       if (eleDotActive) {
+         eleDotActive.classList.remove('active');
+       }
+       eleTarget.classList.add('active');
+     });
+
+     // 自动轮播
+     var funAutomatic = function () {
+
+       clearInterval(timer);
+       timer = setInterval(function () {
+         var clientWidth = eleSwiperBox.clientWidth;
+         var index = Math.floor(eleSwiperBox.scrollLeft / clientWidth) + 1;
+
+         if (index > imageList.length - 1) {
+           index = 0;
+         }
+         eleSwiperBox.setScrollLeft(clientWidth * index + eleSwiperBox.offsetLeft * index);
+       }, 3000)
+     };
+     funAutomatic();
+   };
+   rootSwiperBox()
+ };
+
+
+ ///////////////
+
+ <!DOCTYPE html>
+<html>
+
+<head>
+  <title>scroll-behavios 实现轮播滚动</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="./scroll-behavios.css">
+</head>
+
+<body>
+  <div class="swiper-scroll-index"></div>
+</body>
+<script src="./scroll-behavior.js"></script>
+<script>
+  var imageList = [{
+    href: "https://www.yuewen.com/#&about",
+    src: "https://bossaudioandco1252317822.image.myqcloud.com/activity/document/7a252584150962528ae3c5ebec79d879.jpeg",
+    alt: "内容1"
+  }, {
+    href: "https://www.yuewen.com/#&about",
+    src: "https://qidian.gtimg.com/yuewen/v1/css/images/yw-hd-ft.jpg",
+    alt: "内容2"
+  }, {
+    href: "https://www.yuewen.com/#&about",
+    src: "https://bossaudioandcomic-1252317822.image.myqcloud.com/activity/document/d2e93dead4b760eb2385709f42f3aec7.jpg",
+    alt: "内容3"
+  }]
+  scrollSwiper(imageList, '.swiper-scroll-index')
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+///////////////////
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(100% + 2 * (100vw - 375px) / 39);
+    font-size: calc(16px + 2 * (100vw - 375px) / 39)
+  }
+
+  ;
+}
+
+@media screen and (min-width: 414px) {
+  html {
+    font-size: calc(112.5% + 4 * (100vw - 414px) / 586);
+    font-size: calc(18px + 4 * (100vw - 414px) / 586)
+  }
+
+  ;
+}
+
+@media screen and (min-width: 600px) {
+  html {
+    font-size: calc(125% + 4 * (100vw - 600px) / 400);
+    font-size: calc(20px + 4 * (100vw - 600px) / 400)
+  }
+
+  ;
+}
+
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: calc(137.5% + 6 * (100vw - 1000px) / 1000);
+    font-size: calc(22px + 6 * (100vw - 1000px) / 1000)
+  }
+
+  ;
+}
+
+.swiper-scroll-index {
+  position: relative;
+}
+
+.swiper-scroll-box::-webkit-scrollbar {
+  display: none;
+}
+
+.swiper-scroll-box {
+  white-space: nowrap;
+  overflow: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  height: calc(98.7 / 328 * (100vw - 2rem));
+  font-size: 0;
+}
+
+.scroll-swiper-link {
+  height: inherit;
+  position: relative;
+
+}
+
+.scroll-swiper-image {
+  width: 100%;
+  height: inherit;
+  border-radius: calc(8rem / 16);
+  scroll-snap-align: start;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.scroll-swiper-image.error {
+  display: inline-block;
+  content: '';
+  color: transparent;
+}
+
+.scroll-swiper-image.error::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: inherit;
+  border-radius: calc(8rem / 16);
+  background: #f5f5f5 url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M304.128 456.192c48.64 0 88.064-39.424 88.064-88.064s-39.424-88.064-88.064-88.064-88.064 39.424-88.064 88.064 39.424 88.064 88.064 88.064zm0-116.224c15.36 0 28.16 12.288 28.16 28.16s-12.288 28.16-28.16 28.16-28.16-12.288-28.16-28.16 12.288-28.16 28.16-28.16z' fill='%23e6e6e6'/%3E%3Cpath d='M887.296 159.744H136.704C96.768 159.744 64 192 64 232.448v559.104c0 39.936 32.256 72.704 72.704 72.704h198.144L500.224 688.64l-36.352-222.72 162.304-130.56-61.44 143.872 92.672 214.016-105.472 171.008h335.36C927.232 864.256 960 832 960 791.552V232.448c0-39.936-32.256-72.704-72.704-72.704zm-138.752 71.68v.512H857.6c16.384 0 30.208 13.312 30.208 30.208v399.872L673.28 408.064l75.264-176.64zM304.64 792.064H165.888c-16.384 0-30.208-13.312-30.208-30.208v-9.728l138.752-164.352 104.96 124.416-74.752 79.872zm81.92-355.84l37.376 228.864-.512.512-142.848-169.984c-3.072-3.584-9.216-3.584-12.288 0L135.68 652.8V262.144c0-16.384 13.312-30.208 30.208-30.208h474.624L386.56 436.224zm501.248 325.632c0 16.896-13.312 30.208-29.696 30.208H680.96l57.344-93.184-87.552-202.24 7.168-7.68 229.888 272.896z' fill='%23e6e6e6'/%3E%3C/svg%3E") no-repeat center / 50% 50%;
+}
+
+.scroll-swiper-image.error::after {
+  content: attr(alt);
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  width: inherit;
+  line-height: 2;
+  background-color: rgba(0, 0, 0, .5);
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom-left-radius: calc(8rem / 16);
+  border-bottom-right-radius: calc(8rem / 16);
+
+
+}
+
+.scroll-swiper-link:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.scroll-swiper-dots {
+  position: absolute;
+  bottom: calc(8rem / 16);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.scroll-swiper-dots>i {
+  display: inline-block;
+  background: #FFFFFF;
+  opacity: 0.4;
+  width: calc(6rem / 16);
+  height: calc(6rem / 16);
+  margin-left: calc(6rem / 16);
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+
+.scroll-swiper-dots>.active {
+  opacity: 1;
+}
