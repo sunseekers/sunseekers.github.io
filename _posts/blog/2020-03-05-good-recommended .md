@@ -86,6 +86,8 @@ keywords: 文章推荐
 [ES6 系列之 defineProperty 与 proxy](https://github.com/mqyqingfeng/Blog/issues/107)
 
 [由浅入深，66条JavaScript面试知识点](https://juejin.im/post/5ef8377f6fb9a07e693a6061#heading-74)
+
+[0202年了, Chrome DevTools 你还只会console.log吗 ?](https://blog.csdn.net/qiwoo_weekly/article/details/104230957)
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
