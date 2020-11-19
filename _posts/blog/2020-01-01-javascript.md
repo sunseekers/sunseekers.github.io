@@ -66,6 +66,22 @@ console.log(b.x)
 之前看到过这样的问题，绕了半天，勉强理解了，一段时间之后就忘了。直到看到有朋友解释：".的优先级比=要高，所以这里首先执行 a.x，相当于为 a（或者 b）所指向的{n:1}对象新增了一个属性 x，即此时对象将变为{n:1;x:undefined}。之后按正常情况，从右到左进行赋值，此时执行 a ={n:2}的时候，a 的引用改变，指向了新对象{n：2},而 b 依然指向的是旧对象"。
 我才恍然大悟。原来我的问题在我忽略了 _. 的优先级高于 =_，然后才一直不理解
 
+`in` 运算符 如果指定的属性在指定的对象或其原型链中，则 in 运算符返回true
+
+```
+const car = { make: 'Honda', model: 'Accord', year: 1998 };
+
+console.log('make' in car);
+// expected output: true
+
+delete car.make;
+if ('make' in car === false) {
+  car.make = 'Suzuki';
+}
+
+console.log(car.make);
+// expected output: "Suzuki"
+```
 [原文地址](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/93)
 
 ## 装箱/拆箱操作
