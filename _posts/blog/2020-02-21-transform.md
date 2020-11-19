@@ -47,3 +47,80 @@ animation 属性是 animation-name，animation-duration, animation-timing-functi
 
 [animation](https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation)
 
+## 点击涟漪效果
+你是否又看到过，点击按钮的时候有一个白色圆圈在扩大，有种东西丢到水里涟漪的效果
+
+我们就可以用他实现 transform 实现
+
+实现思路：
+
+1. 给点击的元素加一个伪元素，把它覆盖在点击元素上面
+
+```
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+```
+
+2. 最开始的时候这个元素完全透明，并且有一个很小的背景径向渐变，借助 transition 让元素慢慢的变大（背景的径向渐变也变大），慢慢的变透明
+
+```
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform .3s, opacity .5s;
+```
+
+3. 点击元素的，给他加一个:active类，点完了，这个类就消失了。在这个类里面，把之前透明的元素，透明度提高，元素变小到最开始的位置
+
+```
+  :active:after {
+  transform: scale(0, 0);
+  opacity: .3;
+  /* //设置初始状态 */
+  transition: 0s;
+  }
+```
+
+4. 点击的时候元素由0开始的大小慢慢的变大，透明度由.3慢慢的变透明
+
+5. 可以改变top和left的位置，实现已点击的位置为原点开始发生变化（不实现，要借助js）
+
+```
+<button class=" ripple ">Button</button>
+.ripple {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      /* //设置径向渐变 */
+      background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: transform .3s, opacity .5s;
+    }
+
+    .ripple:active:after {
+      transform: scale(0, 0);
+      opacity: .3;
+      /* //设置初始状态 */
+      transition: 0s;
+    }
+```
