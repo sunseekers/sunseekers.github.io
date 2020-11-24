@@ -52,7 +52,7 @@ shadowRoot.innerHTML = `
 
 3. 一个组件就这样完成渲染在页面上了，这只是一个简简单单的dom
 
-[Element.attachShadow()](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/attachShadow)
+[Element.attachShadow()](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/attachShadow):法给指定的元素挂载一个Shadow DOM，并且返回对 ShadowRoot 的引用。
 
 ## 我们如何实现一个类似 video 
 如何像 video 一样全局任意使用呢？

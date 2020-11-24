@@ -124,18 +124,27 @@ console.log('true 是捕获事件');
 
   ```
    let index = document.querySelector('.index')
-  index.addEventListener('cat', (e) => {
-    console.log('自定义事件', e);
-  })
+
+  1. 定义这个自定义的事件，传入参数
   let event = new CustomEvent('cat', {
     detail: {
       "hazcheeseburger": true
     }
   })
+
+  2. 监听这个自定义的事件
+  index.addEventListener('cat', (e) => {
+    console.log('自定义事件', e);
+  })
+
+  3. 调用这个自定义事件
   index.addEventListener('click', () => {
     index.dispatchEvent(event, 'sunseekerxw')//点击的时候把自定义事件执行了
   })
   ```
+
+
+
 [EventTarget.dispatchEvent](https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/dispatchEvent):向一个指定的目标派发一个事件,  并以合适的顺序同步调用目标元素相关的事件处理函数。
 
 ## new Event 和  new CustomEvent 的区别
