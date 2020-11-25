@@ -327,7 +327,7 @@ transform:translate(-50%,-50%)
 
 ```
 fixedBody () {
-  let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+  let scrollTop = document.scrollingElement
   document.body.style.cssText += 'position:fixed;width:100%;top:-' + scrollTop + 'px;'
 }
 ```
