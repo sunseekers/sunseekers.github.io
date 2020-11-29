@@ -28,6 +28,10 @@ transform提升元素的垂直地位
 
 transform限制position:fixed的跟随效果，他们在一起表现就像是position：absolute
 
+transform改变overflow对absolute元素的限制,如果父元素设置了overflow：hidden，子元素absolute，超出不会被隐藏。但是如果此时父元素再有trandform的画，子元素会被隐藏
+
+以前，我们设置absolute元素宽度100%, 则都会参照第一个非static值的position祖先元素计算，没有就window. 现在，诸位，如果父元素是transform，所有绝对定位图片100%宽度，都是相对设置了transform的容器计算了
+
 [CSS3 transform对普通元素的N多渲染影响](https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/)
 
 ## 参考文档

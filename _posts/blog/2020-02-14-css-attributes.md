@@ -53,3 +53,12 @@ keywords: css
 
 [小tips:了解CSS变量var](https://www.zhangxinxu.com/wordpress/2016/11/css-css3-variables-var/)
 
+
+## 在博文里学到的属性
+
+[如何让MP4 video视频背景色变成透明？](https://www.zhangxinxu.com/wordpress/2019/05/mp4-video-background-transparent/)
+
+[background-blend-mode](https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-blend-mode):背景图片如何混合在一起，有点像ps的混合模式
+
+[mix-blend-mode](https://developer.mozilla.org/zh-CN/docs/Web/CSS/mix-blend-mode):和上面一样
+
