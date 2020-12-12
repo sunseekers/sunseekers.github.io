@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>五角星评分</title>
+  <style type="text/css">
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1607769161483'); /* IE9 */
+  src: url('iconfont.eot?t=1607769161483#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAANYAAsAAAAAB0wAAAMJAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDHAqCCIF1ATYCJAMQCwoABCAFhG0HRhtlBhEVlP9kfzjeGJ6qZyMUhAudo/EYs+FnfpazFN0u9Svqw8q+ryP4Gvvtu7uPuMc/RPFKyCRNVLImUiREQiIki2Kh2cG4vKcSJqa5kukht0FKYkhkkxodhW3TfinsDx1hOmXtLz890NDucCEdnwtIvw0QoDQ/wXunegBC1hnctQkQIGbw947/yBKYB5TbWpN66aYAA0sDG2tSInGBJOgtc2NYRZRdl3iYQIMRS2IrNZsHeAUZFYgTs1EN+FZUUfxCnVAzsrB0I1ph1KXrtAkbN/r78Ql5eJJKRibuGVJ0EH+LvK1Blf6XRibt2s9zw19GxhIKcTDq3QdUmV2SNaTd0ZZRp07irDblbc3/P7bzYgn9yyMJmahByCZQxbnMC5JraJ0SzAJ0NUDI8ENsdb6oaAVHQLhD3ikJqaafSGo4Q/MlQo1MNTLrLhV09Qdrpd0NbLF6tJfFE3dOBxWIKSqxRiXVUKx8TxKPL+AJBSSpiKwWadUSLdmvg4Gf9sIYW0yTHjkiKc4tav3h4pkfktKPXwtb68Mbl/54r7sBO4ppFYH3pd5iDzp3WoLOqMllKSfY4D8xZqGXG9It1YMpAwx8qdqewXfPwfXZk1P04ALAf5UJqFLNH94JSpZ3oI6QD9b/G9N7PlfSol/xCnj4OgNs/459MjuUrZZZdhmaA0BZDxQkUwpmpFq+Pq4Y3T0uoUED/iHY4fkMfXdKEup010hqDSOrM0UVzhIqGlVRo84qGizaXd6o0ymgRKnHgnOE0OYWSYs7ZG3uqcJ5QkWPb9RoC4UGAkHHDUmCatSVUQuWYP7QWBodc4gypS+spl5zU6F5P+TQJCCL027hiSPyGVPCXOUiDhzTAA90HPY9gWdq0Upci/giSdzYi2JLw0ZJwpAmUAkYf6BhkZGTrYXqff4FVSY9jWdqpuI/iAVN5yATS1dQT+24quZbnglmlZwQDnAYGYAHcqOeZgnw4/1ayBKxekfaKyS4mVurje/XDxYo8Rsgt1oZ8uDX49qMVaaCaJbIkv8fKstmAwAAAA==') format('woff2'),
+  url('iconfont.woff?t=1607769161483') format('woff'),
+  url('iconfont.ttf?t=1607769161483') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1607769161483#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 40px;
+  font-style: normal;
+  color:blue;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-banxing1:before {
+  content: "\e65f";
+}
+
+.icon-start-copy:before {
+  content: "\e602";
+}
+
+.icon-star:before {
+  content: "\e687";
+}
+
+
+i{
+  font-size:40px;
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+	</style>
+</head>
+
+<body>
+	<div>
+    <i class="iconfont icon-star star" aria-hidden="true"></i>
+    <i class="iconfont icon-star star" aria-hidden="true"></i>
+    <i class="iconfont icon-star star" aria-hidden="true"></i>
+    <i class="iconfont icon-star star" aria-hidden="true"></i>
+    <i class="iconfont icon-star star" aria-hidden="true"></i>
+	</div>
+
+</body>
+<script>
+	let stars = document.querySelectorAll(".star");
+	let storage = undefined;  // 点击的时候记录当前点击的位置
+	let sign = false; // 标记当前是否是半颗星，false 不是半星，true 为半星
+
+	for (let i = 0; i < stars.length; i++) {
+		stars[i].setAttribute("index", i);
+
+		stars[i].onmousemove = function (e) {
+			let currIndex = this.getAttribute("index");
+			let currSign = starHalf(e.offsetX, this.offsetWidth)
+			starLight(stars, currIndex, currSign)
+		}
+
+		stars[i].onmouseleave = function (e) {
+      
+			starLight(stars, storage, sign)
+		}
+
+		stars[i].onclick = function (e) {
+			storage = this.getAttribute("index");
+			sign = starHalf(e.offsetX, this.offsetWidth)
+		}
+	}
+
+	/**
+	 * 是否是半星
+	 * @param {currWidth} 一个星星最左边到鼠标位置的长度
+	 * @param {halfWidth} 一个星星一半的长度
+	 * @return {boolean} true 是半星，false 不是半星
+	 */
+	function starHalf(currWidth, halfWidth) {
+		return currWidth <= halfWidth / 2 ? true : false
+	}
+
+	/**
+	 * 点亮星星
+	 * @param {object} elem 星星数组元素
+	 * @param {number} index 最多需要点亮多个星星
+	 * @param {boolean} sign 是否是半星，true 是半星，false 不是半星
+	 */
+	function starLight(elem, index, sign) {
+		for (let i = 0; i < elem.length; i++) {
+			elem[i].className = i <= index ? "iconfont icon-start-copy" : "iconfont icon-star";
+		}
+		if (sign) {
+			elem[index].className = " iconfont icon-banxing1";
+		}
+	}
+</script>
+
+</html> 
+
+
