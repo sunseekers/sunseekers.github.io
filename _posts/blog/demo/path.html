@@ -1,0 +1,107 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>延轨迹平滑效果</title>
+	<style type="text/css">
+	.path{
+		width: 300px; height: 300px;
+    border-radius: 50%;
+    margin: 100px auto;
+    position: relative;
+    display: flex;
+    border: 1px solid #b4a078;
+	}
+ img{
+   width: 100px;
+   height: 100px;
+   border-radius:50%;
+ }
+   .logo {
+    margin: auto;
+    background: #FFF;
+  }
+	 .avatar {
+    position: absolute;
+    top: 124px; left: 124px;
+    animation: circular-smooth-spin 7.5s infinite linear;
+    animation-play-state: running;
+  }
+	 .avatar > span {
+    font-weight: 500;
+    position: absolute;
+    white-space: nowrap;
+    top: -50%; left: 50%;
+    padding: 3px 12px;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity, transform .8s;
+    transform-origin: 0 bottom;
+  }
+	 .path:hover .avatar > span {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity, transform .8s;
+  }
+	  .avatar:nth-of-type(2){
+    animation-delay: -1.5s;
+  }
+
+  .avatar:nth-of-type(3){
+    animation-delay: -3s;
+  }
+
+  .avatar:nth-of-type(4){
+    animation-delay: -4.5s;
+  }
+
+  .avatar:nth-of-type(5){
+    animation-delay: -6s;
+  }
+	  @keyframes circular-smooth-spin {
+    from {
+      transform: rotate(0turn) translateY(-124px) rotate(1turn)
+    }
+    to {
+      opacity: 1;
+      transform: rotate(1turn) translateY(-124px) rotate(0turn)
+    }
+  }
+</style>
+<body>
+    <main class="main">
+    <div class="path">
+      <img class="logo" src="http://www.520touxiang.com/uploads/allimg/2018122414/gmdy3ip5lim.jpg" />
+      <div class="avatar">
+        <span>Evan You</span>
+        <img src="https://lh3.googleusercontent.com/proxy/qVo6B9kojt1frslHKcXr23e2lCEEhcTh8bEXVUIWL7rfFboMTH9wu_UprAS1l9D6lU1vcna8kb0PTTAQ2kbR3AwnPdFWY3csqcjiKOB34JDHIISi2N4TFk91i-w"/>
+      </div>
+      <div class="avatar">
+        <span>Damian Dulisz</span>
+        <img src="http://www.520touxiang.com/uploads/allimg/2018122414/41wkoa4i3lg.jpg"/>
+      </div>
+      <div class="avatar">
+        <span>defcc</span>
+        <img src="http://www.520touxiang.com/uploads/allimg/2018122414/4hnmmihlvl2.jpg"/>
+      </div>
+      <div class="avatar">
+        <span>Edd Yerburgh</span>
+        <img src="http://www.520touxiang.com/uploads/allimg/2018122414/11q33f3o4hw.jpg"/>
+      </div>
+      <div class="avatar">
+        <span>Sarah Drasner</span>
+        <img src="http://www.520touxiang.com/uploads/allimg/2018122414/sovrrulov2y.jpg"/>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html> 
+
+
+

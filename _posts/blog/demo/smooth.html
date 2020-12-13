@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>无缝平滑效果</title>
+	<style type="text/css">
+		.smooth {
+			width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    position: relative;
+    background-image: url(https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png);
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: contain;
+    animation: smooth 10s linear infinite;
+    animation-play-state: running;
+  }
+
+  @keyframes smooth {
+    to {
+      background-position: 1970px center;
+    }
+  } 
+</style>
+<body>
+	<div class="smooth"></div>
+</body>
+
+</html> 
