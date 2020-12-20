@@ -1,0 +1,104 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>路由无感刷新</title>
+	<style>
+		.main{
+			display:flex;
+		}
+		.left,.right{
+			line-height: 500px;
+			text-align: center;
+			border: 1px red solid;
+      flex:1;
+		}
+		.hidden{
+			display:none;
+		}
+	</style>
+</head>
+<body>
+<div class="main" >
+	<div class="left"> A 选项</div>
+	<div class="right"> B 选项</div>
+</div>
+<div class="left-content hidden">A 选项的内容</div>
+<div class="right-content hidden">B 选项的内容</div>
+
+</body>
+<script>
+class Router{
+		constructor(){
+			this.main = document.querySelector('.main')
+			this.left = document.querySelector('.left')
+			this.right = document.querySelector('.right')
+			this.leftContentBox = document.querySelector('.left-content')
+			this.rightContentBox = document.querySelector('.right-content')
+		}
+	// 元素的隐藏显示公共
+	eleStateHandle(){
+		const type = new URLSearchParams(location.search).get("type")
+			if(type==='left'){
+				this.main.classList.add('hidden')
+				this.leftContentBox.classList.remove('hidden')
+			}else if(type==="right"){
+				this.main.classList.add('hidden')
+				this.rightContentBox.classList.remove('hidden')
+			}else{
+				this.leftContentBox.classList.add("hidden")
+				this.rightContentBox.classList.add("hidden")
+				this.main.classList.remove("hidden")
+			}
+	}
+	// 切换内容
+	selectHandle(){
+		console.log(this.left,'this.left');
+		// 左边
+		this.left.addEventListener('click',(e)=>{
+			this.main.classList.add('hidden')
+			this.leftContentBox.classList.remove('hidden')
+			// 浏览器不重新发送请求
+			history.pushState({},"",`?type=left`)
+			// 把这条记录放到浏览器的历史栈中，支持前进后退功能
+		})
+		// 右边
+		this.right.addEventListener('click',(e)=>{
+			this.main.classList.add('hidden')
+			this.rightContentBox.classList.remove('hidden')
+			// 浏览器不重新发送请求
+			history.pushState({},"",`?type=right`)
+			// 把这条记录放到浏览器的历史栈中，支持前进后退功能
+		})
+	}
+	// 路由前进后退
+	popHandle(){
+		window.addEventListener("popstate",()=>{
+			this.eleStateHandle()
+		})
+	}
+	// 记录页面现在的状态
+	loadHandle(){
+		window.addEventListener('load',()=>{
+			this.eleStateHandle()
+		})
+	}
+	// 调用所有的方法
+	allHandle(){
+		// 显示左边的内容
+	this.selectHandle()
+	//浏览器的历史操作
+	this.popHandle()
+	// 重新加载页面
+	this.loadHandle()
+	}
+}
+const router = new Router()
+router.allHandle()
+</script>
+</html> 
