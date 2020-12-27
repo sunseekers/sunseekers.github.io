@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>订阅发布模式</title>
+	<style>
+		ul{
+			padding:0;
+			margin:0;
+		}
+		li{
+			list-style: none;
+			cursor: pointer;
+			padding:10px;
+			margin: 0;
+		}
+		li:hover{
+			color: blue;
+		}
+		li:active{
+			background-color: rgba(0, 0, 0, .2);
+		}
+	</style>
+</head>
+<body>
+<div class="main">
+	<div class="left">
+		<div class="food">
+			<h1>你喜欢吃什么</h1>
+			<ul class="jsFood">
+				<template >
+						<li id="${id}">${name} <span class="delete">删除</span></li>
+				</template>
+			</ul>
+		</div>
+		<div class="amusement">
+			<h1>你喜欢玩什么</h1>
+			<ul class="jsAmusement">
+				<template >
+	        <li id="${id}">${name} <span class="delete">删除</span></li>
+				</template>
+			</ul>
+		</div>
+	</div>
+	<div class="right">
+		<div class="food-box">
+			<h1>食物</h1>
+			<ul class="jsFoodList food-list">
+				<template>
+					<li id="${id}">${name}</li>
+				</template>
+			</ul>
+		</div>
+		<div class="amusement-box">
+			<h1>娱乐</h1>
+			<ul class="amusement-list jsAmusementList">
+				<template>
+					<li id="${id}">${name}</li>
+				</template>
+			</ul>
+		</div>
+	</div>
+</div>
+
+</body>
+<script>
+	// 模板变成可执行函数 
+	String.prototype.interpolate = function(params){
+		const names = Object.keys(params)
+		const vals = Object.values(params)
+		const str = new Function(...names,`return \`${this}\`;`)(...vals)
+		return str
+	}
+	// 模板变成可以执行
+	HTMLElement.prototype.render = function(html){
+		if(typeof html!=='string') return
+		this.innerHTML = html;
+	}
+
+const foodEle = document.querySelector(".jsFood")
+const foodTpl = document.querySelector("template")
+
+const foodListEle = document.querySelector(".jsFoodList") 
+const foodListTpl = foodListEle.querySelector("template") 
+
+const amusementEle = document.querySelector(".jsAmusement")
+const amusementTpl = amusementEle.querySelector("template")
+
+const amusementListEle = document.querySelector(".jsAmusementList")
+const amusementListTpl = amusementListEle.querySelector("template")
+
+// 渲染
+const render = ()=>{
+	[
+		{el:foodEle,temp:foodTpl,list:createData.foodList},
+		{el:amusementEle,temp:amusementTpl,list:createData.amusementList},
+		{el:foodListEle,temp:foodListTpl,list:createData.foodData},
+		{el:amusementListEle,temp:amusementListTpl,list:createData.amusementData}
+	].forEach(item=>{
+		const temp = item.temp?.innerHTML
+		if (!temp || !item.el) return;
+		item.el.innerHTML = item.list.map(item=>temp.interpolate(item)).join('')
+	})
+}
+
+// 数据存储，驱动页面变化
+const createData = {
+	foodList:[],// 自己选择的喜欢的食物
+	amusementList:[],// 自己选择的喜欢的娱乐
+	foodData:[],// 接口来的数据
+	amusementData:[]
+}
+
+// 数据响应式变化
+const createStore = (state,stateChanger)=>{
+	const getState = () => state;
+	const listeners = [] // 监听函数
+	const subscribe = listener => listeners.push(listener) // 订阅监听函数
+	const dispatch = action=>{
+		// 执行状态变化函数
+		stateChanger(state, action);
+		// 所有订阅函数执行
+		listeners.forEach(listener => listener());
+	}
+	return {
+		getState,
+		dispatch,
+		subscribe
+	}
+}
+
+// 数据变化
+const stateChanger = (state,action)=>{
+	switch(action.type){
+		case "food":
+			state.foodList = action.value;
+			break;
+		case "amusement":
+			state.amusementList = action.value;
+			break;
+		case "foodData":
+			state.foodData = action.value;
+			break;
+		case "amusementData":
+			state.amusementData = action.value;
+			break;
+		default:
+			break;
+	}
+}
+
+// 执行响应式函数
+const store = createStore(createData, stateChanger);
+store.subscribe(() => render());
+
+// 假设接口请求了列表数据
+setTimeout(()=>{
+	store.dispatch({type:'foodData',value:[{name:'米饭',id:1},{name:'水果',id:2},{name:'坚果',id:3},{name:'干果',id:4},{name:'酸奶',id:5}]})
+	store.dispatch({type:'amusementData',value:[{name:'游乐场',id:1},{name:'爬山',id:2},{name:'运动',id:3},{name:'游戏',id:4},{name:'躺尸',id:5},{name:'看剧',id:6},{name:'睡觉',id:7}]})
+},100)
+
+// 食物列表的添加点击事件
+foodListEle.addEventListener("click",(e)=>{
+	addHandler(e.target,'food',createData.foodList)
+})
+
+// 娱乐列表的添加点击事件
+amusementListEle.addEventListener("click",(e)=>{
+	addHandler(e.target,'amusement',createData.amusementList)
+})
+
+// 食物列表的删除点击事件
+foodEle.addEventListener("click",(e)=>{
+	deleHander(e.target,'food',createData.foodList)
+})
+
+// 娱乐列表的删除点击事件
+amusementEle.addEventListener("click",(e)=>{
+	deleHander(e.target,'amusement',createData.amusementList)
+})
+
+// 添加
+function addHandler(ele,type,value){
+	const data = ele?.innerHTML
+	const id =ele?.id
+	const index = value.findIndex(item=>item.id===id)
+	// 是否已经添加过了
+	if(index<0){
+		value.push({name:data,id})
+	 store.dispatch({type,value})
+	}
+}
+
+// 删除
+function deleHander(ele,type,value){
+	const data = ele?.innerHTML
+	const id =ele.closest('li')?.id
+	const index = value.findIndex(item=>item.id===id)
+	value.splice(index,1)
+	store.dispatch({type,value})
+}
+</script>
+</html> 
