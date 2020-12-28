@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>搜索路由带参数</title>
+</head>
+<style>
+  .search{
+    padding: 10px;
+    width: 200px;
+  }
+</style>
+<body>
+  <input type="search"  name="keywords" class="search" placeholder="请输入搜索的内容">
+</body>
+<script>
+  const searchInput = document.querySelector(".search")
+  // 关键字搜索，记录到导航栏
+  searchInput.addEventListener("input",()=>{
+    history.replaceState({}, '', `?search=${searchInput.value}`)
+  })
+</script>
+
+</html>
