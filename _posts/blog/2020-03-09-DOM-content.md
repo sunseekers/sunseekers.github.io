@@ -70,6 +70,8 @@ document.addEventListener('copy', (event) => {
 此示例使用自定义属性选择器返回文档中属性名为"`is-name`和`is-age`的元素列表：
 `var matches = document.querySelectorAll('[is-name],[is-age]')`
 
+## 获取当前聚焦元素的方法
+[document.activeElement](https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/activeElement):返回聚焦的元素或者null
 
 ## Element.innerHTML 和 Node.textContent(innerText)  的区别
 ### Element.innerHTML
