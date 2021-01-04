@@ -8,111 +8,119 @@
   <title>五角星</title>
 </head>
 <style>
-/* 评价星星 */
-star::after {
-  content: "";
-  width: calc(var(--value) * 26px);
-  height: 26px;
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  background-repeat: repeat-x;
-  background-size: 26px;
-  background-image:  url("data:image/svg+xml,%3Csvg width='13' height='12' viewBox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.5 0l1.968 4.004 4.532.58-3.315 3.054.832 4.362L6.5 9.884 2.483 12l.832-4.362L0 4.584l4.532-.58L6.5 0z' fill='%23F8B200'/%3E%3C/svg%3E");
-}
+  star {
+    position: relative;
+  }
 
-/* 没有评价 */
-star:before {
-  content: "";
-  width: calc(var(--level) * 26px);
-  height: 26px;
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-repeat: repeat-x;
-  background-size: 26px;
-  background-image:  url("data:image/svg+xml,%3Csvg width='13' height='12' viewBox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.5 0l1.968 4.004 4.532.58-3.315 3.054.832 4.362L6.5 9.884 2.483 12l.832-4.362L0 4.584l4.532-.58L6.5 0z' fill='%23D8D8D8'/%3E%3C/svg%3E");
-}
+  /* 评价星星 */
+  star::after {
+    content: "";
+    width: calc(var(--value) * 26px);
+    height: 26px;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-repeat: repeat-x;
+    background-size: 26px;
+    background-image: url("data:image/svg+xml,%3Csvg width='13' height='12' viewBox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.5 0l1.968 4.004 4.532.58-3.315 3.054.832 4.362L6.5 9.884 2.483 12l.832-4.362L0 4.584l4.532-.58L6.5 0z' fill='%23F8B200'/%3E%3C/svg%3E");
+  }
 
-/* 自定义样式 */
-/* .rate:after{
+  /* 没有评价 */
+  star:before {
+    content: "";
+    width: calc(var(--level) * 26px);
+    height: 26px;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: repeat-x;
+    background-size: 26px;
+    background-image: url("data:image/svg+xml,%3Csvg width='13' height='12' viewBox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.5 0l1.968 4.004 4.532.58-3.315 3.054.832 4.362L6.5 9.884 2.483 12l.832-4.362L0 4.584l4.532-.58L6.5 0z' fill='%23D8D8D8'/%3E%3C/svg%3E");
+  }
+
+  /* 自定义样式 */
+  /* .rate:after{
   background-image: url("data:image/svg+xml,%3Csvg width='26' height='26' viewBox='0 0 26 26' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.049 2.927c.3-.921 1.603-.921 1.902 0l1.743 5.365a1 1 0 0 0 .951.69h5.641c.969 0 1.372 1.24.588 1.81l-4.564 3.315a1 1 0 0 0-.363 1.118l1.743 5.365c.3.922-.755 1.688-1.539 1.118l-4.563-3.315a1 1 0 0 0-1.176 0L7.85 21.708c-.784.57-1.838-.196-1.54-1.118l1.744-5.365a1 1 0 0 0-.363-1.118l-4.564-3.315c-.784-.57-.38-1.81.588-1.81h5.64a1 1 0 0 0 .952-.69l1.743-5.365z' fill='%23007BFF'/%3E%3C/svg%3E");
 }
 .rate:before{
   background-image: url("data:image/svg+xml,%3Csvg width='26' height='26' viewBox='0 0 26 26' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.049 2.927c.3-.921 1.603-.921 1.902 0l1.743 5.365a1 1 0 0 0 .951.69h5.641c.969 0 1.372 1.24.588 1.81l-4.564 3.315a1 1 0 0 0-.363 1.118l1.743 5.365c.3.922-.755 1.688-1.539 1.118l-4.563-3.315a1 1 0 0 0-1.176 0L7.85 21.708c-.784.57-1.838-.196-1.54-1.118l1.744-5.365a1 1 0 0 0-.363-1.118l-4.564-3.315c-.784-.57-.38-1.81.588-1.81h5.64a1 1 0 0 0 .952-.69l1.743-5.365z' fill='rgba(36, 39, 47, 0.12)'/%3E%3C/svg%3E");
 } */
-
 </style>
 
 <body>
   <star></star>
 </body>
 <script>
-    /**
+  /**
     level:显示几个星星
     name:表单提交时候的字段
     rate:自定义样式
     */
-  class Star{
-    constructor(params){
+  class Star {
+    constructor(params) {
       this.params = {
         ...params,
-        starValue:0,// 点亮的星星
+        starValue: 0, // 点亮的星星
       }
     }
     // 星星评价
     starRender() {
       // 创建父元素
       this.params.eleBox = document.querySelector('star')
-      this.params.rate&&this.params.eleBox.classList.add(this.params.rate)
-      if(!this.params.eleBox.style.getPropertyValue("--level")){
-      this.params.eleBox.style.setProperty('--level', this.params.level)
+      this.params.rate && this.params.eleBox.classList.add(this.params.rate)
+      if (!this.params.eleBox.style.getPropertyValue("--level")) {
+        this.params.eleBox.style.setProperty('--level', this.params.level)
       }
       // 创建 input 记录分值
       this.params.eleInput = document.createElement('input')
-      this.params.eleInput.type='hidden'
+      this.params.eleInput.type = 'hidden'
       this.params.eleInput.name = this.params.name
 
       this.params.eleBox.appendChild(this.params.eleInput)
 
       // 移动高亮星星
       var _that = this
-      this.params.eleBox.addEventListener("mousemove",function(e){
+      this.params.eleBox.addEventListener("mousemove", function (e) {
         _that.starLight(e.offsetX)
       })
 
       // 记住高亮星星
-      this.params.eleBox.addEventListener('click',function(e){
-       _that.params.starValue = _that.starLight(e.offsetX)
+      this.params.eleBox.addEventListener('click', function (e) {
+        _that.params.starValue = _that.starLight(e.offsetX)
         _that.params.eleInput.value = _that.params.starValue;
         _that.params.eleInput.dispatchEvent(new CustomEvent('change'));
       })
       // 保存高亮信息
-      this.params.eleBox.addEventListener('mouseleave',function(e){
+      this.params.eleBox.addEventListener('mouseleave', function (e) {
         _that.params.eleBox.style.setProperty('--value', _that.params.starValue)
       })
     }
     // 设置高亮的星星
     starLight(step) {
-     step = step / 26
-    var starValue = Math.trunc(step)
-    
-    if (step < 0) {
-      starValue = 0
-    } else if (step - Math.trunc(step) < 0.5) {
-      // 高亮一半个星星
-      starValue += 0.5
-    } else {
-      starValue += 1
-    }
-    this.params.eleBox.style.setProperty('--value', starValue)
-    return starValue
+      step = step / 26
+      var starValue = Math.trunc(step)
+
+      if (step < 0) {
+        starValue = 0
+      } else if (step - Math.trunc(step) < 0.5) {
+        // 高亮一半个星星
+        starValue += 0.5
+      } else {
+        starValue += 1
+      }
+      this.params.eleBox.style.setProperty('--value', starValue)
+      return starValue
     }
   }
-  var star = new Star({level:7,name:'star',rate:"rate"})
+
+  var star = new Star({
+    level: 7,
+    name: 'star',
+    rate: "rate"
+  })
   star.starRender()
 </script>
 
