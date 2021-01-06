@@ -13,6 +13,8 @@ keywords: 正则表达式
 
 [聊聊JS DOM变化的监听检测与应用](https://www.zhangxinxu.com/wordpress/2019/08/js-dom-mutation-observer/)
 
+[你不知道的 DOM 变动观察器：Mutation observer](https://mp.weixin.qq.com/s/_ovaLe4-THWwfEU3-ZCBfQ)
+
 ```
 var dialogOpen = new MutationObserver(function(mutationList,observer){
   console.log('[observer]',observer)
@@ -91,3 +93,5 @@ console.log(proxy.time); // 设置 get 操作 // 35
 使用 defineProperty 和 proxy 的区别，当使用 defineProperty，我们修改原来的 obj 对象就可以触发拦截，而使用 proxy，就必须修改代理对象，即 Proxy 的实例才可以触发拦截。
 
 [ES6 系列之 defineProperty 与 proxy](https://juejin.cn/post/6844903710410162183)
+
+[Proxy 和 Reflect](https://juejin.cn/post/6844904090116292616)
