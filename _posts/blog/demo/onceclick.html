@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>单次点击事件  </title>
+	<style>
+    body{
+  user-select:none;
+
+    }
+    .button1{
+  animation: once .01s paused forwards;
+}
+.button1:hover:active{
+  animation-play-state:running;
+}
+@keyframes once {
+  to{
+    opacity:.8;
+  }
+}
+
+	</style>
+</head>
+<body>
+  <h3>单次点击</h3>
+  <h5>通过animationend实现</h5>
+  <button class="button button1" id="btn1" >按钮1</button>
+</body>
+<script>
+
+
+
+
+document.querySelectorAll('.button').forEach(function(el){
+  el.addEventListener('animationend',function(){
+    alert('我只能点一次')
+  })
+})
+
+</script>
+</html> 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>css 长按事件</title>
+	<style>
+	.button[disabled]{
+		pointer-events:none;
+		user-select:none;
+		color: graytext;
+	}
+	</style>
+</head>
+<body>
+	<h3>禁用</h3>
+	<h5>通过disabled</h5>
+	<button disabled onclick="alert(11)">按钮</button>
+	<h5>通过pointr-events:none</h5>
+	<button class="button" disabled onclick="alert(11)">按钮</button>
+	<h5>非表单元素</h5>
+	<a class="button" disabled onclick="alert(11)">按钮</a>
+</body>
+
+</html> 
