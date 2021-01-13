@@ -20,6 +20,8 @@ keywords: form 表单验证元素
 
 [:required 必选的时候样式](https://developer.mozilla.org/en-US/docs/Web/CSS/:required)
 
+[:focus-within 元素获得焦点，他的父元素发生变化](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:focus-within)
+
 
 ## form表单元素内置验证方法和属性
 

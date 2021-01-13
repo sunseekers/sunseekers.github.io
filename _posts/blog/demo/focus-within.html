@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>MutationObserver</title>
+</head>
+<style>
+div {
+  border: 1px solid;
+  color: gray;
+  padding: 4px;
+}
+
+div:focus-within {
+  background: #ff8;
+  color: black;
+}
+
+input {
+  margin: 4px;
+}
+</style>
+
+<body>
+  <p>试试在这个表单中输入点什么，聚焦在表单中，整个背景都会变色。</p>
+
+  <div>
+    <label for="given_name">Given Name:</label>
+    <input id="given_name" type="text">
+    <br>
+    <label for="family_name">Family Name:</label>
+    <input id="family_name" type="text">
+  </div>
+</body>
+<script>
+let button=document.querySelector(".button")
+let dialog=document.querySelector("dialog")
+let dialogButton=dialog.querySelector("button")
+
+dialog.setAttribute('tabindex', '-1');
+button.addEventListener('click',()=>{
+  dialog.open = !dialog.open
+  dialog.classList.add('x')
+})
+
+dialogButton.addEventListener("click",()=>{
+  dialog.open = !dialog.open
+})
+
+var dialogOpen = new MutationObserver(function(mutationList,observer){
+  console.log('[observer]',observer);
+  
+  mutationList.forEach(mutation=>{
+console.log('[mutation]',mutation.target);
+mutation.target.tabindex()
+  })
+  
+})
+dialogOpen.observe(dialog,{
+  attributes:true,
+  attributeFilter:['open','class']
+})
+
+dialog.tabindex=function(){
+  if(this.open){
+    this.focus()
+    console.log('[]',this);
+    
+  }
+}
+</script>
+
+</html>
