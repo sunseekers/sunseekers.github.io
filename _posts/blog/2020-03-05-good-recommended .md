@@ -88,6 +88,10 @@ keywords: 文章推荐
 [由浅入深，66条JavaScript面试知识点](https://juejin.im/post/5ef8377f6fb9a07e693a6061#heading-74)
 
 [0202年了, Chrome DevTools 你还只会console.log吗 ?](https://blog.csdn.net/qiwoo_weekly/article/details/104230957)
+
+[使用纯 CSS 实现滚动阴影效果](https://github.com/chokcoco/iCSS/issues/86)
+
+[CSS 技巧一则 -- 不定宽溢出文本适配滚动](https://github.com/chokcoco/iCSS/issues/81)
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
