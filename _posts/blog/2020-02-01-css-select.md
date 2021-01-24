@@ -8,14 +8,6 @@ keywords: 伪类
 
 # 背景
 第二次刷 《CSS 选择器世界》，二刷大概花了三个小时吧，翻开书的时候像新的一样。之前应该是快速浏览了，再次看收获很大。二刷是因为在工作中同事和我说了好几种css 选择器的写法，让我大开眼界了比如:`<input type="range" is="ui-range"/> ` 可以通过`[is=ui-range]` 这个选择器来选择这个元素，从而修改他的样式，再比如无效的css选择器和浏览器支持的选择器写在一起的时候，会导致整个样式失效。中间张老师还说了一句，是不是没看过我的 《CSS 选择器世界》 。没看过赶紧看看吧。其实我只是没有全部记住而已，我是看过的。所以我开始了二刷，去书中寻找答案
-## 伪元素和伪类的区别
-
-伪元素: 是为了创建一个新的DOM，但是不再DOM树里展示，通常是两个冒号`xx::before or xx:after`
-
-伪类: 是为了通过选择器找到那些不存在DOM树中的信息以及不能被常规CSS选择器获取到的信息比如:link、:visited、:first-child 等，这些信息不存在与DOM树结构中，只能通过CSS选择器来获取；
-
-
-通过伪类能够做很多事情不用借助`js`，比如列表搜索过滤效果，表单验证必选提醒，表单选中状态特殊的样式， 空列表的占位符。这些都不需要借助 `js` ，只要你的css基础好
 
 ## css 选择器
 ### css 选择器的优先级
@@ -33,7 +25,6 @@ keywords: 伪类
 
 当计算出来的优先级一样的时候，采取后来者居上的原则，记住css选择器的优先级只和上面描述的哪些东西有关系，和DOM元素层级位置没有关系
 
-
 ### css 选择器的命名
 这可真的是一个难题呀，每次命名的都是要想好久，在HTML中标签和属性是不区分大小写的，但是属性值是区分大小写的，相对于的在css选择器中也就是一样的，属性值选择器区分大小写，这个需要特别注意了
 
@@ -50,9 +41,19 @@ keywords: 伪类
 第一次写项目的时候张老师就和我说过一个这里做项目有一个不成文的规定，若是为js操作而存在的选择器前面加一个jsXXX，这个jsXXX只用作js逻辑处理，没有任何样式存在。这样别人一看就知道这是为js存在的选择器，里面没有任何样式。若是一个样式有css控制样式的功能又有js控制的逻辑，日后删除这个样式的时候就要小心了，这样反而不好，有点耦合。
 
 ## 选择器
-子选择器（>)只会匹配第一代子元素，后代选择器（空格）匹配所有的子元素，相邻兄弟选择器（+）匹配后面的一个兄弟，随后兄弟选择器（～）匹配后面所有的兄弟元素。但是我都不建议使用子类似这样的，因为元素的层级关系就被绑定了，日后的维护变的复杂，对DOM的层级有了要求，高度耦合在一起。为啥都只能选择后面的元素呢？因为DOM的渲染机制，如果有需要我们可以使用一些方法来实现`flex-direction:row-reverse` 调换元素的水平呈现顺序
+子选择器（>)只会匹配第一代子元素
 
-在css 项目中，最好不要直接把所有元素的默认样式都重置了，因为会引发别的问题。比如有一次我把表单元素默认的outline样式给设置没了，表面上是没有什么关系，但是无障碍访问失效了，本来tab聚焦的元素会高亮，因为我的reset重置不高亮了。无障碍访问失效了
+后代选择器（空格）匹配所有的子元素
+
+相邻兄弟选择器（+）匹配后面的一个兄弟
+
+随后兄弟选择器（～）匹配后面所有的兄弟元素
+
+但是我都不建议使用子类似这样的，因为元素的层级关系就被绑定了，日后的维护变的复杂，对DOM的层级有了要求，高度耦合在一起。
+
+为啥都只能选择后面的元素呢？因为DOM的渲染机制，如果有需要我们可以使用一些方法来实现`flex-direction:row-reverse` 调换元素的水平呈现顺序(DOM 的顺序没有改变，只是改变了，呈现效果，仅此而已)
+
+在css 项目中，最好不要直接把所有元素的默认样式都重置了，因为会引发别的问题。比如有一次我把表单元素默认的outline样式给设置没了，表面上是没有什么关系，但是无障碍访问失效了，本来tab聚焦的元素会高亮，因为我的reset重置不高亮了，无障碍访问失效了。还有一次我设置了*{box-sizing: border-box;}，结果老项目用到我的那个样式的时候全部失效了，查找原因原来是我的全局样式搞得鬼。所以不建议全部直接替换
 
 [attr^='val'],[attr$='val'][attr*='val']分别前匹配，后匹配，任意匹配
 
@@ -68,11 +69,16 @@ keywords: 伪类
 
 [:focus-within 元素获得焦点，他的父元素发生变化](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:focus-within)
 
-[:target URL 锚点和页面中的id匹配的元素进行锚时，页面的样式效果，浏览器默认的行为是滚动定位，同时进行进行这个伪类的匹配](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:target)，可以做一些展开收起的操作[:target伪类与显示全部文章内容实例页面](https://demo.cssworld.cn/selector/8/3-1.php#articleMore) ,[:target伪类实现选项卡切换效果实例页面](https://demo.cssworld.cn/selector/8/3-2.php#tabPanel1)
+
+[:target URL 锚点和页面中的id匹配的元素进行锚时，页面的样式效果，浏览器默认的行为是滚动定位，同时进行进行这个伪类的匹配](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:target)，可以做一些展开收起的操作
+
+[:target伪类与显示全部文章内容实例页面](https://demo.cssworld.cn/selector/8/3-1.php#articleMore) 
+
+[:target伪类实现选项卡切换效果实例页面](https://demo.cssworld.cn/selector/8/3-2.php#tabPanel1)
 
 ## 常用的选择器
 
-[:empty](https://developer.mozilla.org/en-US/docs/Web/CSS/:empty):伪类代表没有子元素的元素， 注释，空格都没法匹配,他们都属于子元素里面的一种
+[:empty](https://developer.mozilla.org/en-US/docs/Web/CSS/:empty):伪类代表没有子元素的元素， 有注释或者空格都没法匹配,他们都属于子元素里面的一种
 
 举个例子
 
@@ -83,6 +89,7 @@ keywords: 伪类
     height: 80px;
     width: 80px;
   }
+
 	// 对比 下面的会失效
   <div class="empty1">有内容</div>
 	.empty1:empty {
@@ -150,6 +157,9 @@ label {
 
 ![]({{ site.url }}/images/css/6.png)
 
+[label+input  实现纯css的弹窗的显示隐藏](https://codepen.io/qingchuang/pen/yLaWmXp)
+
+[label+input  实现纯css的弹窗的显示隐藏 左边缓慢出现](https://codepen.io/qingchuang/pen/yLaWmPv)
 
 [:default](https://developer.mozilla.org/en-US/docs/Web/CSS/:default)
 
@@ -182,9 +192,12 @@ label {
 [截图代码链接](https://github.com/sunseekers/vue-compontent)
 
 ## 伪元素和伪类的区别
-伪元素用于创建一些不在文档树中的元素，并为其添加样式。比如说，我们可以通过:before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。常见的伪元素有：::before，::after，::first-line，::first-letter，::selection、::placeholder等
 
-ul > li + li: >表示 ul 的直系后代,+ 表示当前元素的下一个兄弟元素（就是第一个元素不用某种样式）
+伪元素: 是为了创建一个新的DOM，但是不再DOM树里展示，通常是两个冒号`xx::before or xx::after`，可以通过:before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。常见的伪元素有：::before，::after
+
+伪类: 是为了通过选择器找到那些不存在DOM树中的信息(shadow DOM)以及不能被常规CSS选择器获取到的信息比如:link、:visited、:first-child 等，通过CSS选择器来获取；
+
+通过伪类能够做很多事情不用借助`js`，比如列表搜索过滤效果，表单验证必选提醒，表单选中状态特殊的样式， 空列表的占位符。这些都不需要借助 `js` ，只要你的css基础好
 
 ## 其他
 `input[type="radio"] 简写 [type="radio"]`,因为 `radio` 类型的单选款一定是 `input` 标签
@@ -194,8 +207,6 @@ ul > li + li: >表示 ul 的直系后代,+ 表示当前元素的下一个兄弟�
 不建议用 `span div` 模拟按钮 `ui` 效果，因为 `button` 原生支持表单提交，`enter` ，可以被键盘 `focus`
 
 通过用 `display` 或者 `visibility` 隐藏的元素没办法通过键盘让隐藏的元素控件通过 `:focus` 聚焦，我们可以使用 `opcity` 做到
-
-
 
 ## 总结
 亦如张老师说的：我们做技术的一定要保持理性，要有自己的思考，千万不要被迷惑，最适合的才是最好的
