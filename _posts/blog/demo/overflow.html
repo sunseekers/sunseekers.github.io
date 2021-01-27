@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>overflow:实现拖拽 手机版效果</title>
+    <style>
+        html,body{
+            margin: 0;
+        }
+        html,body,.dragbox{
+            height: 100%;
+            padding: 1rem;
+        }
+        .dragbox{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow: auto;
+            pointer-events: none;
+        }
+        .dragbox.active{
+            pointer-events: all;
+        }
+        .dragbox.active .ball{
+            background-color: darkorange;
+        }
+        .dragcon{
+            width: calc(200% - 90px);
+            height: calc(200% - 90px);
+            /* 通过背景颜色看父元素滚动 */
+            /* background: linear-gradient(red, yellow); */
+        }
+        .ball{
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-color: cornflowerblue;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: all;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>关于我们</h1>
+        <section>
+        阅文旗下囊括 QQ 阅读、起点中文网、新丽传媒等业界知名品牌，
+
+        拥有 1340 万部作品储备，890 万名创作者，覆盖 200 多种内容品类，触达数亿用户，
+
+        已成功输出包括《庆余年》《鬼吹灯》《盗墓笔记》《琅琊榜》《全职高手》《扶摇皇后》《将夜》在内的动画、影视、游戏等领域的 IP 改编代表作。
+        </section>
+        <hr/>
+        <h1>全版权运营</h1>
+        <section>
+            《芈月传》是蒋胜男的原创小说，电子版由阅文独家首发。小说进行了电视剧、游戏等多种形式的改编，一度掀起芈月热潮。
+        </section>
+        <br/>
+        <section>
+            《步步惊心》是作家桐华创作的穿越小说。同名改编的电视剧于2012年在湖南卫视上映并在中日韩同时热播，荣获2012年第七届首尔国际电视节最佳海外电视剧大奖，并于2016年再度翻拍成《步步惊心：丽》。
+        </section>
+        <br/>
+        <section>
+            《盗墓笔记》最初连载于起点中文网，是南派三叔成名代表作。2015年网剧开播首日点击破亿，开启了盗墓文学 IP 年。电影于2016年上映，由井柏然、鹿晗、马思纯等主演，累计票房10亿元。
+        </section>
+        <br/>
+        <section>
+            《鬼吹灯》是天下霸唱创作的经典悬疑盗墓小说，连载于起点中文网。先后进行过漫画、游戏、电影、网络电视剧的改编，均取得不俗的成绩，是当之无愧的超级IP。
+        </section>
+        <br/>
+        <section>
+            《武动乾坤》自2011年于起点中文网连载起，便常居起点热销榜前列，目前全网点击量达数十亿，积累了大量的读者粉丝。同名改编电视剧由阅文集团携手深蓝影业、优酷等联合出品，2018年在东方卫视周播剧场首播，并在优酷视频同步播出。
+        </section>
+        <br/>
+        <section>
+            作为阅文集团白金作家猫腻的经典作品之一，《庆余年》小说自2007年在起点中文网连载，持续保持历史类收藏榜前五位。改编剧集成为2019年现象级华语年度爆款IP，播出期间登上微博热搜百余次，腾讯视频、爱奇艺双平台总播放量突破130亿次，并荣获第26届白玉兰奖最佳编剧（改编）、最佳男配角两项大奖。
+        </section>
+        <h1>哈佛商学院将腾讯纳入案例，阅文IP孵化项目《庆余年》为重要研究课题之一</h1>
+        <section>2021年1月14日，《腾讯：科技与文化的融合》商业案例被哈佛商学院收录并正式进入商学院高管教育课程。该案例由哈佛商学院历时一年半撰写完成，系统阐释了腾讯新文创在数字文化内容生产方式、打造中国文化符号上的模式与实践。其中，由阅文集团旗下同名原创IP孵化的《庆余年》项目成为此次案例的重要研究课题之一。
+
+            腾讯集团副总裁、阅文集团首席执行官、腾讯影业首席执行官和腾讯动漫董事长程武表示：“非常荣幸腾讯新文创能入选哈佛商学院的课程案例。过去十年中，腾讯以科技+文化的独特定位，积极参与并推动构建了有中国特色的数字文化产业发展模式，希望对中国的创作者生态和文化创意产业发展贡献一份力量。构建一个符合时代的文化生产方式、打磨好的文化作品，是一个长线的、系统的工程，也是从文化维度追求实现科技向善的必经之路，希望中国新文创能为全球文化创意产业开启更多新的可能。”
+        </section>
+    </div>
+    <div class="dragbox" id="dragbox">
+        <div class="dragcon">
+            <div class="ball" id="ball"></div>
+        </div>
+    </div>
+    <script>
+        ball.addEventListener('touchstart',()=>{
+            dragbox.classList.add('active');
+        })
+        document.addEventListener('touchend',()=>{
+            dragbox.classList.remove('active');
+        })
+    </script>
+</body>
+</html>
