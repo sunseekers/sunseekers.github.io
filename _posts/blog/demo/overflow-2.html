@@ -1,5 +1,3 @@
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,9 +7,6 @@
         html,body{
             margin: 0;
         }
-        html,body,.dragbox{
-            height: 100%;
-        }
         .dragbox{
             position: fixed;
             width: 100%;
@@ -19,14 +14,21 @@
             left: 0;
             top: 0;
             overflow: auto;
+            /* pointer-events: none; */
+            /* overscroll-behavior: none; */
+            /* -webkit-overflow-scrolling:touch; */
+            
+            /* z-index: 2; */
+        }
+        .dragbox.move{
+            /* pointer-events: all; */
+            overflow: hidden;
             pointer-events: none;
-            -webkit-overflow-scrolling:touch;
+            /* -webkit-overflow-scrolling:touch; */
+            /* z-index: 100; */
         }
-       .active{
-            pointer-events: auto;
-        }
-        .active .ball{
-            background-color: darkorange;
+        .dragbox.move .ball{
+            /* background-color: darkorange; */
         }
         .dragcon{
             width: calc(200% - 50px);
@@ -48,6 +50,12 @@
     </style>
 </head>
 <body>
+    <div class="dragbox" id="dragbox">
+        <div class="dragcon">
+            <div class="ball" id="ball"></div>
+        </div>
+    </div>
+    <div id="text"></div>
     <p>
         三十年，苹果特斯拉们是如何干掉车钥匙的
 2021/1/26 19:49:36 来源：车东西 作者：James 责编：懒猫评论：13
@@ -190,25 +198,61 @@
 
 在 WWDC 的演讲中，苹果软件工程高级副总裁 Craig Federighi 表示，苹果加入了行业联盟——汽车通信联盟（CCC），正是这一联盟制定了 Digital Key Release 2.0 规范，能够让苹果和宝马达成车钥匙的合作。
     </p>
-    <div class="dragbox" id="dragbox">
-        <div class="dragcon">
-            <div class="ball" id="ball"></div>
-        </div>
-    </div>
+    
     <script>
-        let dragcon = document.querySelector('.dragcon')
-        ball.addEventListener('touchstart',(ev)=>{
-  
-            dragbox.classList.add('active');
+        document.addEventListener('touchstart',(ev)=>{
+            if ( !ball.contains(ev.target) ) {
+                dragbox.classList.add('move');
+            }
         })
-        ball.addEventListener('touchmouve',()=>{
-   
-            dragbox.classList.add('active');
+        document.addEventListener('touchmove',()=>{
+            if (window.is_start) {
+                // dragbox.classList.add('move');
+            }
         })
-        window.addEventListener('touchend',(event)=>{
-            // alert(888)
-            dragbox.classList.remove('active');
+        document.addEventListener('touchend',()=>{
+            // window.is_start = false;
+            dragbox.classList.remove('move');
         })
+        dragbox.scrollLeft = 50;
+        dragbox.scrollTop = 50;
     </script>
-</body>
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script></body>
 </html>
