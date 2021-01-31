@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>label+input  实现纯css的弹窗的显示隐藏 左边缓慢出现</title>
+	<style>
+        .dialog{
+            visibility: hidden;
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            left:0;
+            right:0;
+            bottom: 0;
+            top:0;
+            background-color: rgba(0,0,0,.5);
+            -webkit-overflow-scrolling: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    /* 这里是缓慢出现的关键点 */
+            transition: 5s;
+    transform: translateX(-100%);
+        }
+        .dialog-input:checked+.dialog{
+            visibility:visible;
+            transform: translateX(0);/* 这里是缓慢出现的关键点 */
+        }
+        .dialog-content{
+margin-bottom: 50px;
+background-color: #fff;
+        }
+.show-dialog,.hidden-dialog{
+    border: 1px red solid;
+    padding: 10px;
+    background-color: #fff;
+}
+</style>
+</head>
+<body>
+<input hidden id="dialog-input" type="checkbox" class="dialog-input">
+<div class="dialog">
+    <div class="dialog-content">我是一个弹窗</div>
+    <label for="dialog-input" class="hidden-dialog">点击关闭弹窗</label>
+</div>
+<label for="dialog-input" class="show-dialog">点击显示弹窗</label>
+
+</body>
+</html> 

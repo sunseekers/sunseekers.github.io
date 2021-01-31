@@ -25,6 +25,11 @@ keywords: 文章推荐
 
 [面对历史恩怨，如何跳出“冤冤相报”的轮回](https://mp.weixin.qq.com/s/j5NSKS2HgkUx0xd9-RwEJA)
 
+[一个草根前端人的焦虑](https://juejin.cn/post/6922456847765110798)
+
+[普通的程序员和大神级的程序员有什么区别？](https://www.zhihu.com/question/59351128/answer/834831006)
+
+[技术人员怎样提升对业务的理解](https://zhuanlan.zhihu.com/p/153205903)
 ## 总结
 
 冰冻三尺，非一日之寒。你想要什么，你就怎么做
