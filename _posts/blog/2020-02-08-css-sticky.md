@@ -1,7 +1,7 @@
 ---
 layout: post
 title: css position:sticky 粘性定位
-categories: [css]
+categories: [CSS]
 description: css 粘性定位
 keywords: css 粘性定位
 ---

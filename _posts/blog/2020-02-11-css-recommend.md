@@ -1,7 +1,7 @@
 ---
 layout: post
 title: css 系列文章推荐
-categories: [css]
+categories: [CSS]
 description: 发现，探索 css 优质文章
 keywords: css
 ---

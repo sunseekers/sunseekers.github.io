@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 在MDN中学到的css属性
-categories: [css]
+categories: [CSS]
 description: 发现，探索 web 优质文章
 keywords: css 
 ---

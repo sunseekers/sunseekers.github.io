@@ -1,7 +1,7 @@
 ---
 layout: post
 title: css 缓慢展开收起
-categories: [css]
+categories: [CSS]
 description: css 缓慢展开收起
 keywords: css 缓慢展开收起
 ---
