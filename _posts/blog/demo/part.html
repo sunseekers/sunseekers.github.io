@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用::part伪元素改变Shadow DOM的CSS样式</title>
+    <style>
+        [type="primary"]::part(button){
+            background-color:deeppink;
+        }
+    </style>
+</head>
+<body>
+    <p>参考使用::part伪元素改变Shadow DOM的CSS样式： https://www.zhangxinxu.com/wordpress/2021/02/css-part-shadow-dom/</p>
+    <ui-button title="按钮" >按钮</ui-button>
+    <ui-button title="按钮" type="primary">按钮</ui-button>
+</body>
+<script>
+    class UiButton extends HTMLElement {
+        constructor(){
+            super()
+        }
+        connectedCallback(){
+            let shadow = this.attachShadow({mode:"closed"})
+            shadow.innerHTML = `<style>
+                button{
+                    padding: 9px 1em;
+                    border: 1px #ccc solid;
+                    border-radius: 4px;
+                    color: #ccc;
+                    background-color: #fff;
+                }
+                </style>
+            <button part="button">${this.textContent}</button>
+            `
+        }
+    }
+    customElements.define("ui-button",UiButton)
+</script>
+</html>

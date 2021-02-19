@@ -9,7 +9,9 @@
         html,body{
             margin: 0;
         }
-
+        html,body,.dragbox{
+            height: 100%;
+        }
         .dragbox{
             position: fixed;
             width: 100%;
@@ -17,18 +19,20 @@
             left: 0;
             top: 0;
             overflow: auto;
-        }
-       .move{
-        overflow: hidden;
             pointer-events: none;
+            -webkit-overflow-scrolling:touch;
         }
-        .move .ball{
+       .active{
+            pointer-events: auto;
+        }
+        .active .ball{
             background-color: darkorange;
         }
         .dragcon{
             width: calc(200% - 50px);
             height: calc(200% - 50px);
             
+            /* background: linear-gradient(red, yellow); */
         }
         .ball{
             position: relative;
@@ -192,21 +196,18 @@
         </div>
     </div>
     <script>
-        let dragbox = document.querySelector('.dragbox')
-        let ball = document.querySelector('.ball')
-
-        document.addEventListener('touchstart',(ev)=>{
-            console.log('[]',ball.contains(ev.target));
-            // https://developer.mozilla.org/zh-CN/docs/Web/API/Node/contains
-            if(!ball.contains(ev.target)){
-                dragbox.classList.add('move');
-            }
+        let dragcon = document.querySelector('.dragcon')
+        ball.addEventListener('touchstart',(ev)=>{
+  
+            dragbox.classList.add('active');
+        })
+        ball.addEventListener('touchmouve',()=>{
+   
+            dragbox.classList.add('active');
         })
         document.addEventListener('touchend',(event)=>{
-            dragbox.classList.remove('move');
+            dragbox.classList.remove('active');
         })
-        dragbox.scrollLeft = 50;
-        dragbox.scrollTop = 50;
     </script>
 </body>
 </html>
