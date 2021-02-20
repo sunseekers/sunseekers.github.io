@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>直线等图形从中间穿过元素或文字的CSS实现</title>
+    <style>
+        .heart-through{
+            font-size: 100px;
+            position:relative;
+            transform-style:preserve-3d;
+            text-align:center;
+        }
+        .arrow{
+            position: absolute;
+            left: 1rem; right: 1rem; top: 0; bottom: 0;
+            height: 20px;
+            margin: auto;
+            background-color: currentColor;
+            clip-path: polygon(0 40%, calc(100% - 12px) 40%, calc(100% - 16px) 0%, 100% 50%, calc(100% - 16px) 100%, calc(100% - 12px) 60%, 0 60%); 
+        }
+        .heart{
+            display: inline-block;
+            transform: rotateY(-1deg);
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    直线等图形从中间穿过元素或文字的CSS实现 https://www.zhangxinxu.com/wordpress/2021/02/css-3d-through/
+    <div class="heart-through">
+        <i class="arrow"></i>
+        <span class="heart">❤️</span>
+    </div>
+</body>
+
+</html>
