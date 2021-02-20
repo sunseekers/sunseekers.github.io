@@ -45,7 +45,7 @@
 			// 通过form.formdata.get("xxx") 可以获取到属性值
 			form.formdata.forEach((value,key)=>{
 				if(!jsondata[key])
-				jsondata[key]= form.formdata.getAll.length>0?formdata.getAll(key) : formdata.get(key)
+				jsondata[key]= form.formdata.getAll.length>0?form.formdata.getAll(key) : formdata.get(key)
 				console.log(value,key)
 			})
 			// console.log(form.formdata.get("value"));

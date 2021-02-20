@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>获取Form表单的数据</title>
+</head>
+<body>
+    <form id="form" method="POST">
+        <input type="text" autocomplete="off" name="value" />
+        <section>
+            <input type="radio" name="A" value="A0">选择题0
+            <input type="radio" name="A" value="A1">选择题1
+            <input type="radio" name="A" value="A2">选择题2
+            <input type="radio" name="A" value="A3">选择题3
+        </section>
+        <section>
+            <input type="checkbox" name="B" value="B0">选择题0
+            <input type="checkbox" name="B" value="B1">选择题1
+            <input type="checkbox" name="B" value="B2">选择题2
+            <input type="checkbox" name="B" value="B3">选择题3
+        </section>
+            <button type="submit">提交</button>
+            <button type="reset">重置</button>
+    </form>
+</body>
+<script>
+	const form = document.querySelector('form')
+
+	// 设置 jsondata 的格式
+    Object.defineProperty(HTMLFormElement.prototype, 'jsondata', {
+    get() {
+        const jsondata = {}
+        const formdata = new FormData(this);
+        formdata.forEach((value, key) => {
+            if (!jsondata[key]) {
+                jsondata[key] = formdata.getAll(key).length > 1 ? formdata.getAll(key) : formdata.get(key);
+            }
+        });
+        return jsondata;
+    }
+})
+		
+	form.addEventListener("submit", (ev) => {
+			ev.preventDefault();
+			console.log('[jsondata的数据格式]',form.jsondata);
+	})
+
+</script>
+</html> 
