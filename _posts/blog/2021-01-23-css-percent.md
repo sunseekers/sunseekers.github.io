@@ -1,7 +1,7 @@
 ---
 layout: post
 title: css 实现环形百分比进度
-categories: [CSS]
+categories: [css]
 description: 发现，探索 web 优质文章
 keywords: 发现，探索 web 优质文章
 ---
