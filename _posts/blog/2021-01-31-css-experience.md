@@ -1,7 +1,7 @@
 ---
 layout: post
 title: css 用户体验优化
-categories: [css]
+categories: [CSS]
 description: 发现，探索 web 优质文章
 keywords: 发现，探索 web 优质文章
 ---
