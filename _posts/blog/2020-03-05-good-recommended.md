@@ -104,6 +104,9 @@ keywords: 文章推荐
 
 [直线等图形从中间穿过元素或文字的CSS实现](https://www.zhangxinxu.com/wordpress/2021/02/css-3d-through/)
 
+[如何设计产品的空白页面？](http://www.woshipm.com/pd/3742114.html)
+
+[前端优秀实践不完全指南](https://juejin.cn/post/6932647134944886797)
 ## 生活
 
 [“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
