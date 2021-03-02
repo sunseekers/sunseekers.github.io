@@ -146,6 +146,15 @@ console.log('true 是捕获事件');
 
 
 [EventTarget.dispatchEvent](https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/dispatchEvent):向一个指定的目标派发一个事件,  并以合适的顺序同步调用目标元素相关的事件处理函数。
+## addEventListener 其实支持第四个参数，可实现只点击一次事件
+
+```
+      var eleHistoryContent = document.querySelector("#JsHistoryContent")
+      eleHistoryContent.addEventListener('scroll',()=>{
+        console.log('发生滚动了');
+        // 如果只有第一次发生滚动监听就传人{once:true}，如果一直滚动一直监听，就去掉{once:true}
+      },{once:true})
+```
 
 ## new Event 和  new CustomEvent 的区别
 大概就是又没有可不可以传参数的区别吧
