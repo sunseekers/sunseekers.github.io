@@ -2,7 +2,7 @@
 
 我的个人博客：<https://sunseekers.github.io/>
 
-Fork自 图的<https://lihuimintu.github.io/> 
+Fork自 图的<https://github.com/mzlogin/mzlogin.github.io> 
 
 博客还在搭建期间，慢慢完善中
 
