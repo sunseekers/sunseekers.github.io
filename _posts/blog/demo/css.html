@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>css 练习</title>
+  <style>
+    div{
+      width: 100px;
+      height: 100px;
+      background-color: tan;
+      margin-top: 20px;
+    }
+    .box1{
+      box-shadow: 4px 0 2px -2px red;
+    }
+    .box2{
+      box-shadow: 4px 0 2px -2px red,-4px 0 2px -2px red;
+    }
+    .box3{
+      background:linear-gradient(-45deg,transparent 35px,#58a 0) right, linear-gradient(45deg,transparent 35px,#655 0) left;
+      background-size: 50% 100%;
+      background-repeat:no-repeat;
+      /* box-shadow: 0 0 4px red; 这里不用这个是因为他忽略了透明部分，给整个元素加上了阴影，但是我们想要的并非如此，所以使用filter滤镜是一个很不错的选择，filter会忽略到透明的部分 */
+      filter: drop-shadow(0 0 4px red);
+    }
+    .box4{
+      padding: 2em;
+      background:linear-gradient(to left bottom, transparent 50%, rgba(0,0,0,.4) 0) 100% 0 no-repeat,
+      linear-gradient(-135deg, transparent 1.5em, #58a 0);
+      background-size: 2em 2em ,auto;
+    }
+    .box5{
+      padding: .5em;
+      line-height: 1.5;
+      background-color: tan;
+      background-size:auto 3em ;
+      background-origin: content-box;
+      background-image: linear-gradient(rgba(0,0,0,0.2) 50%,transparent 0);
+    }
+    .box6 {
+      background-color: khaki;
+      padding: 1em;
+      margin: 50vh auto 0;
+      transform: translateY(-50%);
+    }
+    main{
+      display: flex;
+      min-height: 100vh;
+    }
+    .box7{
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="box6">
+    一屏的水平垂直居中，如果有滚动就失效了
+   </div>
+    <div class="box1">单侧投影</div>
+    <div class="box2">对侧投影</div>
+    <div class="box3">标签图像</div>
+    <div class="box4">折角的效果</div>
+    <div class="box5">
+      条纹背景，每一个条纹显示一行字，即实现一种单双行背景颜色不一样的效果。
+    </div>
+    <main>
+      <div class="box7">
+        一屏的水平垂直居中，如果有滚动就失效了,当我们使用Flexbox时，margin: auto不仅在水平方向上将元素居中，垂直方向上也是如此
+      </div>
+    </main>
+</body>
+<script>
+
+</script>
+</html> 
