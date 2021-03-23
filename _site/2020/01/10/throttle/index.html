@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title> 函数截流和防抖 &mdash; sunseekers</title><link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css" /><link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css" /><link rel="stylesheet" href="https://mazhuang.org/rouge-themes/dist/github.css" /><link rel="canonical" href="http://localhost:4000/2020/01/10/throttle/" /><link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml" /><link rel="shortcut icon" href="http://localhost:4000/favicon.ico" /><meta property="og:title" content="函数截流和防抖" /><meta name="keywords" content="web" /><meta name="og:keywords" content="web" /><meta name="description" content="如何从程序上避免用户的频繁操作？" /><meta name="og:description" content="如何从程序上避免用户的频繁操作？" /><meta property="og:url" content="http://localhost:4000/2020/01/10/throttle/" /><meta property="og:site_name" content="sunseekers" /><meta property="og:type" content="article" /><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2020-01-10" /> <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="http://localhost:4000/assets/js/jquery-ui.js"></script> <script src="http://localhost:4000/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1> <a href="http://localhost:4000/" title="sunseekers" ><span class="octicon octicon-mark-github"></span> sunseekers</a ></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();" > <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页" >首页</a > <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类" >分类</a > <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基" >维基</a > <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接" >链接</a > <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于" >关于</a ></nav></div></header><style> html.dark-mode, html.dark-mode img { filter: invert(1) hue-rotate(180deg); } html.dark-mode img { opacity: 0.85; } #darkContainer { position: fixed; bottom: 50px; left: 100px; display: flex; } #darkContainer .text { margin-right: 8px; } #darkContainer .switch-btn { user-select: none; display: inline-block; width: 50px; border: none; height: 25px; border-radius: 50px; background: rgba(0, 0, 0, 0.25); cursor: pointer; transition: all 0.2s; position: relative; outline: none; } #darkContainer .switch-btn.switch-btn-checked { background: #1890ff; } #darkContainer .switch-btn .switch-handle { height: 20px; width: 20px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 4px; transition: all 0.2s ease-in-out; } #darkContainer .switch-btn.switch-btn-checked .switch-handle { left: calc(100% - 22px); }</style><script> let isDarkMode = localStorage.getItem('isDarkMode'); if (isDarkMode === 'true') { document.firstElementChild.classList.add('dark-mode'); } </script> <script defer> const darkContainer = document.createElement('div'); darkContainer.id = 'darkContainer'; darkContainer.innerHTML = `<span class="text">深色模式</span>`; const btnEl = document.createElement('button'); btnEl.classList.add('switch-btn'); btnEl.innerHTML = `<div class="switch-handle"></div>`; if (isDarkMode === 'true') { btnEl.classList.add('switch-btn-checked'); } btnEl.addEventListener('click', (e) => { if (btnEl.classList.contains('switch-btn-checked')) { btnEl.classList.remove('switch-btn-checked'); document.firstElementChild.classList.remove('dark-mode'); localStorage.setItem('isDarkMode', 'false'); } else { btnEl.classList.add('switch-btn-checked'); document.firstElementChild.classList.add('dark-mode'); localStorage.setItem('isDarkMode', 'true'); } }); darkContainer.append(btnEl); document.body.appendChild(darkContainer); </script></body></html><section class="collection-head small geopattern" data-pattern-id="函数截流和防抖" ><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">函数截流和防抖</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2020/01/10 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="http://localhost:4000/categories/#功能实现" title="功能实现" >功能实现</a > </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 2344 字，约 7 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths"><article class="article-content markdown-body"><h1 id="如何从程序上避免用户的频繁操作">如何从程序上避免用户的频繁操作？</h1><p>通过函数防抖或者函数截流来实现，使用防抖还是截流，随你的需求而定</p><h2 id="函数执行频率对比">函数执行频率对比</h2><p><img src="http://localhost:4000/images/blog/throttle.png" alt="" /></p><h2 id="函数防抖">函数防抖</h2><p>当一个动作连续触发，或者频繁操作，而我们不需那么快的实时响应，只关注最后的结果。</p><p>比如：</p><ol><li><p>手机号、邮箱验证输入检测 =&gt; 可以在输入完成之后进行检验是否符合，没必要每一次输入都要检测，我们更加关心的是最后是否是符合规则</p></li><li><p>搜索框关键字搜索输入，不必要每输入一个字就发送一次请求，这样对服务器也不好，频繁请求。=&gt; 可以在用户最后一次输入完，再发送请求</p></li><li><p>窗口大小 <code class="language-plaintext highlighter-rouge">Resize</code> 大小变化的时候，网页大小自适应或者触发某一个事件 =&gt; 只需窗口调整完成后，计算窗口大小。防止重复渲染</p></li></ol><p>我上面说的两个例子都是，在一段时间内频繁的操作，而我们将多次执行的事件合并成一次事件执行。这就是防抖</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="wrapper" onclick='x()'&gt;点击&lt;/div&gt;
+
+// immediate 表示第一次点击是不是要执行,默认不执行
+function debounce(fn,wait=300,immediate=false){
+  let timeout = ''
+  return function (){
+  const argus = arguments
+  let context = this;
+//因为 clearTimeout(timeout)只会清除定时器的执行，并不会清除定时器返回的id
+  if(timeout) clearTimeout(timeout)
+  // 立即执行
+  if(immediate){
+    // 如果是已经执行过了，就不执行
+    let callNow = !timeout
+    // 执行过一次以后 timeout要赋值操作
+    timeout = setTimeout(function(){
+        timeout = null;// 如果没有清空timeout 会导致timeout一直有值，后面就不会在执行
+    }, wait)
+    if(callNow) fn.apply(context,argus)
+  }else{
+    timeout = setTimeout(()=&gt;{
+      fn.apply(context,argus)
+    },wait)
+   }
+  }
+}
+function handleClick(){
+  console.log('一直被点击');
+}
+let x=debounce(handleClick,500,true)
+</code></pre></div></div><p>只要 <code class="language-plaintext highlighter-rouge">setTimeout()</code> 被调用就会返回一个唯一的 <code class="language-plaintext highlighter-rouge">id</code> ，<code class="language-plaintext highlighter-rouge">clearTimeout</code> 这个唯一的 <code class="language-plaintext highlighter-rouge">id</code> 这个定时器也就被清除，当这个定时器 <code class="language-plaintext highlighter-rouge">id</code> 被删除的时候，这个定时器也就被清了。一旦定时器被清了，就是开始新的计时，也就实现了多次执行事件合并成一次事件执行</p><p><a href="https://github.com/mqyqingfeng/Blog/issues/22">JavaScript 专题之跟着 underscore 学防抖</a></p><h2 id="函数截流">函数截流</h2><p>当一个动作连续触发，或者频繁操作，而我们不希望看到密密麻麻，或者是快速跳动的东西(好比是定时器，一段时间内只执行一次操作)</p><p>比如：</p><p>滚动加载数据，滚动加载更多，滚动到底部，我们快速的滚动，但是我们希望看到数据是缓慢的加载，能够看到数据加载的一个过程，而不是飞快的数据出现在我们的面前</p><p>高频点击一个按钮出现消息提示，我们希望看到的是有间隔出现消息提示，而不是全部重叠再一起提醒</p><p>我上面说的两个例子都是，在一段时间内频繁的操作，但是函数事件执行频率被稀释了，间隔一段时间执行一次。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;body&gt;
+  &lt;div id='div'&gt;函数截流&lt;/div&gt;
+  &lt;script&gt;
+    const div = document.getElementById('div')
+    // 第一次执行的时候需要等到wait秒
+    const throttle = (func, wait) =&gt; {
+      let timer = null
+      return () =&gt; {
+        if (timer) return
+        timer = setTimeout(() =&gt; {
+          func()
+          timer = null // timer为空了，就会再一次执行到这里来
+        }, wait)
+      }
+    }
+
+    function show() {
+      console.log('函数截流')
+    }
+    const funthrottle = throttle(show, 1000)
+
+    div.addEventListener('click', () =&gt; {
+      funthrottle()
+    })
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre></div></div><p>使用时间戳的形式实现截流</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>funvtion throttle(fn wait){
+ previous = 0
+ return function (){
+   let context = this
+   let arugs = arguments
+   const now = +now Date()
+   if(now-previous &gt; wait){
+     fn.apply(context,argus)
+     previous = now
+   }
+ }
+}
+</code></pre></div></div><p><a href="https://github.com/mqyqingfeng/Blog/issues/26">JavaScript 专题之跟着 underscore 学节流</a></p><h2 id="加锁">加锁</h2><p>有这么一个场景：用户提交表单，用户注册，用户发布等等，如果服务端返回比较慢，用户一直停留在当前页面，避免不了的就有用户着急呀，就一直按提交数据按钮导致一直请求服务器，出现了大量重复的数据。</p><p>解决方案：加锁+节流 =&gt; x 秒内不允许提交</p><p>因为节流在第一次点击的时候需要等待 x 秒之后才会才会像服务器发起请求，显然这不是我们想要的，我们要的是，第一次点击的时候就像服务器发起请求，后面再次点击是用防抖还是截流看我们实际的生活场景了</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function throttle(func,delay=600){
+  let lock = false
+  return (...args)=&gt;{
+    if(lock) return
+    func(...args)
+    lock = true
+    setTimeout(()=&gt;lock=false,delay)
+  }
+}
+</code></pre></div></div><h2 id="参考文章">参考文章</h2><p><a href="https://www.jianshu.com/p/f9f6b637fd6c">浅析函数防抖与函数节流</a></p></article><div style="padding-top:20px;"><hr /><p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p><p>如果喜欢我的话，我们可以互相关注，相互学习的哟！互相鼓励，你的关注是我最大的动力来源</p><a href="https://github.com/sunseekers">sunseekers</a></div><div><div style="margin-top:2em;padding:0 1.5em;border:1px solid #d3d3d3;background-color:#deebf7"><h3>文档信息</h3><ul><li>本文作者：<a href="http://localhost:4000" target="_blank">sunseekers</a></li><li>本文链接：<a href="http://localhost:4000/2020/01/10/throttle/" target="_blank">http://localhost:4000/2020/01/10/throttle/</a></li><li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">创意共享3.0许可证</a>）</li></ul></div></div><div class="share"></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="http://localhost:4000/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2020/01/10/throttle/', clientID: '', clientSecret: '', repo: '', owner: '', admin: [''], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'http://localhost:4000/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 10, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="http://localhost:4000/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2016 <span title="sunseekers">sunseekers</span> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" >TOP</a></li></ul><a href="https://github.com/sunseekers/sunseekers.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="http://localhost:4000/" title="首页" target="">首页</a></li><li> <a href="http://localhost:4000/categories/" title="分类" target="">分类</a></li><li> <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a></li><li> <a href="http://localhost:4000/links/" title="链接" target="">链接</a></li><li> <a href="http://localhost:4000/about/" title="关于" target="">关于</a></li><li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="http://localhost:4000/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script></body></html>

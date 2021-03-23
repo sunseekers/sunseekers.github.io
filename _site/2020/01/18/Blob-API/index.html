@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title> Blob API &mdash; sunseekers</title><link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css" /><link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css" /><link rel="stylesheet" href="https://mazhuang.org/rouge-themes/dist/github.css" /><link rel="canonical" href="http://localhost:4000/2020/01/18/Blob-API/" /><link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml" /><link rel="shortcut icon" href="http://localhost:4000/favicon.ico" /><meta property="og:title" content="Blob API" /><meta name="keywords" content="Blob" /><meta name="og:keywords" content="Blob" /><meta name="description" content="关于 Blob" /><meta name="og:description" content="关于 Blob" /><meta property="og:url" content="http://localhost:4000/2020/01/18/Blob-API/" /><meta property="og:site_name" content="sunseekers" /><meta property="og:type" content="article" /><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2020-01-18" /> <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="http://localhost:4000/assets/js/jquery-ui.js"></script> <script src="http://localhost:4000/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1> <a href="http://localhost:4000/" title="sunseekers" ><span class="octicon octicon-mark-github"></span> sunseekers</a ></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();" > <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页" >首页</a > <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类" >分类</a > <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基" >维基</a > <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接" >链接</a > <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于" >关于</a ></nav></div></header><style> html.dark-mode, html.dark-mode img { filter: invert(1) hue-rotate(180deg); } html.dark-mode img { opacity: 0.85; } #darkContainer { position: fixed; bottom: 50px; left: 100px; display: flex; } #darkContainer .text { margin-right: 8px; } #darkContainer .switch-btn { user-select: none; display: inline-block; width: 50px; border: none; height: 25px; border-radius: 50px; background: rgba(0, 0, 0, 0.25); cursor: pointer; transition: all 0.2s; position: relative; outline: none; } #darkContainer .switch-btn.switch-btn-checked { background: #1890ff; } #darkContainer .switch-btn .switch-handle { height: 20px; width: 20px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 4px; transition: all 0.2s ease-in-out; } #darkContainer .switch-btn.switch-btn-checked .switch-handle { left: calc(100% - 22px); }</style><script> let isDarkMode = localStorage.getItem('isDarkMode'); if (isDarkMode === 'true') { document.firstElementChild.classList.add('dark-mode'); } </script> <script defer> const darkContainer = document.createElement('div'); darkContainer.id = 'darkContainer'; darkContainer.innerHTML = `<span class="text">深色模式</span>`; const btnEl = document.createElement('button'); btnEl.classList.add('switch-btn'); btnEl.innerHTML = `<div class="switch-handle"></div>`; if (isDarkMode === 'true') { btnEl.classList.add('switch-btn-checked'); } btnEl.addEventListener('click', (e) => { if (btnEl.classList.contains('switch-btn-checked')) { btnEl.classList.remove('switch-btn-checked'); document.firstElementChild.classList.remove('dark-mode'); localStorage.setItem('isDarkMode', 'false'); } else { btnEl.classList.add('switch-btn-checked'); document.firstElementChild.classList.add('dark-mode'); localStorage.setItem('isDarkMode', 'true'); } }); darkContainer.append(btnEl); document.body.appendChild(darkContainer); </script></body></html><section class="collection-head small geopattern" data-pattern-id="Blob API" ><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">Blob API</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2020/01/18 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="http://localhost:4000/categories/#JavaScript" title="JavaScript" >JavaScript</a > </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 2936 字，约 9 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths"><article class="article-content markdown-body"><h1 id="关于-blob">关于 <code class="language-plaintext highlighter-rouge">Blob</code></h1><p><code class="language-plaintext highlighter-rouge">Blob</code> 是什么？我是怎么知道它的？他有什么用？为啥要学习他？</p><p>他是二进制类型的大对象，在处理一些文本，图片的时候我知道了他。可以很方便的帮我处理很多文件类型的东西。学习他我可以知道很多我不知道的事情</p><h2 id="借用-blob-实现下载文件">借用 <code class="language-plaintext highlighter-rouge">Blob</code> 实现下载文件</h2><p>需求：点击一个按钮自动复制一段文本，并且把它下载到本地</p><p>嗯嗯，刚刚拿到这个需求的时候是有一点点懵逼的，是一种新的尝试。做完之后发现很简单，又 <code class="language-plaintext highlighter-rouge">get</code> 到了新的技能，特别开心。</p><p>实现方式： <code class="language-plaintext highlighter-rouge">Blob</code> ,<code class="language-plaintext highlighter-rouge">a</code></p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export default function Loginfo() {
+
+  let info = `
+name: sunseekers
+role: student
+houseName: shanghai
+url: https://github.com/sunseekers
+userAgent: ${navigator.userAgent}
+log:'这里是日志内容'
+  `.trim();// 这里用trim() 是为了消除第一行是一个换行
+
+  const funDownload = (content: string, filename: string) =&gt; {    // 创建隐藏的可***链接
+    const eleLink = document.createElement('a');
+    eleLink.download = filename;
+    eleLink.style.display = 'none';
+
+    const blob = new Blob([content]);
+    eleLink.href = URL.createObjectURL(blob);    // 字符内容转变成blob地址
+
+    document.body.appendChild(eleLink);
+    eleLink.click();    // 触发点击
+    document.body.removeChild(eleLink);// 然后移除
+
+    Message.success('日志下载成功')
+  };
+
+  const onCopyHandle = (copyText: any) =&gt; {
+    funDownload(info, 'logFiles.md');
+  }
+
+  return (
+    &lt;div className="copy"&gt;
+        &lt;buttom onClick={onCopyHandle}&gt; 复制文本 &lt;/bottom&gt;
+    &lt;/div&gt;
+  )
+}
+</code></pre></div></div><p>模板字符串中，空格、缩进、换行都会被保留，我们为了输出的日志好看一点，有换行有空格，就是用了模版字符串</p><p>代码实现就是这么简单，<code class="language-plaintext highlighter-rouge">a</code> 标签的 <code class="language-plaintext highlighter-rouge">download</code> 属性实现点击可下载， <code class="language-plaintext highlighter-rouge">href</code> 是下载的地址。</p><p>在计算里面所有的文件都是以二进制形成存储，文件读取以流的形式。<code class="language-plaintext highlighter-rouge">Blob</code> 能够满足，把一段内容变成文件类型对象（二进制）<code class="language-plaintext highlighter-rouge">URL.createObjectURL()</code> 创建一个 <code class="language-plaintext highlighter-rouge">url</code>，上下以结合就实现了，文件下载的功能</p><h2 id="blob-还能做什么"><code class="language-plaintext highlighter-rouge">Blob</code> 还能做什么？</h2><ol><li><p>文件下载地址(上面例子)</p></li><li><p>页面加载图片资源</p></li></ol><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Blob Test&lt;/title&gt;
+  &lt;script&gt;
+    function handleFile(e) {
+      var file = e.files[0]; // 获取上传 File 对象 的信息
+      var fileReader =
+        new FileReader(); // FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据
+      var img = document.getElementsByTagName('img')[0]
+      console.log('e', e.files[0]);
+
+      fileReader.onload = function (e) {
+        img.src = e.target.result;
+      } // 读取操作完成触发
+      fileReader.readAsDataURL(file); // 读取指定的 Blob 或 File 对象
+    }
+  &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;input type="file" accept="image/*" onchange="handleFile(this)" /&gt;
+  &lt;/br&gt;
+  &lt;img style="width:200px;height:200px;"&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre></div></div><ol><li>大文件，分块上传</li></ol><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function uploadFile(file){
+  const chunkSize = 1024 * 1024 // 每块上传文件的大小 1M
+  const totalSize = file.size
+  const chunkQuantity = Math.ceil(totalSize/chunkSize) // 分片总数
+  const offset = 0 // 偏移量
+
+  const reader = new FileReader()// 创建一个可读文件
+  reader.onload = (e)=&gt;{
+    const xhr = new XMLHttpRequest()
+    xhr.open("POST",url)
+    xhr.overrideMineType("application/octet-stream") // 重写由服务器返回的 MIME 类型
+
+    xhr.onreadstatechange = ()=&gt;{
+      if(xhr.readyState===4 &amp;&amp; xhr===200){
+        ++offset
+        if(offset===chunkQuantity){
+          alert("上传完成")
+        }else if(offset === chunckQuantity-1){
+          blob = file.slice(offset*chunkSize, totalSize);
+          reader.readAsBinaryString(blob);// 指定读取 blob 内容
+        }else {
+          blob = file.slice(offset*chunkSize, (offset+1)*chunckSize);
+          reader.readAsBinaryString(blob);
+        }
+       }else {
+        alert("上传出错")；
+      }
+      if(xhr.sendAsBinary) {
+      xhr.sendAsBinary(e.target.result); // 用来发送二进制数据，非标准方法
+    } else {
+      xhr.send(e.target.result);
+    }
+    }
+  }
+  const blob = file.slice(0, chunkSize);
+  reader.readAsBinaryString(blob);//  所有二进制数据
+}
+</code></pre></div></div><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader">FileReader</a></p><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/URL/createObjectURL">URL.createObjectURL()</a></p><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Blob/Blob">Blob()</a></p><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></p><p><a href="https://www.jianshu.com/p/b322c2d5d778">JS 中的 Blob 对象</a></p><p><a href="https://juejin.im/post/5e50fa23518825494b3cccd7#heading-10">前端下载文件的 5 种方法的对比</a></p><h2 id="node-的流"><code class="language-plaintext highlighter-rouge">node</code> 的流</h2><p>如果我们用 <code class="language-plaintext highlighter-rouge">node</code> 的 <code class="language-plaintext highlighter-rouge">fs</code> 的写文件流来实现是不是会更加简单呢？确实是的，看看代码：</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const fs = require('fs')
+const str = '这里是要复制的内容，复制到一个文本里面'
+const ws = fs.createWriteStream('1.log')
+ws.write(str)
+</code></pre></div></div></article><div style="padding-top:20px;"><hr /><p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p><p>如果喜欢我的话，我们可以互相关注，相互学习的哟！互相鼓励，你的关注是我最大的动力来源</p><a href="https://github.com/sunseekers">sunseekers</a></div><div><div style="margin-top:2em;padding:0 1.5em;border:1px solid #d3d3d3;background-color:#deebf7"><h3>文档信息</h3><ul><li>本文作者：<a href="http://localhost:4000" target="_blank">sunseekers</a></li><li>本文链接：<a href="http://localhost:4000/2020/01/18/Blob-API/" target="_blank">http://localhost:4000/2020/01/18/Blob-API/</a></li><li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">创意共享3.0许可证</a>）</li></ul></div></div><div class="share"></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="http://localhost:4000/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2020/01/18/Blob-API/', clientID: '', clientSecret: '', repo: '', owner: '', admin: [''], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'http://localhost:4000/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 10, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="http://localhost:4000/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2016 <span title="sunseekers">sunseekers</span> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" >TOP</a></li></ul><a href="https://github.com/sunseekers/sunseekers.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="http://localhost:4000/" title="首页" target="">首页</a></li><li> <a href="http://localhost:4000/categories/" title="分类" target="">分类</a></li><li> <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a></li><li> <a href="http://localhost:4000/links/" title="链接" target="">链接</a></li><li> <a href="http://localhost:4000/about/" title="关于" target="">关于</a></li><li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="http://localhost:4000/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script></body></html>

@@ -1,14 +1,17 @@
     <footer class="container">
+
+      {% include footer-ad.html %}
+
         <div class="site-footer" role="contentinfo">
             <div class="copyright left mobile-block">
-                    © 2018
+                    © {{ site.since_date }}
                     <span title="{{ site.author}}">{{ site.author }}</span>
-                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+                    <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" class="right mobile-visible">TOP</a>
             </div>
 
             <ul class="site-footer-links right mobile-hidden">
                 <li>
-                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                    <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" >TOP</a>
                 </li>
             </ul>
             <a href="{{ site.github.repository_url }}" target="_blank" aria-label="view source code">
@@ -23,47 +26,92 @@
                 <li><a href="{{ site.url }}{{ site.subscribe_rss }}"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
             </ul>
 
+          {% include visit-stat.html %}
+
         </div>
     </footer>
+    <div class="tools-wrapper">
+      <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a>
+    </div>
     <!-- / footer -->
-    <script src="{{ site.url }}/assets/vendor/share.js/dist/js/share.min.js"></script>
-    <script src="{{ site.url }}/assets/js/geopattern.js"></script>
-    <script src="{{ site.url }}/assets/js/prism.js"></script>
-    <link rel="stylesheet" href="{{ site.url }}/assets/css/globals/prism.css">
+    {% if site.components.share.enabled %}
+    <script src="{{ assets_base_url }}/assets/vendor/share.js/dist/js/share.min.js"></script>
+    {% endif %}
+    <script src="{{ assets_base_url }}/assets/js/geopattern.js"></script>
     <script>
       jQuery(document).ready(function($) {
-        // geopattern
         $('.geopattern').each(function(){
           $(this).geopattern($(this).data('pattern-id'));
         });
-       // hljs.initHighlightingOnLoad();
+       /* hljs.initHighlightingOnLoad(); */
       });
     </script>
 
     {% if page.mermaid %}
-    <script src="{{ site.url }}/assets/js/mermaid.min.js"></script>
+    <script src="{{ assets_base_url }}/assets/js/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     {% endif %}
 
     {% if page.sequence %}
-    <script src="{{ site.url }}/assets/js/webfont.js"></script>
-    <script src="{{ site.url }}/assets/js/snap.svg-min.js"></script>
-    <script src="{{ site.url }}/assets/js/underscore-min.js"></script>
-    <script src="{{ site.url }}/assets/vendor/js-sequence-diagrams/dist/sequence-diagram-min.js"></script>
-    <link rel="stylesheet" href="{{ site.url }}/assets/vendor/js-sequence-diagrams/dist/sequence-diagram-min.css">
+    <script src="{{ assets_base_url }}/assets/js/webfont.js"></script>
+    <script src="{{ assets_base_url }}/assets/js/snap.svg-min.js"></script>
+    <script src="{{ assets_base_url }}/assets/js/underscore-min.js"></script>
+    <script src="{{ assets_base_url }}/assets/vendor/js-sequence-diagrams/dist/sequence-diagram-min.js"></script>
+    <link rel="stylesheet" href="{{ assets_base_url }}/assets/vendor/js-sequence-diagrams/dist/sequence-diagram-min.css">
     <script>
       $(".language-sequence").sequenceDiagram({theme: 'simple'});
     </script>
     {% endif %}
 
     {% if page.flow %}
-    <script src="{{ site.url }}/assets/js/raphael.min.js"></script>
-    <script src="{{ site.url }}/assets/vendor/flowchart.js/dist/flowchart.min.js"></script>
-    <script src="{{ site.url }}/assets/js/flow.js"></script>
+    <script src="{{ assets_base_url }}/assets/js/raphael.min.js"></script>
+    <script src="{{ assets_base_url }}/assets/vendor/flowchart.js/dist/flowchart.min.js"></script>
+    <script src="{{ assets_base_url }}/assets/js/flow.js"></script>
     {% endif %}
 
     {% if page.mathjax %}
-    <script type="text/javascript" src="https://basis-learning.github.io/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mathjax/MathJax@2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    {% endif %}
+
+    {% if page.mindmap %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/kityminder-core@dev/dist/kityminder.core.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mzlogin/kity@dev/dist/kity.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mzlogin/kityminder-core@dev/dist/kityminder.core.min.js"></script>
+    <script>
+$(document).ready(function(){
+  $('.language-mindmap').each(function(index, element) {
+    var markdownText = element.textContent.trim();
+    var parentNode = element.parentNode.parentNode;
+    var nodeName = '.language-mindmap-' + index;
+    var node = document.createElement("div");
+    node.className = 'language-mindmap-' + index;
+    node.style.height = '' + $(element).height() + 'px';
+    parentNode.insertBefore(node, element.parentNode);
+    var minder = new kityminder.Minder({
+      renderTo: nodeName
+    });
+    minder.importData('markdown', markdownText);
+    /* minder.disable(); */
+    minder.execCommand('hand');
+
+    var viewerTipNode = document.createElement("a");
+    viewerTipNode.setAttribute('href', '{{ site.url }}/mindmap-viewer/?data=' + encodeURIComponent(markdownText));
+    viewerTipNode.setAttribute('target', '_blank');
+    viewerTipNode.setAttribute('style', 'font-size:0.8rem;font-style:italic;font-color:grey;');
+    viewerTipNode.innerText = '全屏查看';
+    parentNode.insertBefore(viewerTipNode, element.parentNode);
+
+    element.parentNode.style.display = 'none';
+
+    {% if page.mindmap-template %}
+    setTimeout(function() {
+      minder.setTemplate('{{ page.mindmap-template }}');
+      minder.refresh();
+    }, 100);
+    {% endif %}
+  });
+});
+    </script>
     {% endif %}
 
     {% if site.google.analytics_id %}

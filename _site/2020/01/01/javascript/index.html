@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title> JavaScript 零碎知识点 &mdash; sunseekers</title><link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css" /><link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css" /><link rel="stylesheet" href="https://mazhuang.org/rouge-themes/dist/github.css" /><link rel="canonical" href="http://localhost:4000/2020/01/01/javascript/" /><link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml" /><link rel="shortcut icon" href="http://localhost:4000/favicon.ico" /><meta property="og:title" content="JavaScript 零碎知识点" /><meta name="keywords" content="JavaScript" /><meta name="og:keywords" content="JavaScript" /><meta name="description" content="JavaScript 基础知识" /><meta name="og:description" content="JavaScript 基础知识" /><meta property="og:url" content="http://localhost:4000/2020/01/01/javascript/" /><meta property="og:site_name" content="sunseekers" /><meta property="og:type" content="article" /><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2020-01-01" /> <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="http://localhost:4000/assets/js/jquery-ui.js"></script> <script src="http://localhost:4000/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1> <a href="http://localhost:4000/" title="sunseekers" ><span class="octicon octicon-mark-github"></span> sunseekers</a ></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();" > <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页" >首页</a > <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类" >分类</a > <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基" >维基</a > <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接" >链接</a > <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于" >关于</a ></nav></div></header><style> html.dark-mode, html.dark-mode img { filter: invert(1) hue-rotate(180deg); } html.dark-mode img { opacity: 0.85; } #darkContainer { position: fixed; bottom: 50px; left: 100px; display: flex; } #darkContainer .text { margin-right: 8px; } #darkContainer .switch-btn { user-select: none; display: inline-block; width: 50px; border: none; height: 25px; border-radius: 50px; background: rgba(0, 0, 0, 0.25); cursor: pointer; transition: all 0.2s; position: relative; outline: none; } #darkContainer .switch-btn.switch-btn-checked { background: #1890ff; } #darkContainer .switch-btn .switch-handle { height: 20px; width: 20px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 4px; transition: all 0.2s ease-in-out; } #darkContainer .switch-btn.switch-btn-checked .switch-handle { left: calc(100% - 22px); }</style><script> let isDarkMode = localStorage.getItem('isDarkMode'); if (isDarkMode === 'true') { document.firstElementChild.classList.add('dark-mode'); } </script> <script defer> const darkContainer = document.createElement('div'); darkContainer.id = 'darkContainer'; darkContainer.innerHTML = `<span class="text">深色模式</span>`; const btnEl = document.createElement('button'); btnEl.classList.add('switch-btn'); btnEl.innerHTML = `<div class="switch-handle"></div>`; if (isDarkMode === 'true') { btnEl.classList.add('switch-btn-checked'); } btnEl.addEventListener('click', (e) => { if (btnEl.classList.contains('switch-btn-checked')) { btnEl.classList.remove('switch-btn-checked'); document.firstElementChild.classList.remove('dark-mode'); localStorage.setItem('isDarkMode', 'false'); } else { btnEl.classList.add('switch-btn-checked'); document.firstElementChild.classList.add('dark-mode'); localStorage.setItem('isDarkMode', 'true'); } }); darkContainer.append(btnEl); document.body.appendChild(darkContainer); </script></body></html><section class="collection-head small geopattern" data-pattern-id="JavaScript 零碎知识" ><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">JavaScript 零碎知识点</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2020/01/01 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="http://localhost:4000/categories/#JavaScript" title="JavaScript" >JavaScript</a > </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 6769 字，约 20 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths"><article class="article-content markdown-body"><h1 id="javascript-基础知识">JavaScript 基础知识</h1><p>记录一些我不熟悉的 JavaScript 概念，帮助后面整理前端知识技能图谱</p><h2 id="伪数组是怎么定义的">伪数组是怎么定义的</h2><p>含有 length 属性的对象(但是有一个问题，这种length属性不是动态值，不会随着成员的变化而变化。)，这个对象就很像数组，语法上称为“类似数组的对象”（array-like object）它并不具有数组的一些方法，只能能通过 Array.prototype.slice 转换为真正的数组</p><p>例如： var obj = {0:’a’,1:’b’,name:’sunskkers’,length:8}; // 伪数组,有length属性，可以用Array.from()转化为一个长度是8的数组</p><p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/96">第 55 题：某公司 1 到 12 月份的销售额存在一个对象里面，如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]</a></p><p><code class="language-plaintext highlighter-rouge">Array.from({length:12},(it,index)=&gt;obj[index+1]||null)</code></p><p>Array.from() 方法有一个可选参数 mapFn，让你可以在最后生成的数组上再执行一次 map 方法后再返回。也就是说 Array.from(obj, mapFn, thisArg) 就相当于 Array.from(obj).map(mapFn, thisArg), 除非创建的不是可用的中间数组。</p><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from">Array.from()</a></p><p>Javascript 中所有的数字，无论整数还是小数，均为 Number 类型（实质是一个64位的浮点数</p><p>\u 约定是用来指定数字字符编码</p><p>return break 关键字表达式标签之间是不允许换行的，换行之后不会被解析</p><h2 id="运算符的优先级">运算符的优先级</h2><p>越在上面的优先级越高</p><p>. [] () =&gt; 提取属性与函数调用</p><p>delete new typeof ！=&gt; 一元运算符</p><ul><li><p>/ % =&gt; 乘 除 取模</p></li><li><ul><li>=&gt;<blockquote><p>= &lt;= &gt; &lt; =&gt; 不等式运算</p></blockquote></li></ul></li></ul><p>=== !== =&gt; 等式运算</p><p>&amp;&amp;</p><table><tbody><tr><td> </td><td>=&gt; 在es6 里面可以用于默认填充</td></tr></tbody></table><p>?:</p><p>. 的优先级高于 = ，举个例子</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var a = {n: 1};
+var b = a;
+a.x = a = {n: 2};
+
+console.log(a.x)
+console.log(b.x)
+</code></pre></div></div><p>之前看到过这样的问题，绕了半天，勉强理解了，一段时间之后就忘了。直到看到有朋友解释：”.的优先级比=要高，所以这里首先执行 a.x，相当于为 a（或者 b）所指向的{n:1}对象新增了一个属性 x，即此时对象将变为{n:1;x:undefined}。之后按正常情况，从右到左进行赋值，此时执行 a ={n:2}的时候，a 的引用改变，指向了新对象{n：2},而 b 依然指向的是旧对象”。 我才恍然大悟。原来我的问题在我忽略了 <em>. 的优先级高于 =</em>，然后才一直不理解</p><p><code class="language-plaintext highlighter-rouge">in</code> 运算符 如果指定的属性在指定的对象或其原型链中，则 in 运算符返回true （属性和对象的关系）</p><p><code class="language-plaintext highlighter-rouge">instaceof</code> 运算符，判断实例是不是有构造函数构建出来的（实例是否在原型对象/原型链上面，实例和对象的关系）</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const car = { make: 'Honda', model: 'Accord', year: 1998 };
+
+console.log('make' in car);
+// expected output: true
+
+delete car.make;
+if ('make' in car === false) {
+  car.make = 'Suzuki';
+}
+
+console.log(car.make);
+// expected output: "Suzuki"
+</code></pre></div></div><p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/93">原文地址</a></p><h2 id="装箱拆箱操作">装箱/拆箱操作</h2><p>. 运算符提供了装箱操作，它会根据基础类型构造一个临时对象，使得我们能在基础类型上调用对应对象的方法，所以我们在基础类型上面也能操作调用类的方法</p><p>a.x 或者 a[‘x’]中“.”和“[]”操作符是专门获取引用类型属性的值操作。然而在 JS 中基本类型变量也是可以使用“点”的，这给初学者造成一定困惑，比如</p><p>var a = 1; a.x = 2; console.log(a);// 1 console.log(a.x);// undefined 其实，上述代码运行过程中发生了所谓的“装箱操作”</p><p>一些对性能要求较高的场景下，我们应该尽量避免对基本类型做装箱操作，耗时。非十进制的数字和字符串转换也会有各种问题</p><p>拆箱转换</p><p>在 <code class="language-plaintext highlighter-rouge">JavaScript</code> 标准中，规定了 <code class="language-plaintext highlighter-rouge">toPrimitive</code> 函数，他是对象类型到基本类型的转换（拆箱转换）</p><p>拆箱转换会尝试调用 <code class="language-plaintext highlighter-rouge">valueof</code> 和 <code class="language-plaintext highlighter-rouge">toString</code> 来获得拆箱后的基本类型，如果<code class="language-plaintext highlighter-rouge">valueOf</code>和<code class="language-plaintext highlighter-rouge">toString</code> 都不存在或者没有返回基本类型，就会产生类型错误</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var o = {
+    valueOf:()=&gt;{console.log("valueof");return {}},
+    toString:()=&gt;{console.log("toString");return {}}
+
+}
+o*2
+// valueof
+// toString
+//Uncaught TypeError: Cannot convert object to primitive value
+    at &lt;anonymous&gt;:6:2
+
+
+String(o)
+// toString
+// valueof
+//Uncaught TypeError: Cannot convert object to primitive value
+    at &lt;anonymous&gt;:6:2
+</code></pre></div></div><p>在有运算操作符的情况下，valueOf 的优先级高于 toString,一般情况下对象的使用都是优先调用 toString 方法</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let e2 = {
+        n : 2,
+        toString : function (){
+            console.log('this is toString')
+            return this.n
+        },
+        valueOf : function(){
+            console.log('this is valueOf')
+            return this.n*2
+        }
+    }
+    alert(e2) //  2  this is toString
+    alert(+e2) // 4 this is valueOf
+</code></pre></div></div><p>toString()不可以转换null 和 undefined，因为null 和 undefined 没有自己的包装对象，不能访问对象的toString() 方法，包装对象的属性引用结束，这个新创建的临时对象就会被销毁了</p><h2 id="script-标签">script 标签</h2><p><code class="language-plaintext highlighter-rouge">script</code> 标签存在两个属性 <code class="language-plaintext highlighter-rouge">defer</code> 和 <code class="language-plaintext highlighter-rouge">async</code> ，都是不堵塞后续文档的执行，我们在使用他的时候就分了三种情况</p><ol><li><p><code class="language-plaintext highlighter-rouge">&lt;script src="example.js"&gt;&lt;/script&gt;</code> 没有 <code class="language-plaintext highlighter-rouge">defer</code> 或 <code class="language-plaintext highlighter-rouge">async</code> 属性，浏览器会立即加载并执行相应的脚本。也就是说在渲染 <code class="language-plaintext highlighter-rouge">script</code> 标签之后的文档之前，不等待后续加载的文档元素，读到就开始加载和执行，此举会阻塞后续文档的加载；</p></li><li><p><code class="language-plaintext highlighter-rouge">&lt;script async src="example.js"&gt;&lt;/script&gt;</code></p></li></ol><p>有了 <code class="language-plaintext highlighter-rouge">async</code> 属性，表示后续文档的加载和渲染与 <code class="language-plaintext highlighter-rouge">js</code> 脚本的加载和执行是并行进行的，即异步执行；</p><ol><li><code class="language-plaintext highlighter-rouge">&lt;script defer src="example.js"&gt;&lt;/script&gt;</code></li></ol><p>有了 <code class="language-plaintext highlighter-rouge">defer</code> 属性，加载后续文档的过程和 <code class="language-plaintext highlighter-rouge">js</code> 脚本的加载(此时仅加载不执行)是并行进行的(异步)，<code class="language-plaintext highlighter-rouge">js</code> 脚本的执行需要等到文档所有元素解析完成之后，<code class="language-plaintext highlighter-rouge">DOMContentLoaded</code> 事件触发执行之前。</p><h2 id="执行上下文">执行上下文</h2><p>实际上变量和函数声明在代码里的位置是不会改变的，而是在编译阶段被 <code class="language-plaintext highlighter-rouge">javaScript</code> 引擎放入内存中</p><p>简单说一段 <code class="language-plaintext highlighter-rouge">javaScript</code> 代码可以被分为编译阶段和执行阶段；在编译阶段又可以分为变量提升部分代码（执行上下文）和执行部分代码</p><p><img src="../../images/blog/3.png" alt="" /></p><p>执行上下文是 <code class="language-plaintext highlighter-rouge">javaScript</code> 执行一段代码时的环境，在执行上下文本中存在一个变量环境的对象（保存变量提升的内容），完了之后<code class="language-plaintext highlighter-rouge">javaScript</code> 引擎开始执行可执行代码，一行一行的执行，执行的过程中先在变量环境中查找，找到就输出，找不到就输出 <code class="language-plaintext highlighter-rouge">undefined</code> 或者报错</p><p>所以说 <code class="language-plaintext highlighter-rouge">javaScript</code> 代码在执行前需要先编译，在编译阶段会出现变量提升</p><p>注意了： 函数内部通过 <code class="language-plaintext highlighter-rouge">var</code> 声明的变量，在编译阶段都被放到了变量环境里面了 通过 <code class="language-plaintext highlighter-rouge">let</code> 声明的变量，在编译阶段会被存放到词法环境中 在函数的作用域内部，通过 <code class="language-plaintext highlighter-rouge">let</code> 声明的变量会被存放到词法环境的一个单独区域中，这个区域中的变量并不影响作用域外面的变量</p><p><code class="language-plaintext highlighter-rouge">class</code> 设计成了默认按 <code class="language-plaintext highlighter-rouge">strict</code> 模式执行。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var a = 1;
+function fn(m) { console.log('fn'); }
+function fn(m) { console.log('new_fn'); }
+function a() { console.log('fn_a'); }
+console.log(a);
+fn(1);
+var fn = 'var_fn';
+console.log(fn);
+// 真正执行
+// 创建阶段
+function fn(m) { console.log('fn'); }
+function fn(m) { console.log('new_fn'); }
+function a() { console.log('fn_a'); }
+var a = undefined;
+var fn = undefined;
+//执行阶段
+a = 1;
+console.log(a);
+fn();
+fn = 'var_fn';
+console.log(fn);
+</code></pre></div></div><h2 id="作用域链">作用域链</h2><p>每一个执行上下文的变量环境中都包含了一个外部引用，用来指向外部的执行上下文（<code class="language-plaintext highlighter-rouge">outer</code>）,如果一段代码使用了一个变量，<code class="language-plaintext highlighter-rouge">javaScript</code> 引擎首先会在“ 当前的执行上下文”中查找该变量，没有找到再继续在 <code class="language-plaintext highlighter-rouge">outer</code> 所指向的执行上下文中查找</p><p>词法作用域就是指作用域是由代码在函数声明的位置来决定，所以词法作用域是静态作用域，通过它能够预测代码在执行过程中如何查找标识（词法作用域，根据代码位置来决定的）</p><p>闭包：如果该闭包会一直使用，那么他可以作为全局变量而存在，如果使用频率不高，而且占用内存又比较大的话，那么就尽量让他成为一个局部变量</p><p>通过作用域查找变量的链条称为作用域链，作用域链是通过词法作用域来确定的，而词法作用域反映了代码的结构</p><p>作用域链和 <code class="language-plaintext highlighter-rouge">this</code> 是两套不同的系统，她们之间基本没有太多联系；<code class="language-plaintext highlighter-rouge">this</code> 是和执行上下文绑定的</p><p><img src="../../images/blog/4.png" alt="" /></p><p><code class="language-plaintext highlighter-rouge">javaScript</code> 是动态语言，因为在声明变量之前并不需要确认其数据类型，也是弱类型语言，因为支持隐式类型转化</p><h2 id="javascript-内存空间"><code class="language-plaintext highlighter-rouge">javaScript</code> 内存空间</h2><p><code class="language-plaintext highlighter-rouge">javaScript</code> 在执行过程中，主要有三种类型内存空间，代码空间，栈空间，堆空间；</p><blockquote><ol><li>代码空间： 存储可执行代码的空间</li></ol></blockquote><blockquote><ol><li>栈空间：存放原始类型的数据</li></ol></blockquote><blockquote><ol><li>堆空间： 存放引用类型的数据</li></ol></blockquote><p>为什么要有栈空间和堆空间？ 因为 <code class="language-plaintext highlighter-rouge">javaScript</code> 引擎需要用栈来维护程序执行期间的上下文状态，如果栈空间大了的话，所有数据都放在栈空间里面，那么会影响到上下文切换效率，从而影响整个程序的执行效率。所以栈空间都不会设置太大，主要用来放一些原始类型的小数据。er 引用类型的数据占用的空间都比较大，所以会被放到堆中。</p><p>原始类型的赋值会完整的复制变量值，而引用类型的赋值是复制引用地址。闭包是存储在堆内存中的</p><p>原始数据类型：直接存储在栈（stack）中，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储。（null ,undefined,boolean,number,string,symbol(es6),BigInt(BigInt 是一种内置对象，它提供了一种方法来表示大于 2^53 - 1 的整数。这原本是 Javascript中可以用 Number 表示的最大数字</p><p>引用数据类型：同时存储在栈（stack）和堆（heap）中，占据空间大、大小不固定。引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。Object（Object本质上是由一组无序的名值对组成的）。里面包含 function、Array、Date等</p><p>因为引用类型在离开当前作用域之前，是存在内存中的，而包装类型的对象，只存在代码执行期间,执行完立即被销毁。所以，我们不能在运行时为基本类型的数据添加属性和方法。</p><h2 id="编译器和解释器">编译器和解释器</h2><p>之所以存在是因为机器不能直接理解我们所写的代码，所以在执行程序之前，需要将我们所写的代码翻译成机器能读懂的机器语言，按照语言的执行流程可以划分为编译型语言和解释型语言。编译型语言：需要经过编译器的编译过程，编译后直接保留机器能够读懂的二进制文件；解释型语言：每一次运行都需要通过解释器对程序进行动态解释和执行</p><p><img src="../../images/blog/5.png" alt="" /></p><h2 id="迭代器">迭代器</h2><p>模拟迭代器</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function createIterator(items) {
+    var i = 0;
+    return {
+        next: function() {
+            var done = i &gt;= item.length;
+            var value = !done ? items[i++] : undefined;
+
+            return {
+                done: done,
+                value: value
+            };
+        }
+    };
+}
+</code></pre></div></div><p>在 set 和 map 中使用迭代器默认返回的东西</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var colors = new Set(["red", "green", "blue"]);
+
+for (let index of colors.keys()) {
+    console.log(index);
+}
+
+// red
+// green
+// blue
+
+for (let color of colors.values()) {
+    console.log(color);
+}
+
+// red
+// green
+// blue
+
+for (let item of colors.entries()) {
+    console.log(item);
+}
+
+// [ "red", "red" ]
+// [ "green", "green" ]
+// [ "blue", "blue" ]
+</code></pre></div></div><p>Set 类型的 keys() 和 values() 返回的是相同的迭代器，这也意味着在 Set 这种数据结构中键名与键值相同。( keys()、values()、entries() 返回的是遍历器)</p><p>数组和 Set 集合的默认迭代器是 values() 方法，Map 集合的默认迭代器是 entries() 方法。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const values = new Map([["key1", "value1"], ["key2", "value2"]]);
+for (let value of values) {
+    console.log(value);
+}
+
+// ["key1", "value1"]
+// ["key2", "value2"]
+</code></pre></div></div><p>遍历 Map 数据结构的时候可以顺便结合解构赋值：</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const valuess = new Map([["key1", "value1"], ["key2", "value2"]]);
+
+for (let [key, value] of valuess) {
+    console.log(key + ":" + value);
+}
+
+// key1:value1
+// key2:value2
+</code></pre></div></div><p><a href="https://github.com/mqyqingfeng/Blog/issues/90">ES6 系列之迭代器与 for of</a></p><h2 id="javascript">JavaScript</h2><p>在 <code class="language-plaintext highlighter-rouge">JavaScript</code> 中，没有任何方法可以更改私有的<code class="language-plaintext highlighter-rouge">class</code> 属性，因此 <code class="language-plaintext highlighter-rouge">Object.prototype.toString()</code>是可以准确识别对象对应的基本类型的方法，比 <code class="language-plaintext highlighter-rouge">instanceof</code> 更加准确</p><p>在 <code class="language-plaintext highlighter-rouge">javascript</code> 中对象独有的特色是：对象具有高度的动态性，这是因为 <code class="language-plaintext highlighter-rouge">JavaScript</code> 赋予了使用者在运行时为对象添加状态和行为的能力</p><p>对 <code class="language-plaintext highlighter-rouge">javascript</code> 对象来说，属性并非只有简单的名称和值，<code class="language-plaintext highlighter-rouge">JavaScript</code> 用一组特征来描述属性，数据属性，<code class="language-plaintext highlighter-rouge">value</code>，<code class="language-plaintext highlighter-rouge">writable</code>，<code class="language-plaintext highlighter-rouge">enumerable</code>，<code class="language-plaintext highlighter-rouge">configurable</code> 访问器属性 <code class="language-plaintext highlighter-rouge">getter</code>，<code class="language-plaintext highlighter-rouge">setter</code>，<code class="language-plaintext highlighter-rouge">enumber</code>，<code class="language-plaintext highlighter-rouge">configurable</code>。定义属性的时候产生数据属性，代码执行的时候（访问器属性使得属性在读写时执行代码，视为函数的语法糖）（每一次访问属性都会执行 <code class="language-plaintext highlighter-rouge">getter</code> 和 <code class="language-plaintext highlighter-rouge">setter</code> 函数）。</p><p>对象是一个属性的索引结构（可以以比较快速用 <code class="language-plaintext highlighter-rouge">key</code> 来查找 <code class="language-plaintext highlighter-rouge">value</code> 的字典）</p><p><code class="language-plaintext highlighter-rouge">Javascript</code> 原型系统的复制操作实现思路： 一个并不真的去复制一个原型对象，而是使的新对象持有一个原型的引用</p><p><code class="language-plaintext highlighter-rouge">setTimeout</code> 支持第三个参数，一旦定时器到了，第三个参数会作为值传给第一个参数是 <code class="language-plaintext highlighter-rouge">function</code> 的里面</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setTimeout((a)=&gt;{
+    console.log(a)
+},100,'我是定时器的第三个参数')
+</code></pre></div></div><p>一个 <code class="language-plaintext highlighter-rouge">JavaScript</code> 引擎会常驻于内存中，它等待着我们（宿主）把 <code class="language-plaintext highlighter-rouge">JavaScript</code> 代码或者函数传递给它执行</p><p>我们把宿主发起的任务称为宏观任务，把 <code class="language-plaintext highlighter-rouge">JavaScript</code> 引擎发起的任务称为微观任务</p><p><code class="language-plaintext highlighter-rouge">Promise</code> 永远在队列尾部添加微观任务。<code class="language-plaintext highlighter-rouge">setTimeout</code> 等宿主 <code class="language-plaintext highlighter-rouge">API</code>，则会添加宏观任务()</p></article><div style="padding-top:20px;"><hr /><p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p><p>如果喜欢我的话，我们可以互相关注，相互学习的哟！互相鼓励，你的关注是我最大的动力来源</p><a href="https://github.com/sunseekers">sunseekers</a></div><div><div style="margin-top:2em;padding:0 1.5em;border:1px solid #d3d3d3;background-color:#deebf7"><h3>文档信息</h3><ul><li>本文作者：<a href="http://localhost:4000" target="_blank">sunseekers</a></li><li>本文链接：<a href="http://localhost:4000/2020/01/01/javascript/" target="_blank">http://localhost:4000/2020/01/01/javascript/</a></li><li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">创意共享3.0许可证</a>）</li></ul></div></div><div class="share"></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="http://localhost:4000/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2020/01/01/javascript/', clientID: '', clientSecret: '', repo: '', owner: '', admin: [''], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'http://localhost:4000/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 10, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="http://localhost:4000/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2016 <span title="sunseekers">sunseekers</span> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" >TOP</a></li></ul><a href="https://github.com/sunseekers/sunseekers.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="http://localhost:4000/" title="首页" target="">首页</a></li><li> <a href="http://localhost:4000/categories/" title="分类" target="">分类</a></li><li> <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a></li><li> <a href="http://localhost:4000/links/" title="链接" target="">链接</a></li><li> <a href="http://localhost:4000/about/" title="关于" target="">关于</a></li><li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="http://localhost:4000/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script></body></html>

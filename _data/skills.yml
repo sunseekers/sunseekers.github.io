@@ -1,17 +1,6 @@
-- name: Programming language
-  keywords:
-      - JavaScript
-      - vue
-      - es6
-      - webpabck
-      - golang
-      - fultter
+# 关于我页面的 Skill Keywords。
+# 格式是：Skill 分类名字，以及下面对应的关键词
 
-
-- name: Research Direction
+- name: test
   keywords:
-      - HBase
-
-- name: Research Results
-  keywords:
-      - HBase
+      - test

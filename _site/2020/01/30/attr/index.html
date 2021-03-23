@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title> Attr &mdash; sunseekers</title><link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css" /><link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css" /><link rel="stylesheet" href="https://mazhuang.org/rouge-themes/dist/github.css" /><link rel="canonical" href="http://localhost:4000/2020/01/30/attr/" /><link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml" /><link rel="shortcut icon" href="http://localhost:4000/favicon.ico" /><meta property="og:title" content="Attr" /><meta name="keywords" content="前端" /><meta name="og:keywords" content="前端" /><meta name="description" content="https://demo.cssworld.cn/new/8/4-2.phphttps://www.zhangxinxu.com/study/202008/css-attr.js 文件" /><meta name="og:description" content="https://demo.cssworld.cn/new/8/4-2.phphttps://www.zhangxinxu.com/study/202008/css-attr.js 文件" /><meta property="og:url" content="http://localhost:4000/2020/01/30/attr/" /><meta property="og:site_name" content="sunseekers" /><meta property="og:type" content="article" /><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2020-01-30" /> <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="http://localhost:4000/assets/js/jquery-ui.js"></script> <script src="http://localhost:4000/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1> <a href="http://localhost:4000/" title="sunseekers" ><span class="octicon octicon-mark-github"></span> sunseekers</a ></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();" > <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页" >首页</a > <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类" >分类</a > <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基" >维基</a > <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接" >链接</a > <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于" >关于</a ></nav></div></header><style> html.dark-mode, html.dark-mode img { filter: invert(1) hue-rotate(180deg); } html.dark-mode img { opacity: 0.85; } #darkContainer { position: fixed; bottom: 50px; left: 100px; display: flex; } #darkContainer .text { margin-right: 8px; } #darkContainer .switch-btn { user-select: none; display: inline-block; width: 50px; border: none; height: 25px; border-radius: 50px; background: rgba(0, 0, 0, 0.25); cursor: pointer; transition: all 0.2s; position: relative; outline: none; } #darkContainer .switch-btn.switch-btn-checked { background: #1890ff; } #darkContainer .switch-btn .switch-handle { height: 20px; width: 20px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 4px; transition: all 0.2s ease-in-out; } #darkContainer .switch-btn.switch-btn-checked .switch-handle { left: calc(100% - 22px); }</style><script> let isDarkMode = localStorage.getItem('isDarkMode'); if (isDarkMode === 'true') { document.firstElementChild.classList.add('dark-mode'); } </script> <script defer> const darkContainer = document.createElement('div'); darkContainer.id = 'darkContainer'; darkContainer.innerHTML = `<span class="text">深色模式</span>`; const btnEl = document.createElement('button'); btnEl.classList.add('switch-btn'); btnEl.innerHTML = `<div class="switch-handle"></div>`; if (isDarkMode === 'true') { btnEl.classList.add('switch-btn-checked'); } btnEl.addEventListener('click', (e) => { if (btnEl.classList.contains('switch-btn-checked')) { btnEl.classList.remove('switch-btn-checked'); document.firstElementChild.classList.remove('dark-mode'); localStorage.setItem('isDarkMode', 'false'); } else { btnEl.classList.add('switch-btn-checked'); document.firstElementChild.classList.add('dark-mode'); localStorage.setItem('isDarkMode', 'true'); } }); darkContainer.append(btnEl); document.body.appendChild(darkContainer); </script></body></html><section class="collection-head small geopattern" data-pattern-id="Attr" ><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">Attr</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2020/01/30 </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 5449 字，约 16 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths"><article class="article-content markdown-body"><p>https://demo.cssworld.cn/new/8/4-2.php https://www.zhangxinxu.com/study/202008/css-attr.js 文件</p><p>CSS.supports window.location.origin document.styleSheets <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/CSSStyleDeclaration">CSSStyleDeclaration</a> [].slice.call(document.styleSheets).filter(isSameDomain) rule.style.getPropertyValue window.getComputedStyle <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver">new MutationObserver()</a> window.addEventListener(‘DOMContentLoaded’, funAutoInitAndWatching); <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/getComputedStyle">Window.getComputedStyle()</a></p><p>///</p><p>/**</p><ul><li>@description CSS attr()方法的支持和使用</li><li>@author zhangxinxu(.com) 2020-08-11</li><li>@docs https://www.zhangxinxu.com/wordpress/?p=9443</li><li>@license MIT 作者和出处保留 */</li></ul><p>(function () { if (!window.CSS) { return; }</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (CSS.supports('color: attr(color color)')) {
+    return;
+}
+
+
+if (!NodeList.prototype.forEach) {
+    NodeList.prototype.forEach = Array.prototype.forEach;
+}
+
+// 观察的元素选择器
+var watchSelector = window.watchSelector || '*';
+
+// 获取页面中所有的CSS自定义属性
+var isSameDomain = function (styleSheet) {
+    if (!styleSheet.href) {
+        return true;
+    }
+
+    return styleSheet.href.indexOf(window.location.origin) === 0;
+};
+
+var isStyleRule = function (rule) {
+    return rule.type === 1;
+};
+
+var arrCSSCustomProps = (function () {
+    return [].slice.call(document.styleSheets).filter(isSameDomain).reduce(function (finalArr, sheet) {
+        return finalArr.concat([].slice.call(sheet.cssRules).filter(isStyleRule).reduce(function (propValArr, rule) {
+            var props = [].slice.call(rule.style).map(function (propName) {
+                return [
+                    propName.trim(),
+                    rule.style.getPropertyValue(propName).trim()
+                ];
+            }).filter(function ([propName]) {
+                return propName.indexOf('--') === 0;
+            });
+
+            return [].concat(propValArr, props);
+        }, []));
+    }, []);
+})();
+
+// 使用了keyword()语法的CSS自定义属性名
+var arrCssPropsValueIsAttr = arrCSSCustomProps.filter(function (arrPropVal) {
+    return /attr\([\w\W]+\)/i.test(arrPropVal[1]);
+});
+
+// attr()语法的解析
+// 返回对应的&lt;attr-name&gt; &lt;type-or-unit&gt; 和 &lt;attr-fallback&gt;
+var funParseAttr = function (valueVar) {
+    var attrName, typeOrUnit, attrFallback;
+    if (valueVar) {
+
+        valueVar = valueVar.replace(/attr\(([\w\W]*)\)/i, '$1');
+        // fallback获取
+        var arrValueVar = valueVar.split(',');
+        // 这是后备样式，如果没有对应的属性，则使用这个值
+        if (arrValueVar.length &gt; 1) {
+            attrFallback = arrValueVar[1].trim();
+        }
+
+        // 前面的属性和单位
+        var arrFirstPart = arrValueVar[0].trim().split(/\s+/);
+        attrName = arrFirstPart[0];
+        typeOrUnit = arrFirstPart[1] || 'string';
+    }
+
+    return {
+        attrName: attrName,
+        typeOrUnit: typeOrUnit,
+        attrFallback: attrFallback
+    };
+};
+
+// attr()语法转换成目前CSS变量可识别的语法
+var funAttrVar2NormalVar = function (objParseAttr, valueAttr) {
+    // attr()语法 attr( &lt;attr-name&gt; &lt;type-or-unit&gt;? [, &lt;attr-fallback&gt; ]? )
+    // valueVar示意：attr(bgcolor color, deeppink)
+    // valueAttr示意： 'deepskyblue'或者null
+
+    var attrName = objParseAttr.attrName;
+    var typeOrUnit = objParseAttr.typeOrUnit;
+
+    // typeOrUnit值包括：
+    // string | color | url | integer | number | length | angle | time | frequency | cap | ch | em | ex | ic | lh | rlh | rem | vb | vi | vw | vh | vmin | vmax | mm | Q | cm | in | pt | pc | px | deg | grad | rad | turn | ms | s | Hz | kHz | %
+
+    var arrUnits = ['ch', 'em', 'ex', 'ic', 'lh', 'rlh', 'rem', 'vb', 'vi', 'vw', 'vh', 'vmin', 'vmax', 'mm', 'cm', 'in', 'pt', 'pc', 'px', 'deg', 'grad', 'rad', 'turn', 'ms', 's', 'Hz', 'kHz', '%'];
+
+    var valueVarNormal = valueAttr;
+    // 如果是string类型
+    switch (typeOrUnit) {
+        case 'string': {
+            valueVarNormal = '"' + valueAttr + '"';
+            break;
+        }
+        case 'url': {
+            if (/^url\(/i.test(valueAttr) == false) {
+                valueVarNormal = 'url(' + valueAttr + ')';
+            }
+            break;
+        }
+    }
+
+    // 数值变单位的处理
+    if (arrUnits.includes(typeOrUnit) &amp;&amp; valueAttr.indexOf(typeOrUnit) == -1 &amp;&amp; parseFloat(valueAttr) == valueAttr) {
+        valueVarNormal = parseFloat(valueAttr) + typeOrUnit;
+    }
+
+    return valueVarNormal;
+};
+
+// 设置自定义属性值的方法
+var funSetAttr = function (node) {
+    if (node.nodeType != 1 || node.matches(watchSelector) == false) {
+        return;
+    }
+
+    // 通配符匹配时候有些元素忽略
+    if (watchSelector == '*' &amp;&amp; ['script', 'style', 'meta', 'title', 'head'].includes(node.nodeName.toLowerCase())) {
+        return;
+    }
+
+    var objStyle = window.getComputedStyle(node);
+
+    // 当前节点的所有样式对象
+    var objStyle = window.getComputedStyle(node);
+
+    // 所有设置了keyword()的自定义属性的遍历处理
+    arrCssPropsValueIsAttr.forEach(function (arr) {
+        var cssProp = arr[0];
+        var cssValue = node['originCssValue' + cssProp] || arr[1];
+
+        // 判断当前节点有没有设置对应的自定义属性
+        var cssVarValueAttr = objStyle.getPropertyValue(cssProp);
+
+        if (!cssVarValueAttr || !cssVarValueAttr.trim() || (!/attr\(([\w\W]*)\)/i.test(cssVarValueAttr) &amp;&amp; !node['originCssValue' + cssProp])) {
+            return;
+        }
+
+        // 这个是HTML属性改变时候用的
+        if (!node['originCssValue' + cssProp]) {
+            node['originCssValue' + cssProp] = cssValue;
+        }            
+
+        // 总是使用初始获取的自定义属性值
+        cssVarValueAttr = cssValue;
+
+        var objParseAttr = funParseAttr(cssVarValueAttr);
+
+        // 获取属性对应的值
+        if (!objParseAttr.attrName) {
+            return;
+        }
+
+        // attr()属性名
+        var attrName = objParseAttr.attrName;
+
+        // 获取此时节点这些属性目前对应的值
+        // 如果没有值，则使用后备值
+        var strHtmlAttr = node.getAttribute(attrName) || objParseAttr.attrFallback;
+        if (!strHtmlAttr) {
+            // 设置为空
+            node.style.setProperty(cssProp, '');
+            return;
+        }
+
+        // 标记需要观察的HTML属性
+        node.attrNeedWatch = node.attrNeedWatch || [];
+        if (node.attrNeedWatch.includes(attrName) == false) {
+            node.attrNeedWatch.push(attrName);
+        }
+
+        // 核心方法
+        // 浏览器不支持的attr()语法转变成支持的语法
+        var valueVarNormal = funAttrVar2NormalVar(objParseAttr, strHtmlAttr);
+
+        console.log(valueVarNormal);
+        // 设置
+        node.style.setProperty(cssProp, valueVarNormal);
+    });
+};
+
+
+var funAutoInitAndWatching = function () {
+    // DOM Insert自动初始化
+    if (window.MutationObserver) {
+        var observerSelect = new MutationObserver(function (mutationsList) {
+            mutationsList.forEach(function (mutation) {
+                var nodeAdded = mutation.addedNodes;
+                // 新增元素
+                nodeAdded.forEach(function (eleAdd) {
+                    funSetAttr(eleAdd);
+                });
+                // 如果是属性发生变化
+                var attributeName = mutation.attributeName;
+
+                if (mutation.target &amp;&amp; mutation.target.attrNeedWatch &amp;&amp; mutation.target.attrNeedWatch.includes(attributeName)) {
+                    funSetAttr(mutation.target);
+                }
+            });
+        });
+
+        observerSelect.observe(document.body, {
+            childList: true,
+            attributes: true,
+            subtree: true
+        });
+    }
+
+    // 如果没有开启自动初始化，则返回
+    document.querySelectorAll(watchSelector).forEach(function (ele) {
+        funSetAttr(ele);
+    });
+};
+
+if (document.readyState != 'loading') {
+    funAutoInitAndWatching();
+} else {
+    window.addEventListener('DOMContentLoaded', funAutoInitAndWatching);
+} })();
+</code></pre></div></div></article><div style="padding-top:20px;"><hr /><p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p><p>如果喜欢我的话，我们可以互相关注，相互学习的哟！互相鼓励，你的关注是我最大的动力来源</p><a href="https://github.com/sunseekers">sunseekers</a></div><div><div style="margin-top:2em;padding:0 1.5em;border:1px solid #d3d3d3;background-color:#deebf7"><h3>文档信息</h3><ul><li>本文作者：<a href="http://localhost:4000" target="_blank">sunseekers</a></li><li>本文链接：<a href="http://localhost:4000/2020/01/30/attr/" target="_blank">http://localhost:4000/2020/01/30/attr/</a></li><li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">创意共享3.0许可证</a>）</li></ul></div></div><div class="share"></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="http://localhost:4000/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2020/01/30/attr/', clientID: '', clientSecret: '', repo: '', owner: '', admin: [''], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'http://localhost:4000/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 10, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="http://localhost:4000/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2016 <span title="sunseekers">sunseekers</span> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" >TOP</a></li></ul><a href="https://github.com/sunseekers/sunseekers.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="http://localhost:4000/" title="首页" target="">首页</a></li><li> <a href="http://localhost:4000/categories/" title="分类" target="">分类</a></li><li> <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a></li><li> <a href="http://localhost:4000/links/" title="链接" target="">链接</a></li><li> <a href="http://localhost:4000/about/" title="关于" target="">关于</a></li><li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="http://localhost:4000/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script></body></html>

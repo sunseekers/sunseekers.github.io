@@ -1,567 +1,483 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-16T18:06:06+08:00</updated><id>http://localhost:4000/</id><title type="html">sunseekers</title><subtitle>Record ideas and knowledge</subtitle><author><name>sunseekers</name></author><entry><title type="html">new 构造函数都做了一些什么？</title><link href="http://localhost:4000/2019/07/16/prototype/" rel="alternate" type="text/html" title="new 构造函数都做了一些什么？" /><published>2019-07-16T00:00:00+08:00</published><updated>2019-07-16T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/16/prototype</id><content type="html" xml:base="http://localhost:4000/2019/07/16/prototype/">&lt;h1 id=&quot;原型和原型对象&quot;&gt;原型和原型对象&lt;/h1&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 还有 &lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt;，总觉得有些拗口，分不清，记录我的理解&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-23T12:32:39+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">sunseekers</title><subtitle>description</subtitle><author><name>sunseekers</name></author><entry><title type="html">HTML 全局属性的使用</title><link href="http://localhost:4000/2021/03/16/gloab-attr/" rel="alternate" type="text/html" title="HTML 全局属性的使用" /><published>2021-03-16T00:00:00+08:00</published><updated>2021-03-16T00:00:00+08:00</updated><id>http://localhost:4000/2021/03/16/gloab-attr</id><content type="html" xml:base="http://localhost:4000/2021/03/16/gloab-attr/">&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+&lt;p&gt;在原生项目的开发中看到一些全局的属性使用，减少了很多的工作量，在没有框架的基础下&lt;/p&gt;
 
-&lt;h2 id=&quot;对象和函数&quot;&gt;对象和函数&lt;/h2&gt;
+&lt;h2 id=&quot;全局属性及用途&quot;&gt;全局属性及用途&lt;/h2&gt;
 
-&lt;p&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 一切皆对象，函数也是对象。但是对于&lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 还有 &lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt; 我一直都不太明白，今天要好好理一下。&lt;/p&gt;
+&lt;p&gt;[data-&lt;em&gt;](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/data-&lt;/em&gt;):全局自定义属性&lt;/p&gt;
 
-&lt;p&gt;函数是对象，那函数是怎么指向对象的呢？想了一番，然后在控制台里面打了一下，或许这事最好的理解方式吧&lt;/p&gt;
+&lt;p&gt;可用来唯一标识，比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;li data-id=&quot;10784&quot;&amp;gt;Jason Walters, 003: Found dead in &quot;A View to a Kill&quot;.&amp;lt;/li&amp;gt;&lt;/code&gt; 这个list的id，获取的时候 ele.dataset.id 即可。如果使用框架的时候可以在点击的时候把整条数据项穿进去，但是不借入框架的话，就有点麻烦&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="HTML" /><summary type="html">背景 在原生项目的开发中看到一些全局的属性使用，减少了很多的工作量，在没有框架的基础下</summary></entry><entry><title type="html">关注原生标签和属性，你会发现很多意想不到的事情</title><link href="http://localhost:4000/2021/03/04/HTMLAll/" rel="alternate" type="text/html" title="关注原生标签和属性，你会发现很多意想不到的事情" /><published>2021-03-04T00:00:00+08:00</published><updated>2021-03-04T00:00:00+08:00</updated><id>http://localhost:4000/2021/03/04/HTMLAll</id><content type="html" xml:base="http://localhost:4000/2021/03/04/HTMLAll/">&lt;h1 id=&quot;日常扯皮&quot;&gt;日常扯皮&lt;/h1&gt;
 
-&lt;p&gt;每一个函数都有一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt; 他指向了函数的原型。&lt;/p&gt;
+&lt;p&gt;有一天&lt;a href=&quot;https://github.com/chokcoco&quot;&gt;CoCo&lt;/a&gt;问我你们阅文公众号文章是怎么产出的，我的回答是基于业务中的问题，讨论学习
+&lt;img src=&quot;http://localhost:4000/images/3/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;每一个函数的原型都有一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt; 属性，这个实现指向函数本身。&lt;/p&gt;
+&lt;p&gt;为啥我会这样回答呢？我就是那个在业务中问题不少的小伙伴，问问题是我长项，因为问的越多我懂的越多。
+&lt;img src=&quot;http://localhost:4000/images/3/3.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;每一个函数的原型都有一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 属性，这个实现指向了函数原型的原型（即对象）对应前面的那句话函数也是对象。&lt;/p&gt;
+&lt;p&gt;我本就知道的不多，若我还是不问，那我知道的便更少，有一群大佬同事，得天独厚的资源不用用太可惜了。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/pages/004.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;有趣的原生标签和属性&quot;&gt;有趣的原生标签和属性&lt;/h2&gt;
+&lt;p&gt;在我眼里html就是写布局，css就是写样式；但是在大佬们的眼里，它们就是一个个活宝无所不能。&lt;/p&gt;
+&lt;h3 id=&quot;button-的-autofocus-属性可实现聚焦滚动到指定位置&quot;&gt;button 的 autofocus 属性可实现聚焦滚动到指定位置&lt;/h3&gt;
+&lt;p&gt;光标会自动定位到该元素上面，不管元素在哪&lt;/p&gt;
 
-&lt;p&gt;如果直接是对象的，他就没有 &lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt; 属性，他的 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 属性，指向他的原型（即对象），他的 &lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt; 属性，这个实现指向函数本身&lt;/p&gt;
+&lt;p&gt;使用场景：已进入页面的时候需要自动滚动到x位置，你又懒得用js去计算定位&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/pages/005.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/WNoEEdJ&quot;&gt;demo&lt;/a&gt;:在线编辑器失效，可以拿代码网页自己跑&lt;/p&gt;
 
-&lt;p&gt;到这里我们理清楚了函数和对象的关系，&lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 还有 &lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt; 分别是谁的属性，干什么的应该也差不多了。&lt;/p&gt;
+&lt;h3 id=&quot;label标签实现距离不是问题&quot;&gt;label标签实现距离不是问题&lt;/h3&gt;
+&lt;p&gt;异地恋最大的问题就是距离，多少甜蜜恩爱的小情侣终究抵不过距离。可是这对于label和input来说，距离在他们这对小情侣眼里不值一提，它们的心永远在一起。label 的 for 永远心系 input 的id，不管在页面的哪一个角落。&lt;/p&gt;
 
-&lt;h2 id=&quot;说一说-new-构造函数都发生些什么&quot;&gt;说一说 &lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt; 构造函数都发生些什么&lt;/h2&gt;
+&lt;p&gt;使用场景：点击区域a，区域b发生变化&lt;/p&gt;
 
-&lt;p&gt;理清楚 &lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 还有 &lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt; 是为了更好的理解构造函数准备。在一次模拟面试中，朋友问我通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt; 关键字调用函数都发生了一些什么？
-我每一次都是临时背答案，那一次我背不出来了。然后我就决定自己去理解，而是不背答案，应付。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/LYRBBZL&quot;&gt;距离遥远都不是事&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;关于构造函数的概念，简单介绍，函数声明的时候首字母大写（为了区分普通函数和构造函数），调用的时候通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt; 关键字，否则和普通函数一样，没有区别。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/yLaWmPv&quot;&gt;纯css 实现弹窗的显示隐藏&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 还有 &lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/WNoKXoR&quot;&gt;纯css 实现展开收起&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/pages/006.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;同样 button 的 &lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/button&quot;&gt;form&lt;/a&gt;关联到表单 永远心系 form 的 id，不管在页面的哪一个角落。&lt;/p&gt;
+&lt;h3 id=&quot;提交数据用form&quot;&gt;提交数据用form&lt;/h3&gt;
+&lt;p&gt;提交数据or提交表单的时候，常常会有一个一键清空所有值，有些呢还有回车键提交表单，有些呢还有数据的准确性验证等等&lt;/p&gt;
 
-&lt;p&gt;如果是构造函数调用的话&lt;/p&gt;
+&lt;p&gt;总之呢用了form，就是轻轻松松简简单单&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/pages/007.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;button type=&quot;reset&quot;&amp;gt;我是form表单里面的重置&amp;lt;/button&amp;gt;&lt;/code&gt; 他在表单内，一句话清空表单值&lt;/p&gt;
 
-&lt;p&gt;通过打印 &lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt; 发现他指向了函数的原型，推导出 &lt;code class=&quot;highlighter-rouge&quot;&gt;this.__proto__=Persion.prototype&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;键盘回车提交数据呢，是表单自带，不用你写。&lt;/p&gt;
 
-&lt;p&gt;在顺便说一句 构造函数，实例，和原型对象的关系&lt;/p&gt;
+&lt;p&gt;数据的验证呢？在表单的上面加原生属性就好了，你不需要做啥特殊的处理，你不需要在另起炉灶。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/pages/008.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">原型和原型对象 prototype 和 __proto__ 还有 constructor，总觉得有些拗口，分不清，记录我的理解</summary></entry><entry><title type="html">我不知道你知不知道我知道的伪元素小技巧</title><link href="http://localhost:4000/2019/07/14/css001/" rel="alternate" type="text/html" title="我不知道你知不知道我知道的伪元素小技巧" /><published>2019-07-14T00:00:00+08:00</published><updated>2019-07-14T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/14/css001</id><content type="html" xml:base="http://localhost:4000/2019/07/14/css001/">&lt;h1 id=&quot;伪元素是什么有什么用&quot;&gt;伪元素是什么？有什么用？&lt;/h1&gt;
-&lt;p&gt;本文写于2017年11月06日，从我的掘金迁移过来&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/xxEJzeO&quot;&gt;form 表单&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;addeventlisten-可以传入四个参数&quot;&gt;addeventlisten 可以传入四个参数&lt;/h3&gt;
 
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;伪元素&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener&quot;&gt;addeventlisten 文档传送门&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;伪元素能做什么？我们要他有何用？它能为我们解决什么问题？和其他的方法相比她有什么有点？我们为什么要使用它？&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/qBqyVYG?editors=1111&quot;&gt;addeventlisten 原本的第三个参数demo&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;伪元素和伪类一样，添加到选择器，但是不是描述状态，他允许我们为元素某些部分设置样式；利用伪元素，我们可以简化页面的html标签，同时用起来也很方便，善于使用伪元素可以让你的页面更加地简洁优雅。之所以叫伪元素，是因为他修饰不在文档树中的部分；不是真实存在的；&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;事件冒泡，把事件绑定在父元素的身上，利用事件冒泡，他的子元素都可以监听该事件。基于这个前提，来实现一个，a元素下面的任何一个子元素获取到焦点的时候，触发事件&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/6/9b71ef85d315f63d5c607844f28c59fc&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/tabindex&quot;&gt;tabindex&lt;/a&gt;:元素是否可以聚焦，-1表示可以被聚焦，但是不能被tab索引，经常测试大部分的元素都是-1.也就是说大部分元素其实都可以有焦点相关的事件&lt;/p&gt;
 
-&lt;p&gt;伪元素实用小技巧&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/dyOqKQm?editors=1111&quot;&gt;把所有的事件都绑定在父元素身上&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/6/a00adf94230020f6eb579b132cf0e96e&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;1.清除浮动&lt;/h2&gt;
-&lt;p&gt;何谓清除浮动—？一个父元素的所有子元素如果都是浮动的，那么这个父元素是没有高度的;父元素并没有脱离正常的文档流，仍然占据正常文档流的空间;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;如果这个父元素的相邻元素是行内元素，那么这个行内元素将会在这个父元素的区域内见缝插针，找到一块放得下它的地方&lt;/li&gt;
-    &lt;li&gt;如果相邻的元素是一个块级元素，那么设置这个块级元素的margin-top将会以这个父元素的起始位置作为起点。&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
+&lt;h3 id=&quot;es6-的可以实现模版渲染&quot;&gt;ES6 的可以实现模版渲染&lt;/h3&gt;
+&lt;p&gt;用过框架的朋友都熟悉变量赋值的语法(${name})，可是又有多少朋友可以做到脱离了框架，用原生属性去实现呢？&lt;/p&gt;
 
-&lt;p&gt;问题：如何解决高度塌陷？&lt;/p&gt;
+&lt;p&gt;看了张老师的这篇博客你也可以，&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2020/10/es6-html-template-literal/&quot;&gt;ES6模板字符串在HTML模板渲染中的应用&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;方法：把父容器的高度撑起来，考虑到浮动了的元素并没有脱离正常文档流，而其它元素会围绕着它环绕，所以清除浮动简单有效的办法就是让环绕的元素不可环绕，把它变成一把尺子，放在最后面，把所有浮动的元素顶起来，而这把尺子就是一个设置了clear的块级元素。因为块级元素会换行，并且设置它两边不能跟着浮动的元素，所以它就跑到浮动元素的下面去，就像一把尺子把浮动元素的内容给顶起来了。而这个可以用一个after实现，因为after就是最后一个子元素：&lt;/p&gt;
+&lt;p&gt;文章的关键一段代码&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-phtyon&quot;&gt;.clearfix:after{
-    content: &quot;&quot;;
-    display: block;
-    clear:both;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;2.画分割线&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/6/2c639e53cb8b0e10f79cffe82b72acf2&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;i&gt;在开发中如果我们遇到类似这样的需求我们？我们应该如何只用一个简单的css元素去实现他？&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;方案：一个p标签,左右两条线用before和after画出来：&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/6/0cebdb83aa12d826240e21a18e52ca38&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;3.计数器&lt;/h2&gt;
-
-&lt;p&gt;&lt;i&gt;动态的计算商品的数量，我们经常会借用js来实现；我想告诉css也能实现这个效果，他比js用起来简单多了&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/6/f213084e42843699d2c29f06e4c72587&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;1.counter-reset: 属性创建或者重置一个或多个计数器；&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;2.counter-increment: 属性递增一个或多个计数器值；&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;3.content: 与:before 及:after 伪元素配合使用，来插入生成内容。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/6/e277c9baac32d5cb5363d908222be3dc&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;没有用到一行js代码，你可以试一试;这个主要是结合:checked和counter，用before/after纯CSS实现的，这种纯粹是炫技；&lt;/p&gt;
-
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;4.平行四边形&lt;/h2&gt;
-
-&lt;p&gt;&lt;i&gt;有没有办法只让容器的形状倾斜而保持其内容不变呢？或许你会想到嵌套两层元素，外层skew（）,对内容在应用一次反相skew变形，从而抵消变形的效果。但是意味着我们不得不使用一层额外的HTML元素包裹内容.有些累赘&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;解决方案：&lt;b&gt;伪元素，把样式应用到伪元素上，对伪元素进行变形，再把伪元素定位+层级放到到住宿元素下面&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;光说不练，假把式&lt;a href=&quot;http://dabblet.com/gist/f2d98791ab1f0b238aa9&quot;&gt;&lt;span style=&quot;background:red; width:80px;height: 30px;display:flex;align-items:center;justify-content: center;border-radius: 8px;cursor: pointer;color:#fff;&quot;&gt;&lt;b&gt;试一试&lt;/b&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;5. 梯形标签页&lt;/h2&gt;
-
-&lt;p&gt;&lt;i&gt;在网页中我们经常见到梯形形状的标签页，常见的技巧都是比较杂乱，或者说难以维护的，那他们是如何实现的呢？&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;解决方案： &lt;b&gt;三维世界中旋转一个矩形，由于透视关系，我们在二维图像上看到一个梯形，再结合平行四边实现的方法便能实现&lt;/b&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;perspective: 观察者与z=0平面的距离;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;对元素使用了3D变形之后，其内部的变形效应是”不可逆转的”，和2D变形不同（2D变形内部的逆向变形可以抵消外部的变形效应）；&lt;/p&gt;
-
-&lt;p&gt;为了让他的尺寸更好掌握，我们可以为他指定transform-origin：bottom;也可用scale()对他在进行美观操作；&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/10/23/e9b1f3b61eae6f84430713c7ad097e58&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/10/23/b2d529c38ff3b3bae60ffa258481fee6&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://dabblet.com/gist/1345dc9399dc8e794502&quot;&gt;&lt;span style=&quot;background:red; width:80px;height: 30px;display:flex;align-items:center;justify-content: center;border-radius: 8px;cursor: pointer;color:#fff;&quot;&gt;&lt;b&gt;试一试&lt;/b&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;6 多列均匀布局&lt;/h2&gt;
-&lt;p&gt;如何实现下列这种多列均匀布局：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/6/b4efa93f6b67e45b69c842b06dee3f98&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;通过给伪元素 :after 设置 inline-block 设置宽度 100% ，配合容器的 text-align: justify 就可以轻松实现多列均匀布局了。&lt;/p&gt;
-
-&lt;p&gt;那么为什么使用了 :after 伪元素之后就可以实现对齐了呢？&lt;/p&gt;
-
-&lt;p&gt;原因在于 justify 只有在存在第二行的情况下，第一行才两端对齐，所以在这里，我们需要制造一个假的第二行，而 :after 伪元素正好再适合不过。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/6/e2674a3c98e5dec62b87d2cca54c5230&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;需要注意的是img/input等单标签是没有before/after伪元素的，因为它们本身是不可以有子元素，如果你给img添加一个before，那么会被浏览器忽略。&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;伪元素能实现的功能很多！欢迎大家在评论底下一一补充&lt;/p&gt;
-
-&lt;p&gt;欢迎学习交流&lt;a href=&quot;https://github.com/sunseekers/CSS_Secret/blob/master/%E4%BC%AA%E5%85%83%E7%B4%A0.md&quot;&gt;sunseekers&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">伪元素是什么？有什么用？ 本文写于2017年11月06日，从我的掘金迁移过来</summary></entry><entry><title type="html">推荐一本书《javascript 忍者秘籍2》</title><link href="http://localhost:4000/2019/07/14/book-recommend/" rel="alternate" type="text/html" title="推荐一本书《javascript 忍者秘籍2》" /><published>2019-07-14T00:00:00+08:00</published><updated>2019-07-14T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/14/book%20recommend</id><content type="html" xml:base="http://localhost:4000/2019/07/14/book-recommend/">&lt;h1 id=&quot;为什么要推荐javascript-忍者秘籍2&quot;&gt;为什么要推荐《javascript 忍者秘籍2》&lt;/h1&gt;
-&lt;p&gt;是本好书，必须推荐。本文写于2019年01月30日，从我的掘金迁移过来&lt;/p&gt;
-
-&lt;p&gt;我要推荐一本书，《javascript 忍者秘籍2》，每次阅读都有不一样的收获。之前推荐这本书，只是简单的介绍了里面大概的目录结构。这一次我想对于每一个章节里我不懂的地方，或者说我认为重要的地方说一说。&lt;/p&gt;
-
-&lt;p&gt;关于这些知识点网上百度搜一大堆，比我写的好的多了去了，但是我还是要写，别人写的终究是别人的，我自己写了，记住了才是我的。同时也是自己对知识的二次记忆。&lt;/p&gt;
-
-&lt;p&gt;首先声明，文章里面所有的图片内容都来自书籍中，一千个读者就有一千个哈利波特，每个人的理解都不一样。我建议你去读读这本书，如果有不对的地方请指出&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 应用能在很多环境中执行。但是 &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 最初的运行环境是浏览器环境，而其他运行环境也是借鉴于浏览器环境。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2019/1/30/1689ee984fdc8773?w=1434&amp;amp;h=836&amp;amp;f=png&amp;amp;s=273452&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;我们需要了解&lt;code class=&quot;highlighter-rouge&quot;&gt;javaScript&lt;/code&gt; 工作核心原理和浏览器提供的核心 &lt;code class=&quot;highlighter-rouge&quot;&gt;api&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;我们所接触的大部分东西都有他的生命周期，比我们前端三大框架中 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2019/1/30/1689ee9b82e50920?w=1200&amp;amp;h=3039&amp;amp;f=png&amp;amp;s=50021&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2019/1/30/1689ee9e6ea450c3?w=801&amp;amp;h=611&amp;amp;f=png&amp;amp;s=15113&quot; alt=&quot;&quot; /&gt;
-还一个我没有接触过，就不说了，逃&lt;/p&gt;
-
-&lt;p&gt;都有一个从开始到结束的过程。我们的前端页面也是一样的，只是我们平时忽略他罢了。当我们在浏览器地址栏里面输入一串 &lt;code class=&quot;highlighter-rouge&quot;&gt;url&lt;/code&gt; 开始他的生命周期就已经开始了，当我们关闭网页的时候他的生命周期就结束了。如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2019/1/30/1689eea1d752c805?w=1216&amp;amp;h=1238&amp;amp;f=png&amp;amp;s=462263&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;作为用户我们所关注的是页面的构建和事件的处理&lt;/p&gt;
-
-&lt;p&gt;页面构建又可以分为解析 &lt;code class=&quot;highlighter-rouge&quot;&gt;HTML&lt;/code&gt; 代码并且构建文档对象模型 &lt;code class=&quot;highlighter-rouge&quot;&gt;DOM&lt;/code&gt; 和执行 &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 代码&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2019/1/30/1689eea53a4c697a?w=1300&amp;amp;h=1196&amp;amp;f=png&amp;amp;s=411131&quot; alt=&quot;&quot; /&gt;
-注意了 &lt;code class=&quot;highlighter-rouge&quot;&gt;DOM&lt;/code&gt; 是根据 &lt;code class=&quot;highlighter-rouge&quot;&gt;HTML&lt;/code&gt; 代码来创建的，但是两者并不是相同的。我们可以把 &lt;code class=&quot;highlighter-rouge&quot;&gt;HTML&lt;/code&gt; 代码看作浏览器页面 &lt;code class=&quot;highlighter-rouge&quot;&gt;UI&lt;/code&gt; 构建初始 &lt;code class=&quot;highlighter-rouge&quot;&gt;DOM&lt;/code&gt; 的蓝图。为了正确构建每个 &lt;code class=&quot;highlighter-rouge&quot;&gt;DOM&lt;/code&gt;，浏览器还会修复它在蓝图中发现的问题。比如在 &lt;code class=&quot;highlighter-rouge&quot;&gt;p&lt;/code&gt; 元素里面包裹 &lt;code class=&quot;highlighter-rouge&quot;&gt;div&lt;/code&gt; 元素，最终渲染的并不是父子关系，而是兄弟关系。&lt;/p&gt;
-
-&lt;p&gt;当解析到脚本元素时，浏览器就会停止从 &lt;code class=&quot;highlighter-rouge&quot;&gt;HTML&lt;/code&gt; 构建 &lt;code class=&quot;highlighter-rouge&quot;&gt;DOM&lt;/code&gt;，并开始执行 &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 代码。为了避免解析 &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 代码花费太长时间，而阻塞页面渲染。我们都是建议把&lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 代码放到 &lt;code class=&quot;highlighter-rouge&quot;&gt;body&lt;/code&gt; 元素后面.&lt;/p&gt;
-
-&lt;p&gt;浏览器暴露给 &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 引擎的主要全局对象是 &lt;code class=&quot;highlighter-rouge&quot;&gt;window&lt;/code&gt; 对象，它代表了包含着一个页面的窗口。 &lt;code class=&quot;highlighter-rouge&quot;&gt;window&lt;/code&gt; 对象是获取所有其他全局对象、全局变量（甚至包含用户定义对象）和浏览器 &lt;code class=&quot;highlighter-rouge&quot;&gt;API&lt;/code&gt; 的访问途径。全局 &lt;code class=&quot;highlighter-rouge&quot;&gt;window&lt;/code&gt; 对象最重要的属性是 &lt;code class=&quot;highlighter-rouge&quot;&gt;document&lt;/code&gt;，它代表了当前页面的 &lt;code class=&quot;highlighter-rouge&quot;&gt;DOM&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;包含在函数内的代码叫作函数代码，而在所有函数以外的代码叫作全局代码。
-执行上下文也分两种 全局执行上下文和函数执行上下文；当 &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 程序开始执行时就已经创建了全局上下文；而函数执行上下文是在每次调用函数时，就会创建一个新的&lt;/p&gt;
-
-&lt;p&gt;页面构建完了之后变进入第二个阶段，事件处理&lt;/p&gt;
-
-&lt;p&gt;浏览器执行环境的核心思想基于：同一时刻只能执行一个代码片段，即所谓的单线程执行模型。采用事件队列来跟踪发生但是尚未执行的事件&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2019/1/30/1689eea8fcc94ad3?w=1784&amp;amp;h=1648&amp;amp;f=png&amp;amp;s=665011&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5aadbc31f265da239530c3c1&quot;&gt;函数具体介绍请看这&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2019/1/30/1689eeac74324ea8?w=1208&amp;amp;h=580&amp;amp;f=png&amp;amp;s=148718&quot; alt=&quot;&quot; /&gt;
- &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 解析器必须能够轻易区分函数声明和函数表达式之间的区别。如果去掉包裹函数表达式的括号，把立即调用作为一个独立语句 &lt;code class=&quot;highlighter-rouge&quot;&gt;function() {}(3)&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; 开始解析时便会结束，因为这个独立语句以 &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; 开头，那么解析器就会认为它在处理一个函数声明。每个函数声明必须有一个名字（然而这里并没有指定名字），所以程序执行到这里会报错&lt;/p&gt;
-
-&lt;p&gt;问： &lt;code class=&quot;highlighter-rouge&quot;&gt;var samurai = (() =&amp;gt; &quot;Tomoe&quot;)();&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;var ninja = (() =&amp;gt; {&quot;Yoshi&quot;})();&lt;/code&gt; 分别返回什么？&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2019/1/30/1689eeafe7a60eb2?w=1392&amp;amp;h=626&amp;amp;f=png&amp;amp;s=203344&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;函数具有属性，而且这些属性能够被存储任何信息，我们可以利用这个特性来做很多事情；例如：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  //储存函数,利用函数具有属性，而且这些属性能够被存储任何信息
-  let store = {
-    nextId:1,
-    cache:{},
-    add(fn){
-      if(!fn.id &amp;amp;&amp;amp; typeof fn =='function'){
-        fn.id=this.nextId++
-        this.cache[fn.id]=fn
-        return true
-      }
-    }
-  }
-  //记忆函数
-  function isPrime(value){
-    if(!isPrime.answers){
-      isPrime.answers = {}
-    }
-    if(!isPrime.answers[value]){
-      console.log(1)
-      return isPrime.answers[value] = value
-    }
-    console.log(3)
-    return isPrime.answers[value]
-  }
-  isPrime(2)
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;String.prototype.interpolate = function (params) {
+    const names = Object.keys(params);
+    const vals = Object.values(params);
+    const str  = new Function(...names, `return \`${this}\`;`)(...vals);
+    return str;
+};
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Number、String 和 Boolean，三个构造器是两用的，当跟 new 搭配时，它们产生对象，当直接调用时，它们表示强制类型转换。&lt;/p&gt;
 
-&lt;p&gt;parseInt 和 parseFloat 精致转化&lt;/p&gt;
+&lt;p&gt;即便是没有了框架也可以实现，类似那样的模板赋值。万变不离其宗，有了牢固的基础，要明白弄懂哪些框架的原理，问题应该不大了。&lt;/p&gt;
 
-&lt;p&gt;我们在给函数传参数的时候，除了有我们显示传入的实参之外，其实还包含了两个隐士参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;arguments&lt;/code&gt;。&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt; 表示被调用函数的上下文(在什么环境下调用，就指向什么）。&lt;code class=&quot;highlighter-rouge&quot;&gt;arguments&lt;/code&gt; 表示函数调用过程中传递的所有参数&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/wvoExMv&quot;&gt;es6 模版渲染&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;arguments&lt;/code&gt; 是伪数组，在 &lt;code class=&quot;highlighter-rouge&quot;&gt;es6&lt;/code&gt; 中有一个剩余参数的概念，剩余参数是一个真正的数组&lt;/p&gt;
+&lt;p&gt;在这行代码的基础上继续扩充，简简单单的就是一个小型的vue了。我&lt;a href=&quot;https://github.com/XboxYan&quot;&gt;同事&lt;/a&gt;再次基础上扩充了一些语法&lt;a href=&quot;https://github.com/yued-fe/web-template&quot;&gt;web-template&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;特例： 箭头函数的 &lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt; 与声明所在的上下文的相同，无论何时在哪调用，只和声明的地方有关系（定义时的函数继承上下文）&lt;/p&gt;
+&lt;h3 id=&quot;如何用-css-判断浏览器类型&quot;&gt;如何用 css 判断浏览器类型&lt;/h3&gt;
+&lt;p&gt;用 css 判断这个问题不大，比如&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter&quot;&gt;filter&lt;/a&gt;这个属性只有火狐支持，那么支持这个属性的就是火狐浏览器&lt;/p&gt;
 
-&lt;p&gt;闭包：允许函数访问并操作函数外部的变量，&lt;code class=&quot;highlighter-rouge&quot;&gt;windows&lt;/code&gt; 就是一个最大的闭包（回调函数是另一种常见的使用闭包的情景）&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/@supports&quot;&gt;@supports&lt;/a&gt; 用这个就好了呀&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;promise&lt;/code&gt;  模拟一个请求， &lt;code class=&quot;highlighter-rouge&quot;&gt;axios&lt;/code&gt; 实现原理，应该就是用他，我并没有阅读过源码我猜测的。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function getJSON(url){
-    return new Promise((resolve,reject)=&amp;gt;{//创建并返回一个新的promise对象
-        const request = new XMLHttpRequest()//创建一个XMLHttprequest对象
-        request.open('GET',url)//初始化请求
-        request.onload=function(){//“注册一个onload方法，当服务端的响应后会被调用”
-                try{
-                if(this.status==200){//“即使服务端正常响应也并不意味着一切如期发生，只有当服务端返回的状态码为200（一切正常）时，再使用服务端的返回结果”
-                  resolve(JSON.parse(this.request))//“尝试解析JSON字符串，倘若解析成功则执行resolve,并将解析后的对象作为参数传入”
-                }else{
-                    reject(this.status+' '+ this.statusText)
-                }
-            }catch(e){
-                reject(e.message)//“如果服务器返回了不同的状态码，或者如果在解析JSON字符串时发生了异常，则对该promise执行reject方法”
-                }
-        }
-        request.onerror=function(){//“如果和服务器端通信过程中发生了错误，则对该promise执行reject方法”
-          reject(this.status+' '+ this.statusText)
-        }
-        request.send()//发送请求
-    })
-}
-getJSON(&quot;data/ninjas.json&quot;).then(ninjas =&amp;gt; {
-
-}).catch(e =&amp;gt; fail(&quot;Shouldn't be here:&quot; + e)); 　　//←---　使用由getJSON函数创建的promise来注册resolve和reject回调函数”
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>sunseekers</name></author><summary type="html">为什么要推荐《javascript 忍者秘籍2》 是本好书，必须推荐。本文写于2019年01月30日，从我的掘金迁移过来</summary></entry><entry><title type="html">数据结构学习☞入门(一)</title><link href="http://localhost:4000/2019/07/14/algorithm002/" rel="alternate" type="text/html" title="数据结构学习☞入门(一)" /><published>2019-07-14T00:00:00+08:00</published><updated>2019-07-14T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/14/algorithm002</id><content type="html" xml:base="http://localhost:4000/2019/07/14/algorithm002/">&lt;h1 id=&quot;为什么要了去了解数据结构和算法&quot;&gt;为什么要了去了解数据结构和算法&lt;/h1&gt;
-&lt;p&gt;因为喜欢编程，要在这条路上走的更远，是追求写出更好更美的代码。本文写于2017年11月07日，从我的掘金迁移过来&lt;/p&gt;
-
-&lt;p&gt;编程如果只是一个为了解决生活温饱的工具，那你可以完全忽略数据结构，算法，你的目标很容易实现；但如果你是热爱编程，把它当做对生活的追求，想在这一行走的更远，更久，那么在你的学习规划中，她们便是必不可少的一种语言；&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/7/8d96abfa92ca2d96d8f63563d015d685&quot; alt=&quot;&quot; /&gt;
-&lt;i&gt;算法，数据结构，程序设计方法，语言工具4个方面是一个程序设计人员所应该拥有的，算法是灵魂，数据结构是加工，对象语言是工具;由此可见算法和数据结构的重要性，不管我们选择Java，c语言还是JavaScript，她们都只是一种语言工具；核心和灵魂依旧在算法和数据结构&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;在学习算法之前，应该先学会数据结构；没有数据结构的支撑，算法有点艰辛；数据结构又分C语言版本的Java版本的；在学数据结构之前我们应该对这两个语言其中一门有所了解；&lt;/p&gt;
-&lt;h1 style=&quot;color:rgb(230,3,135);&quot;&gt;算法&lt;/h1&gt;
-&lt;p&gt;算法是解决“做什么”和“怎么做”的问题；在我们日常的操作语句中体现的淋淋尽致，如果我们不了解算法也就谈不上程序设计；掌握了算法就是掌握了程序设计的灵魂&lt;/p&gt;
-
-&lt;p&gt;&lt;i&gt;如果让你写一个1+2+3+4+…+100的结构程序，你会怎么写呢？&lt;/i&gt;
-思考三秒钟很多人第一时间想到的是第一种算法，很少有人会去想第二种；&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/7/dc1afa4c76ce0552b0905cd84a4ba940&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;我们来比较一下这两种算法，方法一随着n的增大，语句执行的次数成线性增加；方法二是不管n有多大，语句总是只执行一次；都可行，但很明显方法二的算法优于方法一；&lt;/p&gt;
-
-&lt;p&gt;为什么呢？&lt;/p&gt;
-
-&lt;p&gt;为了更好的区分她们的差别我们引入算法的时间复杂度即算法的时间的度量；（即O()）；&lt;/p&gt;
-
-&lt;p&gt;记T(n)是语句执行次数的函数；随着n的增加，T(n)增长最慢的算法我们称为最优算法；即算法时间复杂度小；&lt;/p&gt;
-
-&lt;p&gt;方法一的时间复杂度为O(n)，方法二的时间复杂度为O(1)&lt;/p&gt;
-
-&lt;p&gt;好的算法应该具备时间效率和存储量低的特点；正如我们日常生活一样的，我们总希望花最少的钱，用最短的时间办大事；算法也有一样的思想；最少的存储空间，最少的时间，办同样的好事；&lt;/p&gt;
-
-&lt;p&gt;在算法的入门级别中有没有感觉到算法的神奇?&lt;/p&gt;
-
-&lt;p&gt;任何事物没有好坏之分，只有适不适合；算法也不例外&lt;/p&gt;
-
-&lt;p&gt;2.大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项？&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/12/4ac4c251c5e5319c7ef3d3ec71147a22&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;一种使用递归实现，递归能够使程序的结构更加清晰，更简洁，更容易让人理解，减少度代码的时间；递归使用的是选择结构；&lt;/p&gt;
-
-&lt;p&gt;一种使用迭代，迭代使用的是循环结构；&lt;/p&gt;
-
-&lt;p&gt;乍一看我们会觉得使用递归效果更佳。可是我们忽略了大量的调用递归会建立函数的副本，消耗大量的时间和内存；而迭代则不需要反复调用函数和占用额外的内存；&lt;/p&gt;
-
-&lt;p&gt;判断一个算法好不好，我们只通过少量的数据不能做出准确判断，因此&lt;b&gt;根据需求情况选择不同的代码实现方式；&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;算法的强大不止于此，强大而有趣味的算法等着我们去挑战；&lt;/p&gt;
-
-&lt;p&gt;算法的特性：&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;有穷性：算法应该包含有限的操作步骤&lt;/li&gt;&lt;li&gt;确定性：算法中的每一个步骤应该是确定的&lt;/li&gt;&lt;li&gt;有零或多个输入：执行算法的时候需要从外界取得必要的信息&lt;/li&gt;&lt;li&gt;有一个或多个输出：算法的目的是为了求解，“解”就是输出&lt;/li&gt;&lt;li&gt;有效性：每个步骤应该是有效的，并得到确定的结果&lt;/li&gt;&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;好的算法应该是：速度快，存储空间少&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h1 style=&quot;color:rgb(230,3,135);&quot;&gt;数据结构&lt;/h1&gt;
-&lt;p&gt;&lt;b&gt;深入学习之前先了解数据结构一组概念&lt;/b&gt;
-数据: 描述客观事物的符号；能输入到计算机中，能被计算机程序处理；比如声音，图像，视频…&lt;/p&gt;
-
-&lt;p&gt;数据元素：是组成数据的有一定意义的基本单位；也被称为记录；（比如学生，老师&lt;/p&gt;
-
-&lt;p&gt;数据项：一个数据元素可以有若干个数据项组成；是数据项不可分割的最小单位；（比如学生的姓名，学号,性别…&lt;/p&gt;
-
-&lt;p&gt;数据对象：数据元素具有相同数量和类型的数据项；（比如学生有姓名，学号，性别等相同的数据项&lt;/p&gt;
-
-&lt;p&gt;数据结构：相互之间存在一种或者多种特定关系的&lt;b&gt;数据元素集合；&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;数据结构按照视点不同可分为：逻辑结构和物理结构&lt;/p&gt;
-
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;逻辑结构&lt;/h2&gt;
-&lt;p&gt;&lt;b&gt;逻辑结构：数据对象中数据元素之间的关系&lt;/b&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;集合结构：数据元素除了同属于一个集合之外，她们没有任何关系&lt;/li&gt;
-&lt;li&gt;线性结构：数据元素之间一对一关系&lt;/li&gt;
-&lt;li&gt;树形结构：数据元素之间存在一对一或一对多的层级关系&lt;/li&gt;
-&lt;li&gt;图形结构：数据元素是多对多的关系&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/7/439375c039c4b6ba0a67f5b4cbce3f06&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;物理结构&lt;/h2&gt;
-&lt;p&gt;&lt;b&gt;物理结构(存储结构)：数据的逻辑结构在计算机中的存储形式&lt;/b&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;集合结构：数据元素除了同属于一个集合之外，她们没有任何关系&lt;/li&gt;
-&lt;li&gt;顺序结构：把数据元素存放在地址连续的存储单元里；(数组)&lt;/li&gt;
-&lt;li&gt;链式结构：把数据元素存放在任意的存储单元里，这组存储单元可以是连续的，也可以是不连续的&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/11/7/531db08eca82184ffba32e2c35ed02be&quot; alt=&quot;&quot; /&gt;
-&lt;i&gt;逻辑结构是面向问题的，物理结构是面向计算机的；我们应该注重的就是物理结构，将数据及其逻辑关系存储到计算机内存中去&lt;/i&gt;
-&lt;b&gt;线性,树形,图形,链式是数据结构的重点和难点&lt;/b&gt;&lt;/p&gt;
-&lt;h2 style=&quot;color:rgb(230,3,135);&quot;&gt;题外话&lt;/h2&gt;
-&lt;p&gt;&lt;i style=&quot;color:rgb(230,3,135);&quot;&gt;指针，地址，指针变量是什么？&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;地址是指向该变量单元；地址形象化地称为指针；指针变量的值是地址；所有说指针是一个地址，指针变量是存放地址的变量；&lt;/p&gt;
-
-&lt;p&gt;在设计一个较大的程序时，往往把它分成若干个程序模块。每个模块包括一个或者多个函数，每个函数实现一个功能；函数是一个功能，每个函数用来实现一个特定的功能，函数的名字应该反映其代表的功能；利用函数，减少重复编写的程序段的工作量；(例如：C语言中main()函数)
-&lt;b&gt;在实际应用中我们用函数来实现模块化程序设计&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;结构体：C语言允许用户自己建立有不同类型的数据组成的组合型的数据结构，称为&lt;b&gt;结构体&lt;/b&gt;;&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;结构体类型：&lt;/b&gt;包含不同类型的成员；&lt;/p&gt;
-
-&lt;p&gt;结构体指针，就是指向结构体变量的指针；&lt;/p&gt;
-
-&lt;p&gt;&lt;i style=&quot;color:rgb(230,3,135);&quot;&gt;链表是什么？&lt;/i&gt;
-链表是一种数据结构，必须利用指针变量来实现；数据结构包括（number结构类型，Object类型，Array类型等等）；链表是根据需要开辟内存单元，链表有一个头指针，存放一个地址，该地址指向一个元素（每个链表都有一个头指针，必不可少）；链表中的每一个元素称为节点；节点包含两个部分，用户需要的实际数据，下一个节点的地址(next);链表中的地址是不连续的；要找某一元素，必须先找到上一个元素，根据他提供的下一个元素地址才能找到下一个元素；&lt;/p&gt;
-
-&lt;p&gt;形参不占内存中的存储单元；如果函数不需要返回值则不需要return语句&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">为什么要了去了解数据结构和算法 因为喜欢编程，要在这条路上走的更远，是追求写出更好更美的代码。本文写于2017年11月07日，从我的掘金迁移过来</summary></entry><entry><title type="html">仿QQ音乐之小程序</title><link href="http://localhost:4000/2019/07/14/WeChat/" rel="alternate" type="text/html" title="仿QQ音乐之小程序" /><published>2019-07-14T00:00:00+08:00</published><updated>2019-07-14T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/14/WeChat</id><content type="html" xml:base="http://localhost:4000/2019/07/14/WeChat/">&lt;h1 id=&quot;入门学习小程序案例&quot;&gt;入门学习小程序案例&lt;/h1&gt;
-&lt;p&gt;本文写于2018年08月19日，从我的知乎迁移过来&lt;/p&gt;
-
-&lt;h2 id=&quot;仿qq音乐之小程序&quot;&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/42421882&quot;&gt;仿QQ音乐之小程序&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;函数原型
-对象有原型对象&lt;/p&gt;
-
-&lt;p&gt;防抖：input，限制时间，等待一段时间，定时器&lt;/p&gt;
-
-&lt;p&gt;三次握手&lt;/p&gt;
-
-&lt;p&gt;async function text(){
-    return await ‘hah’
-}&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">入门学习小程序案例 本文写于2018年08月19日，从我的知乎迁移过来</summary></entry><entry><title type="html">在工作中用到的 vue</title><link href="http://localhost:4000/2019/07/11/vue/" rel="alternate" type="text/html" title="在工作中用到的 vue" /><published>2019-07-11T00:00:00+08:00</published><updated>2019-07-11T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/11/vue</id><content type="html" xml:base="http://localhost:4000/2019/07/11/vue/">&lt;h1 id=&quot;罗列出工作中用到一些-vue-知识点&quot;&gt;罗列出工作中用到一些 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 知识点&lt;/h1&gt;
-&lt;p&gt;有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点&lt;/p&gt;
-
-&lt;h2 id=&quot;requirecontext-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;require.context &lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;这个应该是&lt;code class=&quot;highlighter-rouge&quot;&gt;webpack&lt;/code&gt;里面的特性，但是文档里面提到了，那就拿出来说一说。&lt;code class=&quot;highlighter-rouge&quot;&gt;Vue cli3 +&lt;/code&gt; 可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;require.context&lt;/code&gt;  只全局注册这些非常通用的基础组件&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/vue/001@2x.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;prop-双向数据流&quot;&gt;prop 双向数据流&lt;/h2&gt;
-&lt;p&gt;这个说法有点不准确，又好像是准确的，因为在JavaScript中对象和数组是通过引用传入的，所以对于一个数组或者对象类型的prop来说
-在子组件改变这个对象或者数组本身将会影响到父组件的状态。这个时候我们可以用深层拷贝解决这个问题&lt;code class=&quot;highlighter-rouge&quot;&gt;（JSON.parse（JSON.stringify（xxx））&lt;/code&gt;这个方法有弊端，或者使用其他方式深层拷贝）&lt;/p&gt;
-
-&lt;h2 id=&quot;sync-实现父子组件的双向数据流&quot;&gt;.sync 实现父子组件的双向数据流&lt;/h2&gt;
-&lt;p&gt;这个是文档给出实现双向数据流的方法，有时候特别管用，我有一次在用 &lt;code class=&quot;highlighter-rouge&quot;&gt;v-if&lt;/code&gt; 切换子组件的时候，数据没有方法完全清空，就只能使用她了。
-有可能是因为如图的原因，反正我是使用她解决的。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/vue/002.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;父子组件之间传递是单向的，但有时候我们需要双向数据流，这时候就需要使用&lt;code class=&quot;highlighter-rouge&quot;&gt;.sync&lt;/code&gt; 修饰符，&lt;code class=&quot;highlighter-rouge&quot;&gt;.sync&lt;/code&gt; 不能配合表达式一起用&lt;/p&gt;
-
-&lt;p&gt;父组件&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;text-document v-bind:title.sync=&quot;doc.title&quot;&amp;gt;&amp;lt;/text-document&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;子组件&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;this.$emit('update:title', newTitle)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;provide-给所有的后代组件提供数据和方法&quot;&gt;Provide 给所有的后代组件提供数据和方法&lt;/h2&gt;
-&lt;p&gt;在官网中是这样说的:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;provide 选项允许我们指定我们想要提供给后代组件的数据/方法。在这个例子中，就是 &amp;lt;google-map&amp;gt; 内部的 getMap 方法：
-provide: function () {
-  return {
-    getMap: this.getMap
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@supports not (filter: url(resources.svg#c1)) {
+  div {
+    float: right;
   }
 }
-然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在这个实例上的属性：
-inject: ['getMap']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;好像在&lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt;里面常常用到类似的特性&lt;/p&gt;
+&lt;p&gt;没想到可以用浏览器不支持的属性作为浏览器的判断，这个有优点也有缺点，缺点就是如果哪一天浏览器css支持，那就完了，而且要找到这个css属性也不容易&lt;/p&gt;
+&lt;h2 id=&quot;关注原生标签和属性&quot;&gt;关注原生标签和属性&lt;/h2&gt;
+&lt;p&gt;你就会发现，他原本的世界就丰富多彩。一个一个使用合适，都是宝。以上说的那些都是我在日常的工作中用到的，日常业务也可以变的丰富多彩，有意义。倘若你在工作中，寻找到学习的乐趣，你的工作就不再是简单的工作。当你看到一个ui或者一个交互，你就抛弃以往惯用的实现方式，另辟蹊径。或许成功，或许失败，但是尝试的勇气是最宝贵的东西。&lt;/p&gt;
 
-&lt;h2 id=&quot;未完待续&quot;&gt;未完待续&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">罗列出工作中用到一些 vue 知识点 有些是新特性，有些事不常用，但是可以很好的解决工作中问题的知识点</summary></entry><entry><title type="html">前端技术文章推荐</title><link href="http://localhost:4000/2019/07/09/web-recommend/" rel="alternate" type="text/html" title="前端技术文章推荐" /><published>2019-07-09T00:00:00+08:00</published><updated>2019-07-09T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/09/web%20recommend</id><content type="html" xml:base="http://localhost:4000/2019/07/09/web-recommend/">&lt;h1 id=&quot;推荐原因&quot;&gt;推荐原因&lt;/h1&gt;
-&lt;p&gt;大佬的文章是真的写的好好，仰望的对象。推荐css，html，JavaScript的基础原理文章。
-牢固夯实自己的基础。&lt;/p&gt;
+&lt;p&gt;尝试成功了，就要记录。为啥要选用新的方式？老的有什么问题？在尝试的过程中遇到了哪些问题？新的方式可以给我带来什么？整个事情就形成了一个闭环，凡事有交代 件件有着落 事事有回应。&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="HTML" /><summary type="html">日常扯皮</summary></entry><entry><title type="html">font-family 字体文章介绍</title><link href="http://localhost:4000/2021/02/21/font-family/" rel="alternate" type="text/html" title="font-family 字体文章介绍" /><published>2021-02-21T00:00:00+08:00</published><updated>2021-02-21T00:00:00+08:00</updated><id>http://localhost:4000/2021/02/21/font-family</id><content type="html" xml:base="http://localhost:4000/2021/02/21/font-family/">&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+&lt;p&gt;在大多数写代码的时候都很少去设置这个字体，只有很少数的情况才会使用一些特色字体。关于设置字体的问题遇到的是少之又少，但是有一次我还是遇到了。某用户使用华为手机的一款花里胡哨的字体，最后导致这个页面字聚到一坨了，页面简直没法看。解决方法是，给页面设置了一款字体，而不是使用系统字体。&lt;/p&gt;
 
-&lt;h2 id=&quot;推荐文章&quot;&gt;推荐文章&lt;/h2&gt;
+&lt;h2 id=&quot;字母数字并不是每一个字符都会占等宽&quot;&gt;字母，数字并不是每一个字符都会占等宽&lt;/h2&gt;
+&lt;p&gt;为了页面体验，看上去占用一样的宽度。特别是倒计时从0到1的时候，页面会有一个抖动。因为0占的宽度比1要宽。才有这样的情况。所以我们要设置等宽字体Consolas monospace – 等宽字体&lt;/p&gt;
 
-&lt;h3 id=&quot;positionsticky-怎么使用&quot;&gt;position:sticky 怎么使用？&lt;/h3&gt;
+&lt;p&gt;如果网页没有设置默认字体的话，移动端访问网页的时候，若用户使用一些花里胡哨的字体很容易导致整个页面字体布局混乱。&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2018/12/css-position-sticky/&quot;&gt;杀了个回马枪，还是说说position:sticky吧&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">推荐原因 大佬的文章是真的写的好好，仰望的对象。推荐css，html，JavaScript的基础原理文章。 牢固夯实自己的基础。</summary></entry><entry><title type="html">前端项目的搭建</title><link href="http://localhost:4000/2019/07/08/vue-cli/" rel="alternate" type="text/html" title="前端项目的搭建" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/vue%20cli</id><content type="html" xml:base="http://localhost:4000/2019/07/08/vue-cli/">&lt;h1 id=&quot;vue-搭建项目&quot;&gt;vue 搭建项目&lt;/h1&gt;
-&lt;p&gt;一直都是从事用 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue&lt;/code&gt; 进行工作开发，参与过大小项目的开发，自己参与过。虽然项目 &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; 之后都是一堆看不懂的文件，
-但是对于开发而言，关系可大了，会影响开发&lt;/p&gt;
+&lt;p&gt;忘记具体问题了，反正就是字体问题。张老师说是因为字体库本身缺少一些字体行高字重等等的一些原因，出现的问题。&lt;/p&gt;
 
-&lt;h2 id=&quot;接触过的项目目录结构&quot;&gt;接触过的项目目录结构&lt;/h2&gt;</content><author><name>sunseekers</name></author><summary type="html">vue 搭建项目 一直都是从事用 vue 进行工作开发，参与过大小项目的开发，自己参与过。虽然项目 build 之后都是一堆看不懂的文件， 但是对于开发而言，关系可大了，会影响开发</summary></entry><entry><title type="html">JavaScript 知识点概念</title><link href="http://localhost:4000/2019/07/08/javascript/" rel="alternate" type="text/html" title="JavaScript 知识点概念" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/javascript</id><content type="html" xml:base="http://localhost:4000/2019/07/08/javascript/">&lt;h1 id=&quot;javascript-中一些名词或者概念的解释&quot;&gt;JavaScript 中一些名词或者概念的解释&lt;/h1&gt;
-&lt;p&gt;有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。&lt;/p&gt;
+&lt;p&gt;字体用的最频繁，但是对他的了解是最少的。于是在网上找了一些文字了解了解&lt;/p&gt;
 
-&lt;h2 id=&quot;伪数组是怎么定义的&quot;&gt;伪数组是怎么定义的&lt;/h2&gt;
-&lt;p&gt;含有 length 属性的 json 对象，它并不具有数组的一些方法，只能能通过Array.prototype.slice转换为真正的数组&lt;/p&gt;
+&lt;h2 id=&quot;参考文章&quot;&gt;参考文章&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;例如： var obj = {0:'a',1:'b',name:'sunskkers',length:8}; // 伪数组,有length属性，可以用Array.from()转化为一个长度是8的数组
+&lt;p&gt;&lt;a href=&quot;https://github.com/chokcoco/iCSS/issues/6&quot;&gt;你该知道的字体 font-family&lt;/a&gt;:设置元素的字体，可以同时指定多个，如果浏览器不支持第一个字体，则会尝试下一个，可以设置字体或字体系列。&lt;/p&gt;
 
-var obj1 = {0:'a',1:'b',name:'sunskkers'}; //伪数组,对象的原型上有length属性，可以用Array.from()转化为一个空数组
+&lt;p&gt;&lt;a href=&quot;https://github.com/chokcoco/iCSS/issues/69&quot;&gt;Web 字体 font-family 再探秘&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/bailicangdu/blog/issues/5&quot;&gt;Web 字体 font-family 浅谈&lt;/a&gt;：和上面那片文章差不多，多了一些具体网站使用的字体及简单点评&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://keqingrong.cn/blog/2019-01-01-font-in-css&quot;&gt;字体，以及 font-family&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://pudge1996.medium.com/pingfang-sc-%E6%88%96%E8%AE%B8%E4%B8%8D%E5%BA%94%E8%AF%A5%E4%BD%9C%E4%B8%BA%E7%BD%91%E9%A1%B5%E5%AD%97%E4%BD%93%E7%9A%84%E9%A6%96%E9%80%89%E9%A1%B9-70cc6d2258fa&quot;&gt;PingFang SC 不应该作为移动端网页字体的首选项&lt;/a&gt;: 我觉得这篇文章写的很不错，里面谈到了app和web页面来回切换时应该要保持字体一致&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="CSS" /><summary type="html">背景 在大多数写代码的时候都很少去设置这个字体，只有很少数的情况才会使用一些特色字体。关于设置字体的问题遇到的是少之又少，但是有一次我还是遇到了。某用户使用华为手机的一款花里胡哨的字体，最后导致这个页面字聚到一坨了，页面简直没法看。解决方法是，给页面设置了一款字体，而不是使用系统字体。</summary></entry><entry><title type="html">Html Attr</title><link href="http://localhost:4000/2021/02/20/html-attr/" rel="alternate" type="text/html" title="Html Attr" /><published>2021-02-20T00:00:00+08:00</published><updated>2021-02-20T00:00:00+08:00</updated><id>http://localhost:4000/2021/02/20/html-attr</id><content type="html" xml:base="http://localhost:4000/2021/02/20/html-attr/">&lt;hr /&gt;
+&lt;p&gt;layout: post
+title: HTML 属性
+categories: [HTML]
+description: HTML 属性
+keywords: HTML 属性
+—&lt;/p&gt;
+
+&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+&lt;p&gt;有一次同事用overflow实现了拖拽功能，利用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;button autofocus&amp;gt;我有自动聚集功能，加载到这里&amp;lt;/button&amp;gt;&lt;/code&gt; 的 autofocus 自动聚集功能可以实现，页面元素滚动到指定位置，利用type=range 实现评星功能等等（这个在我前面的文章中都有说到），他就和我说了一句，实现功能的时候如果你考虑使用原生属性的自带功能可是事半功倍。我领导在code review 的时候帮我删除啰里八嗦的代码的时候就说了一句，如果是提交东西用form表单，form表单帮我们做了回车键提交事件等等。经历几次之后，深刻体会到元素自带原生属性的方便实用。以此来记录写这片文章&lt;/p&gt;
+
+&lt;h2 id=&quot;button-的-autofocus&quot;&gt;button 的 autofocus&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/WNoEEdJ&quot;&gt;autofocus 自动聚集到页面可见的位置&lt;/a&gt;: 原理是浏览器自动聚集到当前元素&lt;/p&gt;
+
+&lt;h2 id=&quot;元素属性-aligncenterleftright&quot;&gt;元素属性 align=”center｜left｜right”&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div align=&quot;center&quot;&amp;gt;文本内容回居中显示，因为元素上面的设置了&amp;lt;/div&amp;gt;&lt;/code&gt; : 在项目中看到了有使用这个属性，但是在文档里面没有找到，经过尝试，谷歌支持这个属性&lt;/p&gt;
+
+&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2020/01/html-global-attributes/&quot;&gt;HTML全局属性列表大全&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">layout: post title: HTML 属性 categories: [HTML] description: HTML 属性 keywords: HTML 属性 —</summary></entry><entry><title type="html">css 用户体验优化</title><link href="http://localhost:4000/2021/01/31/css-experience/" rel="alternate" type="text/html" title="css 用户体验优化" /><published>2021-01-31T00:00:00+08:00</published><updated>2021-01-31T00:00:00+08:00</updated><id>http://localhost:4000/2021/01/31/css-experience</id><content type="html" xml:base="http://localhost:4000/2021/01/31/css-experience/">&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+&lt;p&gt;昨天去牙科医院看牙齿，在终端挂号与签到的时候，点击触摸屏半天没有得到反馈。我都不知道我的点击是否有用，过了好久好久，才转一个圈圈告诉我在加载中，再过了好久才告诉我，操作成功了。文案还特别小，我就特别难受，不知道那些老爷爷老奶奶用着这个是啥感觉。那一刻我终于体会到我公司设计体验部的重要性了，也深刻明白了，领导们强调的那些重视用户体验了。我身为一个用户，当一款好的产品展示在我的眼前的时候，用着顺心，我整个人都会很开心，很喜欢这个产品。&lt;/p&gt;
+
+&lt;h2 id=&quot;日常开发注意哪些点&quot;&gt;日常开发注意哪些点&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果是可操作的，鼠标移动上去要有反馈，通常添加:hover&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;表单元素，获取到焦点时候要有反馈，通常添加:focus&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;点击那一瞬间，需要有淡淡的区域反馈，通常添加:active&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;访问过的链接，根据具体的需求，可以加:visited&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;审视到底哪些效果应该跟着字体一起放大，而哪些效果是保持不变的，影响到的用em单位，你的媒体查询中使用em单位取代像素单位。这能让文本缩放在必要时触发布局的变化&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;颜色需要变化的使用继承或者currentColor,像border-color和outline-color，以及text-shadow和box-shadow，如果没有设置颜色，它就会自动地从文本颜色那里得到颜色&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;inherit可以用在任何CSS属性中，而且它总是绑定到父元素的计算值（对伪元素来说，则会取生成该伪元素的宿主元素，这个inherit关键字对于背景色同样非常有用它比currentColor 使用的范围更广&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;代码易维护和代码量少不可兼得&quot;&gt;代码易维护和代码量少不可兼得&lt;/h2&gt;
+
+&lt;p&gt;使用百分比长度来取代固定长度。如果实在做不到这一点，也应该尝试使用与视口相关的单位（vw、vh、vmin和vmax），它们的值解析为视口宽度或高度的百分比&lt;/p&gt;
+
+&lt;p&gt;当你需要在较大分辨率下得到固定宽度时，使用max-width而不是width，因为它可以适应较小的分辨率，而无需使用媒体查询。&lt;/p&gt;
+
+&lt;p&gt;不要忘记为替换元素（比如img、object、video、iframe等）设置一个max-width，值为100%。&lt;/p&gt;
+
+&lt;p&gt;实现弹性可伸缩的布局，并在媒体查询的各个断点区间内指定相应的尺寸&lt;/p&gt;
+
+&lt;p&gt;这些原生特性通常比预处理器提供的版本要强大得多，因为它们是动态的，举个例子，预处理器完全不知道如何完成100% - 50px这样的计算，因为在页面真正被渲染之前，百分比值是无法解析的。但是，原生CSS的calc()在计算这样的表达式时没有任何压力&lt;/p&gt;
+
+&lt;p&gt;var 变量也可以经常使用。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ul{--accent-color:purple}
+ol{--accent-color:rebeccapurple}
+li{background:var(--accent-color)}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/96&quot;&gt;第 55 题：某公司 1 到 12 月份的销售额存在一个对象里面，如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]&lt;/a&gt;
-里面不理解为啥要给对象加一个 length 属性，原来是为了转化为一个长度为12的数组&lt;/p&gt;
+&lt;p&gt;在有序列表中，列表项的背景色将是rebeccapurple；但在无序列表中，列表项的背景色将是purple&lt;/p&gt;
 
-&lt;p&gt;疑问： &lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from({length:12})&lt;/code&gt; 为啥有人喜欢这样创建一个数组？是有什么优化还是？&lt;/p&gt;
+&lt;p&gt;如果一个样式需要两层div混合在一起，那么就会出现一个问题，结构和表现混合在一个，如果可以的话，尽量分开实现一个div就能满足样式的需求&lt;/p&gt;
 
-&lt;h2 id=&quot;运算符的优先级&quot;&gt;运算符的优先级&lt;/h2&gt;
-&lt;p&gt;. 的优先级高于 = ；单独的这样一句话，想必大部分人都知道吧，但是放到代码场景中我就不知道了。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/ZEBgjxa&quot;&gt;例如 demo&lt;/a&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var a = {n: 1};
-var b = a;
-a.x = a = {n: 2};
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/bGBXxNW&quot;&gt;伪元素的使用&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="CSS" /><summary type="html">背景 昨天去牙科医院看牙齿，在终端挂号与签到的时候，点击触摸屏半天没有得到反馈。我都不知道我的点击是否有用，过了好久好久，才转一个圈圈告诉我在加载中，再过了好久才告诉我，操作成功了。文案还特别小，我就特别难受，不知道那些老爷爷老奶奶用着这个是啥感觉。那一刻我终于体会到我公司设计体验部的重要性了，也深刻明白了，领导们强调的那些重视用户体验了。我身为一个用户，当一款好的产品展示在我的眼前的时候，用着顺心，我整个人都会很开心，很喜欢这个产品。</summary></entry><entry><title type="html">overflow：auto 实现拖拽效果</title><link href="http://localhost:4000/2021/01/26/overflow/" rel="alternate" type="text/html" title="overflow：auto 实现拖拽效果" /><published>2021-01-26T00:00:00+08:00</published><updated>2021-01-26T00:00:00+08:00</updated><id>http://localhost:4000/2021/01/26/overflow</id><content type="html" xml:base="http://localhost:4000/2021/01/26/overflow/">&lt;h1 id=&quot;前言&quot;&gt;前言&lt;/h1&gt;
+&lt;p&gt;overflow：auto 可以实现拖拽，你信或者不信，我已经在代码里面都实现了这个，不信的话，你读完这篇文章，你也可以在你的代码里面实现这个。一句话概括就是CSS实现了拖拽。&lt;/p&gt;
 
-console.log(a.x) 	
-console.log(b.x)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;兼容性怎么样&quot;&gt;兼容性怎么样&lt;/h2&gt;
 
-&lt;p&gt;之前看到过这样的问题，绕了半天，勉强理解了，一段时间之后就忘了。直到看到有朋友解释：”.的优先级比=要高，所以这里首先执行a.x，相当于为a（或者b）所指向的{n:1}对象新增了一个属性x，即此时对象将变为{n:1;x:undefined}。之后按正常情况，从右到左进行赋值，此时执行a ={n:2}的时候，a的引用改变，指向了新对象{n：2},而b依然指向的是旧对象”。
-我才恍然大悟。原来我的问题在我忽略了 &lt;em&gt;. 的优先级高于 =&lt;/em&gt;，然后才一直不理解
-&lt;a href=&quot;https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/93&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;你问我兼容性怎么样，我就感觉你仿佛在问我overflow：auto的兼容性怎么样。&lt;/p&gt;
 
-&lt;h2 id=&quot;async-await&quot;&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function&quot;&gt;async await&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;长得像同步函数的异步函数，返回一个promise对象；当调用一个 async 函数时，会返回一个 Promise 对象。当这个 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise 的 reject 方法也会传递这个异常值。
-async 函数中可能会有 await 表达式，这会使 async 函数暂停执行，等待 Promise  的结果出来，然后恢复async函数的执行并返回解析值（resolved）。
-    注意， await 关键字仅仅在 async function中有效。如果在 async function函数体外使用 await ，你只会得到一个语法错误（SyntaxError）&lt;/p&gt;
+&lt;h2 id=&quot;实现效果&quot;&gt;实现效果&lt;/h2&gt;
 
-&lt;p&gt;&lt;em&gt;在没有 await 的情况下执行 async 函数，它会立即执行，返回一个 Promise 对象，并且，绝不会阻塞后面的语句。这和普通返回 Promise 对象的函数并无二致。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/overflow/1.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000007535316&quot;&gt;理解 JavaScript 的 async/await&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;看到图中那个音乐播放器被在到处动嘛？他就是我用overflow：auto实现的拽动，神奇吧。在 css 的世界只有你想不到，没有你做不到的。从&lt;a href=&quot;https://mp.weixin.qq.com/s/aD5BzGFnvMOY4cp_MvZ53A&quot;&gt;震惊，type=”range” 居然可以实现评星功能&lt;/a&gt;到 现在的 overflow：auto 实现拖拽效果，在我入职阅文之后，一次又一次刷新了我对css的认知，打开我眼界。&lt;/p&gt;
 
-&lt;h2 id=&quot;array&quot;&gt;Array&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from(obj,mapFn,thisArg)&lt;/code&gt; 相当于 &lt;code class=&quot;highlighter-rouge&quot;&gt;Array.from(obj).map(mapFn,thisArg)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;音乐播放器播放进度参考&lt;a href=&quot;https://www.zhangxinxu.com/study/201903/css-idea/animation-pie.php?aside=0&quot;&gt;饼图图形与动画&lt;/a&gt;&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flat()&lt;/code&gt;按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新的数组返回（我理解就是数组扁平化，过滤掉空项）&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/PoGMymW&quot;&gt;overflow:实现拖拽 效果 =&amp;gt; 手机版效果&lt;/a&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var arr3 = [1, 2, [3, 4, [5, [6,[9,[0]]]]]];
-arr3.flat(5);//[1, 2, 3, 4, 5, 6, 9, 0]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;这是一个十分钟出现的id&quot;&gt;这是一个十分钟出现的ID&lt;/h2&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;reduce&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;concat&lt;/code&gt; 结合在一起可以替换&lt;/p&gt;
+&lt;p&gt;或许你觉得我这个标题夸张了，但是我确实是十分钟就看到了这个实现的demo。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
-function flattenDeep(arr1) {
-    return arr1.reduce((acc,val)=&amp;gt;{Array.isArray(val)?acc.concat(flattenDeep(val)) : acc.concat(val), []);
+&lt;p&gt;背景是这样：在公司我主要负责高度还原设计稿简称原型开发，原型实现完了交给技术部的同事实现后续的数据逻辑开发。&lt;/p&gt;
+
+&lt;p&gt;在一次音乐播放器的原型开发中，有一个音乐播放器拖拽的功能，最开始我是用js的API实现&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmousemove&quot;&gt;onmousemove 手指移动的时候相当于拖动&lt;/a&gt;，&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondragstart&quot;&gt;ondragstart 开始拖动的时候&lt;/a&gt;。这种方式是可以实现，但是很麻烦，需要对元素拖动的位置进行上下左右的边界判断，越界的时候要进行处理，而且不够优雅。技术部同事拿到我开发的原型，发现了一些莫名其妙的问题，见我代码页不够优雅，于是给我指了一个方向，说找我的老搭档。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/overflow/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;一边和老搭档讨论着，一边在解决问题，问题解决了一个，又来一个。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/overflow/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当时我在想是不是我的实现原理或者思路出现问题，代码越写越复杂了。脑子一片混乱的时候，同事给我指了条明道，说用 overflow：auto。我一脸懵逼，他是不是发错消息了？我将错就错的问加哪？我想他肯定会和我说，不好意思发错人了。可是三秒之后，我发现是我想错了，不是他发错了，给了我一链接，他真的实现了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/overflow/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;前前后后估计也就是十分钟吧&lt;/p&gt;
+
+&lt;h2 id=&quot;实现原理&quot;&gt;实现原理&lt;/h2&gt;
+&lt;p&gt;拖拽，换一个思路就是滚动。横向拖着走就是横着滚，垂直拖着走就是垂直方向滚。&lt;/p&gt;
+
+&lt;p&gt;回到我前面那句话拖拽，换一个思路就是滚动。心里默念三遍，三遍不行就十遍。念顺溜了，并且记住了，接下来的事情就是顺其自然了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/overflow/7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/overflow/4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/overflow/5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/overflow/6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这么清晰的画图解释，懂了吧&lt;/p&gt;
+
+&lt;p&gt;这就是代码实现&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/PoGMymW&quot;&gt;overflow:实现拖拽 效果 =&amp;gt; 手机版效果&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;幸运&quot;&gt;幸运&lt;/h2&gt;
+
+&lt;p&gt;每次开发完的原型，心里都忐忑不安的，不管是交出去还是代码 code review ，都达不到完美的效果，大大小小的问题总是避免不了，少不了的自我怀疑，我是不是不行呀。&lt;/p&gt;
+
+&lt;p&gt;但我也会自我安慰，加油，人生就是一个不断去遇见问题然后解决他，生活因此而变得丰富多彩，我就是一个有故事的人。&lt;/p&gt;
+
+&lt;p&gt;我很幸运的，我的幸运在，每一次业务代码都是成长，每一次的问题都是一次成长，每一次的每一次我都有收获。因为有同事参与帮忙，增添了我成长的乐趣，它变成了一件快乐的事，很感谢他们。&lt;/p&gt;
+
+&lt;p&gt;同行和我说：我真的很幸运，你毕业两年多，就能去&lt;a href=&quot;https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;amp;__biz=MzU4MzUzODc3Nw==&amp;amp;scene=124#wechat_redirect&quot;&gt;张鑫旭老师他们的团队&lt;/a&gt;，有&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/&quot;&gt;张老师&lt;/a&gt;的指导，有前途，人家应届生都未必有这样的待遇，踩狗屎，这是多么难的的机遇呀！加油&lt;/p&gt;
+
+&lt;p&gt;写代码的时候我秉承一个习惯：代码应该尽可能简单，因为下一个维护你的代码的人不会像你那么聪明（ps：因为我不聪明，已所不欲勿施于人&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="功能实现" /><summary type="html">前言 overflow：auto 可以实现拖拽，你信或者不信，我已经在代码里面都实现了这个，不信的话，你读完这篇文章，你也可以在你的代码里面实现这个。一句话概括就是CSS实现了拖拽。</summary></entry><entry><title type="html">css 实现环形百分比进度</title><link href="http://localhost:4000/2021/01/23/css-percent/" rel="alternate" type="text/html" title="css 实现环形百分比进度" /><published>2021-01-23T00:00:00+08:00</published><updated>2021-01-23T00:00:00+08:00</updated><id>http://localhost:4000/2021/01/23/css-percent</id><content type="html" xml:base="http://localhost:4000/2021/01/23/css-percent/">&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+&lt;p&gt;接到一个需求，写一个音乐播放器的UI页面，里面有一个功能，播放环形进度。播放暂停的时候进度也暂停了。这个需求刚开始接触时候有点懵逼，就去张老师博客上面找找思路，他博客真的是一个好东西，啥都有，找一找就能找到解决问题的文章，看一看，需求就写出来了，知识点也学到了。文章主要内容参考&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2019/06/cssconf-css-idea/&quot;&gt;第五届CSS大会主题分享之CSS创意与视觉表现&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;需求&quot;&gt;需求&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/percent.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;第一次写出来是参考&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2014/04/css3-pie-loading-waiting-animation/&quot;&gt;CSS3实现鸡蛋饼饼图loading等待转转转&lt;/a&gt; 大概是14年的文章。根据这个文章效果是实现，但是很不友好，这个转圈的时间是固定的，很难中途给她暂停住。音频暂停住了，播放进度还在继续。所以舍弃这个&lt;/p&gt;
+
+&lt;p&gt;后来张老师指导了一下，换了一种很优雅的&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/study/201903/css-idea/animation-pie.php?aside=0&quot;&gt;饼图图形与动画&lt;/a&gt; 仔细看了这个实现方式很nice&lt;/p&gt;
+
+&lt;h3 id=&quot;饼图图形与动画实现原理&quot;&gt;饼图图形与动画实现原理&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过自定义属性实现，百分比控制显示区域（伪元素可以读取自定义属性数据&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;正方形视区分左右两个半区，溢出隐藏（画一个圆&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;进度前50%，主要是右边的旋转和透明，左边的旋转没有作用，左边的旋转只是为了后50%做准备&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;进度后50%，主要是左边的旋转和透明，左边的旋转没有作用&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;去掉demo 里面的 pie-left::before 就可以验证这个了&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;核心代码，看张老师的demo吧，反正这个我是实现不出来，看了demo的代码，也是看了很久，才看明白啥意思，这个实现真的很奇妙&lt;/p&gt;
+
+&lt;h2 id=&quot;继续读张老师的文章后来发现了更多可学习到的东西&quot;&gt;继续读张老师的文章，后来发现了更多可学习到的东西&lt;/h2&gt;
+
+&lt;h3 id=&quot;动画打点&quot;&gt;动画：打点&lt;/h3&gt;
+&lt;p&gt;这个就是加载中的那种一个点，两个点，三个点的效果。&lt;/p&gt;
+
+&lt;p&gt;原理就是一个元素展示三行，第一行一个点，第二行两个点，第三行三个点。然后借助animation移动他们的上下移动点。主要借助伪元素的 content: ‘…\A..\A.’;(\A 是一个换行符)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2016/11/css-content-pre-animation-character-loading/&quot;&gt;CSS content换行实现字符点点点loading效果&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/study/201611/animation-content-dot-dot-dot-wait.html&quot;&gt;张老师的demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/jOMovWm&quot;&gt;我自己的demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;css实现平行四边形布局效果&quot;&gt;CSS实现平行四边形布局效果&lt;/h3&gt;
+
+&lt;p&gt;这也是一个很有意思的东西，虽然可以用transform 实现但是，内容会跟着变化，需要在内容再加一个反转。这个就显得不是那么优雅了&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2019/04/css-parallelogram-layout/&quot;&gt;CSS实现平行四边形布局效果&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这个实现就很完美，很有意思了；让我认识了一个新的，我没用接触过用过的css 属性，没想到，他居然这么好用。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/shape-outside&quot;&gt;shape-outside&lt;/a&gt;:实现相邻元素围绕他转，他让相邻元素围绕他显示啥，就显示啥。什么圆呀，椭圆，都可以。文档里面有很不错的一个例子，我搬抄了一下&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/MWjdqoV&quot;&gt;shape-outside 的使用&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这是一个很不错，很有意思的&lt;/p&gt;
+
+&lt;h3 id=&quot;css创意与视觉表现&quot;&gt;CSS创意与视觉表现&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/study/201903/css-idea/shape-hollow.php?aside=0&amp;amp;kind=3&quot;&gt;外圆角选项卡&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;相见恨晚，因为在有一次需要开发的时候，有这个，那时候是我做不出来，用很low的方式解决了，还特别不好使，没有很好的还原设计。但是这种方式可以&lt;/p&gt;
+
+&lt;p&gt;原理就是，两边加伪元素，然后伪元素定位到旁边，利用层级关系，覆盖旁边的&lt;/p&gt;
+
+&lt;h3 id=&quot;行为分栏宽度拉伸&quot;&gt;行为：分栏宽度拉伸&lt;/h3&gt;
+
+&lt;p&gt;实现原理是：CSS中有一个&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/resize&quot;&gt;resize&lt;/a&gt;属性，如果一个元素的overflow属性值不是visible，则通过设置resize属性可以拉伸这个元素尺寸。（把具有拉伸功能的元素覆盖上去，变成透明的就不可见了&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar&quot;&gt;::-webkit-scrollbar&lt;/a&gt; : 可以改变拉伸样式&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/study/201903/css-idea/behavior-stretch.php?aside=0&quot;&gt;纯CSS实现分栏宽度拉伸调整&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="CSS" /><summary type="html">背景 接到一个需求，写一个音乐播放器的UI页面，里面有一个功能，播放环形进度。播放暂停的时候进度也暂停了。这个需求刚开始接触时候有点懵逼，就去张老师博客上面找找思路，他博客真的是一个好东西，啥都有，找一找就能找到解决问题的文章，看一看，需求就写出来了，知识点也学到了。文章主要内容参考第五届CSS大会主题分享之CSS创意与视觉表现</summary></entry><entry><title type="html">mask 常用的场景</title><link href="http://localhost:4000/2021/01/16/mask/" rel="alternate" type="text/html" title="mask 常用的场景" /><published>2021-01-16T00:00:00+08:00</published><updated>2021-01-16T00:00:00+08:00</updated><id>http://localhost:4000/2021/01/16/mask</id><content type="html" xml:base="http://localhost:4000/2021/01/16/mask/">&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+&lt;p&gt;入职阅文以后，第一次做项目的时候用到了 mask，后来用到的频率越来越高，就发现这个真的是一个好东西，记录一下&lt;/p&gt;
+
+&lt;h2 id=&quot;背景颜色变化影响图片&quot;&gt;背景颜色变化影响图片&lt;/h2&gt;
+&lt;p&gt;之前写的一篇文章和一个demo &lt;a href=&quot;https://codepen.io/qingchuang/pen/jOMmQab&quot;&gt;range 实现评分组件&lt;/a&gt;，里面就是用 mask 实现的，把图片盖在背景之上（效果是只显示背景只显示图片区域内，而图片会变成透明的）就实现了背景颜色变化，图片的颜色也跟着变化&lt;/p&gt;
+
+&lt;p&gt;例如 &lt;a href=&quot;https://codepen.io/qingchuang/pen/NWReyJd&quot;&gt;mask 实现图片随背景变化而变化&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/WNGLzRX&quot;&gt;mask 实现文字渐变&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/6931168723021758478&quot;&gt;使用 mask 实现视频弹幕人物遮罩过滤&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;边缘镂空半圆的css效果&quot;&gt;边缘镂空半圆的CSS效果&lt;/h2&gt;
+&lt;p&gt;张老师的小测里面出了一个场景题目&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/mask/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;实现边缘镂空的效果，我第一时间想到了，或许mask可以，但是实现看了半天，最终实现不了放弃了。通过后台看&lt;a href=&quot;https://github.com/XboxYan&quot;&gt;XboxYan 同事&lt;/a&gt;的代码，发现一个很棒很棒的实现。我研究讨论了一段时间才弄懂了。&lt;/p&gt;
+
+&lt;p&gt;我 copy 同事的代码出来&lt;a href=&quot;https://codepen.io/qingchuang/pen/YzpgdmB&quot;&gt;mask 边缘镂空半圆的CSS效果&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我看的不是很明白就在问他&lt;/p&gt;
+
+&lt;p&gt;我：为啥mask-position:负数，就会被劈成两个？两边显示&lt;/p&gt;
+
+&lt;p&gt;他：你改成0看看&lt;/p&gt;
+
+&lt;p&gt;我：零就是一个圆，为负的时候就开始劈开了，负的越多，就开始劈的厉害&lt;/p&gt;
+
+&lt;p&gt;他：这个和背景一样，是平铺的&lt;/p&gt;
+
+&lt;p&gt;我：还是不懂，为啥会劈开两端，中间没有平铺&lt;/p&gt;
+
+&lt;p&gt;他：因为背景有这么大，然后那个洞本来就在最左边&lt;/p&gt;
+
+&lt;p&gt;我还是不懂，于是我就去试了试，他说的背景图&lt;/p&gt;
+
+&lt;p&gt;试了试成功了，开心，我以为我懂了，就去和他说我懂了&lt;a href=&quot;https://codepen.io/qingchuang/pen/OJbqdyP&quot;&gt;背景镂空&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我：但是我不清楚，位置变负以后的表现，从来没有用过。觉得很奇怪，查看文档也没有说，会劈在两边显示呀&lt;/p&gt;
+
+&lt;p&gt;继续尝试，把background-image换成图片之后，失败了，我懵逼了。到底咋回事，他说的平铺是啥呢？&lt;/p&gt;
+
+&lt;p&gt;我：我把我的不懂继续问他，换了一种问法，为啥图片不行，radial-gradient(circle at 10px center, red 10px, transparent 0)就可以了&lt;/p&gt;
+
+&lt;p&gt;他：这个绘制出来的就是一整张图，只有左边有一个红色的圆&lt;/p&gt;
+
+&lt;p&gt;我：突然明白了，所以利用的是她的平铺特性，其实是有一张多的图片，并不只是一张图片。真的太厉害了&lt;/p&gt;
+
+&lt;p&gt;他：试一试圆分成四份，放在四个角落？&lt;/p&gt;
+
+&lt;p&gt;有一次get到很强的写法，我总是那么菜，还笨&lt;/p&gt;
+
+&lt;p&gt;细细品读了两篇文章，才真正意义上的理解了 mask 用我粗糙的理解就是遮罩，就像用ps把两张图片叠在一起一样，底图就是一张正常的图，上面的图片，是部分透明，部分不透明。透明部分就穿过可以看到底图，从而就实现了两张图片遮罩的效果&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/mask/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我：想了很久尝试了很多没有想出来，他说的那个，用一个很low的&lt;/p&gt;
+
+&lt;p&gt;他：看了我的low方案之后，给我一个很不错的方案&lt;/p&gt;
+
+&lt;p&gt;我：大神就是大神&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/QWGPgQB&quot;&gt;圆分成四份，放在四个角落&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我：不懂为啥只在后面只加了一句话&lt;/p&gt;
+
+&lt;p&gt;他：省略就给一个默认值50%，图片刚好是容器大小，所以本身就是居中的；&lt;/p&gt;
+
+&lt;p&gt;我：无论负多少，都没有变化，继续问&lt;/p&gt;
+
+&lt;p&gt;他：(容器尺寸 - 图片尺寸) * xx%，图片刚好是容器大小，所以永远都是0，没有效果。两个方向上的，一般省略都不是相同的&lt;/p&gt;
+
+&lt;p&gt;真好，能和&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/&quot;&gt;张老师&lt;/a&gt;和&lt;a href=&quot;https://github.com/XboxYan&quot;&gt;XboxYan&lt;/a&gt;一起办公很爽呀，发现很多很有意思的css，茅塞顿开，学习到了很多，感谢&lt;/p&gt;
+
+&lt;h2 id=&quot;参考文档&quot;&gt;参考文档&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2017/11/css-css3-mask-masks/#mask-position&quot;&gt;客栈说书：CSS遮罩CSS3 mask/masks详细介绍&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.w3cplus.com/css3/css-masking.html&quot;&gt;CSS遮罩——如何在CSS中使用遮罩&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.canvasapi.cn/CanvasRenderingContext2D/globalCompositeOperation#&amp;amp;details&quot;&gt;mask-composite 借鉴了Canvas中的globalCompositeOperation属性值，各个属性值详细作用可以&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2017/11/css3-radial-gradient-syntax-example/&quot;&gt;10个demo示例学会CSS3 radial-gradient径向渐变&lt;/a&gt;: 文章里面提到了radial-gradient径向渐变 这个属性我不太熟，看了一遍懂了，以后不懂可以多看看。（at 后面是起始位置，关键字前面是半径，关键字是形状，之后就是颜色的变化了，radial-gradient(20px 15px ellipse at top, red 10px, transparent 11px)，ellipse =&amp;gt; 椭圆， 20px =&amp;gt;横轴半径，10px =&amp;gt; 表示纵轴半径 表示绘制一个长度100px高度200px的椭圆. top 从上面开始，red 10px, transparent 11px颜色变化；对于径向渐变，在不指定渐变类型以及位置的情况下，其渐变距离和位置是由容器的尺寸决定的。指定位置或类型会发现既不是按照宽度来的，也不是按照高度来的，是按照最远边角距离作为渐变结束线的（对角线的位置：&lt;/p&gt;
+
+&lt;p&gt;mask 的很多属性都和background一样的，所以两边有的属性就当全部是公用的就好了&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="CSS" /><summary type="html">背景 入职阅文以后，第一次做项目的时候用到了 mask，后来用到的频率越来越高，就发现这个真的是一个好东西，记录一下</summary></entry><entry><title type="html">form 表单验证元素</title><link href="http://localhost:4000/2021/01/10/form-validity/" rel="alternate" type="text/html" title="form 表单验证元素" /><published>2021-01-10T00:00:00+08:00</published><updated>2021-01-10T00:00:00+08:00</updated><id>http://localhost:4000/2021/01/10/form-validity</id><content type="html" xml:base="http://localhost:4000/2021/01/10/form-validity/">&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+&lt;p&gt;接着前面的的表单元素继续说，用户提交一个表单或者一段数据的时候，通常我们都会有表单验证，验证内容是否合法，验证内容的有效性，验证内容是否填写了等等，这样的需求在平常的项目里面应该是一个很常见的操作。如果你对form表单有了解，我相信你很多事原生标签都帮你做了&lt;/p&gt;
+
+&lt;h2 id=&quot;表单样式修改&quot;&gt;表单样式修改&lt;/h2&gt;
+&lt;p&gt;我们可以通过 css 的伪类来控制表单验证的情况，&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/:valid&quot;&gt;:valid 内容验证正确&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/:invalid&quot;&gt;:invalid 内容未通过验证&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/:optional&quot;&gt;:optional 任意没有required属性的&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/:required&quot;&gt;:required 必选的时候样式&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/:focus-within&quot;&gt;:focus-within 元素获得焦点，他的父元素发生变化&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;form表单元素内置验证方法和属性&quot;&gt;form表单元素内置验证方法和属性&lt;/h2&gt;
+
+&lt;p&gt;checkValidity()方法可以用来验证当前表单控件元素，或者整个表单是否验证通过，返回值是布尔值，true或者false。&lt;/p&gt;
+
+&lt;p&gt;reportValidity()方法可以触发浏览器的内置的验证提示交互，返回布尔值，true或者false&lt;/p&gt;
+
+&lt;p&gt;setCustomValidity()方法顾名思义就是设置自定义的验证，我们可以使用这个方法自定义提示文字。&lt;/p&gt;
+
+&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zhangxinxu.com/wordpress/2019/08/js-checkvalidity-setcustomvalidity/&quot;&gt;checkValidity等form原生JS验证方法和属性详细介绍&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement&quot;&gt;HTMLFormElement&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.mifengjc.com/api/HTMLFormElement.html&quot;&gt;HTMLFormElement - 表示 DOM 中的 &amp;lt;form&amp;gt; 元素&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="HTML" /><summary type="html">背景 接着前面的的表单元素继续说，用户提交一个表单或者一段数据的时候，通常我们都会有表单验证，验证内容是否合法，验证内容的有效性，验证内容是否填写了等等，这样的需求在平常的项目里面应该是一个很常见的操作。如果你对form表单有了解，我相信你很多事原生标签都帮你做了</summary></entry><entry><title type="html">CSS处理js事件</title><link href="http://localhost:4000/2021/01/10/css-event/" rel="alternate" type="text/html" title="CSS处理js事件" /><published>2021-01-10T00:00:00+08:00</published><updated>2021-01-10T00:00:00+08:00</updated><id>http://localhost:4000/2021/01/10/css-event</id><content type="html" xml:base="http://localhost:4000/2021/01/10/css-event/">&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+&lt;p&gt;周末没有约朋友出去玩，在家闲的无聊，逛起了掘金，看到了同事的文章&lt;a href=&quot;https://juejin.cn/post/6844903856908812296&quot;&gt;借助CSS来管理js事件&lt;/a&gt;，觉得很有意思，就自己动手实现一下，文章大部分的内容都是来自他的文章。同事的css是真的很强，他用很多css解决了js的问题。像他多多学习&lt;/p&gt;
+
+&lt;h2 id=&quot;css-能解决js问题&quot;&gt;css 能解决js问题&lt;/h2&gt;
+&lt;h3 id=&quot;表单元素获取到焦点时样式被修改&quot;&gt;表单元素获取到焦点时样式被修改&lt;/h3&gt;
+&lt;p&gt;给表单元素的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xxx:focus{}&lt;/code&gt;就可以实现，元素获取到焦点的时候，样式修改&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/LYRBBZL&quot;&gt;借用 label 修改数据&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;表单元素禁止点击&quot;&gt;表单元素禁止点击&lt;/h3&gt;
+&lt;p&gt;对于禁止表单元素点击，我们经常会用到 disabled，元素确实是不可点击并且没有了点击事件。但是对于非表单元素我们就需要写js逻辑去添加样式，逻辑判断。显然代码量不少，那么我们如何用css解决呢？&lt;/p&gt;
+
+&lt;p&gt;和表单元素一样，不可点击的元素加上自定义属性disabled，然后给这个元素加上一个属性选择器就好了&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[disabled]{pointer-events:none;}&lt;/code&gt;。还可以美化他的样式，写一个我们ui需要的样式&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/yLaqdRO&quot;&gt;css pointer-events 禁用事件&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;长按事件&quot;&gt;长按事件&lt;/h3&gt;
+&lt;p&gt;若不是看到同事的掘金，我怎么也想不到，原来结合css，js还可以做这个操作。厉害了，每次看到同事们用css实现了啥骚操作，减少了很多很多js代码的时候，就想夸他们，当他们解决了我不能解决的问题的时候我更想夸&lt;/p&gt;
+
+&lt;p&gt;长按事件实现的原理是，css3中新增了过渡和动画属性(一个不会影响页面样式的属性过渡），js去监听过渡属性开始/进行中/完成的事件，这个事件就是我们所需要的。点击的时候添加一个属性选择器&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:active&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;button:hover:active{
+  opacity:.99;/**随便选取一个不影响页面的可以过渡的样式**/
+  color:red; /** 这里是为了能够看到样式的变化，在变化的过程中完成事件**/
+  transition:color 1s;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flatMap()&lt;/code&gt; 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。&lt;/p&gt;
-&lt;/blockquote&gt;
 
-&lt;p&gt;var names = [‘alice’,’Bol’,’tiff’,’Bruce’,’alice’]
-var countedNames = names.reduce((allNames,name)=&amp;gt;{
-    if(name in allNames){
-    allNames[name]++
-    }else{
-    allNames[name]=1
-    }
-    return allNames
-},{})&lt;/p&gt;</content><author><name>sunseekers</name></author><summary type="html">JavaScript 中一些名词或者概念的解释 有些词语知道是什么意思，但是只停留在表面的，并未深入了解或者扩展之后就不知道怎么用了。大部分是自己的理解，或许有不对不全理解不深入的地方。</summary></entry><entry><title type="html">算不算算法的算法</title><link href="http://localhost:4000/2019/07/08/algorithm001/" rel="alternate" type="text/html" title="算不算算法的算法" /><published>2019-07-08T00:00:00+08:00</published><updated>2019-07-08T00:00:00+08:00</updated><id>http://localhost:4000/2019/07/08/algorithm001</id><content type="html" xml:base="http://localhost:4000/2019/07/08/algorithm001/">&lt;h1 id=&quot;是算法还是不是&quot;&gt;是算法还是不是？&lt;/h1&gt;
-&lt;p&gt;非科班出身，非计算机出生的我，对于算法数据结构计算机原理等等相关的知识一脸茫然。但是耳边总是会听到有人说算法或者相关方面的知识，
-我就断断续续的把我听到的记录下来吧，是还是不是？交给时间，时间会给我答案&lt;/p&gt;
-
-&lt;h2 id=&quot;计算1-100之间偶数的和&quot;&gt;计算1-100之间偶数的和？&lt;/h2&gt;
-&lt;p&gt;这样的题目我们逼着眼睛都知道要怎么写，好像在很多关于数据结构和算法里面都看到这个经典的案例。或许在我们日常的编程过程中并没有什么实质性的用，
-或许有时候会觉得多此一举&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let sum = 0
-写法一
-for (let i=1; i&amp;lt;=100; i++){   // 这里我们要循环计算100次
-    if (i%2==0) {
-        sum+=i
-    }
- }
- 
-写法二
-for (let i=0; i&amp;lt;=100; i+=2){   // 这里我们要循环计算50次
-    if (i%2==0) {
-        sum+=i
-    }
- }
-   
+  const button = document.querySelector('button')
+  button.addEventListener('transitionend',function(){
+    //业务代码
+    alert('长按的弹窗')
+})
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;思考：是不是有更好的解决方法呢？比如高中学过的等差数列求和，或者小学初中学过的某个东西？&lt;/p&gt;
+&lt;h3 id=&quot;单次点击事件&quot;&gt;单次点击事件&lt;/h3&gt;
+&lt;p&gt;实现原理是：animationend是动画结束后触发，显然我们可以在这里做文章&lt;/p&gt;
 
-&lt;p&gt;即便是计算机替我们计算，但是执行次数越少的方法，达到某一个数量级应该是要快很多的&lt;/p&gt;
-
-&lt;h2 id=&quot;百钱百鸡&quot;&gt;百钱百鸡？&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let chicken = 0
-let count = 0
-写法一
-for (let cock = 0;cock&amp;lt;=20;cock++){
-    for(let hen = 0; hen&amp;lt;=33;hen++{
-    count++
-    chicken=100-cock-hen
-    if((cock*5+hen*3+chilcken/3==100) &amp;amp;&amp;amp; chicken%3==0){//这里有性能优化，具体解释忘记了
-        console.log('母鸡 '+ hen,'公鸡 '+ cock,'小鸡 '+ chilcken,)
-     }
-   }
-}
-
-写法二
-for (let cock = 0;cock&amp;lt;=20;cock++){
-    for(let hen = 0; hen&amp;lt;=33;hen++{
-    count++
-    if((cock+hen+chilcken==100) &amp;amp;&amp;amp; (cock*5+hen*3+chilcken/3==100)){
-        console.log('母鸡 '+ hen,'公鸡 '+ cock,'小鸡 '+ chilcken,)
-     }
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>sunseekers</name></author><summary type="html">是算法还是不是？ 非科班出身，非计算机出生的我，对于算法数据结构计算机原理等等相关的知识一脸茫然。但是耳边总是会听到有人说算法或者相关方面的知识， 我就断断续续的把我听到的记录下来吧，是还是不是？交给时间，时间会给我答案</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/qingchuang/pen/yLaqdma&quot;&gt;css 单次事件&lt;/a&gt;&lt;/p&gt;</content><author><name>sunseekers</name></author><category term="CSS" /><summary type="html">背景 周末没有约朋友出去玩，在家闲的无聊，逛起了掘金，看到了同事的文章借助CSS来管理js事件，觉得很有意思，就自己动手实现一下，文章大部分的内容都是来自他的文章。同事的css是真的很强，他用很多css解决了js的问题。像他多多学习</summary></entry></feed>

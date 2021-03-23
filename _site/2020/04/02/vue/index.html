@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title> 在工作中用到的 vue &mdash; sunseekers</title><link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css" /><link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css" /><link rel="stylesheet" href="https://mazhuang.org/rouge-themes/dist/github.css" /><link rel="canonical" href="http://localhost:4000/2020/04/02/vue/" /><link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml" /><link rel="shortcut icon" href="http://localhost:4000/favicon.ico" /><meta property="og:title" content="在工作中用到的 vue" /><meta name="keywords" content="vue" /><meta name="og:keywords" content="vue" /><meta name="description" content="罗列出工作中用到一些 vue 知识点" /><meta name="og:description" content="罗列出工作中用到一些 vue 知识点" /><meta property="og:url" content="http://localhost:4000/2020/04/02/vue/" /><meta property="og:site_name" content="sunseekers" /><meta property="og:type" content="article" /><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2020-04-02" /> <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="http://localhost:4000/assets/js/jquery-ui.js"></script> <script src="http://localhost:4000/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1> <a href="http://localhost:4000/" title="sunseekers" ><span class="octicon octicon-mark-github"></span> sunseekers</a ></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();" > <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页" >首页</a > <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类" >分类</a > <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基" >维基</a > <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接" >链接</a > <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于" >关于</a ></nav></div></header><style> html.dark-mode, html.dark-mode img { filter: invert(1) hue-rotate(180deg); } html.dark-mode img { opacity: 0.85; } #darkContainer { position: fixed; bottom: 50px; left: 100px; display: flex; } #darkContainer .text { margin-right: 8px; } #darkContainer .switch-btn { user-select: none; display: inline-block; width: 50px; border: none; height: 25px; border-radius: 50px; background: rgba(0, 0, 0, 0.25); cursor: pointer; transition: all 0.2s; position: relative; outline: none; } #darkContainer .switch-btn.switch-btn-checked { background: #1890ff; } #darkContainer .switch-btn .switch-handle { height: 20px; width: 20px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 4px; transition: all 0.2s ease-in-out; } #darkContainer .switch-btn.switch-btn-checked .switch-handle { left: calc(100% - 22px); }</style><script> let isDarkMode = localStorage.getItem('isDarkMode'); if (isDarkMode === 'true') { document.firstElementChild.classList.add('dark-mode'); } </script> <script defer> const darkContainer = document.createElement('div'); darkContainer.id = 'darkContainer'; darkContainer.innerHTML = `<span class="text">深色模式</span>`; const btnEl = document.createElement('button'); btnEl.classList.add('switch-btn'); btnEl.innerHTML = `<div class="switch-handle"></div>`; if (isDarkMode === 'true') { btnEl.classList.add('switch-btn-checked'); } btnEl.addEventListener('click', (e) => { if (btnEl.classList.contains('switch-btn-checked')) { btnEl.classList.remove('switch-btn-checked'); document.firstElementChild.classList.remove('dark-mode'); localStorage.setItem('isDarkMode', 'false'); } else { btnEl.classList.add('switch-btn-checked'); document.firstElementChild.classList.add('dark-mode'); localStorage.setItem('isDarkMode', 'true'); } }); darkContainer.append(btnEl); document.body.appendChild(darkContainer); </script></body></html><section class="collection-head small geopattern" data-pattern-id="在工作中用到的 vue" ><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">在工作中用到的 vue</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2020/04/02 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="http://localhost:4000/categories/#vue" title="vue" >vue</a > </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 4957 字，约 15 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths"><article class="article-content markdown-body"><h1 id="罗列出工作中用到一些-vue-知识点">罗列出工作中用到一些 <code class="language-plaintext highlighter-rouge">vue</code> 知识点</h1><p>有些是新特性，有些是不常用，但是可以很好的解决工作中问题的知识点，在 <code class="language-plaintext highlighter-rouge">vue</code> 创建的项目中，所有 <code class="language-plaintext highlighter-rouge">Vue</code> 组件都是<code class="language-plaintext highlighter-rouge">Vue</code> 实例（实例是由一个构造函数创建的，即都是 <code class="language-plaintext highlighter-rouge">new Vue()</code>）</p><h2 id="外部监听生命周期函数">外部监听生命周期函数</h2><p>为什么会有这样的需求呢，原来同事用了一个第三方组件，需要监听第三方组件数据的变化，但是组件又没有提供change事件，同事也没办法了，才想出来要去在外部监听组件的updated钩子函数。查看了一番资料，发现Vue支持在外部监听组件的生命周期钩子函数。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;template&gt;
+  &lt;!--通过@hook:updated监听组件的updated生命钩子函数--&gt;
+  &lt;!--组件的所有生命周期钩子都可以通过@hook:钩子函数名 来监听触发--&gt;
+  &lt;custom-select @hook:updated="$_handleSelectUpdated" /&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import CustomSelect from '../components/custom-select'
+export default {
+  components: {
+    CustomSelect
+  },
+  methods: {
+    $_handleSelectUpdated() {
+      console.log('custom-select组件的updated钩子函数被触发')
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre></div></div><p><a href="https://juejin.im/post/5eef7799f265da02cd3b82fe">实战技巧，Vue原来还可以这样写</a></p><h2 id="用vueobservable手写一个状态管理">用Vue.observable手写一个状态管理</h2><p>创建 store</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import Vue from 'vue'
+
+// 通过Vue.observable创建一个可响应的对象
+export const store = Vue.observable({
+  userInfo: {},
+  roleIds: []
+})
+
+// 定义 mutations, 修改属性
+export const mutations = {
+  setUserInfo(userInfo) {
+    store.userInfo = userInfo
+  },
+  setRoleIds(roleIds) {
+    store.roleIds = roleIds
+  }
+}
+</code></pre></div></div><p>在组件中引用</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;template&gt;
+  &lt;div&gt;
+    
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import { store, mutations } from '../store'
+export default {
+  computed: {
+    userInfo() {
+      return store.userInfo
+    }
+  },
+  created() {
+    mutations.setUserInfo({
+      name: '子君'
+    })
+  }
+}
+&lt;/script&gt;
+
+</code></pre></div></div><p><a href="https://cn.vuejs.org/v2/api/#Vue-observable">Vue.observable( object )</a></p><p><a href="https://juejin.im/post/5eef7799f265da02cd3b82fe">实战技巧，Vue原来还可以这样写</a></p><h2 id="requirecontext"><code class="language-plaintext highlighter-rouge">require.context</code></h2><p>这个应该是<code class="language-plaintext highlighter-rouge">webpack</code>里面的特性，但是文档里面提到了，那就拿出来说一说。<code class="language-plaintext highlighter-rouge">Vue cli3 +</code> 可以使用 <code class="language-plaintext highlighter-rouge">require.context</code> 只全局注册这些非常通用的基础组件</p><p><img src="http://localhost:4000/images/vue/001@2x.png" alt="" /></p><h2 id="prop">prop</h2><p>在 <code class="language-plaintext highlighter-rouge">JavaScript</code> 中对象和数组是通过引用传入的，所以对于一个数组或者对象类型的 <code class="language-plaintext highlighter-rouge">prop</code> 来说</p><blockquote><p>在子组件改变这个对象或者数组本身将会影响到父组件的状态。这个时候我们可以用深层拷贝解决这个问题<code class="language-plaintext highlighter-rouge">（JSON.parse（JSON.stringify（xxx））</code>这个方法有弊端，或者使用其他方式深层拷贝）</p></blockquote><blockquote><p><code class="language-plaintext highlighter-rouge">prop</code> 用来传递一个初始值；这个子组件接下来希望将其作为一个本地的 <code class="language-plaintext highlighter-rouge">prop</code> 数据来使用,进行数据的各项操作。在这种情况下，最好定义一个本地的 <code class="language-plaintext highlighter-rouge">data</code> 属性并将这个 <code class="language-plaintext highlighter-rouge">prop</code> 用作其初始值</p></blockquote><blockquote><p>父组件再给子组件传递 <code class="language-plaintext highlighter-rouge">prop</code> 的时候是一个动态计算的表达式，而不是一个字符串</p></blockquote><h2 id="sync-实现父子组件的双向数据流">.sync 实现父子组件的双向数据流</h2><p>这个是文档给出实现双向数据流的方法，有时候特别管用，我有一次在用 <code class="language-plaintext highlighter-rouge">v-if</code> 切换子组件的时候，数据没有方法完全清空，就只能使用她了。 有可能是因为如图的原因，反正我是使用她解决的。</p><p><img src="http://localhost:4000/images/vue/002.png" alt="" /></p><p>父子组件之间传递是单向的，但有时候我们需要双向数据流，这时候就需要使用<code class="language-plaintext highlighter-rouge">.sync</code> 修饰符，<code class="language-plaintext highlighter-rouge">.sync</code> 不能配合表达式一起用</p><p>父组件</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;text-document v-bind:title.sync="doc.title"&gt;&lt;/text-document&gt;
+</code></pre></div></div><p>子组件</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>this.$emit('update:title', newTitle)
+</code></pre></div></div><h2 id="provide-给所有的后代组件提供数据和方法">Provide 给所有的后代组件提供数据和方法</h2><p>provide 选项应该是一个对象或返回一个对象的函数(下面两种写法)</p><p>在官网中是这样说的:</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>provide 选项允许我们指定我们想要提供给后代组件的数据/方法。在这个例子中，就是 &lt;google-map&gt; 内部的 getMap 方法：
+provide () { // 函数形式
+  return {
+    getMap: this.getMap
+  }
+}
+然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在这个实例上的属性：
+inject: ['getMap']
+</code></pre></div></div><p>好像在<code class="language-plaintext highlighter-rouge">react</code>里面常常用到类似的特性</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//父组件:
+provide: { //provide 是一个对象,提供一个属性或方法
+  foo: '这是 foo',
+  fooMethod:()=&gt;{
+    console.log('父组件 fooMethod 被调用')
+  }
+},
+
+// 子或者孙子组件
+inject: ['foo','fooMethod'], //数组或者对象,注入到子组件
+mounted() {
+  this.fooMethod()
+  console.log(this.foo)
+}
+//在父组件下面所有的子组件都可以利用inject
+provide 和 inject 绑定并不是可响应的。这是官方刻意为之的。然而，如果你传入了一个可监听的对象，那么其对象的属性还是可响应的,对象是因为是引用类型
+
+
+//父组件:
+provide: {
+  foo: '这是 foo'
+},
+mounted(){
+  this.foo='这是新的 foo'
+}
+
+// 子或者孙子组件
+inject: ['foo'],
+mounted() {
+  console.log(this.foo) //子组件打印的还是'这是 foo'
+
+// 子孙组件 支持默认值
+inject: {
+  foo: { default: 'foo' }
+}
+// 子孙组件 设置别名，from 表示来源
+  inject: {
+    foo: { // 新的名字
+      from: 'bar',
+      default: 'foo'
+    }
+  }
+</code></pre></div></div><p><a href="https://cn.vuejs.org/v2/api/#provide-inject">provide-inject</a></p><h2 id="v-show-使用的一种场景"><code class="language-plaintext highlighter-rouge">v-show</code> 使用的一种场景</h2><p>是用来进行 <code class="language-plaintext highlighter-rouge">DOM</code> 结构的显示隐藏切换，<code class="language-plaintext highlighter-rouge">DOM</code> 的结构渲染。<code class="language-plaintext highlighter-rouge">v-show</code> 和 <code class="language-plaintext highlighter-rouge">v-if</code> 的主要区别在是否真正的渲染，来回频繁切换的性能对比。在大多数情况下我使用的是 <code class="language-plaintext highlighter-rouge">v-if</code> ，用户切换的不频繁。但是有一次在用户切换不频繁的情况下我使用了<code class="language-plaintext highlighter-rouge">v-show</code>。原因是一个移动端项目，用户点击一个按钮的时候，出现一个弹窗，默认要弹起软键盘。我通过 <code class="language-plaintext highlighter-rouge">focus()</code> 弹起键盘。因为是父子组件的关系，总是会出现第一次渲染弹起键盘不成功，在<code class="language-plaintext highlighter-rouge">focus()</code> 事件被触发的时候，有可能子组件还没有渲染完。所以我才用了 <code class="language-plaintext highlighter-rouge">v-show</code> ，在首次加载页面的时候渲染，然后就不会出现，父组件通过 <code class="language-plaintext highlighter-rouge">refs</code> 调用子组件的事件失败了。</p><p>在写这篇文章的时候想到了另一个解决方案，是当时没有想到的。就是在子组件 <code class="language-plaintext highlighter-rouge">mounted</code> 的时候调用 <code class="language-plaintext highlighter-rouge">focus()</code> ，而不是通过父组件的 <code class="language-plaintext highlighter-rouge">refs</code>调用。因为需求是子组件一出现，就弹起软键盘。</p><h2 id="vue-中对象新增属性不能响应的问题"><code class="language-plaintext highlighter-rouge">Vue</code> 中对象新增属性不能响应的问题</h2><p>这个问题，我是一直都知道了，可是再一次项目中，傻逼的我居然忘记了。还找了半天问题，问了同事，想了很久之后才明白。或许是我从骨子里面没有真正的理解吧。</p><p>事情经过： 以前项目中我喜欢在 <code class="language-plaintext highlighter-rouge">data</code> 里面初始化数据，如果是对象，会给对象初始化属性名，给默认属性值。在最近的一次项目我看项目里面都只有初始化一个空对象，我就随项目走了。然后就踩坑了，忘记<code class="language-plaintext highlighter-rouge">vue</code> 不能给对象新增属性添加响应问题了。看了半天都不知为啥数据没有响应式变化，蠢到家了，<code class="language-plaintext highlighter-rouge">vm.$set()</code> 添加属性可以响应式变化，其实还可以通过 <code class="language-plaintext highlighter-rouge">es6</code> 的对象解构去实现 <code class="language-plaintext highlighter-rouge">this.obj = {...this.obj}</code> 。</p><h2 id="attrs"><code class="language-plaintext highlighter-rouge">$attrs</code></h2><p><code class="language-plaintext highlighter-rouge">$attrs</code> 场景:如果父传子有很多值,那么在子组件需要定义多个 <code class="language-plaintext highlighter-rouge">props</code> 解决:<code class="language-plaintext highlighter-rouge">$attrs</code> 获取子传父中未在 <code class="language-plaintext highlighter-rouge">props</code> 定义的值</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 父组件
+&lt;home title="这是标题" width="80" height="80" imgUrl="imgUrl"/&gt;
+// 子组件
+mounted() {
+  console.log(this.$attrs) //{title: "这是标题", width: "80", height: "80", imgUrl: "imgUrl"}
+},
+</code></pre></div></div><p>相对应的如果子组件定义了 props,打印的值就是剔除定义的属性</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>props: {
+  width: {
+    type: String,
+    default: ''
+  }
+},
+mounted() {
+  console.log(this.$attrs) //{title: "这是标题", height: "80", imgUrl: "imgUrl"}
+},
+</code></pre></div></div><p>使用 <code class="language-plaintext highlighter-rouge">this.$attrs</code> 父组件带过来的数据的时候要定义后在使用，否则可能会有警告信错误</p><h2 id="问题">问题</h2><h3 id="创建和编辑页面用到同一个-component-组件的时候默认组件不会在触发-vue-里面的-create-和-mounted-钩子函数因为-vue-默认是高度复用">创建和编辑页面用到同一个 <code class="language-plaintext highlighter-rouge">component</code> 组件的时候，默认组件不会在触发 <code class="language-plaintext highlighter-rouge">vue</code> 里面的 <code class="language-plaintext highlighter-rouge">create</code> 和 <code class="language-plaintext highlighter-rouge">mounted</code> 钩子函数？(因为 <code class="language-plaintext highlighter-rouge">vue</code> 默认是高度复用)</h3><p>解决方案一 ： 可以在 <code class="language-plaintext highlighter-rouge">router-view</code> 组件上面加一个唯一的 <code class="language-plaintext highlighter-rouge">key</code> 来处理，保证唯一的 <code class="language-plaintext highlighter-rouge">key</code> ,路由切换的时候就会重新触发渲染钩子</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;router-view :key="key"&gt;&lt;/router-view&gt;
+
+computed: {
+  key() {
+    // 只要保证 key 唯一性就可以了，保证不同页面的 key 不相同
+    return this.$route.fullPath
+  }
+ }
+</code></pre></div></div><p>解决方法二：在当前页面使用 <code class="language-plaintext highlighter-rouge">watch</code> 监听路由是否发生变化</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>watch:{
+  '$route'(newVal,oldVal){ //路由发生了编辑
+    if (newVal.path == "/systemSetting/appdetails") {
+    //进行数据的初始化
+  }
+}
+},
+</code></pre></div></div><p>解决方法三：使用 <code class="language-plaintext highlighter-rouge">v-if</code> 强制所有组件重新渲染，可以使用 <a href="https://cn.vuejs.org/v2/guide/components-edge-cases.html#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><code class="language-plaintext highlighter-rouge">provide</code></a> 进行依赖注册</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;router-view v-if="isRouterAlive"&gt;&lt;/router-view&gt;
+
+  methods: {
+    reload () {
+      this.isRouterAlive = false
+      this.$nextTick(() =&gt; {
+        this.isRouterAlive = true
+      })
+    },
+   }
+</code></pre></div></div><p>解决方案都是根据路由的变化，对组件进行重新渲染或者初始化</p><h3 id="页面加载时需要让文本框获取焦点">页面加载时需要让文本框获取焦点</h3><p>用法:在下次 <code class="language-plaintext highlighter-rouge">DOM</code> 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 <code class="language-plaintext highlighter-rouge">DOM</code></p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mounted(){ //因为 mounted 阶段 dom 并未渲染完毕,所以需要$nextTick
+  this.$nextTick(() =&gt; {
+    this.$refs.inputs.focus() //通过 $refs 获取dom 并绑定 focus 方法
+  })
+}
+</code></pre></div></div><p>我们可以使用一个 <code class="language-plaintext highlighter-rouge">mounted</code> 钩子来创建我们需要保存在组件状态变量中的观察者。使用 <code class="language-plaintext highlighter-rouge">mounted</code> 钩子而不是 <code class="language-plaintext highlighter-rouge">created</code> 钩子很重要，因为我们需要一个 <code class="language-plaintext highlighter-rouge">DOM</code> 元素来观察，而在 <code class="language-plaintext highlighter-rouge">created</code> 钩子中我们没有它</p><h2 id="项目中全局注册">项目中全局注册</h2><p>在一个大型的项目中，有些属性或者方法要在全局进行引用/使用，大部分的页面会用到，少数页面不用，这时候就可以建议把它放挂在全局上面。</p><h2 id="vue2-和-vue3-的区别"><code class="language-plaintext highlighter-rouge">vue2</code> 和 <code class="language-plaintext highlighter-rouge">vue3</code> 的区别</h2><p>对于我们用户来说 <code class="language-plaintext highlighter-rouge">vue3</code> 是在 <code class="language-plaintext highlighter-rouge">vue2</code> 加了一些 <code class="language-plaintext highlighter-rouge">api</code> ，在写 vue2 项目的时候是 options api 就是项目相关的一块逻辑都没有聚集在一块，后期代码维护的时候比较难找到当时一块的逻辑，即便是用 mixin 还是有各种问题。vue3 使用了 compition api，很好的解决了这个问题，相关逻辑我们可以放在一起，很好的解决了后期查找逻辑时候页面的互相跳转。这个和 react hook 特别像，特别是对于自定义的 hooks。（react，vue是可以互相嵌套学习的，这样学习理解真方便，哈哈</p></article><div style="padding-top:20px;"><hr /><p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p><p>如果喜欢我的话，我们可以互相关注，相互学习的哟！互相鼓励，你的关注是我最大的动力来源</p><a href="https://github.com/sunseekers">sunseekers</a></div><div><div style="margin-top:2em;padding:0 1.5em;border:1px solid #d3d3d3;background-color:#deebf7"><h3>文档信息</h3><ul><li>本文作者：<a href="http://localhost:4000" target="_blank">sunseekers</a></li><li>本文链接：<a href="http://localhost:4000/2020/04/02/vue/" target="_blank">http://localhost:4000/2020/04/02/vue/</a></li><li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">创意共享3.0许可证</a>）</li></ul></div></div><div class="share"></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="http://localhost:4000/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2020/04/02/vue/', clientID: '', clientSecret: '', repo: '', owner: '', admin: [''], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'http://localhost:4000/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 10, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="http://localhost:4000/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2016 <span title="sunseekers">sunseekers</span> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" >TOP</a></li></ul><a href="https://github.com/sunseekers/sunseekers.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="http://localhost:4000/" title="首页" target="">首页</a></li><li> <a href="http://localhost:4000/categories/" title="分类" target="">分类</a></li><li> <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a></li><li> <a href="http://localhost:4000/links/" title="链接" target="">链接</a></li><li> <a href="http://localhost:4000/about/" title="关于" target="">关于</a></li><li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="http://localhost:4000/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script></body></html>

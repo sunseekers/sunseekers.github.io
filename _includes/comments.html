@@ -11,7 +11,7 @@
     };
     var disqus_loaded = false;
     $(function() {
-        $('.show_disqus_comment').on('click', function() { // DON'T EDIT BELOW THIS LINE
+        $('.show_disqus_comment').on('click', function() { /* DON'T EDIT BELOW THIS LINE */
             $(this).html('加载中...');
             var that = this;
             if (!disqus_loaded) {
@@ -40,9 +40,9 @@
       {% if site.disqus and site.disqus.username %}
         {% assign load_disqus = true %}
         <!-- Disqus Protection, see https://github.com/mzlogin/mzlogin.github.io/issues/2 -->
-        {% if site.disqus.username == 'DWJWendy' %}
+        {% if site.disqus.username == 'mzlogin' %}
           {% assign load_disqus = false %}
-          {% if site.url contains 'mmcwendy.info' %}
+          {% if site.url contains 'mazhuang.org' %}
             {% assign load_disqus = true %}
           {% endif %}
         {% endif %}
@@ -54,7 +54,7 @@
               this.page.identifier = '{{ page.url }}';
               this.page.title = '{{ page.title }}';
             };
-            (function() { // DON'T EDIT BELOW THIS LINE
+            (function() { /* DON'T EDIT BELOW THIS LINE */
               var d = document, s = d.createElement('script');
 
               s.type = 'text/javascript';
@@ -72,27 +72,28 @@
       {% endif %}
     {% when 'gitment' %}
         <div id="container"></div>
-        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/imsun.github.io/gitment/style/default.css">
+        <script src="https://cdn.jsdelivr.net/gh/imsun.github.io/gitment/dist/gitment.browser.js"></script>
         <script>
         var gitment = new Gitment({
-            id: '{{ page.url }}',
+            id: '{{ page.url | truncate: 50, '' }}',
             owner: '{{ site.gitment.owner }}',
             repo: '{{ site.gitment.repo }}',
             oauth: {
                 client_id: '{{ site.gitment.oauth.client_id }}',
                 client_secret: '{{ site.gitment.oauth.client_secret }}',
             },
-        })
-        gitment.render('container')
+        });
+        gitment.render('container');
         </script>
     {% when 'gitalk' %}
         <div id="gitalk-container"></div>
-        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+        <link rel="stylesheet" href="{{ assets_base_url }}/assets/vendor/gitalk/gitalk.css">
+        <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '{{ page.url }}',
+            id: '{{ page.url | truncate: 50, '' }}',
             clientID: '{{ site.gitalk.clientID }}',
             clientSecret: '{{ site.gitalk.clientSecret }}',
             repo: '{{ site.gitalk.repo }}',
@@ -100,8 +101,8 @@
             admin: ['{{ site.gitalk.owner }}'],
             labels: ['gitment'],
             perPage: 50,
-        })
-        gitalk.render('gitalk-container')
+        });
+        gitalk.render('gitalk-container');
         </script>
   {% endcase %}
 {% endif %}

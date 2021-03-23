@@ -1,0 +1,8 @@
+{
+    "name": "blog_command",
+    "version": "1.0.0",
+    "description": "Just to start the service. Use `yarn start` or `num start` to simplify bundle commands...",
+    "scripts": {
+        "start": "bundle exec jekyll serve"
+    }
+}

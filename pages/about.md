@@ -10,8 +10,7 @@ permalink: /about/
 ---
 
 
-![](../images/about/me.jpeg)
-
+![]({{ site.url }}/images/about/me.jpeg)
 
 
 借用微信公众号17年前的一张图，那时候我还是个学生，那时候的我会经常爬山，经常打球，经常运动，有一群朋友陪着一起玩。

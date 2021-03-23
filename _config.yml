@@ -2,47 +2,83 @@
 #   Main Configs   #
 # ---------------- #
 baseurl:
-#url: http://github.com/sunseekers/sunseekers.github.io
+url: https://sunseekers.github.io
 date_format: 'ordinal'
 title: sunseekers
 subtitle: '不积跬步，无以至千里；不积小流，无以成江海'
-description: 'Record ideas and knowledge'
-keywords: Algorithm,Machine Learning(eg.Deep Learning),Data miningç
-timezone: Asia/shanghai
+description: 'description'
+keywords: 前端
+timezone: Asia/Shanghai
 encoding: 'utf-8'
 side_bar_repo_limit: 5
+repository: sunseekers/sunseekers.github.io
+repository_branch: 'master'
+repository_images_branch: 'images'
+# 对 css 和 js 资源的 cdn 加速配置
+cdn:
+    jsdelivr:
+        enabled: false
+# 组件配置
+components:
+    # 分享
+    share:
+        enabled: false
+    # 不蒜子访问统计
+    busuanzi:
+        enabled: false
+        start_date: 2020-05-03
+# 压缩页面内容
+compress_html:
+    clippings: all
+    comments: ['<!--', '-->']
+# 文章字数统计
+word_count:
+    enabled: true
+
+# 深色模式（简单版），可选值：automatic 跟随系统；usercontrol 用户控制；none 不需要。  default: none;
+dark_mode: usercontrol
+
+# 代码高亮风格，支持的 theme 列表见 https://github.com/mzlogin/rouge-themes
+highlighter: rouge
+highlight_theme: github
 
 # ---------------- #
 #      Author      #
 # ---------------- #
 author: sunseekers
-#organization: UESTC
-#organization_url: http://organization_url.githbu.io
+organization:
+organization_url:
 github_username: sunseekers
-location: shanghai
+location: shanghai, China
 email: 1390639401@qq.com
+since_date: 2016
 
 # ---------------- #
 #    Navigation    #
 # ---------------- #
 navs:
-  - href: /
-    label: Home
+    - href: /
+      label: 首页
 
-  - href: /categories/
-    label: Blog
+    - href: /categories/
+      label: 分类
 
-  - href: /open-source/
-    label: Open-source
+    #   -
+    #     href: /archives/
+    #     label: 归档
 
-  - href: /wiki/
-    label: Wiki
+    #   -
+    #     href: /open-source/
+    #     label: 开源
 
-  - href: /links/
-    label: Link
+    - href: /wiki/
+      label: 维基
 
-  - href: /about/
-    label: About
+    - href: /links/
+      label: 链接
+
+    - href: /about/
+      label: 关于
 
 # ---------------- #
 #       RSS        #
@@ -54,70 +90,70 @@ subscribe_rss: /feed.xml
 # ---------------- #
 markdown: kramdown
 kramdown:
-  input: GFM
-highlighter: rouge
-paginate: 8
+    input: GFM
+paginate: 10
 lsi: false
 quiet: false
 excerpt_separator: "\n\n"
 permalink: /:year/:month/:day/:title/
-gems:
-  - jekyll-github-metadata
-  - rouge
-  #     - jekyll-html-pipeline
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-feed
-  - jemoji
+plugins:
+    - jekyll-github-metadata
+    - rouge
+    #     - jekyll-html-pipeline
+    - jekyll-paginate
+    - jekyll-sitemap
+    - jekyll-feed
+    - jemoji
 #     - jekyll-mentions
 collections:
-  wiki:
-    output: true
-    permalink: /wiki/:path/
-
-repository: DWJWendy/DWJWendy.github.io
+    wiki:
+        output: true
+        permalink: /wiki/:path/
 
 # ---------------- #
 #      Comments    #
 # ---------------- #
 # support provider: disqus, gitment, gitalk
-#comments_provider: gitalk
-comments_provider: gitalk
-
+# 备注，provider选择哪个，相应的就要配置下面其中一个
 # !!!重要!!! 请修改下面这些信息为你自己申请的
 # !!!Important!!! Please modify infos below to yours
-# https://disqus.com
+comments_provider: gitalk
+# https://disqus.com 文档
 disqus:
-  username: wenjun d
+    username:
 
-# https://imsun.net/posts/gitment-introduction/
-gitment:
-  owner: sunseekers
-  repo: sunseekers
-  oauth:
-    client_id: 7ffc0aeedcc0dc7f5fb6
-    client_secret: c910965c927d40783d363d7e21197ccf35c317b3
-# https://github.com/gitalk/gitalk#install
-gitalk:
-  owner: sunseekers
-  repo: sunseekers.github.io
-  clientID: efc20f7ef0379b54367b
-  clientSecret: a58112205486b93eb454f60f6d9d7bcbaf37e3fa
+# https://imsun.net/posts/gitment-introduction/ 文档
+# gitment:
+#     owner:
+#     repo:
+#     oauth:
+#         client_id:
+#         client_secret:
+
+# https://github.com/gitalk/gitalk#install 文档
+# gitalk:
+#     owner:
+#     repo:
+#     clientID:
+#     clientSecret:
 # 在使用其它评论组件时可点击显示 Disqus
 lazy_load_disqus: false
 
 # ---------------- #
-#    Analytics     #
+#      Search      #
 # ---------------- #
-google:
-  analytics_id: UA-80669434-1
-
+simple_jekyll_search:
+    # 是否支持全文搜索
+    fulltext: false
+    # 最多显示多少条搜索结果
+    limit: 10
 # ---------------- #
-#    Counter     #
+#      Google      #
 # ---------------- #
-# 使用的是learncloud，appid和key更换成自己的
-# 先关闭
-leancloud:
-  enable: false
-  app_id: EfLTUbK2fJ0dYLAq609NQ2k4-gzGzoHsz
-  app_key: 5Agxeshbunhh9y6XQftwEvGj
+# google:
+#     analytics_id: UA-80669434-1
+#     adsense:
+#         footer: true
+#         sidebar: true
+#         content_header: true
+#         content_footer: false

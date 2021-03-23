@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title> 移动端问题解决 &mdash; sunseekers</title><link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css" /><link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css" /><link rel="stylesheet" href="https://mazhuang.org/rouge-themes/dist/github.css" /><link rel="canonical" href="http://localhost:4000/2020/02/04/mobile/" /><link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml" /><link rel="shortcut icon" href="http://localhost:4000/favicon.ico" /><meta property="og:title" content="移动端问题解决" /><meta name="keywords" content="移动端" /><meta name="og:keywords" content="移动端" /><meta name="description" content="最近一直在写移动端，以前的复制粘贴，现在的手写" /><meta name="og:description" content="最近一直在写移动端，以前的复制粘贴，现在的手写" /><meta property="og:url" content="http://localhost:4000/2020/02/04/mobile/" /><meta property="og:site_name" content="sunseekers" /><meta property="og:type" content="article" /><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2020-02-04" /> <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="http://localhost:4000/assets/js/jquery-ui.js"></script> <script src="http://localhost:4000/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1> <a href="http://localhost:4000/" title="sunseekers" ><span class="octicon octicon-mark-github"></span> sunseekers</a ></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();" > <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页" >首页</a > <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类" >分类</a > <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基" >维基</a > <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接" >链接</a > <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于" >关于</a ></nav></div></header><style> html.dark-mode, html.dark-mode img { filter: invert(1) hue-rotate(180deg); } html.dark-mode img { opacity: 0.85; } #darkContainer { position: fixed; bottom: 50px; left: 100px; display: flex; } #darkContainer .text { margin-right: 8px; } #darkContainer .switch-btn { user-select: none; display: inline-block; width: 50px; border: none; height: 25px; border-radius: 50px; background: rgba(0, 0, 0, 0.25); cursor: pointer; transition: all 0.2s; position: relative; outline: none; } #darkContainer .switch-btn.switch-btn-checked { background: #1890ff; } #darkContainer .switch-btn .switch-handle { height: 20px; width: 20px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 4px; transition: all 0.2s ease-in-out; } #darkContainer .switch-btn.switch-btn-checked .switch-handle { left: calc(100% - 22px); }</style><script> let isDarkMode = localStorage.getItem('isDarkMode'); if (isDarkMode === 'true') { document.firstElementChild.classList.add('dark-mode'); } </script> <script defer> const darkContainer = document.createElement('div'); darkContainer.id = 'darkContainer'; darkContainer.innerHTML = `<span class="text">深色模式</span>`; const btnEl = document.createElement('button'); btnEl.classList.add('switch-btn'); btnEl.innerHTML = `<div class="switch-handle"></div>`; if (isDarkMode === 'true') { btnEl.classList.add('switch-btn-checked'); } btnEl.addEventListener('click', (e) => { if (btnEl.classList.contains('switch-btn-checked')) { btnEl.classList.remove('switch-btn-checked'); document.firstElementChild.classList.remove('dark-mode'); localStorage.setItem('isDarkMode', 'false'); } else { btnEl.classList.add('switch-btn-checked'); document.firstElementChild.classList.add('dark-mode'); localStorage.setItem('isDarkMode', 'true'); } }); darkContainer.append(btnEl); document.body.appendChild(darkContainer); </script></body></html><section class="collection-head small geopattern" data-pattern-id="移动端问题解决" ><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">移动端问题解决</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2020/02/04 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="http://localhost:4000/categories/#CSS" title="CSS" >CSS</a > </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 4699 字，约 14 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths"><article class="article-content markdown-body"><h1 id="最近一直在写移动端以前的复制粘贴现在的手写">最近一直在写移动端，以前的复制粘贴，现在的手写</h1><p>等以后写多了，我想有经验了，应该也是复制粘贴吧，很多东西不到手机上，不进行手机兼容性测试，发现不了问题。记录兼容性，手机端问题</p><h2 id="ios-兼容系列问题"><code class="language-plaintext highlighter-rouge">IOS</code> 兼容系列问题</h2><blockquote><ol><li><code class="language-plaintext highlighter-rouge">IOS</code> 滚动不顺畅，卡顿，安卓手机没有任何问题</li></ol></blockquote><p><code class="language-plaintext highlighter-rouge">-webkit-overflow-scrolling: touch;</code>; <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-overflow-scrolling">MDN</a> 的解释 <code class="language-plaintext highlighter-rouge">-webkit-overflow-scrolling</code> 属性控制元素在移动设备上是否使用滚动回弹效果. <code class="language-plaintext highlighter-rouge">touch</code> 使用具有回弹效果的滚动, 当手指从触摸屏上移开，内容会继续保持一段时间的滚动效果。继续滚动的速度和持续的时间和滚动手势的强烈程度成正比。同时也会创建一个新的堆栈上下文。</p><blockquote><ol><li>调用 <code class="language-plaintext highlighter-rouge">focus()</code> 进行聚焦，弹起手机原生软键盘，同一段代码在安卓里面没问题，<code class="language-plaintext highlighter-rouge">IOS</code> 始终键盘没有唤起 ？</li></ol></blockquote><p>在 <code class="language-plaintext highlighter-rouge">&lt;input autofocus v-model="value" ref='inputRef' @click.stop='showPopUp' /&gt;</code> 加上 <code class="language-plaintext highlighter-rouge">autofocus</code> 页面加载的时候获取焦点</p><blockquote><ol><li>移动端监听事件没法唤起软键盘，</li></ol></blockquote><p>解决关键: 用户触发，要不是直接点击文本输入元素，要不就是间接点击。参考文章 <a href="http://www.iamaddy.net/2016/11/mobile-keyboard-javascript/">移动端 JavaScript 拉起软键盘</a></p><h2 id="移动端需求">移动端需求</h2><blockquote><ol><li>点击页面的电话号码，调起手机里面拨号版，并且把电话号码复制到拨号板</li></ol></blockquote><p><img src="../../images/blog/call@2x.png" alt="" /></p><p>最开始的时候以为很难，需要调用原生 <code class="language-plaintext highlighter-rouge">app</code> 那边的 <code class="language-plaintext highlighter-rouge">api</code> 后来我发现，是我想多了，<code class="language-plaintext highlighter-rouge">javascript</code> 原生的方法就可以实现，而且很简单，利用 <code class="language-plaintext highlighter-rouge">a</code> 标签的 <code class="language-plaintext highlighter-rouge">href</code> 属性</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;!-- 控制它的显隐，弹框确定后，可点击，就跳到打电话页面了 :href="'tel:'+tel" 必须这样写 --&gt;
+    &lt;a  :href="'tel:'+tel"&gt;&lt;/a&gt;
+</code></pre></div></div><p>注意了：如果 <code class="language-plaintext highlighter-rouge">href</code> 是一个变量值，必须那样写，常量的话就 <code class="language-plaintext highlighter-rouge">&lt;a href="'tel:12306"&gt;&lt;/a&gt;</code></p><blockquote><ol><li>以前在移动端遇到过，离开了输入框，但是键盘还没有收起，这个交互有点不太好，导致每次操作都变的很繁琐，（点击非输入框的键盘收起事件）</li></ol></blockquote><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>document.addEventListener('touchend', e =&gt; {
+  if (['INPUT', 'TEXTAREA'].indexOf(e.target.nodeName) &lt; 0) {
+    let inputArr = document.getElementsByTagName('input')
+    let textareaArr = document.getElementsByTagName('textarea')
+    if (inputArr.length) {
+      for (let i = 0; i &lt; inputArr.length; i++) {
+        inputArr[i].blur()
+      }
+    }
+    if (textareaArr.length) {
+      for (let j = 0; j &lt; textareaArr.length; j++) {
+        textareaArr[j].blur()
+      }
+    }
+  }
+}, false)
+</code></pre></div></div><blockquote><ol><li>在移动端页面有 <code class="language-plaintext highlighter-rouge">input</code> 或者 <code class="language-plaintext highlighter-rouge">textarea</code> 标签的时候，会调起键盘，这个是没有问题的。但是在手离开这些标签之后，键盘依旧没有收起，这是一个问题，影响了用户的体验。 后来发现在页面创建的时候就监听 <code class="language-plaintext highlighter-rouge">touchend</code> 事件可以避免这个。当手指从屏幕上离开的时候触发失焦事件，请测有用</li></ol></blockquote><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    document.addEventListener(
+      'touchend',
+      e =&gt; {
+        if (['INPUT', 'TEXTAREA'].indexOf(e.target.nodeName) &lt; 0) {
+          let inputArr = document.getElementsByTagName('input')
+          let textareaArr = document.getElementsByTagName('textarea')
+          if (inputArr.length) {
+            for (let i = 0; i &lt; inputArr.length; i++) {
+              inputArr[i].blur()
+            }
+          }
+          if (textareaArr.length) {
+            for (let j = 0; j &lt; textareaArr.length; j++) {
+              textareaArr[j].blur()
+            }
+          }
+        }
+      },
+      false
+    )
+</code></pre></div></div><blockquote><ol><li>在移动端项目用到了单击 <code class="language-plaintext highlighter-rouge">click</code> 事件的时候 <code class="language-plaintext highlighter-rouge">scrollTo</code> 滚动一定的距离。大部分的情况下是没有问题，但是对于某些安卓机型，<code class="language-plaintext highlighter-rouge">scrollTo</code> 会失效。这就头疼了，解决方案 <code class="language-plaintext highlighter-rouge">scrollLeft</code></li></ol></blockquote><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/scrollTo">Window.scrollTo()</a></p><p><a href="https://www.cnblogs.com/exhuasted/p/6857289.html">开发移动端web页面click事件失效问题</a></p><p><a href="https://www.oschina.net/question/869542_79568">安卓浏览器不支持JS中的scrollto()等滑动方法</a></p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- 拨号 --&gt;
+&lt;a href="tel:10086"&gt;打电话给: 10086&lt;/a&gt;
+
+&lt;!-- 关闭电话号码识别 --&gt;
+&lt;meta name="format-detection" content="telephone=no"&gt;
+
+&lt;!-- 发送短信 --&gt;
+&lt;a href="sms:10086"&gt;发短信给: 10086&lt;/a&gt;
+
+&lt;!-- 发送邮件 --&gt;
+&lt;a href="mailto:839626987@qq.com"&gt;发邮件给：839626987@qq.com&lt;/a&gt;
+
+&lt;!-- 关闭邮箱识别 --&gt;
+&lt;meta name="format-detection" content="email=no"&gt;
+
+&lt;!-- 选择照片或者拍摄照片 --&gt;
+&lt;input type="file" accept="image/*"&gt;
+
+&lt;!-- 选择视频或者拍摄视频 --&gt;
+&lt;input type="file" accept="video/*"&gt;
+
+&lt;!-- 多选 --&gt;
+&lt;input type="file" multiple&gt;
+
+&lt;!-- 忽略浏览器自动识别数字为电话号码 --&gt;
+&lt;meta name="format-detection" content="telephone=no"&gt; 
+ 
+&lt;!-- 忽略浏览器自动识别邮箱账号 --&gt; 
+&lt;meta name="format-detection" content="email=no"&gt;
+
+
+&lt;a href="weixin://"&gt;打开微信&lt;/a&gt;
+
+&lt;a href="alipays://"&gt;打开支付宝&lt;/a&gt;
+
+&lt;a href="alipays://platformapi/startapp?saId=10000007"&gt;打开支付宝的扫一扫功能&lt;/a&gt;
+
+&lt;a href="alipays://platformapi/startapp?appId=60000002"&gt;打开支付宝的蚂蚁森林&lt;/a&gt;
+
+</code></pre></div></div><p>清除 <code class="language-plaintext highlighter-rouge">ios</code> 上输入框默认有内部阴影: <code class="language-plaintext highlighter-rouge">-webkit-appearance: none</code></p><p><code class="language-plaintext highlighter-rouge">android</code> 系统中元素被点击时产生边框: <code class="language-plaintext highlighter-rouge">-webkit-tap-hightlight-color:rgba(0,0,0,0);-webit-user-modify:read-write-plaintext-only;</code></p><blockquote><ol><li>IOS微信端无法实现自动播放背景音乐</li></ol></blockquote><p>解决方案：js中添加以下代码，监听WeixinJSBridgeReady事件</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// DOM加载完毕之后调用函数 
+document.addEventListener('DOMContentLoaded', musicInWeixinHandler);
+ 
+function musicInWeixinHandler() {
+    musicPlay(true);
+    document.addEventListener("WeixinJSBridgeReady", function () {
+        musicPlay(true);
+    }, false);
+    document.removeEventListener('DOMContentLoaded', musicInWeixinHandler);
+}
+ 
+function musicPlay(isPlay) {
+    // audio 标签添加id属性 
+    var media = document.querySelector('#bgMusic');
+    if (isPlay &amp;&amp; media.paused) {
+        media.play();
+    }
+    if (!isPlay &amp;&amp; !media.paused) {
+        media.pause();
+    }
+}
+</code></pre></div></div><h2 id="rem-px-em">rem px em</h2><p>rem官方定义『The font size of the root element』，即根元素的字体大小。rem是一个相对的CSS单位，1rem等于html元素上font-size的大小。所以，我们只要设置html上font-size的大小，就可以改变1rem所代表的大小</p><p>px 相对于显示器屏幕分辨率，无法用浏览器字体放大功能</p><p>em 的计算值等于当前元素所在的font-size计算值，比如浏览器的默认字体是16px，font-size：2em，那么内联元素的height就是32px</p><p>在移动端的开发过程中，我们通常会使用一个插件，自动计算 px 单位转化为 rem 单位的插件。<code class="language-plaintext highlighter-rouge">postcss-px-to-viewport</code> 这个插件有一个不好的地方就是直接写在 dom 上面的元素的px不会进行转化，所以我们不会动态在 dom 上面写 px单位，但是如果借用第三方插件的时候，就不受我们控制了。这个要注意了</p><p>还有一种情况，有时候我们并不希望我们的px 单位转化为 rem 这个时候怎么办呢？</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  @media screen and (min-width: 500px) {
+    .progress-content {
+      font-size: 14px;
+      .progress-number {
+        font-size: 24px;
+      }
+    }
+  }
+</code></pre></div></div><p>用 @media screen and 包裹的 class 的不会进行px单位的转化</p><p><a href="https://juejin.im/post/5e4a0162f265da57133b2005">总结移动端H5开发常用技巧（干货满满哦！）</a></p><h2 id="安卓-51-版本-问题">安卓 5.1 版本 问题</h2><p>在安卓低版本，有可能会出现网页运行不了，出现白屏的情况。追究原因是第三方包没有被转义成es5，而我们平时打包的时候也只会转化我们自己的代。这个时候就需要修改 <code class="language-plaintext highlighter-rouge">@babel/preset-env</code> 的配置文件 <code class="language-plaintext highlighter-rouge">"useBuiltIns": "entry"</code> 还有就是 <code class="language-plaintext highlighter-rouge">vue</code> 的配置支持 <code class="language-plaintext highlighter-rouge">transpileDependencies</code> 编译某些 <code class="language-plaintext highlighter-rouge">node_modules</code> 文件。</p><p><a href="https://juejin.im/post/6844903937900822536">[译]Babel文档之@babel/preset-env</a></p><h2 id="浏览器api">浏览器api</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator">Navigator</a></p><p><code class="language-plaintext highlighter-rouge">window.navigator.vibrate([200, 300, 400])</code>: 这将使设备振动200毫秒，暂停300毫秒，振动400毫秒，然后停止。</p><p><code class="language-plaintext highlighter-rouge">navigator.vibrate(200);navigator.vibrate([200]);</code>使设备振动 200 ms 并停止.</p><p>图片较大、加载较慢（尤其是背景图片）的时候，屏幕会是短暂的白色，视觉体验不好。可以给图片所在的 div 加一个与图片主色相近的背景色或者渐变背景色。这样页面加载时会先显示设置的背景色，图片加载之后则会覆盖背景色，视觉体验较好 <code class="language-plaintext highlighter-rouge">background: #739bf9 url('') no-repeat center;</code></p><h3 id="移动端点击的时候有反馈的样式">移动端点击的时候有反馈的样式</h3><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>button:active {
+    background-color: #f0f0f0;
+}
+</code></pre></div></div></article><div style="padding-top:20px;"><hr /><p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p><p>如果喜欢我的话，我们可以互相关注，相互学习的哟！互相鼓励，你的关注是我最大的动力来源</p><a href="https://github.com/sunseekers">sunseekers</a></div><div><div style="margin-top:2em;padding:0 1.5em;border:1px solid #d3d3d3;background-color:#deebf7"><h3>文档信息</h3><ul><li>本文作者：<a href="http://localhost:4000" target="_blank">sunseekers</a></li><li>本文链接：<a href="http://localhost:4000/2020/02/04/mobile/" target="_blank">http://localhost:4000/2020/02/04/mobile/</a></li><li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">创意共享3.0许可证</a>）</li></ul></div></div><div class="share"></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="http://localhost:4000/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2020/02/04/mobile/', clientID: '', clientSecret: '', repo: '', owner: '', admin: [''], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'http://localhost:4000/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 10, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="http://localhost:4000/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2016 <span title="sunseekers">sunseekers</span> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" >TOP</a></li></ul><a href="https://github.com/sunseekers/sunseekers.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="http://localhost:4000/" title="首页" target="">首页</a></li><li> <a href="http://localhost:4000/categories/" title="分类" target="">分类</a></li><li> <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a></li><li> <a href="http://localhost:4000/links/" title="链接" target="">链接</a></li><li> <a href="http://localhost:4000/about/" title="关于" target="">关于</a></li><li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="http://localhost:4000/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script></body></html>

@@ -1,0 +1,83 @@
+<style>
+    html.dark-mode,
+    html.dark-mode img {
+        filter: invert(1) hue-rotate(180deg);
+    }
+    html.dark-mode img {
+        opacity: 0.85;
+    }
+
+    #darkContainer {
+        position: fixed;
+        bottom: 50px;
+        left: 100px;
+        display: flex;
+    }
+    #darkContainer .text {
+        margin-right: 8px;
+    }
+    #darkContainer .switch-btn {
+        user-select: none;
+        display: inline-block;
+        width: 50px;
+        border: none;
+        height: 25px;
+        border-radius: 50px;
+        background: rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        outline: none;
+    }
+    #darkContainer .switch-btn.switch-btn-checked {
+        background: #1890ff;
+    }
+    #darkContainer .switch-btn .switch-handle {
+        height: 20px;
+        width: 20px;
+        background: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 4px;
+        transition: all 0.2s ease-in-out;
+    }
+    #darkContainer .switch-btn.switch-btn-checked .switch-handle {
+        left: calc(100% - 22px);
+    }
+</style>
+
+<script>
+    let isDarkMode = localStorage.getItem('isDarkMode');
+    if (isDarkMode === 'true') {
+        document.firstElementChild.classList.add('dark-mode');
+    }
+</script>
+
+<script defer>
+    const darkContainer = document.createElement('div');
+    darkContainer.id = 'darkContainer';
+    darkContainer.innerHTML = `<span class="text">深色模式</span>`;
+    const btnEl = document.createElement('button');
+    btnEl.classList.add('switch-btn');
+    btnEl.innerHTML = `<div class="switch-handle"></div>`;
+
+    if (isDarkMode === 'true') {
+        btnEl.classList.add('switch-btn-checked');
+    }
+
+    btnEl.addEventListener('click', (e) => {
+        if (btnEl.classList.contains('switch-btn-checked')) {
+            btnEl.classList.remove('switch-btn-checked');
+            document.firstElementChild.classList.remove('dark-mode');
+            localStorage.setItem('isDarkMode', 'false');
+        } else {
+            btnEl.classList.add('switch-btn-checked');
+            document.firstElementChild.classList.add('dark-mode');
+            localStorage.setItem('isDarkMode', 'true');
+        }
+    });
+    darkContainer.append(btnEl);
+
+    document.body.appendChild(darkContainer);
+</script>

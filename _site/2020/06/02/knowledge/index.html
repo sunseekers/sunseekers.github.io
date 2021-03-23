@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title> 前端知识点整理 &mdash; sunseekers</title><link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css" /><link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css" /><link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css" /><link rel="stylesheet" href="https://mazhuang.org/rouge-themes/dist/github.css" /><link rel="canonical" href="http://localhost:4000/2020/06/02/knowledge/" /><link rel="alternate" type="application/atom+xml" title="sunseekers" href="http://localhost:4000/feed.xml" /><link rel="shortcut icon" href="http://localhost:4000/favicon.ico" /><meta property="og:title" content="前端知识点整理" /><meta name="keywords" content="前端知识点整理" /><meta name="og:keywords" content="前端知识点整理" /><meta name="description" content="背景针对过往知识点的整个和总结，对前端比较常见的问题有一个归纳，方便自己今后查找" /><meta name="og:description" content="背景针对过往知识点的整个和总结，对前端比较常见的问题有一个归纳，方便自己今后查找" /><meta property="og:url" content="http://localhost:4000/2020/06/02/knowledge/" /><meta property="og:site_name" content="sunseekers" /><meta property="og:type" content="article" /><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2020-06-02" /> <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="http://localhost:4000/assets/js/jquery-ui.js"></script> <script src="http://localhost:4000/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1> <a href="http://localhost:4000/" title="sunseekers" ><span class="octicon octicon-mark-github"></span> sunseekers</a ></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();" > <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页" >首页</a > <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类" >分类</a > <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基" >维基</a > <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接" >链接</a > <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于" >关于</a ></nav></div></header><style> html.dark-mode, html.dark-mode img { filter: invert(1) hue-rotate(180deg); } html.dark-mode img { opacity: 0.85; } #darkContainer { position: fixed; bottom: 50px; left: 100px; display: flex; } #darkContainer .text { margin-right: 8px; } #darkContainer .switch-btn { user-select: none; display: inline-block; width: 50px; border: none; height: 25px; border-radius: 50px; background: rgba(0, 0, 0, 0.25); cursor: pointer; transition: all 0.2s; position: relative; outline: none; } #darkContainer .switch-btn.switch-btn-checked { background: #1890ff; } #darkContainer .switch-btn .switch-handle { height: 20px; width: 20px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 4px; transition: all 0.2s ease-in-out; } #darkContainer .switch-btn.switch-btn-checked .switch-handle { left: calc(100% - 22px); }</style><script> let isDarkMode = localStorage.getItem('isDarkMode'); if (isDarkMode === 'true') { document.firstElementChild.classList.add('dark-mode'); } </script> <script defer> const darkContainer = document.createElement('div'); darkContainer.id = 'darkContainer'; darkContainer.innerHTML = `<span class="text">深色模式</span>`; const btnEl = document.createElement('button'); btnEl.classList.add('switch-btn'); btnEl.innerHTML = `<div class="switch-handle"></div>`; if (isDarkMode === 'true') { btnEl.classList.add('switch-btn-checked'); } btnEl.addEventListener('click', (e) => { if (btnEl.classList.contains('switch-btn-checked')) { btnEl.classList.remove('switch-btn-checked'); document.firstElementChild.classList.remove('dark-mode'); localStorage.setItem('isDarkMode', 'false'); } else { btnEl.classList.add('switch-btn-checked'); document.firstElementChild.classList.add('dark-mode'); localStorage.setItem('isDarkMode', 'true'); } }); darkContainer.append(btnEl); document.body.appendChild(darkContainer); </script></body></html><section class="collection-head small geopattern" data-pattern-id="前端知识点整理" ><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">前端知识点整理</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2020/06/02 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="http://localhost:4000/categories/#文章推荐" title="文章推荐" >文章推荐</a > </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 6884 字，约 20 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths"><article class="article-content markdown-body"><h1 id="背景">背景</h1><p>针对过往知识点的整个和总结，对前端比较常见的问题有一个归纳，方便自己今后查找</p><h2 id="diff算法的原理-虚拟dom的实现思路">diff算法的原理 虚拟dom的实现思路</h2><p>对比两个 <code class="language-plaintext highlighter-rouge">js</code> 对象，计算出他们的差异。为了降低复杂度和实现成本，只做同级节点的比较，不能跨级</p><p>虚拟 <code class="language-plaintext highlighter-rouge">DOM</code> 转换真实 <code class="language-plaintext highlighter-rouge">DOM</code></p><ol><li><p>创建一个类，类上面有约定的需要的那些参数（<code class="language-plaintext highlighter-rouge">type，props，childen</code>）</p></li><li><p>根据这个类的属性（参数）创建一个元素</p></li><li><p>把这个元素渲染到页面上</p></li></ol><p><code class="language-plaintext highlighter-rouge">diff</code> 算法的实现原理</p><ol><li><p>返回一个 <code class="language-plaintext highlighter-rouge">patches</code> 对象</p></li><li><p>同层比较，不越层比较</p></li></ol><p>节点类型相同，比较属性，变化属性一个补丁包<code class="language-plaintext highlighter-rouge">{type:ATTRS,attrs:{}}</code></p><p>新的dom节点不存在 <code class="language-plaintext highlighter-rouge">{type:"REMOVE",index:xx}</code></p><p>节点类型不同，直接采用替换模式 <code class="language-plaintext highlighter-rouge">{type:"REPLACE",newNode}</code></p><p>文本变化 <code class="language-plaintext highlighter-rouge">{type:"TEXT",text:99}</code></p><ol><li>深度优先遍历，根据遍历先后存放patch 对象</li></ol><p><a href="https://sunseekers.github.io/2020/01/26/diff/">简版 diff</a></p><h2 id="virtual-dom">virtual dom</h2><p><code class="language-plaintext highlighter-rouge">Virtual DOM</code>（虚拟 <code class="language-plaintext highlighter-rouge">DOM</code> ）是对 的抽象，本质上是 <code class="language-plaintext highlighter-rouge">JavaScript</code> 对象，这个对象就是更加轻量级的对 <code class="language-plaintext highlighter-rouge">DOM</code> 的描述， <code class="language-plaintext highlighter-rouge">DOM</code> 的 <code class="language-plaintext highlighter-rouge">diff</code> 操作转移到 <code class="language-plaintext highlighter-rouge">JS</code> 对象，就可以避免大量对 <code class="language-plaintext highlighter-rouge">DOM</code> 的查询操作，之后在更新视图</p><p>因为，首先这种基于 <code class="language-plaintext highlighter-rouge">vnode</code> 实现的 <code class="language-plaintext highlighter-rouge">MVVM</code> 框架，在每次 <code class="language-plaintext highlighter-rouge">render to vnode</code> 的过程中， 渲染组件会有一定的 <code class="language-plaintext highlighter-rouge">JavaScript</code> 耗时，特别是大组件， 比如一个 <code class="language-plaintext highlighter-rouge">1000 * 10</code> 的 <code class="language-plaintext highlighter-rouge">Table</code> 组件，<code class="language-plaintext highlighter-rouge">render to vnode</code> 的过程会遍历 <code class="language-plaintext highlighter-rouge">1000 * 10</code> 次去创建内部 <code class="language-plaintext highlighter-rouge">cell vnode</code>,整个耗时就会变得比较长，加上 <code class="language-plaintext highlighter-rouge">patch vnode</code> 的过程也会有一定的耗时，当我们去更新组件的时候，用户会感觉到明显的卡顿。 虽然 <code class="language-plaintext highlighter-rouge">diff</code> 算法在减少 <code class="language-plaintext highlighter-rouge">DOM</code> 操作方面足够优秀，但最终还是免不了操作 <code class="language-plaintext highlighter-rouge">DOM</code>，所以说性能并不是 <code class="language-plaintext highlighter-rouge">vnode</code> 的优势。</p><p>因为 <code class="language-plaintext highlighter-rouge">insert</code> 的执行是在处理子节点后，所以挂载的顺序是先子节点，后父节点，最终挂载到最外层的容器上 <code class="language-plaintext highlighter-rouge">vnode</code> 本质上是用来描述 <code class="language-plaintext highlighter-rouge">DOM</code> 的 <code class="language-plaintext highlighter-rouge">JavaScript</code> 对象</p><p><code class="language-plaintext highlighter-rouge">patch</code> 本意是打补丁的意思，这个函数有两个功能，一个是根据 <code class="language-plaintext highlighter-rouge">vnode</code> 挂载 <code class="language-plaintext highlighter-rouge">DOM</code>， 一个是根据新旧 <code class="language-plaintext highlighter-rouge">vnode</code> 更新 <code class="language-plaintext highlighter-rouge">DOM</code>。对于初次渲染，我们这里只分析创建过程，更新过程在后面的章节分析</p><p>在创建的过程中，<code class="language-plaintext highlighter-rouge">patch</code> 函数接受多个参数，这里我们目前只重点关注前三个：</p><p>第一个参数 <code class="language-plaintext highlighter-rouge">n1</code> 表示旧的 <code class="language-plaintext highlighter-rouge">vnode</code>，当 <code class="language-plaintext highlighter-rouge">n1</code> 为 <code class="language-plaintext highlighter-rouge">null</code> 的时候，表示是一次挂载的过程；</p><p>第二个参数 <code class="language-plaintext highlighter-rouge">n2</code> 表示新的 <code class="language-plaintext highlighter-rouge">vnode</code> 节点，后续会根据这个 <code class="language-plaintext highlighter-rouge">vnode</code> 类型执行不同的处理逻辑；</p><p>第三个参数 <code class="language-plaintext highlighter-rouge">container</code> 表示 <code class="language-plaintext highlighter-rouge">DOM</code> 容器，也就是 <code class="language-plaintext highlighter-rouge">vnode</code> 渲染生成 <code class="language-plaintext highlighter-rouge">DOM</code> 后，会挂载到 <code class="language-plaintext highlighter-rouge">container</code> 下面。</p><h2 id="实现一个简单的类似于-vue-的构造函数">实现一个简单的类似于 vue 的构造函数</h2><ol><li><p>函数接受一个对象，对象包含有一个元素 <code class="language-plaintext highlighter-rouge">el</code> 属性和 <code class="language-plaintext highlighter-rouge">data</code></p></li><li><p>数据属性挂载在 <code class="language-plaintext highlighter-rouge">this</code> 上面</p></li><li><p>监听每一个数据 <code class="language-plaintext highlighter-rouge">Object.defineProperty</code> 或者用 <code class="language-plaintext highlighter-rouge">Proxy</code> 结合 <code class="language-plaintext highlighter-rouge">Reflect</code>，做到响应式变化</p></li><li><p>数据变化更新视图（找到要替换的元素，把要替换的元素拿到内存中，通过正则匹配，进行替换操作，替换完了放回页面</p></li></ol><p><a href="https://sunseekers.github.io/2020/04/04/new-vue/#%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%B1%BB%E4%BC%BC%E4%BA%8Evue-%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">new 一个简单的类似vue 2.0的构造函数</a></p><h3 id="发布订阅模式">发布订阅模式</h3><p>先有订阅再有发布，订阅就是往里面扔函数，发布就是依次执行函数</p><ol><li><p>创建一个订阅函数，可以一直往函数里放函数。</p></li><li><p>等需要的时候一次性更新执行之前订阅的函数</p></li><li><p>两个函数，一个订阅函数，一个被订阅的函数</p></li></ol><p><a href="https://sunseekers.github.io/2020/04/04/new-vue/#%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%B1%BB%E4%BC%BC%E4%BA%8Evue-%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">new 一个简单的类似vue 2.0的构造函数</a></p><h2 id="小程序微信支付宝的相比h5有啥优点">小程序（微信+支付宝的）相比h5有啥优点</h2><p>优点：</p><p>小程序可以添加到桌面，打开速度比h5快，而且方便。可以使用设备底层的功能，摄像头，语音等等，有缓存，每次打开可以加载上一次，不必每次都重新加载。安全性相对而言比较高</p><p>缺点：开放性有限，受母体框架的限制，只能依赖某一个 <code class="language-plaintext highlighter-rouge">app</code> 打开，小程序的大小受限制</p><p><code class="language-plaintext highlighter-rouge">h5</code> 的优点： 支持多种设备、跨平台使用，开发成本相对较低，对浏览器的适配较简单</p><p>缺点： 打开速度慢，费流量。每次打开页面，都得重新加载，获取数据。 只能使用有限的设备底层功能，体验效果待提升</p><h3 id="为什么要有小程序或者h5">为什么要有小程序或者H5</h3><p><code class="language-plaintext highlighter-rouge">App</code> 维护成本较高，需要专门的开发人员长期维护，发版比较麻烦，对于 <code class="language-plaintext highlighter-rouge">iOS</code> 来说还好因为只有 <code class="language-plaintext highlighter-rouge">App Store</code> 一个市场；但对于 <code class="language-plaintext highlighter-rouge">Android</code> 来说需要发布到不同的应用市场，需要通过打包不同的渠道包来发布和更新。 虽然现在已有许多一键发布的工具，但对 于产品或运营来说也是十分耗时间的工作。开发成本高，一般需要支持 <code class="language-plaintext highlighter-rouge">Android</code> 和<code class="language-plaintext highlighter-rouge">IOS</code> 两个版本，下载和转发推广难，推广成本高。</p><h3 id="在h5页面如何调起app">在h5页面如何调起app？</h3><p>通过 <code class="language-plaintext highlighter-rouge">scheme</code> 机制实现页面唤起。（短链接</p><p>比如说：</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a href="weixin://"&gt;打开微信&lt;/a&gt;
+
+&lt;a href="alipays://"&gt;打开支付宝&lt;/a&gt;
+
+&lt;a href="alipays://platformapi/startapp?saId=10000007"&gt;打开支付宝的扫一扫功能&lt;/a&gt;
+
+&lt;a href="alipays://platformapi/startapp?appId=60000002"&gt;打开支付宝的蚂蚁森林&lt;/a&gt;
+
+&lt;!-- 拨号 --&gt;
+&lt;a href="tel:10086"&gt;打电话给: 10086&lt;/a&gt;
+
+&lt;!-- 发送短信 --&gt;
+&lt;a href="sms:10086"&gt;发短信给: 10086&lt;/a&gt;
+</code></pre></div></div><h3 id="h5语义化标签的理解">h5语义化标签的理解</h3><p>从代码层面：</p><p>不同的语义化标签实际上为我们将网页划分了不同的模块，结构分明更利于分解模块，利于团队的合作和维护。</p><p>代码结构清晰，可读性高，减少差异化，便于团队开发和维护。</p><p>在页面没有加载CSS的情况下，也能呈现良好的内容结构，提升用户体验。</p><p>对搜索引擎友好，良好的结构和语义</p><p>浏览器解析层面：有利于浏览器解析</p><h2 id="vw和rem的局限性">vw和rem的局限性</h2><p>什么是<code class="language-plaintext highlighter-rouge">rem</code>？</p><p><code class="language-plaintext highlighter-rouge">REM</code> 是相对单位，是相对 <code class="language-plaintext highlighter-rouge">HTML</code> 根元素，<code class="language-plaintext highlighter-rouge">rem</code> 就是根元素 <code class="language-plaintext highlighter-rouge">html</code> 的字体大小，其他元素调用 <code class="language-plaintext highlighter-rouge">rem</code>，能统一根据这个适配比例进行调整。</p><p>什么是 <code class="language-plaintext highlighter-rouge">vw</code>?</p><p><code class="language-plaintext highlighter-rouge">vw</code> 是视窗宽度（<code class="language-plaintext highlighter-rouge">viewport width</code>），<code class="language-plaintext highlighter-rouge">100vw</code> 等于设备宽度，例如：设备宽度是 <code class="language-plaintext highlighter-rouge">375px</code>，那么 <code class="language-plaintext highlighter-rouge">1vw</code> 就等于<code class="language-plaintext highlighter-rouge">3.75px</code></p><p>字体的问题，字体大小并不能使用 <code class="language-plaintext highlighter-rouge">rem</code>，字体的大小和字体宽度，并不成线性关系 根元素 <code class="language-plaintext highlighter-rouge">font-size</code> 值强耦合，系统字体放大或缩小时，会导致布局错乱；<code class="language-plaintext highlighter-rouge">px</code> 相对于显示器屏幕分辨率，无法用浏览器字体放大功能，弊端之二：<code class="language-plaintext highlighter-rouge">html</code> 文件头部需插入一段 <code class="language-plaintext highlighter-rouge">js</code> 代码</p><p>百分比<code class="language-plaintext highlighter-rouge">%</code>是根据父元素宽度或者高度进行计算，而<code class="language-plaintext highlighter-rouge">vw vh</code>固定按照 <code class="language-plaintext highlighter-rouge">viewport</code>（可视区域大小）来计算，不会受父元素宽高度影响。 <code class="language-plaintext highlighter-rouge">rem</code> 各家的实现方式个不一样，不统一，计算麻烦，一般 <code class="language-plaintext highlighter-rouge">ui</code> 设计都是给出 <code class="language-plaintext highlighter-rouge">xp</code></p><p><code class="language-plaintext highlighter-rouge">em</code> 是根据上一个元素的单位进行计算</p><p><code class="language-plaintext highlighter-rouge">em </code>的计算值等于当前元素所在的 <code class="language-plaintext highlighter-rouge">font-size</code> 计算值，比如浏览器的默认字体是 <code class="language-plaintext highlighter-rouge">16px</code>，<code class="language-plaintext highlighter-rouge">font-size：2em</code>，那么内联元素的<code class="language-plaintext highlighter-rouge">height</code> 就是 <code class="language-plaintext highlighter-rouge">32px</code></p><p>在移动端的开发过程中，我们通常会使用一个插件，自动计算 <code class="language-plaintext highlighter-rouge">px</code> 单位转化为 <code class="language-plaintext highlighter-rouge">rem</code> 单位的插件。<code class="language-plaintext highlighter-rouge">postcss-px-to-viewport</code> 这个插件有一个不好的地方就是直接写在 <code class="language-plaintext highlighter-rouge">dom</code> 上面的元素的px不会进行转化，所以我们不会动态在 <code class="language-plaintext highlighter-rouge">dom</code> 上面写 <code class="language-plaintext highlighter-rouge">px</code> 单位，但是如果借用第三方插件的时候，就不受我们控制了。这个要注意了</p><p>还有一种情况，有时候我们并不希望我们的 <code class="language-plaintext highlighter-rouge">px</code> 单位转化为 <code class="language-plaintext highlighter-rouge">rem</code> 这个时候怎么办呢？</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  @media screen and (min-width: 500px) {
+    .progress-content {
+      font-size: 14px;
+      .progress-number {
+        font-size: 24px;
+      }
+    }
+  }
+</code></pre></div></div><p>用 <code class="language-plaintext highlighter-rouge">@media screen and </code> 包裹的 <code class="language-plaintext highlighter-rouge">class</code> 的不会进行 <code class="language-plaintext highlighter-rouge">px</code> 单位的转化</p><p><code class="language-plaintext highlighter-rouge">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"&gt;</code></p><h2 id="css-布局">css 布局</h2><p><code class="language-plaintext highlighter-rouge">css</code> 选择器及优先级：内联 &gt; ID选择器 &gt; 类选择器（属性，伪类， &gt; 标签选择器，通配符，关系运算符。衍生当在一个样式声明中使用一个 <code class="language-plaintext highlighter-rouge">!important</code> 规则时，此声明将覆盖任何其他声明。虽然，从技术上讲，!<code class="language-plaintext highlighter-rouge">important</code> 与优先级无关，但它与最终的结果直接相关，<code class="language-plaintext highlighter-rouge">min-width&gt;max-width&gt;important</code></p><h3 id="左边固定-右边适应几种方案flexcalcfloatgrid但不熟和flex有些类似">左边固定 右边适应几种方案(flex,calc，float，grid但不熟，和flex有些类似)</h3><p>设计知识点： <code class="language-plaintext highlighter-rouge">flex</code> =&gt; <code class="language-plaintext highlighter-rouge">flex</code> 的各种布局 flex 和float在一起会怎么样，flex和z-index 在一起会怎么样</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      float 高度坍塌 =&gt; BFC 
+</code></pre></div></div><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.wrapper{
+  width: 100%;
+  display:flex;
+  border: 1px red solid;
+
+}
+.right,.left{
+  height: 100px;
+  border: 1px red solid;
+}
+.right{
+width: 100px;
+}
+.left{
+flex:1 ;相当于flex-grow: 1;flex-shrink: 1;flex-basis: 0%;
+//flex设置的第一值是指flex-grow,第二个是指 flex-shrink
+}
+
+涉及flex的布局：
+父元素设置子元素的对齐属性：
+justify-content=&gt;水平方向
+align-items=&gt; 垂直方向
+flex-wrap=&gt; 换行方式
+flex-direction=&gt;是水平方向还是垂直方向，他变了，  子元素的flex就可以实现剩余宽度/高度等分
+
+// 方式二
+.wrapper{
+  width: 100%;
+  font-size:0;// 为了解决换行出现空白换行
+}
+.right,.left{
+  box-sizing:border-box;
+  display:inline-block;
+  height: 100px;
+  font-size:14px;
+}
+.right{
+width: 100px;
+}
+.left{
+  width:calc(100% - 100px);
+}
+
+// 实现方式三
+.right,.left{
+  height: 100px;
+  border: 1px red solid;
+}
+.right{
+float:left;
+width: 100px;
+}
+ =&gt; 问题会导致高度坍塌，解决方案 常用的父元素overflow:hidden
+ 原理是形成BFC（块级格式化上下文），内部元素再怎么翻江倒海，翻云覆雨都不会影响外面的元素；
+ html,float的值不为none
+overflow的值不为visible
+display的值为inline-block、table-cell、table-caption
+position的值为absolute、fixed
+
+margin上下高度重合也可以用BFC解决
+
+### 水平垂直居中（flex，position，grid）
+// 方式一
+.wrapper{
+  width: 100%;
+  border: 1px red solid;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+
+// 方式二
+.wrapper{
+  width: 100px;
+  border: 1px red solid;
+  height: 100px;
+ position:relative;
+}
+.content{
+  width: 100px;
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  transform:translate(-50%,-50%);
+  border:1px red solid;
+}
+
+// 方式三
+.wrapper{
+  width: 100px;
+  border: 1px red solid;
+  height: 100px;
+   display: grid;
+}
+.content{
+      justify-self: center;
+    align-self: center;
+}
+
+// 方式四
+.wrapper{
+  width: 100px;
+  border: 1px red solid;
+  height: 100px;
+   display: grid;
+   justify-items: center;
+    align-items: center;
+}
+
+</code></pre></div></div><h3 id="如何设计一个浮层弹窗-居中-动画-性能--内容自动撑开-滚动的时候禁止滚动穿透">如何设计一个浮层弹窗 居中 动画 性能 内容自动撑开 滚动的时候禁止滚动穿透</h3><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 父元素用固定定位
+position:fixed;
+left:0;
+right:0;
+top:0;
+bottom:0;
+
+// 子元素：
+position:absolute;l
+etf:50%;bottom:50%;
+transform:translate(-50%,-50%)
+</code></pre></div></div><p>当元素有 <code class="language-plaintext highlighter-rouge">position:absolute</code> 的时候，如果只有 <code class="language-plaintext highlighter-rouge">position:absolute</code> 根据内容撑开宽高 =&gt; <code class="language-plaintext highlighter-rouge">position:absolute</code> 有对立属性（ <code class="language-plaintext highlighter-rouge">left</code> 和 <code class="language-plaintext highlighter-rouge">right</code>，<code class="language-plaintext highlighter-rouge">top</code> 和 <code class="language-plaintext highlighter-rouge">bottom</code>）的时候，根据对立属性撑开的元素的宽/高度，根据最近不为 <code class="language-plaintext highlighter-rouge">static</code> 的元素撑开宽高（<code class="language-plaintext highlighter-rouge">div:{position:absolute;left: 20px;right:20px;}</code> 距离他最近具有定位特性的祖先元素宽度是 <code class="language-plaintext highlighter-rouge">100px</code> ;则这个 <code class="language-plaintext highlighter-rouge">div</code> 元素的宽度是 <code class="language-plaintext highlighter-rouge">60px</code>，高度同理（如果你给元素设定的宽高，则对立属性撑开的元素的宽/高度失效</p><p>滚动的时候禁止滚动穿透(消除滚动条，<code class="language-plaintext highlighter-rouge">position：fixed</code> 和 <code class="language-plaintext highlighter-rouge">overflow</code> 都可以，但都要记住滚动到的位置)</p><p>在弹窗打开的时候给 <code class="language-plaintext highlighter-rouge">body</code> 的全局滚动设置 <code class="language-plaintext highlighter-rouge">position:fixed</code> 属性，并设置 <code class="language-plaintext highlighter-rouge">top</code> 值；由于设置了 <code class="language-plaintext highlighter-rouge">fixed</code> 属性，那在弹窗的时候 <code class="language-plaintext highlighter-rouge">body</code> 就没有滚动条了。此时如果这么设置会发现 <code class="language-plaintext highlighter-rouge">body</code> 虽然没有了滚动穿透，但是原来的位置丢失了。所以再给 <code class="language-plaintext highlighter-rouge">body</code> 设置 <code class="language-plaintext highlighter-rouge">fixed</code> 属性的时候，要把当前的滚动位置赋值给 <code class="language-plaintext highlighter-rouge">css</code> 的 <code class="language-plaintext highlighter-rouge">top</code> 属性，那在视觉上就没有任何变化了。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fixedBody () {
+  let scrollTop = document.scrollingElement
+  document.body.style.cssText += 'position:fixed;width:100%;top:-' + scrollTop + 'px;'
+}
+</code></pre></div></div><h2 id="git的使用">git的使用</h2><p><a href="https://sunseekers.github.io/2020/03/26/git/">git</a></p><h2 id="项目优化">项目优化</h2><h3 id="在实际项目中的http的性能优化">在实际项目中的http的性能优化</h3><p><code class="language-plaintext highlighter-rouge">webpack</code> 的分包加载 第三方依赖打成一个文件 + 额外的性能优化</p><p>减少请求次数：下拉框或者选择某一项，前后两次点击数据一样不请求接口。新增数据成功，本地做数据更新，不请求接口。</p><p>截流=&gt;一段时间内只执行一次操作</p><p>防抖=&gt;多次操作合并成一次事件执行</p><p><a href="https://sunseekers.github.io/2020/01/10/throttle/">函数截流和防抖</a></p><p>减少单次请求所花费的时间，<code class="language-plaintext highlighter-rouge">webpack</code> 分包加载，懒加载，Gzip压缩</p><p><code class="language-plaintext highlighter-rouge">webpack</code> 优化方案：单一原则不要让 <code class="language-plaintext highlighter-rouge">loader</code> 做太多事情，减少没必要的 <code class="language-plaintext highlighter-rouge">loader</code> 解析（<code class="language-plaintext highlighter-rouge">include，exclude</code></p><p><code class="language-plaintext highlighter-rouge">Gzip</code> 压缩原理：是对字符串的重复利用，用某一种方式压缩你的文本长度。去掉空格，代码紧凑（不仅适用于文件，图片也可以，但是压缩在解析耗时，图片一般尽可能用 <code class="language-plaintext highlighter-rouge">base 64</code>（https://segmentfault.com/a/1190000020386580</p><p><code class="language-plaintext highlighter-rouge">webpack</code> 的分包加载 ：<code class="language-plaintext highlighter-rouge">splitChunks</code></p><h3 id="代码层面的页面性能优化">代码层面的页面性能优化</h3><p>合理的页面布局，<code class="language-plaintext highlighter-rouge">dom</code> 节点生成，减少没必要的 <code class="language-plaintext highlighter-rouge">dom</code> 节点</p><p><code class="language-plaintext highlighter-rouge"> css</code> 理解成浏览器能够理解的结构 <code class="language-plaintext highlighter-rouge">styleSheets</code>，不要使用太多需要计算的属性，<code class="language-plaintext highlighter-rouge">css</code> 不要嵌套太深</p><p>减少重排和重绘</p><p><a href="https://sunseekers.github.io/2020/03/20/computer-browser/">从浏览器工作原理出发，进行性能优化</a></p><p>### 项目的动态表单渲染介绍 遇到的问题</p><p>当数据量大的时候，页面渲染会很慢，首次渲染只渲染用户看得到的数据区域，滚动的时候加载其他的</p><p>遇到的问题：用户快速滑动，滚动的时候数据还没有在页面渲染完，此时已经滚动已经在最底部了，导致多次请求接口 解决方案，加锁，只有当数据请求成功之后，在请求下一次</p><h3 id="webpack-里面-sass-打包机制需要配置那些工作">webpack 里面 sass 打包机制需要配置那些工作</h3><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 将 JS 字符串生成为 style 节点
+'style-loader',
+// 将 CSS 转化成 CommonJS 模块
+'css-loader',
+// 将 Sass 编译成 CSS
+'sass-loader',
+而 sass-loader 需要以来node-sass或者 Dart Sass
+</code></pre></div></div><p><code class="language-plaintext highlighter-rouge">weback</code> 的 <code class="language-plaintext highlighter-rouge">loader</code> 怎么写?</p><p><code class="language-plaintext highlighter-rouge">weback</code> 的 <code class="language-plaintext highlighter-rouge">plugin</code> 怎么写?</p><p><code class="language-plaintext highlighter-rouge">emmm</code>,太长了，自己看文章吧 <a href="https://sunseekers.github.io/2020/03/06/webpack/">webpack 的简单介绍(待完善)</a></p><h2 id="javascript">JavaScript</h2><h3 id="callapplybind的异同以及内部实现">call、apply、bind的异同以及内部实现</h3><p><a href="https://sunseekers.github.io/2020/01/08/apply-call-bind/#%E5%A6%82%E4%BD%95%E6%A8%A1%E6%8B%9F%E4%B8%80%E4%B8%AA%E5%8E%9F%E7%94%9F%E7%9A%84-call-%E5%92%8C-applybind">如何模拟一个原生的 call 和 apply,bind？</a></p><h3 id="new的模拟实现">new的模拟实现</h3><p><a href="https://sunseekers.github.io/2020/01/04/new-class/">new 构造函数都做了一些什么？</a></p><h3 id="模拟-promise-api">模拟 Promise API</h3><p><a href="https://sunseekers.github.io/2020/01/20/promise-API/">模拟 Promise API</a></p><h3 id="作用域提升">作用域提升</h3><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var a = 1;
+var c = 10 ;
+function  b() {
+	c = 100;//全局赋值
+	a = 10;
+	return;
+	var a  = 1000;// 变量会提升到函数最前面
+}
+b();
+console.log(a,c);// 1 100
+</code></pre></div></div></article><div style="padding-top:20px;"><hr /><p>有时候，虽然素未谋面。却已相识很久，很微妙也很知足。在逝去的岁月里，我们在某一刻，共同经历着一样的情愫。</p><p>如果喜欢我的话，我们可以互相关注，相互学习的哟！互相鼓励，你的关注是我最大的动力来源</p><a href="https://github.com/sunseekers">sunseekers</a></div><div><div style="margin-top:2em;padding:0 1.5em;border:1px solid #d3d3d3;background-color:#deebf7"><h3>文档信息</h3><ul><li>本文作者：<a href="http://localhost:4000" target="_blank">sunseekers</a></li><li>本文链接：<a href="http://localhost:4000/2020/06/02/knowledge/" target="_blank">http://localhost:4000/2020/06/02/knowledge/</a></li><li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">创意共享3.0许可证</a>）</li></ul></div></div><div class="share"></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="http://localhost:4000/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2020/06/02/knowledge/', clientID: '', clientSecret: '', repo: '', owner: '', admin: [''], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'http://localhost:4000/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 10, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="http://localhost:4000/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2016 <span title="sunseekers">sunseekers</span> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo({behavior: 'smooth', top: 0})" >TOP</a></li></ul><a href="https://github.com/sunseekers/sunseekers.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="http://localhost:4000/" title="首页" target="">首页</a></li><li> <a href="http://localhost:4000/categories/" title="分类" target="">分类</a></li><li> <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a></li><li> <a href="http://localhost:4000/links/" title="链接" target="">链接</a></li><li> <a href="http://localhost:4000/about/" title="关于" target="">关于</a></li><li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="http://localhost:4000/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script></body></html>

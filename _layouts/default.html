@@ -1,5 +1,14 @@
-{% include header.html %}
+---
+layout: compress
+---
 
-    {{ content }}
+{% assign assets_base_url = site.url %}
+{% assign assets_images_base_url = "https://raw.githubusercontent.com/" | append: site.repository | append: '/' | append: site.repository_images_branch %}
+{% if site.cdn.jsdelivr.enabled %}
+{% assign assets_base_url = "https://cdn.jsdelivr.net/gh/" | append: site.repository | append: "@" | append: site.repository_branch %}
+{% assign assets_images_base_url = "https://cdn.jsdelivr.net/gh/" | append: site.repository | append: '@' | append: site.repository_images_branch %}
+{% endif %}
+{% assign assets_images_url = '<img src="' | append: assets_images_base_url | append: "/images" %}
+{% include header.html %}
+    {{ content | replace: '<img src="/images', assets_images_url }}
 {% include footer.html %}
-{% include leancloud-analytics.html %}
