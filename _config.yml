@@ -71,11 +71,11 @@ navs:
     #     href: /open-source/
     #     label: 开源
 
-    - href: /wiki/
-      label: 维基
+    # - href: /wiki/
+    #   label: 维基
 
     - href: /links/
-      label: 链接
+      label: 推荐
 
     - href: /about/
       label: 关于

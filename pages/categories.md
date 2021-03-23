@@ -1,6 +1,6 @@
 ---
 layout: categories
-title: 我的博客分类
+title: '不积跬步，无以至千里；不积小流，无以成江海'
 description: 我的文章都分类记录在这里啦
 keywords: 分类
 comments: false

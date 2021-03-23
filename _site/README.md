@@ -1,10 +1,11 @@
 # sunseekers
 
-我的个人博客：<https://sunseekers.github.io/>
+我的个人博客地址：<https://sunseekers.github.io/>
 
-Fork自 码志的<https://github.com/mzlogin/mzlogin.github.io> 
+二次升级模板来源：<https://github.com/bran-nie/mzlogin.github.io>
 
-博客还在搭建期间，慢慢完善中
+源头Fork自码志的<https://github.com/mzlogin/mzlogin.github.io> 
+
 
 ## 概览
 
@@ -69,25 +70,22 @@ Fork 本项目之后，还需要做一些事情才能让你的页面「正确」
    使用的是leancloud，参照的[博客来源][1]
    
    本人未用博客阅读统计功能。在 _config.yml 将其关闭了
-
+   本人未用博客深夜切换功能。在 dark-mode.html 将其关闭了
    
 ## 经验与思考
 
-* 大家可以先参考图的经验与思考
-* 使用方式先在 _drafts 下新建 md 文件。文件开头参考 template.md 模版。写好后再移动到 _posts/blog 下。接着提交到 GitHub 即可
+* 如果大家觉得我的博客模板不错，clone 模板来源：<https://github.com/bran-nie/mzlogin.github.io>，就可以了，分分钟上手写博客
+* 在使用过程中，遇到问题，先自己思考然后在找人。模板是我一个朋友提供的[Pengcheng Nie](https://github.com/bran-nie)，有问题找他
+* 使用方式在_posts/blog目录下开头参考 template.md 模版，写好后接着提交到 GitHub 即可，效果和我的一样了
 
 
 ## 致谢
 
 本博客外观
 
-基于 [图](http://lihuimintu.github.io)
+基于[Pengcheng Nie](https://github.com/bran-nie)
 
-基于 [毛毛虫_Wendy](http://mmcwendy.info)
-
-基于 [DONGChuan](http://dongchuan.github.io) 
-
-基于 [Zhuang Ma](http://mazhuang.org/)
+二次升级，中间遇到问题，感谢朋友热心帮忙
 
 修改，非常感谢！
 

@@ -1,14 +1,14 @@
 ---
 layout: page
-title: 友情链接
-description: 没有链接的博客是孤独的
-keywords: 友情链接
+title: 一个人的学习是孤独的
+description: 没有博客推荐的博客是孤独的
+keywords: 博客推荐
 comments: true
-menu: 链接
+menu: 博客
 permalink: /links/
 ---
 
-> God made relatives. Thank God we can choose our friends.
+> 推荐一些我觉得不错的博客，或者公众号，互相学习
 
 {% for link in site.data.links %}
 * [{{ link.name }}]({{ link.url }})
