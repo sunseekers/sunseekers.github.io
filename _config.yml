@@ -123,19 +123,19 @@ disqus:
     username:
 
 # https://imsun.net/posts/gitment-introduction/ 文档
-# gitment:
-#     owner:
-#     repo:
-#     oauth:
-#         client_id:
-#         client_secret:
+gitment:
+  owner: sunseekers
+  repo: sunseekers
+  oauth:
+    client_id: 7ffc0aeedcc0dc7f5fb6
+    client_secret: c910965c927d40783d363d7e21197ccf35c317b3
 
 # https://github.com/gitalk/gitalk#install 文档
-# gitalk:
-#     owner:
-#     repo:
-#     clientID:
-#     clientSecret:
+gitalk:
+  owner: sunseekers
+  repo: sunseekers.github.io
+  clientID: efc20f7ef0379b54367b
+  clientSecret: a58112205486b93eb454f60f6d9d7bcbaf37e3fa
 # 在使用其它评论组件时可点击显示 Disqus
 lazy_load_disqus: false
 
@@ -150,8 +150,8 @@ simple_jekyll_search:
 # ---------------- #
 #      Google      #
 # ---------------- #
-# google:
-#     analytics_id: UA-80669434-1
+google:
+    analytics_id: UA-80669434-1
 #     adsense:
 #         footer: true
 #         sidebar: true
