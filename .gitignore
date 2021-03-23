@@ -7,4 +7,3 @@ _site/
 Gemfile.lock
 .vscode/
 .jekyll-metadata
-/node_modules
