@@ -30,6 +30,9 @@ keywords: 文章推荐
 [普通的程序员和大神级的程序员有什么区别？](https://www.zhihu.com/question/59351128/answer/834831006)
 
 [技术人员怎样提升对业务的理解](https://zhuanlan.zhihu.com/p/153205903)
+
+[“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
+
 ## 总结
 
 冰冻三尺，非一日之寒。你想要什么，你就怎么做
@@ -53,17 +56,8 @@ keywords: 文章推荐
 `AST` 和前端有什么关系？ [AST in Modern JavaScript](https://zhuanlan.zhihu.com/p/32189701)
 
 
-这里是和 `js` 编译有一点点关系 [从敲下一行 JS 代码到这行代码被执行，中间发生了什么？](https://zhuanlan.zhihu.com/p/101137995)
-
-使用函数式编程的优点： [JavaScript 函数式编程，真香之组合函数(二)](https://juejin.im/post/5c6e08276fb9a04a027af1de)
-
-[函数式编程，真香](https://juejin.im/post/5c19c3ffe51d45059b632eef)
-
 文章里面有很多链接，都是很不错的文章 [写给初中级前端的高级进阶指南](https://juejin.im/post/5e7c08bde51d455c4c66ddad#heading-10)
 
-[让你的网页更丝滑（一）](https://zhuanlan.zhihu.com/p/66398148)
-
-[让你的网页更丝滑（全）](https://zhuanlan.zhihu.com/p/67728054)
 
 [谈，前端框架的『御剑之道』](https://zhuanlan.zhihu.com/p/48171797)
 
@@ -72,9 +66,6 @@ keywords: 文章推荐
 [Master the JavaScript Interview: What’s the Difference Between Class & Prototypal Inheritance?](https://medium.com/javascript-scene/master-the-javascript-interview-what-s-the-difference-between-class-prototypal-inheritance-e4cd0a7562e9)
 可以尝试做一次职业技能提升的规划：[每一场面试都是人生的一次战役 | 掘金技术征文](https://juejin.im/post/5e8dab8a51882573b43606ab)
 
-[JavaScript 深入之头疼的类型转换(上)](https://github.com/mqyqingfeng/Blog/issues/159)
-
-[JavaScript 深入之头疼的类型转换(下)](https://github.com/mqyqingfeng/Blog/issues/164)
 
 [这个前端竟然用动态规划写瀑布流布局？给我打死他！](https://juejin.im/post/5ed5b9a26fb9a047a07f2c30)
 
@@ -86,31 +77,11 @@ keywords: 文章推荐
 
 [10个打开了我新世界大门的 WebAPI](https://juejin.im/post/5ee8c60ef265da76ed486e20#heading-9)
 
-[ES11 来了，还学得动吗？](https://mp.weixin.qq.com/s/oNGTxoebG_MIFSlNTvaLeA)
-
-[ES6 系列之 defineProperty 与 proxy](https://github.com/mqyqingfeng/Blog/issues/107)
-
-[由浅入深，66条JavaScript面试知识点](https://juejin.im/post/5ef8377f6fb9a07e693a6061#heading-74)
-
 [0202年了, Chrome DevTools 你还只会console.log吗 ?](https://blog.csdn.net/qiwoo_weekly/article/details/104230957)
-
-[使用纯 CSS 实现滚动阴影效果](https://github.com/chokcoco/iCSS/issues/86)
-
-[CSS 技巧一则 -- 不定宽溢出文本适配滚动](https://github.com/chokcoco/iCSS/issues/81)
-
-[CSS变量对JS交互组件开发带来的提升与变革](https://www.zhangxinxu.com/wordpress/2020/07/css-var-improve-components/)
-
-[我是如何通过CSS向JS传参的](https://www.zhangxinxu.com/wordpress/2020/02/css-params-to-js/)
-
-[直线等图形从中间穿过元素或文字的CSS实现](https://www.zhangxinxu.com/wordpress/2021/02/css-3d-through/)
 
 [如何设计产品的空白页面？](http://www.woshipm.com/pd/3742114.html)
 
 [前端优秀实践不完全指南](https://juejin.cn/post/6932647134944886797)
-## 生活
-
-[“人性本恶”还是“人性本善”，这个问题没有意义](https://mp.weixin.qq.com/s/M-d6lH3v4W7OUX4PCAP05Q)
-
 
 ## 前端周边辅助工具
 [网页版ps](https://www.photopea.com/): 这个可能需要翻墙，可能有广告

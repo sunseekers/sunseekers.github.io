@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript核心原理解析 学到的东西
+title: 《JavaScript核心原理解析》推荐
 categories: [JavaScript]
 description: JavaScript
 keywords: JavaScript
@@ -64,7 +64,6 @@ x 和 y 是两个不同的东西，前者是声明的名字，后者是一个赋
 => 声明语义就是静态语言的处理，执行语义就是动态语言的处理。这是两种语言范型的分水岭
 
 ### 表达式与语句
-
 
 如果说在语法“var x = 100”中，“= 100”是向 x 绑定值，那么“var x”就是单纯的标识符声明。这意味着非常重要的一点——“x”只是一个表达名字的、静态语法分析期作为标识符来理解的字面文本，而不是一个表达式
 

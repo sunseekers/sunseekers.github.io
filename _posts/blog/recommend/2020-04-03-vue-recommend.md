@@ -15,8 +15,6 @@ keywords: vue
 
 [Vuex的命名空间](https://vuex.vuejs.org/zh/guide/modules.html) (用的比较少)
 
-## 来自 `github`
-
 ## 来自掘金
 [手摸手，带你用vue撸后台 系列一（基础篇）](https://juejin.im/post/59097cd7a22b9d0065fb61d2?utm_medium=fe&utm_source=weixinqun)
 
@@ -44,9 +42,6 @@ keywords: vue
 
 [长列表渲染实践](https://zhuanlan.zhihu.com/p/66779396)
 
-## 来自博客
-[基于Vue实现后台系统权限控制](https://refined-x.com/2017/08/29/%E5%9F%BA%E4%BA%8EVue%E5%AE%9E%E7%8E%B0%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/)
-
 
 ## 来自网络
 [珠峰架构师成长计划](http://www.zhufengpeixun.cn/architecture/html/)
@@ -60,3 +55,5 @@ keywords: vue
 [vue 客户端存储 文档](https://cn.vuejs.org/v2/cookbook/client-side-storage.html)
 
 [Vue 开发必须知道的 36 个技巧【近1W字】](https://segmentfault.com/a/1190000020620972)
+
+[基于Vue实现后台系统权限控制](https://refined-x.com/2017/08/29/%E5%9F%BA%E4%BA%8EVue%E5%AE%9E%E7%8E%B0%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/)

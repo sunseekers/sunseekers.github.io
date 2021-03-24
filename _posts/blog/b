@@ -5,20 +5,6 @@ ECMAScript 6 模块是静态装配的，而传统的 Node.js 模块却是动态�
 
 所谓模块的装配过程，就是执行一次顶层代码而已。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 16.Array.prototype.sort的排序的原理  
 各浏览器的实现方式都不一样
 Google Chrome	V8	插入排序和快速排序	sort 源码实现
@@ -97,11 +83,6 @@ http的请求方式8种
 JSON.parse()=> 字符串中解析出json对象
 JSON.stringify()=> 从一个对象解析成字符串
 浏览器缓存机制：
-
-
-
-
-
 
 
 JavaScript的事件执行机制(宏任务，微任务)
