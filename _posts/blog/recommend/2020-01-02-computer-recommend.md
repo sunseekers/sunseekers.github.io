@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 计算机系列文章
-categories: [文章推荐]
+categories: [其他]
 description: 浏览器相关知识
 keywords: 计算机
 ---

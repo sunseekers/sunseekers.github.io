@@ -1,6 +1,6 @@
 layout: post
 title: 程序是怎么跑起来的
-categories: [计算机]
+categories: [其他]
 description: 计算机相关概念
 keywords: 计算机
 
