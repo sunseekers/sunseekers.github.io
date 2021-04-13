@@ -143,7 +143,7 @@ let e2 = {
     alert(+e2) // 4 this is valueOf
 ```
 toString()不可以转换null 和 undefined，因为null 和 undefined 没有自己的包装对象，不能访问对象的toString() 方法，包装对象的属性引用结束，这个新创建的临时对象就会被销毁了
-## script 标签
+## script 标签的执行顺序
 
 `script` 标签存在两个属性 `defer` 和 `async` ，都是不堵塞后续文档的执行，我们在使用他的时候就分了三种情况
 
@@ -157,6 +157,11 @@ toString()不可以转换null 和 undefined，因为null 和 undefined 没有自
 3. `<script defer src="example.js"></script>`
 
 有了 `defer` 属性，加载后续文档的过程和 `js` 脚本的加载(此时仅加载不执行)是并行进行的(异步)，`js` 脚本的执行需要等到文档所有元素解析完成之后，`DOMContentLoaded` 事件触发执行之前。
+
+4. `<script type="module"  src="example.js"></script>`
+
+加载模块，他和`defer` 属性差不多，但是要又优先于 `defer` 执行
+
 ## 执行上下文
 
 实际上变量和函数声明在代码里的位置是不会改变的，而是在编译阶段被 `javaScript` 引擎放入内存中
