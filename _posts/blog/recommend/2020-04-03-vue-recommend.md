@@ -57,3 +57,9 @@ keywords: vue
 [Vue 开发必须知道的 36 个技巧【近1W字】](https://segmentfault.com/a/1190000020620972)
 
 [基于Vue实现后台系统权限控制](https://refined-x.com/2017/08/29/%E5%9F%BA%E4%BA%8EVue%E5%AE%9E%E7%8E%B0%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/)
+
+[vue3 源码](https://vue3js.cn/start/):推荐看源码理由就跟我们写作文一样，你看的高分作文越多，写出高分作文的概率就越大
+
+[Vue3 的学习教程汇总、源码解释项目、支持的 UI 组件库、优质实战项目](https://github.com/FrontEndGitHub/FrontEndGitHub/issues/18)
+
+[浅谈 Vite 2.0 原理，依赖预编译，插件机制是如何兼容 Rollup 的](https://github.com/sl1673495/blogs/issues/75)
