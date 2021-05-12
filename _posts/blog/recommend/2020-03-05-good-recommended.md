@@ -83,6 +83,7 @@ keywords: 文章推荐
 
 [前端优秀实践不完全指南](https://juejin.cn/post/6932647134944886797)
 
+[写给前端的编译原理科普](https://juejin.cn/post/6958347736924192782)
 ## 前端周边辅助工具
 [网页版ps](https://www.photopea.com/): 这个可能需要翻墙，可能有广告
 
