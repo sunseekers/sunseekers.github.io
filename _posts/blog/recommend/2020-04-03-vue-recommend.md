@@ -63,3 +63,5 @@ keywords: vue
 [Vue3 的学习教程汇总、源码解释项目、支持的 UI 组件库、优质实战项目](https://github.com/FrontEndGitHub/FrontEndGitHub/issues/18)
 
 [浅谈 Vite 2.0 原理，依赖预编译，插件机制是如何兼容 Rollup 的](https://github.com/sl1673495/blogs/issues/75)
+
+[Vue页面骨架屏注入实践](https://segmentfault.com/a/1190000014832185)
