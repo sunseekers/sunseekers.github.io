@@ -35,3 +35,5 @@ keywords: 前端面试
 [意外点到的github，看到start满多的，先收藏看看](https://github.com/haizlin/fe-interview/issues)
 
 [qappleh/Interview](https://github.com/qappleh/Interview)
+
+[聊聊前端面试](https://juejin.cn/post/6964658454543728647)
