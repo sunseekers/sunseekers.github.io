@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>浏览器判断是否断网</title>
+  <style>
+    #status {
+  position: fixed;
+  width: 100%;
+  font: bold 1em sans-serif;
+  color: #FFF;
+  padding: 0.5em;
+}
+
+#log {
+  padding: 2.5em 0.5em 0.5em;
+  font: 1em sans-serif;
+}
+
+.online {
+  background: green;
+}
+
+.offline {
+  background: red;
+}
+
+  </style>
+</head>
+<body>
+  <div id="status"></div>
+<div id="log"></div>
+<p>This is a test</p>
+  <div class="box6">
+    window.addEventListener("offline", this.eventHandle);
+<br/>
+    window.addEventListener("online", this.eventHandle);
+    <br/>
+    浏览器可以监听offline和online事件知道用户是否断网
+    <br/>
+    当用户从有网切换到无网的时候，再从无网到有网的时候，页面内容会发生变化，可行调整查看
+   </div>
+</body>
+<script>
+window.addEventListener('load', function() {
+  var status = document.getElementById("status");
+  var log = document.getElementById("log");
+
+  function updateOnlineStatus(event) {
+
+    var condition = navigator.onLine ? "online" : "offline";
+    status.className = condition;
+    status.innerHTML = condition.toUpperCase();
+
+    log.insertAdjacentHTML("beforeend", "Event: " + event.type + "; Status: " + condition);
+  }
+  window.addEventListener('online',  updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+});
+</script>
+</html> 
