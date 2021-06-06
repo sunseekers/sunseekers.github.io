@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>css 样式实现换肤功能</title>
+<link href="default.css" rel="stylesheet" type="text/css" title="默认">
+<link href="red.css" rel="alternate stylesheet" type="text/css" title="红色">
+<link href="green.css" rel="alternate stylesheet" type="text/css" title="绿色">
+<style>
+  .box{
+    width: 200px;
+    height: 200px;
+  }
+</style>
+</head>
+<body>
+  <div class="box">
+    我的背景颜色是是什么呢？
+  </div>
+  <p>
+  选择样式：
+  <input id="default" type="radio" name="skin" value="default.css" checked><label for="default">默认</label>
+  <input id="red" type="radio" name="skin" value="red.css"><label for="red">红色</label>
+  <input id="green" type="radio" name="skin" value="green.css"><label for="green">绿色</label>
+</p>
+</body>
+<script>
+let eleLinks = document.querySelectorAll('link[title]')
+let eleRadios = document.querySelectorAll('input[type="radio"]');
+
+[].slice.call(eleRadios).forEach(function(item){
+  item.addEventListener('click',function(){
+    let value = this.value;
+    [].slice.call(eleLinks).forEach(function(link){
+      link.disabled = true
+      if(link.getAttribute('href')===value){
+        link.disabled = false
+      }
+    })
+  })
+})
+</script>
+</html> 
