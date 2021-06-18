@@ -31,6 +31,10 @@ reportValidity()方法可以触发浏览器的内置的验证提示交互，返�
 
 setCustomValidity()方法顾名思义就是设置自定义的验证，我们可以使用这个方法自定义提示文字。
 
+[HTMLFormElement.elements](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLFormElement/elements)：获得 form 中所有的表单控件元素（输入框、下拉框、选择框等）
+
+[fieldset:disabled](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/fieldset):如果设置了这个 bool 值属性, <fieldset> 的所有子代表单控件也会继承这个属性
+
 ## 参考资料
 [checkValidity等form原生JS验证方法和属性详细介绍](https://www.zhangxinxu.com/wordpress/2019/08/js-checkvalidity-setcustomvalidity/)
 

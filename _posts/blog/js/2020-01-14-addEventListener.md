@@ -143,9 +143,46 @@ console.log('true 是捕获事件');
   })
   ```
 
-
-
 [EventTarget.dispatchEvent](https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/dispatchEvent):向一个指定的目标派发一个事件,  并以合适的顺序同步调用目标元素相关的事件处理函数。
+
+
+### js给input的value赋值，触发change事件
+
+```
+const props = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+Object.defineProperty(HTMLInputElement.prototype, 'value', {
+    ...props,
+    set (v) {
+        let oldv = this.value;
+        props.set.call(this, v);
+        // 手动触发change事件
+        if (oldv !== v) {
+              input.dispatchEvent(new CustomEvent('change'));
+        }
+    }
+});
+```
+
+[输入框value属性赋值触发js change事件的实现](https://www.zhangxinxu.com/wordpress/2021/05/js-value-change/)
+
+### react 内部改写了.value的赋值操作，从 dom 上简单粗暴的修改肯定是不行的，因为 react 内部状态没有改过来，导致认为前后没有发生变化
+
+```
+const props = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+
+const input = document.querySelector('.chapter-name input');
+Object.defineProperty(input, 'value', {
+    ...props,
+    set (v) {
+        let oldv = this.value;
+        props.set.call(this, v);
+        // 手动触发change事件
+        if (oldv !== v) {
+              input.dispatchEvent(new Event('input', {bubbles: true}));
+        }
+    }
+});
+```
 ## addEventListener 其实支持第四个参数，可实现只点击一次事件
 
 ```
