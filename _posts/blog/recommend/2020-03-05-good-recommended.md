@@ -90,6 +90,12 @@ keywords: 文章推荐
 [前端工程师不可不知的Nginx知识](https://juejin.cn/post/6864085814571335694/)
 
 [dennis-jiang/Front-End-Knowledges](https://github.com/dennis-jiang/Front-End-Knowledges)
+
+[玉伯：开源有带给我什么](https://mp.weixin.qq.com/s/B2gfoxnPo0P0dY1DaIjehQ)
+
+[数据上报方式是否存在最优解？](https://mp.weixin.qq.com/s/_3OSxMErTD2ZMNK7kf02LA)
+
+[chrome开发者工具各种骚技巧](https://juejin.cn/post/6844903604839514125#heading-12)
 ## 前端周边辅助工具
 [网页版ps](https://www.photopea.com/): 这个可能需要翻墙，可能有广告
 

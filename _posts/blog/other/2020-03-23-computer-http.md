@@ -416,3 +416,5 @@ http
 ## 参考资料
 
 [（建议精读）HTTP 灵魂之问，巩固你的 HTTP 知识体系](https://juejin.im/post/5e76bd516fb9a07cce750746)
+
+[终于有人把 Nginx 说清楚了，图文详解！](https://mp.weixin.qq.com/s/vZkXcMOOWu0tsZ_5a6gtew)
