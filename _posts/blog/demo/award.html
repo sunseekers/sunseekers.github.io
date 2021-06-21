@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+.award-container {
+  margin: 0 auto;
+  max-width: 750px;
+  padding: 2px;
+  background-color: #eeeeee;
+  box-sizing: border-box;
+}
+.award-box {
+  position: relative;
+  padding-top: 100%;
+  box-sizing: border-box;
+}
+.award-box .award-item {
+  position: absolute;
+  width: 33.33%;
+  padding-top: 33.33%;
+}
+.award-box .award-item:nth-of-type(1) {
+  left: 0;
+  top: 0;
+}
+.award-box .award-item:nth-of-type(2) {
+  left: 50%;
+  transform: translate(-50%);
+  top: 0;
+}
+.award-box .award-item:nth-of-type(3) {
+  right: 0;
+  top: 0;
+}
+.award-box .award-item:nth-of-type(4) {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.award-box .award-item:nth-of-type(5) {
+  right: 0;
+  bottom: 0;
+}
+.award-box .award-item:nth-of-type(6) {
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 0;
+}
+.award-box .award-item:nth-of-type(7) {
+  left: 0;
+  bottom: 0;
+}
+.award-box .award-item:nth-of-type(8) {
+  left: 0;
+  transform: translateY(-50%);
+  top: 50%;
+}
+.award-item .item-box {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  background-color: #ffffff;
+  color: red;
+}
+.award-item.active .item-box {
+  background-color: red;
+  color: #ffffff;
+}
+.award-item.action-btn {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+  </style>
+</head>
+
+<body>
+  <div class="award-container">
+    <div class="award-box" id="award_box">
+      <div class="award-item">
+        <div class="item-box">1</div>
+      </div>
+      <div class="award-item">
+        <div class="item-box">2</div>
+      </div>
+      <div class="award-item">
+        <div class="item-box">3</div>
+      </div>
+      <div class="award-item">
+        <div class="item-box">4</div>
+      </div>
+      <div class="award-item">
+        <div class="item-box">5</div>
+      </div>
+      <div class="award-item">
+        <div class="item-box">6</div>
+      </div>
+      <div class="award-item">
+        <div class="item-box">7</div>
+      </div>
+      <div class="award-item">
+        <div class="item-box">8</div>
+      </div>
+      <div class="award-item action-btn" id="action_btn">
+        <div class="item-box">start</div>
+      </div>
+    </div>
+  </div>
+  <script>
+  // 封装一层，变量内聚
+function init() {
+  let nodeList = document.getElementById('award_box').children
+  nodeList = Array.from(nodeList).slice(0, 8) // 获取跑马灯列表
+  let lastNode = nodeList[0] // 缓存上一个高亮元素
+  function highLight(max, callback) {
+    lastNode.setAttribute('class', 'award-item')
+    const curIndex = this.count % 8 // 高亮次数取余即为当前需要高亮元素下标
+    nodeList[curIndex].setAttribute('class', 'award-item active')
+    lastNode = nodeList[curIndex] // 更新缓存
+    setTimeout(() => {
+      if (this.count === max) {
+        callback && callback()
+        return
+      }
+      this.count++
+      this.highLight(max, callback)
+    }, (30 * (1.05 ** this.count)) << 0) // 时间间隔以指数增长，位运算取整
+  }
+  function reset() {
+    // 重置初始条件
+    lastNode.setAttribute('class', 'award-item')
+    lastNode = nodeList[0]
+    this.count = 0
+  }
+  const obj = {
+    count: 0,
+    highLight,
+    reset
+  }
+  return obj
+}
+// 初始化
+const instance = init()
+const actionBtn = document.getElementById('action_btn')
+actionBtn.addEventListener('click', () => {
+  if (instance.count > 0) return // 表示上一轮未结束
+  const theOne = Math.floor(Math.random() * 8) // 取一个随机下标作为终点
+  console.log('theOne: ', theOne + 1)
+  // 圈数 * 长度，计算统计的最大值
+  instance.highLight(5 * 8 + theOne, () => {
+    console.log('done')
+    setTimeout(() => {
+      console.log('reset')
+      instance.reset() // 重置
+    }, 1000)
+  })
+})
+  </script>
+</body>
+
+</html>
