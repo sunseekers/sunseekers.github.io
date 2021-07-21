@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>本地模拟数据</title>
+  <style>
+    ul::before,
+ul::after {
+  content: '';
+  display: block;
+  /* height: 100vh; */
+}
+li {
+  height: 300px;
+  border: 2px dotted;
+  background: #fff;
+  margin: 1em 0;
+}
+button {
+  /* 这里补全 */
+
+position:sticky;
+  top:0;
+
+}
+  </style>
+</head>
+<body>
+
+</body>
+<script>
+  async function getList(){
+    const request = await fetch("/server/list.json")
+    const data = await request.json()
+console.log('接口返回的数据',data)
+  }
+  getList()
+</script>
+</html>
