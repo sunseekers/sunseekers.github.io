@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 实现烟花效果</title>
+    <style>
+      body{
+        background-color: #000;
+      }
+      .fireworks{
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: url('https://imgservices-1252317822.image.myqcloud.com/image/081320210201435/e9951400.png') right top no-repeat;
+        background-size: auto 150px;
+        animation: fireworks 2s steps(24) infinite,random 8s steps(1) infinite;
+      }
+      @keyframes fireworks {
+        0% {
+            background-position: 0%;
+        }
+        50%,
+        100% {
+            background-position: 100% 100%;
+        }
+      }
+    @keyframes random {
+      0% {
+          transform: translate(0, 0);
+      }
+      25% {
+          transform: translate(200%, 50%) scale(0.8);
+      }
+      50% {
+          transform: translate(80%, 80%) scale(1.2);
+      }
+      75% {
+          transform: translate(20%, 60%) scale(0.65);
+      }
+}
+
+    </style>
+</head>
+<body>
+  <div class="fireworks" style="left: 20%; top: 5%;"></div>
+  <div class="fireworks" style="right: 30%; top: 10%; animation-delay: -0.6s;"></div>
+  <div class="fireworks" style="left: 45%; top: 13%; animation-delay: -1.7s;"></div>
+  <div class="fireworks" style="right: 35%; top: 15%; animation-delay: -3.2s;"></div>
+</body>
+<script>
+
+</script>
+</html>

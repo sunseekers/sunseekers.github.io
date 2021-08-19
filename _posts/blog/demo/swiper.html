@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>左右移动的卡片</title>
+  <style>
+html {
+  font-size: 16px;
+  font-size: clamp(16px, calc(16px + 2 * (100vw - 375px) / 39), 22px);
+}
+
+html,body{
+  padding:0;
+  margin:0;
+}
+.snap-swiper{
+  height: 600px;
+overflow: hidden;
+}
+.snap-swiper-box::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-swiper-box {
+  white-space: nowrap;
+  overflow: auto;
+  /* scroll-behavior: smooth; */
+  scroll-snap-type: x mandatory;
+  font-size: 0;
+  height: inherit;
+
+
+}
+
+.snap-swiper-link {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  display: inline-block;
+  scroll-snap-align: center;
+
+}
+.content{
+  width: calc(100% - 40px);
+  display: inline-block;
+  margin: 20px ;
+  scroll-behavior: smooth;
+  background-color: #fff;
+
+}
+.width{
+  width: 100%;
+  margin:0;
+  /* transition:width 200ms; */
+}
+p{
+  border-bottom: 1px red solid;
+  height: 200px;
+font-size: 16px;
+}
+  </style>
+</head>
+<body>
+  <div class="snap-swiper">
+<div class="snap-swiper-box">
+ <a href="https://github.com/yued-fe/snap-swiper" class="snap-swiper-link">
+   <div class="content">
+     <p>这里有很多的内容</p>
+     <p>这里有很多的内容</p>
+     <p>这里有很多的内容</p>
+     <p>这里有很多的内容</p>
+     <p>这里有很多的内容</p>
+     <p>这里有很多的内容</p>
+     <p>这里有很多的内容</p>
+     <p>这里有很多的内容</p>
+  
+   </div>
+ </a>
+ <a href="https://sunseekers.github.io/" class="snap-swiper-link">
+  <div class="content">
+    <p>111111这里有很多的内容</p>
+    <p>111111这里有很多的内容</p>
+    <p>111111这里有很多的内容</p>
+    <p>111111这里有很多的内容</p>
+    <p>111111这里有很多的内容</p>
+    <p>111111这里有很多的内容</p>
+    <p>111111这里有很多的内容</p>
+    <p>111111这里有很多的内容</p>
+
+
+  </div>
+</a>
+<a href="https://github.com/sunseekers" class="snap-swiper-link">
+  <div class="content">
+    <p>2222222这里有很多的内容</p>
+    <p>2222222这里有很多的内容</p>
+    <p>2222222这里有很多的内容</p>
+    <p>2222222这里有很多的内容</p>
+    <p>2222222这里有很多的内容</p>
+    <p>2222222这里有很多的内容</p>
+    <p>2222222这里有很多的内容</p>
+    <p>2222222这里有很多的内容</p>
+  </div>
+</a>
+</div>
+</div>
+</body>
+<script>
+  let targetEle = null 
+  let preIndex = 0 // 前一张卡片
+  let cardList = document.querySelectorAll('.snap-swiper-link')
+  let ele = document.querySelector('.snap-swiper-box')
+    ele.addEventListener("scroll",(event)=>{
+      const index = event.target.scrollLeft / window.innerWidth || 0
+      targetEle=cardList[index]&&cardList[index].querySelector('.content')
+        // 上下滚动
+        if(targetEle){
+        // 向上滚动的时候，添加全屏，向下滚动的时候去掉全屏
+        if(event.target.scrollTop>30&&!targetEle.classList.contains('width')){
+          targetEle.classList.add('width')
+        }else if(event.target.scrollTop<30){
+          targetEle.classList.remove('width')
+        }
+      }
+
+      // 左右滚动
+          if(parseInt(index)===index&&index!==preIndex){
+             preIndex = index
+            targetEle=cardList[index].querySelector('.content')
+            event.target.scrollTop = 0
+            targetEle.classList.remove('width')
+            console.log('正在左右滑动',index ,'张卡片',targetEle)
+          }
+    })
+</script>
+</html>
