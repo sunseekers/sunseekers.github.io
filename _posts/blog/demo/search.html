@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>搜索关键字高亮</title>
+<style>
+
+ui-overlay {
+    position: absolute;
+    background: red;
+    mix-blend-mode: overlay;
+    z-index: 9;
+}
+
+</style>
+</head>
+<body>
+  <p><input type="search" placeholder="输入内容回车搜索"></p>
+  <p id="target">可以在上面的输入框中输入任意这段内容中出现的文字或者单词，在输入内容并按回车键确认后，就会看到文字有高亮显示效果。但是，这种高亮显示效果不是通过包裹标签元素实现的，而是将色块直接覆盖在文字上面，然后通过叠加这种混合模式实现的。</p>
+</body>
+<script>
+  const eleSearch = document.querySelector('input[type="search"]');
+  const eleTraget = document.querySelector('#target');
+eleSearch.addEventListener('input',function(){
+  let text = eleTraget.textContent;
+  var value = this.value.trim();
+    var length = value.length;
+
+  [].slice.call(document.querySelectorAll('ui-overlay')).forEach(function (overlay) {
+    console.log(overlay,'overlayoverlay')
+        overlay.remove();
+    });
+    let arrMatchs = text.split(value);// 所有的文本信息
+    console.log(arrMatchs,'arrMatchs')
+    // arrMatchs按照输入匹配的结果进行切割的数组，匹配的结果已经被删除了
+    if(arrMatchs.length>1){// 
+      // 匹配到了元素
+      let start = 0
+      // 通过输入的文字，一个一个遍历搜索有没有匹配的值
+      arrMatchs.forEach((parts,index)=>{
+        if(index===arrMatchs.length-1) return
+        let range = document.createRange()
+        start+=parts.length//？？
+        console.log('parts.length',parts,parts.length,index)
+        range.setStart(eleTraget.firstChild, start);
+        range.setEnd(eleTraget.firstChild, start + length);
+
+        // 匹配到一个盖一个颜色上去，多个就盖多个颜色
+        var bound = range.getBoundingClientRect();
+        var eleOverlay = document.createElement('ui-overlay');
+            document.body.appendChild(eleOverlay);
+            eleOverlay.style.left = bound.left + 'px';
+            eleOverlay.style.top = (bound.top + window.pageYOffset) + 'px';
+            eleOverlay.style.width = bound.width + 'px';
+            eleOverlay.style.height = bound.height + 'px';
+            start += length;
+
+      })
+    }
+})
+</script>
+</html>
