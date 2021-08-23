@@ -67,6 +67,14 @@ keywords: css 实现烟花效果
 
 现在和他没有在一个项目组了，我搬到了我的项目组附近，两人交流会越来越少的。但是要继续保持学习新的知识和有意思的东西，我就和他说，以后有一个的东西发一个地方，方便我学习。哈哈，干这行的学习不能停止
 
+## 思考
+上面是利用了 background-position 实现的无损gif模拟技巧，那么除了background-position是不是还有类似的方式呢？
+
+有的 object-opsition 他和background-position效果差不多，只不过他常常用在图片上面，这样使用的也算少，但是可以用
+
+[心动的闪闪烁烁](https://demo.cssworld.cn/new/10/1-3.php)
+
+这么说的话，很多类似的属性，都可以实现类似的功能，各有各存在的道理。用css去解决很多js的问题，或者说用css去实现一些技能或者动效的时候，需要我们发散的思维思考。css 真有趣
 ## 推荐资料
 [CSS3 animation属性中的steps功能符深入介绍](https://www.zhangxinxu.com/wordpress/2018/06/css3-animation-steps-step-start-end/)
 
