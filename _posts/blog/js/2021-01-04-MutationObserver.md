@@ -92,6 +92,9 @@ console.log(proxy.time); // 设置 get 操作 // 35
 
 使用 defineProperty 和 proxy 的区别，当使用 defineProperty，我们修改原来的 obj 对象就可以触发拦截，而使用 proxy，就必须修改代理对象，即 Proxy 的实例才可以触发拦截。
 
+因为 Proxy 本质上是对某个对象的劫持，这样它不仅仅可以监听对象某个属性值的变化，还可以监听对象属性的新增和删除；而 Object.defineProperty 是给对象的某个已存在的属性添加对应的 getter 和 setter，所以它只能监听这个属性值的变化，而不能去监听对象属性的新增和删除。
+
+
 [ES6 系列之 defineProperty 与 proxy](https://juejin.cn/post/6844903710410162183)
 
 [Proxy 和 Reflect](https://juejin.cn/post/6844904090116292616)

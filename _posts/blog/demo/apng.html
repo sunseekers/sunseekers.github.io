@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    apng-js 控制 apng 的播放</title>
+
+</head>
+
+<body>
+  <canvas id="canvas"></canvas> 
+  <script type="module">
+import parseAPNG from "https://cdn.skypack.dev/apng-js@1.1.1";
+
+const img1Src = 'https://official-account-web-1251316161.cos.ap-guangzhou.myqcloud.com/mqq-static/open-platform-animate-1-new.png'
+const img2Src = 'https://official-account-web-1251316161.cos.ap-guangzhou.myqcloud.com/mqq-static/open-platform-animate-2-new.png'
+
+const canvas = document.querySelector('#canvas')
+canvas.width = 640;
+canvas.height = 540;
+canvas.style = 'zoom: 0.75';
+const ctx = canvas.getContext('2d');
+
+function getImgBuffer(url) {
+  return new Promise(async resolve => {
+    const blob = await fetch(url).then(res => res.blob());
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(blob);
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+  });
+}
+
+async function createApngPlayer(url, ctx, options = {}) {
+  const imgBuffer = await getImgBuffer(url);
+  const apng = parseAPNG(imgBuffer);
+  Object.keys(options).forEach(key => {
+    apng[key] = options[key];
+  });
+  const player = await apng.getPlayer(ctx);
+  return player;
+}
+
+;(async () => {
+  const player1 = await createApngPlayer(img1Src, ctx, { numPlays: 1 });
+  const player2 = await createApngPlayer(img2Src, ctx);
+  player1.play();
+  player1.on('end', () => {
+    player2.play();
+  });
+})()
+
+
+  </script>
+</body>
+
+</html>
