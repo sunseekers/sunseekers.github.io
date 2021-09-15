@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>段落选择高亮</title>
+    
+    <style>
+        div{
+            width: 300px;
+
+        }
+        span{
+            background: lightyellow;   
+        }
+        .txt {
+            width: 300px;
+            text-align: justify;
+            border: 1px solid;
+            background: lightyellow;
+            overflow: hidden;
+            text-indent: 2em;
+        }
+        
+        p::before {
+            content: 'X';
+            display: inline-block;
+            width: 0;
+            color: transparent;
+            box-shadow: -999px -999px 0 999px #fff;
+        }
+        
+        p::after {
+            content: 'X';
+            display: inline-block;
+            width: 0;
+            color: transparent;
+            box-shadow: 999px 999px 0 999px #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>使用span标签实现选中段落高亮</h1>
+    <div>
+    <span>  既然提到了Web技术，就不得不
+        提另一款在Web项目开发中大放异彩的脚本语言Javascript
+        。1995 年，Brendan Eich 用了不到 10 天就创建了 Javascript，其最初主要应用于表单验证，而非以速度见长。随着各类应用功能的复杂化，受限于 JavaScript 语言本身动态类型和解释执行的设计，其性能问题逐渐凸现。2008年，围绕着浏览器性能开展的大战终于在各大浏览器厂商间爆发，在先后经历了即时编译器（JITs），以及用Node.js
+        和Electron构建应用程序的时期后
+        ，WebAssembly有望成为JS引擎突破下一性能瓶颈的转折点。
+       </span>
+    </div>
+    <h1>使用p标签实现选中段落高亮</h1>
+    <p class="txt">
+        既然提到了Web技术，就不得不提另一款在Web项目开发中大放异彩的脚本语言Javascript。1995 年，Brendan Eich 用了不到 10 天就创建了 Javascript，其最初主要应用于表单验证，而非以速度见长。随着各类应用功能的复杂化，受限于 JavaScript 语言本身动态类型和解释执行的设计，其性能问题逐渐凸现。2008年，围绕着浏览器性能开展的大战终于在各大浏览器厂商间爆发，在先后经历了即时编译器（JITs），以及用Node.js和Electron构建应用程序的时期后，WebAssembly有望成为JS引擎突破下一性能瓶颈的转折点。</p>
+</body>
+
+</html>
