@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>columns 分栏</title>
+    <style>
+.box{
+  width: 400px;
+  height: 90px;
+  overflow: hidden;
+  border: 1px red solid;
+  resize: horizontal;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  /* 只能放在这，因为后面的定位是根据他来的 */
+  position: relative;
+}
+h1{
+  font-size: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}
+p{
+  margin:0;
+  font-size: 16px;
+  overflow: hidden;
+  /* max-height: 3em; */
+  /* 让标题可以多行显示... */
+  flex:1;
+}
+p::before{
+  content:"...";
+  /* 内容占据宽度 */
+  float:right;
+border: 1px red solid;
+height: 100%;
+/* 只有省略号的内容占据高度 */
+shape-outside: inset(calc(100% - 1.5em) 0 0 0);
+display: flex;
+/* 省略号在底部 */
+    align-items: flex-end;
+}
+p::after{
+    content: '';
+    position: absolute;
+    width: 999vh;
+    height: 999vh;
+    background: #fff;
+    box-shadow: -2em 2em #fff;
+}
+    </style>
+</head>
+<body>
+<div class="box" >
+  <h1>这里是标题，内容长短不一定,可能两行，可能三行</h1>
+  <p>
+    整个容器高度是固定的，标题和内容总共 3 行
+    标题最多2行，超出省略
+    内容由剩余空间决定，如果标题占2行，则内容超出1行省略；如果标题占1行，则内容超出2行省略</p>
+</div>
+</body>
+<script>
+
+
+
+</script>
+</html>
