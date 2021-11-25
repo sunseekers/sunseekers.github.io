@@ -1,0 +1,52 @@
+<html>
+  <style>
+    .wrap {
+    width: 300px;
+}
+.outer {
+    position: relative;
+    padding-top: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #666;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    border: 1px #000 solid;
+    flex-wrap: wrap;
+    background: url(https://imgservices-1252317822.image.myqcloud.com/image/091320210172551/3e438d26.png);
+}
+.item {
+    flex: none;
+    width: 33.33%;
+    border: 1px #000 solid;
+    box-sizing: border-box;
+}
+.item-box {
+    position: relative;
+    padding-top: 100%;
+}
+.inner {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    background: #eeeeee54;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px #000 solid;
+}
+  </style>
+  <body>
+    <div class="wrap"><div class="outer"><div class="box"><div class="item"><div class="item-box"><div class="inner" style="background-color: transparent;" ></div></div></div> <div class="item"><div class="item-box"><div class="inner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), rgba(255, 255, 255, 0.5);"></div></div></div> <div class="item"><div class="item-box"><div class="inner" ></div></div></div> <div class="item"><div class="item-box"><div class="inner" ></div></div></div> <div class="item"><div class="item-box"><div class="inner" ></div></div></div> <div class="item"><div class="item-box"><div class="inner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), rgba(255, 255, 255, 0.5);"></div></div></div> <div class="item"><div class="item-box"><div class="inner" ></div></div></div> <div class="item"><div class="item-box"><div class="inner" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), rgba(255, 255, 255, 0.5);"></div></div></div> <div class="item"><div class="item-box"><div class="inner"></div></div></div></div></div></div>
+  </body>
+</html>

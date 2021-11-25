@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆形进度环</title>
+    <style>
+    svg{
+      background: linear-gradient(180deg, rgba(118, 27, 9, 0.9) 0%, rgba(38, 32, 32, 0.9) 100%);
+      border-radius: 50%;
+    }
+    circle {
+      /* // 虚线的宽度 */
+      stroke-width: 2px;
+      fill: none;
+      /* // 圆的周长 */
+      stroke-dasharray: 94px;
+      stroke-dashoffset: 94px;
+
+    }
+    svg{
+      color:#FFED9A;
+    }
+    .text {
+      color:#FFED9A;
+      font-size: 12px;
+      }
+    </style>
+</head>
+<body>
+  <svg width="40" height="40">
+    <circle
+     id="circle-bar"
+      cx="20"
+      cy="20"
+      r="15"
+      stroke="#FFED9A"
+      class="circle-bar"
+      transform="rotate(-90 20 20)"
+    />
+    <text
+      class="text"
+      x="50%"
+      y="50%"
+      fill="#FFED9A"
+      dominant-baseline="central"
+      text-anchor="middle"
+    ></text>
+  </svg>
+</body>
+<script>
+const circleEle = document.querySelector('#circle-bar') 
+
+const textEle = document.querySelector('.text') 
+
+let timer = null
+let process = 0
+let time = 15
+let text = '15s'
+
+    // 暂停倒计时
+  function  handlerPaused () {
+      clearInterval(timer)
+    }
+    // 重新倒计时
+  function  handlerPlay () {
+      timer = setInterval(() => {
+        time--
+        process++
+        textEle.innerHTML = (time <= 0 ? '完成' : `${time}s`)
+        if (process === 15) {
+          // 播放结束了
+          clearInterval(timer)
+        }
+
+        circleEle.style.strokeDashoffset = (94 - 94 * process / 15) + 'px'
+
+      }, 1000)
+    }
+    setTimeout(()=>{
+      handlerPlay()
+    },200)
+</script>
+</html>

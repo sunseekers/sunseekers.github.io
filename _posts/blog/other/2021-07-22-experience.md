@@ -62,7 +62,14 @@ input[type='checkbox']:active {
 
 原理： 背景切割
 
-5. loading 加载时间短不显示，一旦显示就显示200毫秒
+5. 原有布局上下或者左右边距不一样，如何扩大点击区域&&点击区域规则
+可以用position:relative,进行稍微的调整，把位置移动到中心区域或者使用margin-right:-xxpx+padding-right: xxpx
+
+某些情况下面使用margin-right:-xxpx，可以让右侧的空间充分利用
+
+原理：位置互相抵，最后位置没有变化
+
+6. loading 加载时间短不显示，一旦显示就显示200毫秒
 
 ```
  let promiseInfo = service(params);
@@ -81,7 +88,7 @@ input[type='checkbox']:active {
 
 原理：对比两个请求谁先到，判断是否展示loading，如果定时器快，就展示loading，并且保证至少会有200ms
 
-6. toast 加载时间长，由加载中文案变成仍在努力加载中文案实现
+7. toast 加载时间长，由加载中文案变成仍在努力加载中文案实现
 
 ```
 let showToast = function () {
@@ -98,3 +105,23 @@ let showToast = function () {
 ```
 
 原理：根据不同的时间显示不一样的文案
+
+8. 选择状态的时候，添加突然加边框会抖动
+
+没有选中也加一个透明的，切换的时候只是改变颜色而不是突然新加
+
+9. 点击父元素有点击区域反馈，但是点击父元素里面的某一个子元素没有点击反馈。
+
+子元素用有focus的元素，然后父元素上面加.active
+
+```
+.active:active:not(:focus) {
+  background-image: none;
+}
+```
+
+灵活变通，可以在父组件干活也可以在父的兄弟组件干活，有些情况可以加div或者减少div，解决某些问题
+
+
+## 总结
+多尝试，多看张老师的书，或者看看我简陋的文章，欢迎补充

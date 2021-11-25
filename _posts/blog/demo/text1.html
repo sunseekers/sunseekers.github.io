@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>columns 分栏</title>
+    <style>
+.content-box {
+  background-image:linear-gradient(#ffCF02,#FF7352);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color:transparent;
+  font-size: 30px;
+/* 设置文字描边 */
+  -webkit-text-stroke: 6px #333;
+  /* 加阴影 */
+  filter: drop-shadow(0 2px 0 #333);
+}
+.content-box::before{
+    content: attr(data-title);
+    position: absolute;
+    background-image: linear-gradient(#FFCF02, #FF7352);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0;
+}
+
+.text{
+  fill: url(#gradient);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  font-size: 30px;
+  stroke-width: 4px;
+  stroke: #333;
+  paint-order: stroke; /*先描边*/
+  stroke-linejoin: round; /*路径转角为圆角*/
+}
+    </style>
+</head>
+<body>
+  <p class="content-box" data-title="为你定制 发现精彩">
+    为你定制 发现精彩
+  </p>
+  <svg>
+    <defs>
+      <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#FFCF02"/>
+        <stop offset="100%"  stop-color="#FF7352"/>
+      </linearGradient>
+    </defs>
+    <text class="text"  x="50%" y="50%">为你定制 发现精彩</text>
+  </svg>
+</body>
+<script>
+
+
+
+</script>
+</html>
