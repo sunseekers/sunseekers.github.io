@@ -47,7 +47,3 @@ keywords: 文章推荐
 [CSS transition 小技巧！如何保留 hover 的状态？](https://mp.weixin.qq.com/s/CIBOH-BQRMW1LKzm_iv-sQ)
 
 [CSS hover](https://runjs.work/projects/9d4fe075f4504274)
-
-## 总结
-
-每篇推荐三篇文章，
