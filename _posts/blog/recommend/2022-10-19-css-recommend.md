@@ -1,14 +1,13 @@
 ---
 layout: post
-title: css 文章推荐
+title: css技巧灵活使用
 categories: [文章推荐]
 description: 推荐我个人认为好的文章
 keywords: 文章推荐
 ---
 
 # 背景
-
-共享有趣的 css 文章，分享使用的 css 文章
+分享三篇文章 css 绘制技巧灵活使用和实用小技巧-css 还有 HTMLElement-inert，共享有趣的文章，分享使用的文章
 
 ## 文章推荐
 
