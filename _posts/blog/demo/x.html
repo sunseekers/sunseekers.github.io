@@ -1,0 +1,286 @@
+<template>
+  <div class="yw-book-x">
+    <div class="yw-copy-xx">
+      <ul class="yw-copy-center yw-book-line-one"></ul>
+    </div>
+  </div>
+  <div class="yw-book-show">
+    <img
+      v-for="(img, index) in imgList"
+      :key="img.src"
+      :ref="addImgBox"
+      :src="img.src"
+      :class="[
+        'yw-book-show-pic brightness-70',
+        `${highlightCur === index ? 'brightness-100' : ''}`,
+      ]"
+      @click="imgHandler(index)"
+      @mouseenter="mouseenterHandler(index)"
+      @mouseleave="mouseleaveHandler(index)"
+    />
+  </div>
+</template>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+const arrImgEl = ref<Array<HTMLElement>>([])
+const addImgBox = (el: HTMLElement) => {
+  arrImgEl.value.push(el)
+}
+
+const imgList = [
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/doupocangqiong2.png',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/wudongqiankun-min.jpg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/jiangye.png',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/yinianyongheng-min.jpg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/langyabang.jpg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/daomubiji.jpg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/quanzhigaoshou5.jpeg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/qingyunian.jpg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/guichuideng.jpg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/zetianji2.png',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/fuyao.jpg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/zhuxian.jpg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/zhuixu1.jpeg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/douluodalu.jpeg',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/xingchenbian.png',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/wanzuzhijie2.png',
+  },
+  {
+    src: 'https://www.yuewen.com/css/images/ip2/book/huangquan2.png',
+  },
+]
+
+const len = imgList.length
+// eslint-disable-next-line no-bitwise
+const mid = (len & 1) === 0 ? len / 2 - 2 : (len - 1) / 2
+const isNow = ref<number>(mid)
+let target = 0
+let off = true
+let timerBook = null
+onMounted(() => {
+  tabToggleHandler(isNow.value)
+  // 轮播滚动
+  timerBook = setInterval(bookTime, 6000)
+})
+// 滚动动画
+const tabToggleHandler = (n: number) => {
+  for (let i = 0; i < mid; i++) {
+    let left = n - 1 - i
+    // 0在中间
+    if (left < 0) {
+      left += len
+    }
+    arrImgEl.value[left].style.transform = `translateX(${
+      -160 * (i + 1)
+    }px)translateZ(${160 - 110 * i}px)`
+
+    // 12在中间
+    let right = n + 1 + i
+    if (right > len - 1) {
+      right -= len
+    }
+
+    arrImgEl.value[right].style.transform = `translateX(${
+      160 * (i + 1)
+    }px)translateZ(${160 - 110 * i}px)`
+  }
+  arrImgEl.value[isNow.value].style.transform = 'translateZ(300px)'
+  arrImgEl.value[isNow.value].style.filter = 'brightness(100%)'
+}
+// 往前移动
+const goPreHandler = () => {
+  isNow.value -= 1
+  if (isNow.value < 0) {
+    isNow.value = len - 1
+  }
+  tabToggleHandler(isNow.value)
+  // 如果到了目标点的时候就停止移动
+  if (isNow.value === target) {
+    off = true
+    return
+  }
+  setTimeout(() => {
+    goPreHandler()
+  }, 100 / isNow.value)
+}
+// 往后移动
+const goNextHandler = () => {
+  isNow.value += 1
+  if (isNow.value > len - 1) {
+    isNow.value = 0
+  }
+  tabToggleHandler(isNow.value)
+  // 如果到了目标点的时候就停止移动
+  if (isNow.value === target) {
+    off = true
+    return
+  }
+
+  setTimeout(() => {
+    goNextHandler()
+  }, 100 / isNow.value)
+}
+
+const bookTime = () => {
+  let index = isNow.value
+  index += 1
+  if (index >= len) {
+    index = 0
+  }
+  imgHandler(index)
+}
+
+// 点击图片滚动
+const imgHandler = (index) => {
+  target = index
+  if (target === isNow.value) {
+    return false
+  }
+  if (!off) {
+    return
+  }
+  off = false
+
+  if (target > isNow.value) {
+    if (target - isNow.value < mid + 1) {
+      goNextHandler()
+    } else {
+      goPreHandler()
+    }
+  } else if (target + len - isNow.value < mid + 1) {
+    goNextHandler()
+  } else {
+    goPreHandler()
+  }
+  clearInterval(timerBook)
+  timerBook = setInterval(bookTime, 6000)
+}
+const highlightCur = ref<number>(mid)
+// 手指移动上去
+const mouseenterHandler = (index: number) => {
+  highlightCur.value = index
+}
+// 手指移开
+const mouseleaveHandler = () => {
+  highlightCur.value = isNow.value
+}
+</script>
+<style scoped>
+.yw-book-show {
+  width: 100%;
+  height: 525px;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1800px;
+  z-index: 1;
+  margin-left: -44px;
+}
+
+.yw-book-show-pic {
+  width: 197px;
+  height: 262px;
+  object-fit: cover;
+  position: absolute;
+  transition: 0.8s ease-in-out;
+  left: calc(50% - 61px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.brightness-70 {
+  filter: brightness(70%);
+}
+.brightness-100 {
+  filter: brightness(100%);
+}
+
+/* 文字 */
+.yw-book-msg {
+  width: 600px;
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 150px;
+  color: #fff;
+  font-size: 18px;
+  z-index: 2;
+  text-align: center;
+  font-weight: 300;
+  line-height: 32px;
+}
+.yw-book-msgp {
+  display: none;
+}
+.yw-book-msgp-show {
+  display: block;
+}
+/* 动画 */
+.yw-book-x {
+  position: relative;
+}
+.yw-book-x::before {
+  height: 100%;
+  background-color: rgba(31, 33, 35, 0.8);
+  position: absolute;
+  left: 0;
+  right: 0;
+  content: '';
+  z-index: 1;
+}
+.yw-copy-xx {
+  height: 140px;
+  position: relative;
+  overflow: hidden;
+}
+.yw-copy-center {
+  position: absolute;
+  height: 140px;
+  width: 7200px;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+.yw-copy-center:active {
+  cursor: move;
+}
+.yw-copy-center + .yw-copy-center {
+  top: 240px;
+}
+.yw-book-line-one {
+  background: url('https://www.yuewen.com/css/images/ip2/book/book-line1-min.png')
+    repeat-x;
+  background-size: 25% 100%;
+}
+</style>
