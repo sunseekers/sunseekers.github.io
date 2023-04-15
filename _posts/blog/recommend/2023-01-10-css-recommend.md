@@ -1,3 +1,4 @@
+---
 layout: post
 title: 图片合成系列
 categories: [文章推荐]
