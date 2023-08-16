@@ -100,6 +100,13 @@ handleHotUpdate:自定义HMR更新时调用
 
 [参考例子](https://github.com/sunseekers/vite-plugin/blob/master/vite-plugin-life.js)
 
+## vite和webpack的区别
+Vite 是一个基于 ES modules 的构建工具，它利用浏览器原生的 ES module 支持来实现更快的构建速度。在开发模式下，Vite 会直接从源代码中导入模块，而不是像 Webpack 那样需要先构建整个应用程序再运行。这就使得Vite 的启动时间和热更新速度比 Webpack 要快得多。
+
+Webpack 会将所有的代码打包到一起，而 Vite 只会在需要时按需导入。这意味着 Vite 可以更好地利用浏览器的缓存来减少加载时间和带宽消耗，从而优化网页性能。
+
+Webpack 有一个非常庞大的插件生态系统，可以很容易地扩展其功能。虽然 Vite 也支持插件，但是它的插件数量远不及 Webpack。
+
 ## 总结
 主要是看了[Young村长 的b站视频](https://space.bilibili.com/480140591/video?keyword=vite)，欢迎大家去看，写的是真的很不错。
 文章截图来自她的PPT，代码也是来源于他的视频。非常期待他之后的更新，讲的真的是太好了，太喜欢了

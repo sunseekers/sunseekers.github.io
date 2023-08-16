@@ -95,3 +95,18 @@ console.log(proxy.time); // 设置 get 操作 // 35
 [ES6 系列之 defineProperty 与 proxy](https://juejin.cn/post/6844903710410162183)
 
 [Proxy 和 Reflect](https://juejin.cn/post/6844904090116292616)
+
+
+const obj = {
+  name: 'sunseekers',
+  age:12
+}
+
+function newProxy(obj){
+  return new Proxy(obj,{
+    get(target, key, receiver) {
+    console.log('get value:', key,target,receiver)
+    return Reflect.get(target, key, receiver)
+  },
+  })
+}

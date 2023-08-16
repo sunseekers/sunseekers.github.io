@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 创建一个需要配合哪些基建
+title: 创建一个项目需要配合哪些基建
 categories: [功能实现]
 description: 前端工程化方面
 keywords: 前端工程化方面

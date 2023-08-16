@@ -6,10 +6,18 @@ description: 发现，探索 web 优质文章
 keywords: web
 ---
 
+
 # 如何模拟一个原生的 call 和 apply,bind？
 
 在你模拟一个原生的 api 的时候，你要知道这个 api 实现了哪些功能，对他的用法概念熟练于心，然后你根据用法去想第一步做什么，接下来做什么，最后就是动手实现了。我来说说 call 和 apply,bind 的模拟实现
+##  this、call、apply 和 bind 的理解
+this ，函数执行的上下文，总是指向函数的直接调用者（而非间接调用者），可以通过 apply ， call ， bind 改变 this 的指向。
 
+apply：第一个参数：传入 this 需要指向的对象，即函数中的 this 指向谁，就传谁进来；第二个参数：传入一个数组，数组中包含了函数需要的实参。传入参数后立即调用执行该函数
+
+call：第一个参数：传入 this 需要指向的对象，即函数中的 this 指向谁，就传谁进来；第二个参数：除了第一个参数，其他的参数需要传入几个，就一个一个传递进来即可传入参数后立即调用执行该函数
+
+bind：第一个参数：传入 this 需要指向的对象，即函数中的 this 指向谁，就传谁进来；第二个参数： 除了第一个参数，其他参数的传递可以像 apply 一样的数组类型，也可以像 call 一样的逐个传入；但需注意的是后面需要加个小括号进行其余参数的传递。并传入参数后返回一个新的函数，不会立即调用执行
 ## `call` 模拟实现
 
 [Function.prototype.call()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) 查看文档温习一下用法和概念
@@ -47,14 +55,13 @@ bar.call(foo); // 1
 6. 模拟实现完成
 
 ```
-Function.prototype.myCall=function(ctx){
-  debugger // 查看函数的执行赋值
+Function.prototype.myCall=function(ctx,...args){
   ctx = ctx||window
   ctx.fn = this // this 就是调用这个方法的函数
-  const rest = Array.from(arguments).slice(1)
-  let result = ''
-  result=ctx.fn(...rest)
-  delete ctx.fn
+  const key = Symbol()
+  ctx[key] = this
+  const result = ctx[key](...args)
+  delete ctx[key]
   return result
 }
 ```
@@ -108,9 +115,9 @@ Function.prototype.myApply=function(ctx){
   ctx = ctx||window
   ctx.fn = this // this 就是调用这个方法的函数
   const rest = Array.from(arguments).slice(1)
-  let result = ''
-  result=ctx.fn(rest)
-  delete ctx.fn
+  const key = Symbol()
+  const result = ctx[key](...args)
+  delete ctx[key]
   return result
 }
 ```
@@ -169,17 +176,16 @@ bindFoo(); // 1
 5. 模拟实现完成
 
 ```
-Function.prototype.myBind = function(ctx){
-  let self = this
-  let rest = Array.prototype.slice.call(arguments,1)
-  let Fun = function(){} //
-  let funBind = function(){
-    let bindRest = Array.prototype.slice.call(arguments)
-    return self.apply(this instanceof Fun ? this : ctx , rest.concat(bindRest))
+Function.prototype.myBind = function(context){
+  const fn = this
+  const args = Array.from(arguments).slice(1)
+  return function newFn(...newFnArgs){
+    if(this instanceof newFn){
+      // 如果是new 出来的话 instanceof返回false
+      return new fn(...args,...newFnArgs)
+    }
+    return fn.apply(context,[...args,...newFnArgs])
   }
-  Fun.prototype = this.prototype // 指向原函数的实例原型，确保在Fun new 出来的实例可以获得来自绑定函数的值
-  funBind.prototype = new Fun() // 返回的函数的实例原型是 new 出来的，确保返回的函数可以使用 new 操作符
-  return funBind
 }
 ```
 
