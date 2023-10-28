@@ -48,23 +48,43 @@ function rmdir(dir) {
 
 ## 超时重连
 
-原理其实很简单，就是利用 `Promise.race`，我们先创建一个 `Promise`，里面用 `setTimeout` 进行处理，然后将新创建的 `Promise` 与我们之前使用的 `Promise` "比赛"一下。
+利用 race 方法同时执行请求和计时器，如果计时器先返回就说明已经超时了
+
+如果需要重连，那么我们在race失败的时候在进行一次发送请求就好了
 
 ```
-function delayPromise(ms) {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, ms);
+function fetchData() {
+  return new Promise((resolve, reject) => {
+    // 假设访问数据的请求需要3秒钟
+    setTimeout(() => {
+      // 这里访问数据的逻辑被简化为直接返回数字3
+      console.log('获取数据成功');
+      resolve(3);
+    }, 3000);
+  });
+}
+  const timerPromise = new Promise((resolve, reject) => {
+    // 计时器，如果超时，就reject掉
+    setTimeout(() => {
+      console.log('请求超时');
+      resolve('请求超时');
+    }, timeout);
+  });
+function fetchDataWithTimeout() {
+  const timeout = 2000; // 超时时间
+  return Promise.race([fetchData, timerPromise]) // 竞争
+    .then(result => {
+      console.log('请求成功', result);
+      if(result==='请求超时'){
+        // 重发请求
+      }
+      return result;
+    })
+    .catch(error => {
+      console.log('请求发生错误', error);
+      throw error;
     });
 }
-function timeoutPromise(promise, ms) {
-    var timeout = delayPromise(ms).then(function () {
-            throw new Error('Operation timed out after ' + ms + ' ms');
-        });
-    return Promise.race([promise, timeout]);
-}
-function getData(){}
-
-timeoutPromise(getDate,1000).then(()=>{})
 ```
 
 ## `Promise` 和 `async await`
@@ -136,17 +156,6 @@ async function main(duration,color){
 })()
 ```
 getList() 和 getAnotherList() 其实并没有依赖关系，但是现在的这种写法，虽然简洁，却导致了 getAnotherList() 只能在 getList() 返回后才会执行，从而导致了多一倍的请求时间。
-
-为了解决这个问题，我们可以改成这样：
-
-```
-(async () => {
-  const listPromise = getList();
-  const anotherListPromise = getAnotherList();
-  await listPromise;
-  await anotherListPromise;
-})();
-```
 
 优化处理，使用 Promise.all()：
 
@@ -311,4 +320,4 @@ new myPromise((resolve, reject) => {
 
 [9k字 | Promise/async/Generator实现原理解析](https://juejin.im/post/5e3b9ae26fb9a07ca714a5cc)
 
-es5 寄生组合式继承
+
