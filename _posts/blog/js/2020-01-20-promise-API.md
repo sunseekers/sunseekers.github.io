@@ -7,11 +7,13 @@ keywords: Promise
 ---
 
 # 模拟 Promise API
+封装了一个异步操作，并且还可以获取成功或者失败的结果
 
 `Promise` 是 `JavaScript` 语言提供的一种标准化的异步管理方式，它的总体思想是，需要进行 `io`、等待或者其它异步操作的函数，不返回真实结果，而返回一个“承诺”，函数的调用方可以在合适的时机，选择等待这个承诺兑现（通过 `Promise` 的 `then` 方法的回调
 
 首先我们分析有多少个宏任务；在每个宏任务中，分析有多少个微任务；根据调用次序，确定宏任务中的微任务执行次序；根据宏任务的触发规则和调用次序，确定宏任务的执行次序；确定整个顺序。
 
+一旦我们创建了promise请求，他就会立即执行，不能中途取消，不设置回调，内部的结果就不会反馈到外面去
 ## 异步并行执行代码
 
 场景 1: 多个请求并行请求优化处理
@@ -46,26 +48,49 @@ function rmdir(dir) {
 
 ## 超时重连
 
-原理其实很简单，就是利用 `Promise.race`，我们先创建一个 `Promise`，里面用 `setTimeout` 进行处理，然后将新创建的 `Promise` 与我们之前使用的 `Promise` "比赛"一下。
+利用 race 方法同时执行请求和计时器，如果计时器先返回就说明已经超时了
+
+如果需要重连，那么我们在race失败的时候在进行一次发送请求就好了
 
 ```
-function delayPromise(ms) {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, ms);
+function fetchData() {
+  return new Promise((resolve, reject) => {
+    // 假设访问数据的请求需要3秒钟
+    setTimeout(() => {
+      // 这里访问数据的逻辑被简化为直接返回数字3
+      console.log('获取数据成功');
+      resolve(3);
+    }, 3000);
+  });
+}
+  const timerPromise = new Promise((resolve, reject) => {
+    // 计时器，如果超时，就reject掉
+    setTimeout(() => {
+      console.log('请求超时');
+      resolve('请求超时');
+    }, timeout);
+  });
+function fetchDataWithTimeout() {
+  const timeout = 2000; // 超时时间
+  return Promise.race([fetchData, timerPromise]) // 竞争
+    .then(result => {
+      console.log('请求成功', result);
+      if(result==='请求超时'){
+        // 重发请求
+      }
+      return result;
+    })
+    .catch(error => {
+      console.log('请求发生错误', error);
+      throw error;
     });
 }
-function timeoutPromise(promise, ms) {
-    var timeout = delayPromise(ms).then(function () {
-            throw new Error('Operation timed out after ' + ms + ' ms');
-        });
-    return Promise.race([promise, timeout]);
-}
-function getData(){}
-
-timeoutPromise(getDate,1000).then(()=>{})
 ```
 
 ## `Promise` 和 `async await`
+都是处理异步请求的方式，Promise 是es6，async await是es7，async await 是基于 promise实现的，都是
+
+语法表现形式不一样
 
  `await` 如果它等到的是一个 `Promise` 对象， `await` 就忙起来了， 它会阻塞后面的代码， 等着 `Promise` 对象 `resolve`，然后得到 `resolve` 的值， 作为 `await` 表达式的运算结果。
 
@@ -131,17 +156,6 @@ async function main(duration,color){
 })()
 ```
 getList() 和 getAnotherList() 其实并没有依赖关系，但是现在的这种写法，虽然简洁，却导致了 getAnotherList() 只能在 getList() 返回后才会执行，从而导致了多一倍的请求时间。
-
-为了解决这个问题，我们可以改成这样：
-
-```
-(async () => {
-  const listPromise = getList();
-  const anotherListPromise = getAnotherList();
-  await listPromise;
-  await anotherListPromise;
-})();
-```
 
 优化处理，使用 Promise.all()：
 
@@ -303,8 +317,7 @@ new myPromise((resolve, reject) => {
   })
 ```
 
-[剖析 Promise 内部结构，一步一步实现一个完整的、能通过所有 Test case 的 Promise 类](https://github.com/xieranmaya/Promise3)
 
 [9k字 | Promise/async/Generator实现原理解析](https://juejin.im/post/5e3b9ae26fb9a07ca714a5cc)
 
-es5 寄生组合式继承
+

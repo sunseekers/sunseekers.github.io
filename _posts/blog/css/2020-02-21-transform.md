@@ -6,8 +6,6 @@ description: transform
 keywords: transform
 ---
 
-# transform 实现
-
 transform 的原理是计算机图形学中 2D/3D 矩阵变换。他不是一个动画，他就是变形。我们的任何一个 html 元素渲染完成后可以得到一张位图，把这张位图上所有的点都做一次矩阵运算，将得到一张的新的位图，这就是 transform 的基本含义。（这是通过修改 CSS 视觉格式化模型的坐标空间来实现的）
 
 transform=>变形
@@ -28,7 +26,7 @@ transform提升元素的垂直地位
 
 transform限制position:fixed的跟随效果，他们在一起表现就像是position：absolute
 
-transform改变overflow对absolute元素的限制,如果父元素设置了overflow：hidden，子元素absolute，超出不会被隐藏。但是如果此时父元素再有trandform的画，子元素会被隐藏
+transform改变overflow对absolute元素的限制,如果父元素设置了overflow：hidden，子元素absolute，超出不会被隐藏。但是如果此时父元素再有transform的画，子元素会被隐藏
 
 以前，我们设置absolute元素宽度100%, 则都会参照第一个非static值的position祖先元素计算，没有就window. 现在，诸位，如果父元素是transform，所有绝对定位图片100%宽度，都是相对设置了transform的容器计算了
 

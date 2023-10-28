@@ -41,6 +41,8 @@ console.log('我是目标元素，不存在冒泡阶段或者捕获阶段，执�
 
 原因很简单：对于事件目标上的事件监听器来说，事件会处于“目标阶段”，而不是冒泡阶段或者捕获阶段。在目标阶段的事件会触发该元素（即事件目标）上的所有监听器，而不在乎这个监听器到底在注册时 `useCapture` 参数值是 `true` 还是 `false`
 
+addEventListener 方法能够监听多种类型的事件，可以对同一个元素添加多个事件监听器。如果后续需要移除事件监听器，可以使用 removeEventListener 方法。需要注意的是，如果添加的事件不被移除而继续保留在页面中，可能会导致内存泄露。
+
 ## 事件监听直接绑定在 window 上面
 
 如果默认都是触发类型事件冒泡，默认形式，就是从上往下执行，谁先定义，谁先执行
@@ -118,7 +120,17 @@ console.log('true 是捕获事件');
     }
   </script>
   ```
+## addeventlisten 可以传入四个参数
 
+![]({{ site.url }}/images/3/5.jpeg) => [Pengcheng Nie](https://github.com/bran-nie)
+
+[addeventlisten 原本的第三个参数demo](https://codepen.io/qingchuang/pen/qBqyVYG?editors=1111)
+
+事件冒泡，把事件绑定在父元素的身上，利用事件冒泡，他的子元素都可以监听该事件。基于这个前提，来实现一个，a元素下面的任何一个子元素获取到焦点的时候，触发事件
+
+[tabindex](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/tabindex):元素是否可以聚焦，-1表示可以被聚焦，但是不能被tab索引，经常测试大部分的元素都是-1.也就是说大部分元素其实都可以有焦点相关的事件
+
+[把所有的事件都绑定在父元素身上](https://codepen.io/qingchuang/pen/dyOqKQm?editors=1111)
   ## CustomEvent自定义事件
   [CustomEvent](https://developer.mozilla.org/zh-CN/docs/Web/API/CustomEvent) 函数用来创建自定义函数，dispatchEvent触发自定义事件的执行(ps:第一次接触到CustomEvent事件和dispatchEvent方法)
 

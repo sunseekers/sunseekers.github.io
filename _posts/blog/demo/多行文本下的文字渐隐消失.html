@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>css 实现拼图</title>
+    <style>
+      .mask {
+        width: 200px;
+        -webkit-mask:linear-gradient(90deg, #fff, transparent);
+        mask: linear-gradient(90deg, #fff, transparent);
+        /* mask: linear-gradient(90deg,red, transparent); */
+        border: 1px red solid;
+      }
+      .background{
+        background: linear-gradient(90deg, transparent, transparent 70%, #fff);
+        background-repeat: no-repeat;
+        cursor: pointer;
+        color: transparent;
+      }
+      .background::before {
+        content:attr(title);
+        position: absolute;
+        top:0;
+        left:0;
+        color: #000;
+        z-index: -1;
+      }
+      div {
+        position: relative;
+    width: 400px;
+      }
+        p {
+    width: 300px;
+    padding: 10px;
+    line-height: 36px;
+    mask: 
+        linear-gradient(270deg, transparent, transparent 30%, #000),
+        linear-gradient(270deg, #000, #000);
+    mask-size: 100% 46px, 100% calc(100% - 46px);
+    mask-position: bottom, top;
+    mask-repeat: no-repeat;
+    
+    -webkit-mask: 
+        linear-gradient(300deg, transparent, transparent 30%, #000),
+        linear-gradient(300deg, #000, #000);
+        -webkit-mask-size: 100% 46px, 100% calc(100% - 46px);
+        -webkit-mask-position: bottom, top;
+        -webkit-mask-repeat: no-repeat;
+      }
+      .color-p {
+    margin: 50px auto;
+    width: 500px;
+    font-size: 24px;
+    line-height: 1.5;
+    color: #666;
+}
+      .color {
+        background: 
+        linear-gradient(90deg, #999, #999),
+        linear-gradient(90deg, #fc0, #fc0);
+        background-size: 100% 100%, 0 100px;
+    background-repeat: no-repeat;
+    background-position: 100% 100%, 0 100%;
+    cursor: pointer;
+    color: inherit;
+    background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+      }
+      p a:hover {
+    transition: .8s all linear;
+    background-size: 0 100px, 100% 100%;
+}
+    </style>
+  </head>
+  <body>
+    <a class='mask' href="">给父元素添加不可点击属性，是为了点击的时候元素不会复位，但是在拖拽的时候元素需要移动位置，所以子元素的pointer-events: initial; 要回到初始值</a>
+<br/>
+<div>
+  <a class='background' href="" title="给父元素添加不可点击属性，是为了点击的时候元素不会复位，但是在拖拽的时候元素需要移动位置，所以子元素的pointer-events: initial; 要回到初始值">给父元素添加不可点击属性，是为了点击的时候元素不会复位，但是在拖拽的时候元素需要移动位置，所以子元素的pointer-events: initial; 要回到初始值</a>
+</div>
+为了利用到实际的内联元素的 background 的特性，我们需要将实际的文本包裹在内联元素 a 内
+  实际的文本，利用了 opacity: 0 进行隐藏，实际展示的文本使用了 a 元素的伪元素，并且将它的层级设置为 -1，目的是让父元素的背景可以盖过它
+  a 元素的渐变为从透明到白色，利用它去遮住下面的实际用伪元素展示的文字，实现文字的渐隐
+
+  <p>那么，如果使用 mask 的话，问题，就会变得简单一些如果使用 mask 的话，问题，就会变得简单一些如果使用 mask 的话，问题，就会变得简单一些，我们只需要在一个 mask 中，实现两块 mask 区域，一块用于准确控制最后一行，一块用于控制剩余部分的透明。</p>
+
+  <div class="button">Button</div>
+<p class="color-p"><a class="color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia nostrum placeat consequatur deserunt velit ducimus possimus commodi temporibus debitis quam, molestiae laboriosam sit repellendus sed sapiente quidem quod accusantium vero.</a></p>
+  </body>
+</html>

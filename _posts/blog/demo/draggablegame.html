@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>css 实现拼图</title>
+    <style>
+ .g-container {
+    display: flex;
+    width: 400px;
+    height: 100px;
+}
+.g-wrap {
+    position: relative;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    border: 1px dashed #000;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+.g-flag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    background: rgba(0, 0, 0, .15);
+    pointer-events: initial;
+}
+.g-box {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    cursor: grab;
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
+    font-size: 48px;
+    pointer-events: initial;
+}
+.g-wrap:active .g-flag {
+    width: 100%;
+    height: 100%;
+}
+  
+.g-wrap:nth-child(1) .g-box {
+  transform: translate(100px,120px) rotate(60deg);
+}
+.g-wrap:nth-child(2) .g-box {
+  transform: translate(110px,110px) rotate(80deg);
+}
+.g-wrap:nth-child(3) .g-box {
+  transform: translate(110px,110px) rotate(180deg);
+}
+.g-wrap:nth-child(4) .g-box {
+  transform: translate(-300px,100px) rotate(80deg);
+}
+/* 回到她原本的状态的时候需要非常非常长的时间才可以 */
+.g-box {
+    transition: 99999s 999999s;
+}
+/* 这里是关键的所在，并不是什么黑魔法，就是障眼法而已 */
+.g-flag:hover + .g-box {
+    transform: translate(0, 0);
+    transition: 0s;
+}
+
+    </style>
+  </head>
+  <body>
+    <p class="source">请把文字摆放到正确的位置：橘皮乌龙</p>
+    <div class="g-container">
+        <div class="g-wrap">
+            <div class="g-flag"></div>
+            <div class="g-box" draggable="true">橘</div>
+        </div>
+        <div class="g-wrap">
+            <div class="g-flag"></div>
+            <div class="g-box" draggable="true">皮</div>
+        </div>
+        <div class="g-wrap">
+            <div class="g-flag"></div>
+            <div class="g-box" draggable="true">乌</div>
+        </div>
+        <div class="g-wrap">
+            <div class="g-flag"></div>
+            <div class="g-box" draggable="true">龙</div>
+        </div>
+    </div>
+    <p>实现原理就是：点击的时候让本来隐藏元素g-flag显示出来，然后当我们hover到隐藏元素的时候，利用 + 选择器改变兄弟的位移</p>
+    <p>给父元素添加不可点击属性，是为了点击的时候元素不会复位，但是在拖拽的时候元素需要移动位置，所以子元素的pointer-events: initial; 要回到初始值</p>
+
+  </body>
+</html>

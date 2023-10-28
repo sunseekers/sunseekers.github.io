@@ -32,6 +32,7 @@ keywords: 浏览器
 
 所以在实际工程中需要重点关注 `javaScript` 文件和样式表文件，使用不当会影响到页面性能
 
+DOM 树：和HTML 标签是一一对应的，包括head和隐藏元素，但是渲染树不包括head和隐藏元素
 ### 样式计算
 
 首先把 `css` 理解成浏览器能够理解的结构 `styleSheets`。转换样式表中的属性，使其标准化，这里可以涉及到性能优化，平时写代码的时候尽量标准化，可以加快浏览器渲染。举个例子：`vw`,`color:blue` 都会转化为渲染引擎容易理解的 `px`,`color:rgb(0,0,255)`。所以是不是我们可以在标准化这里注意代码书写，提高渲染速度呢？？
@@ -84,3 +85,14 @@ keywords: 浏览器
 他的使用场景是：
 提醒用户是否要关闭此网页，为了避免意外关闭网页
 页面重新加载的时候清空一些数据
+
+<a href="https://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=2651576288&idx=2&sn=a87b24ed300de0aee44925b81c4a91dd&chksm=80250021b7528937230debfe045f401e70651bc1a3a39addac12ef76a1613c0a2ddbf4b4480c&scene=27#wechat_redirect">如何处理浏览器的断网情况？</a> 这篇文章写的挺好的的，还有demo，我推荐看看他的文章
+
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/NavigatorOnLine/Online_and_offline_events">在线和离线事件</a>
+
+
+前面两篇文章我觉得已经介绍的很详细了，用法也很简单。看看就能懂，就是监听两个事件online和offline
+
+然后在对应的事件里面做对应的事情就好了，完美结束
+
+<a href="https://codepen.io/qingchuang/pen/xxqdvVM">浏览器判断是否断网</a>
