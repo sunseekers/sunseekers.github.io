@@ -410,7 +410,7 @@ Object.keys()返回可枚举的，Object.getOwnPropertyNames()返回所有的。
 ## Object.create 和直接声明一个对象的区别
 Object.create 用于创建一个新对象并将其原型设置为传入的参数，如果不传入，就是一个干净的空对象不会有原型，也不会有Object 原型对象的任何属性（例如toString，hasOwnProperty等）
 
-{}直接定义新对象的自有属性和方法，它们不会继承其他的原型对象上的属性和方法。字面量创建对象更简单，方便阅读,不需要作用域解析，速度更快
+{}直接定义新对象的自有属性和方法，它们会继承其他的原型对象上的属性和方法。字面量创建对象更简单，方便阅读,不需要作用域解析，速度更快
 
 ## {}和 [] 的 valueOf 和 toString 的结果是什么？
 {}: 它的 valueOf 返回的是对象本身，toString 返回的是 "[object Object]"。
@@ -537,13 +537,6 @@ async属性：使用async属性异步地下载JS文件，文件下载完成后�
 
 优化内存使用：可以使用一些前端框架或库来优化内存使用，如使用虚拟 DOM 来减少 DOM 操作，使用对象池来复用对象等。
 
-## 前端稳定性监控
-性能监控，行为监控，错误监控
-
-## map和forEach的区别
-
-forEach 不支持async
-
 ## ES6有哪些新特性
 let和const关键字
 扩展运算符
@@ -572,15 +565,6 @@ ShareArrayBuffer和Atomics对象，用于从共享内存位置读取和写入
 
 利用 JavaScript（IntersectionObserver，MutationObserver） 获取需要进行懒加载的图片、音频、视频等资源的位置以及其他相关信息，同时获取视口的大小和位置。出现时加载，不出现时，不加载
 
-
-## Axios与Ajax的区别
-语法风格不同。Ajax 使用原生的 XMLHttpRequest 对象来发送请求，其语法相对比较繁琐。而 Axios 则是一种基于 Promise 的 HTTP 库，使用起来更加的简洁明了。
-
-对请求和响应都提供了拦截器。这意味着可以在请求或响应前/后执行拦截器中的代码。Axios 的拦截器机制使得开发者可以很方便地实现统一的请求/响应处理逻辑，比如设置请求头、响应头处理、统一错误处理等。
-
-支持类型更多。Axios 支持多种类型的请求数据格式，比如 application/json、application/x-www-form-urlencoded、multipart/form-data 等，同时它也支持请求和响应的类型转换。
-
-Axios 可以在浏览器和Node.js中使用，因此可以在前后端都使用同一套 API，而 Ajax 是属于前端 JS 技术栈的东西，它不能直接在 Node.js 中使用。
 
 ## axios二次封装的好处
 统一管理请求：通过二次封装，可以统一管理请求，便于代码维护和更新。
@@ -880,3 +864,68 @@ CommonJS ：定义模块 module.exports是对外的接口；引入模块require�
 
 
 
+## 映射
+Map，Object，WeakMap 他们的区别
+
+Object 的键只能是string类型或者symbol类型或者number
+
+Map的键可以是任意类型
+
+
+Object的大小需要手动计算，map很容易
+
+map遍历顺序遵循插入顺序，对象被实现为哈希表，因此属性的顺序是不确定的，并且它们不一定按照它们添加到对象中的顺序排列
+
+Object有原型，所以映射中有一些缺省的键
+
+这三条提示可以帮你决定用Map还是Object：
+
+如果键在运行时才能知道，或者所有的键类型相同，所有的值类型相同，那就使用Map。
+
+如果需要将原始值存储为键，则使用Map，因为Object将每个键视为字符串，不管它是一个数字值、布尔值还是任何其他原始值。
+
+如果需要对个别元素进行操作，使用Object。
+
+WeakMap 的键必须是对象类型,键是不可枚举的(weakMap值可以是任意类型，键是弱保持，没有引用就会被垃圾站收走）
+
+### 集合
+Array和set的区别
+
+set不允许重复的值，数组的indexOf方法不能找到NaN的值，
+
+set允许根据值删除元素，而数组必须使用基于下标的splice方法
+
+数组用于判断元素是否存在的indexOf函数效率低下
+
+WeakSet 中的值必须是对象类型，不能是别的类型，如果不存在其他引用，那么该对象将可被垃圾回收
+
+## 对象的一些其他知识
+一个对象在什么情况下才能作为函数调用呢？答案是，通过内部方法和内部槽来区分对象，例如函数对象会部署内部方法 [[Call]]，而普通对象则不会。
+
+一个普通对象的所有可能的读取操作
+
+访问属性：obj.foo。
+
+判断对象或原型上是否存在给定的 key：key in obj。
+
+使用 for...in 循环遍历对象：for (const key in obj){}。
+
+
+一个对象能否被迭代，取决于该对象或者该对象的原型是否实现了@@iterator 方法。这里的 @@[name] 标志在 ECMAScript 规范里用来代指 JavaScript 内建的 symbols 值，例如@@iterator 指的就是 Symbol.iterator 这个值。如果一个对象实现了 Symbol.iterator 方法，那么这个对象就是可以迭代的.对象是不可迭代的，所以不能用 for...of循环
+
+对象迭代器模拟实现
+```
+const myIterableObj = {}
+myIterableObj[Symbol.iterator] = function* () {
+  yield 1;
+  yield 2;
+  yield 3;
+};
+for (const val of myIterableObj) {
+  console.log(val);
+}
+```
+
+可以看到数组迭代器执行会读取数组的length属性
+
+Array.prototype.values === Array.prototype[Symbol.iterator],可见数组的values方法返回的值实际就是数组内建的迭代器.
